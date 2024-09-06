@@ -1,0 +1,43 @@
+/* By default most browsers put a margin around the body. This removes it */
+body{
+	margin:0;
+}
+/* This is the container for the entire page.  100vh specifies the vertical height of the browser window (100% does not work). */
+.container{
+	width:100%;
+	height:100vh;
+	overflow-y: auto;
+	background:rgb(250,200,180);
+	text-align:center;
+	
+
+}
+/* This sets the color and font-size of all paragraph tags inside container*/
+.container p{
+	color:blue;
+	font-size:30pt;
+}
+
+/* This is the style for the image.  It sets its display size (images are different sizes, but display the same) and hides the background */
+#ud-image{
+	width:200px;
+	height:200px;
+	mix-blend-mode:darken; /* Hide the image background */
+}
+
+/* This is the style for the button.  It sets the background color, text color, padding, border radius, font weight, and border color 
+ * It must also create styles for hover and click.  If you don't style the button, you get the default or use bootstrap btn class to get pre-styled buttons*/
+.pretty-button{
+	background:blue;
+	color:white;
+	padding:10px;
+	border-radius:15px;
+	font-weight:bold;
+}
+.pretty-button:hover{
+	background:rgb(0,0,100);
+	cursor:pointer;
+}
+.pretty-button:active{
+	transform: translate(2px, 2px);
+}
