@@ -1,13 +1,14 @@
 .anton-regular {
-	font-family: "Anton", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-}  
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
 /* By default most browsers put a margin around the body. This removes it */
 body{
 	margin:0;
 }
+
 /* This is the container for the entire page.  100vh specifies the vertical height of the browser window (100% does not work). */
 .container{
 	width:100%;
@@ -23,13 +24,39 @@ body{
 	font-size:30pt;
 }
 
+/* Car styling */
 #car {
-	width: 50px;
-	height: 100px;
-	position: absolute;
-	top: 200px;
-	left: 200px;
-	transform-origin: center; /* Rotate around the center */
-	transform: rotate(0deg); /* Initial rotation */
-  }
-  
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    transform-origin: center; /* Rotate around the center */
+    transform: rotate(0deg); /* Initial rotation */
+}
+
+/* Image within car */
+#car img {
+    width: 50px;   /* Set the image width */
+    height: 100px; /* Set the image height */
+}
+
+/* Shared styles for both headlights */
+#left-headlight, #right-headlight {
+    width: 50px;
+    height: 150px;
+    position: absolute;
+    top: -120px; 
+    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Create the cone shape */
+    pointer-events: none;
+    transform: rotate(180deg); /* Rotate to point forward originally was backwards*/
+    opacity: 1; /* Ensure full opacity when visible */
+}
+
+/* Specific positions for left and right headlights */
+#left-headlight {
+    left: -15px; /* Position for the left headlight */
+}
+
+#right-headlight {
+    left: 15px; /* Position for the right headlight */
+}

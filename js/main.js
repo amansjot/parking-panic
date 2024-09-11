@@ -11,6 +11,7 @@ $(function(){
     let posX = 200;                // Initial X position
     let posY = 200;                // Initial Y position
     let angle = 0;                 // Initial rotation (0 degrees, facing up)
+    let headlightsOn = false;      // Headlights are initially off
 
     // Track key states
     const keys = {
@@ -27,10 +28,17 @@ $(function(){
     // Main update loop: Runs 50 times per second (every 20ms)
     setInterval(updateCar, 20);
 
+    // Set initial state: Turn headlights off
+    $('#headlights').hide();  // Initially turn off headlights by setting opacity to 0
+
     // Function to handle when a key is pressed
     function handleKeyDown(e) {
         if (keys.hasOwnProperty(e.key)) {
             keys[e.key] = true; // Mark the key as pressed
+        }
+        
+        if (e.key === 'h') {  // Toggle headlights when 'H' key is pressed
+            toggleHeadlights();
         }
     }
 
@@ -73,7 +81,7 @@ $(function(){
     // Function to handle car rotation (turning left or right)
     function rotateCar() {
         if (currentSpeed !== 0) {  // Only rotate if the car is moving
-            
+
             // Scale rotation speed based on the current speed
             let speedFactor = Math.abs(currentSpeed) / maxForwardSpeed; // Ranges from 0 to 1
             let scaledRotationSpeed = rotationSpeed * speedFactor; // Scale rotation speed based on speed
@@ -87,9 +95,22 @@ $(function(){
         }
     }
 
+    // Function to toggle headlights on or off
+    function toggleHeadlights() {
+        headlightsOn = !headlightsOn;  // Toggle the state
+        let headlights = $('#headlights');
+
+        if (headlightsOn) {
+            headlights.show();  // Show headlights
+        } else {
+            headlights.hide();  // Hide headlights
+        }
+    }
+
     // Function to update the car's position and rotation in the HTML (CSS)
     function updateCarCSS() {
         let car = $('#car');
+
         car.css({
             top: `${posY}px`,                   // Move car vertically
             left: `${posX}px`,                  // Move car horizontally
