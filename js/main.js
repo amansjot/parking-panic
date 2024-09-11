@@ -5,7 +5,7 @@ $(function(){
     const maxReverseSpeed = 5;     // Max speed for moving backward
     const acceleration = 0.3;      // How fast the car accelerates
     const deceleration = 0.2;      // How fast the car slows down when no key is pressed
-    const rotationSpeed = 5;       // How fast the car rotates (in degrees)
+    const rotationSpeed = 5;       // How fast the car rotates
 
     // Initial car position and rotation
     let posX = 200;                // Initial X position
@@ -72,12 +72,17 @@ $(function(){
 
     // Function to handle car rotation (turning left or right)
     function rotateCar() {
-        if ((keys.w || keys.s) && currentSpeed !== 0) {  // Only rotate if the car is moving
+        if (currentSpeed !== 0) {  // Only rotate if the car is moving
+            
+            // Scale rotation speed based on the current speed
+            let speedFactor = Math.abs(currentSpeed) / maxForwardSpeed; // Ranges from 0 to 1
+            let scaledRotationSpeed = rotationSpeed * speedFactor; // Scale rotation speed based on speed
+
             if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
-                angle -= rotationSpeed;
+                angle -= scaledRotationSpeed;
             }
             if (keys.d) {  // If 'd' is pressed, rotate right (clockwise)
-                angle += rotationSpeed;
+                angle += scaledRotationSpeed;
             }
         }
     }
