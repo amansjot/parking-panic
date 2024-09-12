@@ -1,62 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .anton-regular {
     font-family: "Anton", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
-/* By default most browsers put a margin around the body. This removes it */
-body{
-	margin:0;
+body {
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* This is the container for the entire page.  100vh specifies the vertical height of the browser window (100% does not work). */
 .container{
 	width:100%;
 	height:100vh;
 	overflow-y: auto;
 	background:rgb(65, 65, 65);
 	text-align:center;
+    z-index: 1;
 }
 
-/* This sets the color and font-size of all paragraph tags inside container*/
-.container p{
+.container h1, .container p{
 	color:rgb(255, 255, 255);
 	font-size:30pt;
 }
 
-/* Car styling */
-#car {
+#car, #obstacle {
     position: absolute;
-    top: 200px;
-    left: 200px;
-    transform-origin: center; /* Rotate around the center */
-    transform: rotate(0deg); /* Initial rotation */
+    z-index: 2;
 }
 
-/* Image within car */
-#car img {
-    width: 50px;   /* Set the image width */
-    height: 100px; /* Set the image height */
+#car, #playersCarIMG {
+    width: 50px;
+    height: 100px;
+    transform-origin: center;
 }
 
-/* Shared styles for both headlights */
+#playersCarIMG{
+    z-index: 3;
+}
+
 #left-headlight, #right-headlight {
     width: 50px;
     height: 150px;
     position: absolute;
     top: -120px; 
     background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Create the cone shape */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     pointer-events: none;
-    transform: rotate(180deg); /* Rotate to point forward originally was backwards*/
-    opacity: 1; /* Ensure full opacity when visible */
+    transform: rotate(180deg);
+    opacity: 1;
 }
 
-/* Specific positions for left and right headlights */
 #left-headlight {
-    left: -15px; /* Position for the left headlight */
+    left: -15px;
+    z-index: 4;
 }
 
 #right-headlight {
-    left: 15px; /* Position for the right headlight */
+    left: 15px;
+    z-index: 4;
+}
+
+#obstacle #obstacle-coneIMG{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    left: 250px;
+    top: 250px;
 }

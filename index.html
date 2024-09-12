@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <title>Parking Simulator Car</title>
+  <link rel="stylesheet" href="css/styles.css">
 
-  <head>
-    <title>Parking Sim</title>
-
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-
-    <script
+  <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
-    ></script>
-    <script src="js/main.js"></script>
+    >
+  </script>
 
-    <!-- Google Font Import -->
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-    </style>
+  <script src="js/main.js"></script>
 
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <body>
-    <div class="container">
-      <p class="anton-regular">🏁 Parking Simulator Car Development 🏎️</p>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+  </style>
 
-      <p class="anton-regular">
-        Group 8<br>
-        Aman Singh<br>
-        Julia O'Neill<br>
-        Kyle Malice<br>
-        Solenn Gacon<br>
-        Suhas Bolledula
-      </p>
+</head>
+<body>
+  <div class="container">
+    <h1 class="anton-regular">🏁 Parking Simulator Car Development 🏎️</h1>
 
-      <div id="car">
-        <img src="img/StarterCarSkin.png" alt="Car" />
-        <div id="headlights">
-          <div id="left-headlight"></div>
-          <div id="right-headlight"></div>
-        </div>
+    <p class="anton-regular">
+      Group 8<br>
+      Aman Singh<br>
+      Julia O'Neill<br>
+      Kyle Malice<br>
+      Solenn Gacon<br>
+      Suhas Bolledula
+    </p>
+
+    <div id="car">
+      <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="Player Car">
+      <div id="headlights">
+        <div id="left-headlight"></div>
+        <div id="right-headlight"></div>
       </div>
-
     </div>
-  </body>
+  
+    <div id="obstacle">
+      <img id="obstacle-coneIMG" src="img/cone.png" alt="Traffic Cone">
+    </div>
+  </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>

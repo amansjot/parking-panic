@@ -1,121 +1,199 @@
-$(function(){
-    // Variables for speed and movement
-    let currentSpeed = 0;          // Car's current speed (starts at 0)
-    const maxForwardSpeed = 10;    // Max speed for moving forward
-    const maxReverseSpeed = 5;     // Max speed for moving backward
-    const acceleration = 0.3;      // How fast the car accelerates
-    const deceleration = 0.2;      // How fast the car slows down when no key is pressed
-    const rotationSpeed = 5;       // How fast the car rotates
+$(function () {
+    // Player data
+    let playerData = {
 
-    // Initial car position and rotation
-    let posX = 200;                // Initial X position
-    let posY = 200;                // Initial Y position
-    let angle = 0;                 // Initial rotation (0 degrees, facing up)
-    let headlightsOn = false;      // Headlights are initially off
+        // Starting Positioning & Dimensions
+        x: 200,
+        y: 200,
+        angle: 0,
+        width: 50,
+        height: 100,
 
-    // Track key states
-    const keys = {
-        w: false,  // Forward
-        a: false,  // Left 
-        s: false,  // Backward
-        d: false   // Right 
+        // Speed & Movement
+        maxForwardSpeed: 5,
+        maxReverseSpeed: 3,
+        acceleration: 0.3,
+        deceleration: 0.2,
+        rotationSpeed: 3,
+        currentSpeed: 0,
+        angle: 0,
+        
+        // Extra Features
+        headlightsOn: false
     };
 
-    // Event listeners for key press and release
-    $(document).on('keydown', handleKeyDown);  // Trigger when a key is pressed
-    $(document).on('keyup', handleKeyUp);      // Trigger when a key is released
+    // Key states
+    const keys = {
+        w: false,
+        s: false,
+        a: false,
+        d: false
+    };
+
+    // DOM elements
+    const player = $('#car');
+    const obstacle = $('#obstacle');
+    const headlights = $('#headlights');
+
+    // Handle key presses
+    $(document).on('keydown', handleKeyDown);
+    $(document).on('keyup', handleKeyUp);
 
     // Main update loop: Runs 50 times per second (every 20ms)
-    setInterval(updateCar, 20);
+    setInterval(updatePlayer, 10);
 
     // Set initial state: Turn headlights off
-    $('#headlights').hide();  // Initially turn off headlights by setting opacity to 0
+    headlights.hide();
 
-    // Function to handle when a key is pressed
-    function handleKeyDown(e) {
-        if (keys.hasOwnProperty(e.key)) {
-            keys[e.key] = true; // Mark the key as pressed
-        }
-        
-        if (e.key === 'h') {  // Toggle headlights when 'H' key is pressed
-            toggleHeadlights();
-        }
-    }
-
-    // Function to handle when a key is released
-    function handleKeyUp(e) {
-        if (keys.hasOwnProperty(e.key)) {
-            keys[e.key] = false; // Mark the key as released
-        }
-    }
-
-    // This function updates the car's movement and rotation
-    function updateCar() {
+    function updatePlayer() {
         moveCar();
-        rotateCar();  
-        updateCarCSS();
+        rotateCar();
+        updatePlayerCSS();
+        checkCollisions();
     }
 
     // Function to handle car movement (forward, backward)
     function moveCar() {
         if (keys.w) {  // If 'w' is pressed, accelerate forward
-            currentSpeed = Math.min(currentSpeed + acceleration, maxForwardSpeed);
+            playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
         } 
         else if (keys.s) {  // If 's' is pressed, accelerate backward
-            currentSpeed = Math.max(currentSpeed - acceleration, -maxReverseSpeed);
+            playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
         } 
         else {  // If no key is pressed, gradually slow down (decelerate)
-            if (currentSpeed > 0) {
-                currentSpeed = Math.max(currentSpeed - deceleration, 0);
+            if (playerData.currentSpeed > 0) {
+                playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.deceleration, 0);
             } 
-            else if (currentSpeed < 0) {
-                currentSpeed = Math.min(currentSpeed + deceleration, 0);
+            else if (playerData.currentSpeed < 0) {
+                playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.deceleration, 0);
             }
         }
 
         // Update the car's position based on current speed and direction (angle)
-        posX += currentSpeed * Math.cos(degreesToRadians(angle - 90));
-        posY += currentSpeed * Math.sin(degreesToRadians(angle - 90));
+        playerData.x += playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
+        playerData.y += playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
     }
 
     // Function to handle car rotation (turning left or right)
     function rotateCar() {
-        if (currentSpeed !== 0) {  // Only rotate if the car is moving
-
+        if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
             // Scale rotation speed based on the current speed
-            let speedFactor = Math.abs(currentSpeed) / maxForwardSpeed; // Ranges from 0 to 1
-            let scaledRotationSpeed = rotationSpeed * speedFactor; // Scale rotation speed based on speed
+            let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
+            let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; // Scale rotation speed based on speed
 
             if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
-                angle -= scaledRotationSpeed;
+                playerData.angle -= scaledRotationSpeed;
             }
             if (keys.d) {  // If 'd' is pressed, rotate right (clockwise)
-                angle += scaledRotationSpeed;
+                playerData.angle += scaledRotationSpeed;
             }
         }
+    }
+
+    // Update player position in CSS
+    function updatePlayerCSS() {
+        player.css({
+            top: `${playerData.y}px`,
+            left: `${playerData.x}px`,
+            transform: `rotate(${playerData.angle}deg)`
+        });
     }
 
     // Function to toggle headlights on or off
     function toggleHeadlights() {
-        headlightsOn = !headlightsOn;  // Toggle the state
-        let headlights = $('#headlights');
+        playerData.headlightsOn = !playerData.headlightsOn;
 
-        if (headlightsOn) {
-            headlights.show();  // Show headlights
+        if (playerData.headlightsOn) {
+            headlights.show();
         } else {
-            headlights.hide();  // Hide headlights
+            headlights.hide();
         }
     }
 
-    // Function to update the car's position and rotation in the HTML (CSS)
-    function updateCarCSS() {
-        let car = $('#car');
+    // Check for collisions between player and obstacle
+    function checkCollisions() {
+        const playerCorners = calculateOBB(playerData);
+        const obstacleRect = obstacle[0].getBoundingClientRect();
 
-        car.css({
-            top: `${posY}px`,                   // Move car vertically
-            left: `${posX}px`,                  // Move car horizontally
-            transform: `rotate(${angle}deg)`    // Rotate the car to match its angle
-        });
+        if (checkCollision(playerCorners, obstacleRect)) {
+            $('#playersCarIMG').css('background-color', 'green');
+        } else {
+            $('#playersCarIMG').css('background-color', 'transparent');
+        }
+    }
+
+    // Calculate Oriented Bounding Box (OBB) for player
+    function calculateOBB(data) {
+        const halfWidth = data.width / 2;
+        const halfHeight = data.height / 2;
+        const corners = [
+            rotatePoint(-halfWidth, -halfHeight, data.angle),
+            rotatePoint(halfWidth, -halfHeight, data.angle),
+            rotatePoint(halfWidth, halfHeight, data.angle),
+            rotatePoint(-halfWidth, halfHeight, data.angle)
+        ];
+        return corners.map(point => ({
+            x: point.x + data.x + halfWidth,
+            y: point.y + data.y + halfHeight
+        }));
+    }
+
+    // Utility to rotate points for OBB calculation
+    function rotatePoint(x, y, angle) {
+        const radians = angle * Math.PI / 180;
+        const cos = Math.cos(radians);
+        const sin = Math.sin(radians);
+        return {
+            x: x * cos - y * sin,
+            y: x * sin + y * cos
+        };
+    }
+
+    // Collision check using Separating Axis Theorem (SAT)
+    function checkCollision(playerCorners, obstacleRect) {
+        const obstacleCorners = [
+            { x: obstacleRect.left, y: obstacleRect.top },
+            { x: obstacleRect.right, y: obstacleRect.top },
+            { x: obstacleRect.right, y: obstacleRect.bottom },
+            { x: obstacleRect.left, y: obstacleRect.bottom }
+        ];
+
+        const axes = [
+            { x: 1, y: 0 }, { x: 0, y: 1 },
+            { x: playerCorners[1].x - playerCorners[0].x, y: playerCorners[1].y - playerCorners[0].y },
+            { x: playerCorners[3].x - playerCorners[0].x, y: playerCorners[3].y - playerCorners[0].y }
+        ];
+
+        return axes.every(axis => overlapOnAxis(playerCorners, obstacleCorners, axis));
+    }
+
+    function overlapOnAxis(cornersA, cornersB, axis) {
+        const projA = projectOntoAxis(cornersA, axis);
+        const projB = projectOntoAxis(cornersB, axis);
+        return projA.min <= projB.max && projB.min <= projA.max;
+    }
+
+    function projectOntoAxis(corners, axis) {
+        const dots = corners.map(corner => corner.x * axis.x + corner.y * axis.y);
+        return { min: Math.min(...dots), max: Math.max(...dots) };
+    }
+
+    // Handle key down
+    function handleKeyDown(e) {
+        if (keys.hasOwnProperty(e.key.toLowerCase())) {
+            keys[e.key.toLowerCase()] = true;
+        }
+        
+        if (e.key.toLowerCase() === 'h') {  // Toggle headlights when 'H' key is pressed
+            toggleHeadlights();
+        }
+    }
+
+    // Handle key up
+    function handleKeyUp(e) {
+        if (keys.hasOwnProperty(e.key.toLowerCase())) {
+            keys[e.key.toLowerCase()] = false;
+        }
     }
 
     // Utility function: Converts degrees to radians (needed for trigonometry)
