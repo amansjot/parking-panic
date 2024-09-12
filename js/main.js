@@ -34,6 +34,8 @@ $(function () {
     const player = $('#car');
     const obstacle = $('#obstacle');
     const headlights = $('#headlights');
+    const parkingSpot = $('#parking-spot');
+    const missionMessage = $('#mission-message');
 
     // Handle key presses
     $(document).on('keydown', handleKeyDown);
@@ -50,7 +52,29 @@ $(function () {
         rotateCar();
         updatePlayerCSS();
         checkCollisions();
+        checkParkingCompletion();
     }
+
+    function checkParkingCompletion() {
+        const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
+        const playerCorners = calculateOBB(playerData);
+
+        // Create a bounding box for the parking spot
+        const parkingSpotCorners = [
+            { x: parkingSpotRect.left, y: parkingSpotRect.top },
+            { x: parkingSpotRect.right, y: parkingSpotRect.top },
+            { x: parkingSpotRect.right, y: parkingSpotRect.bottom },
+            { x: parkingSpotRect.left, y: parkingSpotRect.bottom }
+        ];
+
+        // Check if the player's bounding box covers the parking spot
+        if (checkCollision(playerCorners, parkingSpotCorners)) {
+            missionMessage.show(); // Show mission complete message
+        } else {
+            missionMessage.hide(); // Hide message if not covering
+        }
+    }
+
 
     // Function to handle car movement (forward, backward)
     function moveCar() {
@@ -68,10 +92,29 @@ $(function () {
                 playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.deceleration, 0);
             }
         }
-
+    
         // Update the car's position based on current speed and direction (angle)
-        playerData.x += playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
-        playerData.y += playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+        let newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
+        let newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+    
+        // Ensure the car stays within the bounds of the container
+        const containerWidth = $('.container').width();
+        const containerHeight = $('.container').height();
+    
+        const carWidth = playerData.width;
+        const carHeight = playerData.height;
+    
+        // Check horizontal boundaries
+        if (newX < 0) newX = 0;
+        if (newX + carWidth > containerWidth) newX = containerWidth - carWidth;
+    
+        // Check vertical boundaries
+        if (newY < 0) newY = 0;
+        if (newY + carHeight > containerHeight) newY = containerHeight - carHeight;
+    
+        // Update player data with the new position
+        playerData.x = newX;
+        playerData.y = newY;
     }
 
     // Function to handle car rotation (turning left or right)

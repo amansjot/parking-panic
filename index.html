@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Parking Simulator Car</title>
+  <title>Car Parking Simulator</title>
   <link rel="stylesheet" href="css/styles.css">
-
-  <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    >
-  </script>
-
-  <script src="js/main.js"></script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +11,9 @@
     @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
   </style>
 
+  <!-- Preload key images for performance -->
+  <link rel="preload" href="img/StarterCarSkin.png" as="image">
+  <link rel="preload" href="img/cone.png" as="image">
 </head>
 <body>
   <div class="container">
@@ -34,8 +28,13 @@
       Suhas Bolledula
     </p>
 
+    <div id="parking-spot"></div>
+      <span id="park-here-text">Park Here</span>
+      <span id="mission-message" style="display: none;">Mission Complete!</span>
+    </div>
+
     <div id="car">
-      <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="Player Car">
+      <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="The player's car in the parking simulator">
       <div id="headlights">
         <div id="left-headlight"></div>
         <div id="right-headlight"></div>
@@ -43,11 +42,15 @@
     </div>
   
     <div id="obstacle">
-      <img id="obstacle-coneIMG" src="img/cone.png" alt="Traffic Cone">
+      <img id="obstacle-coneIMG" src="img/cone.png" alt="A traffic cone as an obstacle">
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+  </script>
   <script src="js/main.js"></script>
 </body>
 </html>
