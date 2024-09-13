@@ -1,139 +1,31 @@
 /* Game Background + Text */
 
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body Styling */
 body {
     height: 100vh;
     overflow: hidden;
 }
 
+/* Container */
 .container {
     width: 100%;
     height: 100vh;
     overflow-y: auto;
-    background: rgb(65, 65, 65);
+    background-color: rgb(65, 65, 65);
     text-align: center;
     z-index: 1;
 }
 
-.container h1, .container p {
+.container h1, 
+.container p {
     color: #FFF;
     font-size: 30pt;
     font-family: "Anton", sans-serif;
-}
-
-
-
-/* Player's Car (Controllable Car) */
-#car {
-    z-index: 3;
-}
-
-#car, #cone-obstacle {
-    position: absolute;
-}
-
-#playersCar-img {
-    width: 50px;
-    height: 100px;
-    transform-origin: center;
-    position: relative;
-    z-index: 4;
-}
-
-#left-headlight, #right-headlight {
-    width: 50px;
-    height: 150px;
-    position: absolute;
-    top: -120px;
-    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    pointer-events: none;
-    transform: rotate(180deg);
-    opacity: 1;
-    z-index: 5;
-}
-
-#left-headlight {
-    left: -15px;
-}
-
-#right-headlight {
-    left: 15px;
-}
-
-#car-hitbox {
-    position: absolute;
-    width: 50px;
-    height: 100px;
-    top: 0;
-    left: 0;
-    transform-origin: center;
-    background-color: rgba(0, 255, 0, 0.3);
-    border: 1px solid green;
-    z-index: 3; /* Below car */
-}
-
-
-
-/*Cone Obstacle */
-#cone-obstacle #cone-img {
-    width: 50px;
-    height: 50px;
-    left: 250px;
-    top: 250px;
-    z-index: 2; /* Below car */
-}
-
-#cone-obstacle {
-    position: absolute;
-    left: 250px;
-    top: 250px;
-    z-index: 2;
-}
-
-#cone-img {
-    width: 50px;
-    height: 50px;
-}
-
-#cone-hitbox {
-    position: absolute;
-    width: 20px;  /* Adjust these dimensions as needed */
-    height: 30px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.3);
-    border: 1px solid red;
-    z-index: 3;
-}
-
-/*Dumpster Obstacle */
-#dumpster-obstacle {
-    position: absolute;
-    left: 400px;  /* Adjust as needed */
-    top: 300px;   /* Adjust as needed */
-    z-index: 2;
-}
-
-#dumpster-img {
-    width: 100px;  /* Adjust size as needed */
-    height: 80px;  /* Adjust size as needed */
-}
-
-#dumpster-hitbox {
-    position: absolute;
-    width: 90px;  /* Slightly smaller than the image */
-    height: 70px; /* Slightly smaller than the image */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 255, 0.3);  /* Blue with transparency */
-    border: 1px solid blue;
-    z-index: 3;
 }
