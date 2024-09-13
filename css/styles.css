@@ -1,3 +1,5 @@
+/* Game Background + Text */
+
 * {
     margin: 0;
     padding: 0;
@@ -24,15 +26,18 @@ body {
     font-family: "Anton", sans-serif;
 }
 
+
+
+/* Player's Car (Controllable Car) */
 #car {
-    z-index: 3; /* Increased z-index for the entire car container */
+    z-index: 3;
 }
 
-#car, #obstacle {
+#car, #cone-obstacle {
     position: absolute;
 }
 
-#playersCarIMG {
+#playersCar-img {
     width: 50px;
     height: 100px;
     transform-origin: center;
@@ -61,14 +66,6 @@ body {
     left: 15px;
 }
 
-#obstacle #obstacle-coneIMG {
-    width: 50px;
-    height: 50px;
-    left: 250px;
-    top: 250px;
-    z-index: 2; /* Below car??? */
-}
-
 #car-hitbox {
     position: absolute;
     width: 50px;
@@ -81,14 +78,25 @@ body {
     z-index: 3; /* Below car */
 }
 
-#obstacle {
+
+
+/*Cone Obstacle */
+#cone-obstacle #cone-img {
+    width: 50px;
+    height: 50px;
+    left: 250px;
+    top: 250px;
+    z-index: 2; /* Below car */
+}
+
+#cone-obstacle {
     position: absolute;
     left: 250px;
     top: 250px;
     z-index: 2;
 }
 
-#obstacle-coneIMG {
+#cone-img {
     width: 50px;
     height: 50px;
 }
@@ -96,11 +104,36 @@ body {
 #cone-hitbox {
     position: absolute;
     width: 20px;  /* Adjust these dimensions as needed */
-    height: 40px;
+    height: 30px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(255, 0, 0, 0.3);
     border: 1px solid red;
+    z-index: 3;
+}
+
+/*Dumpster Obstacle */
+#dumpster-obstacle {
+    position: absolute;
+    left: 400px;  /* Adjust as needed */
+    top: 300px;   /* Adjust as needed */
+    z-index: 2;
+}
+
+#dumpster-img {
+    width: 100px;  /* Adjust size as needed */
+    height: 80px;  /* Adjust size as needed */
+}
+
+#dumpster-hitbox {
+    position: absolute;
+    width: 90px;  /* Slightly smaller than the image */
+    height: 70px; /* Slightly smaller than the image */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 255, 0.3);  /* Blue with transparency */
+    border: 1px solid blue;
     z-index: 3;
 }

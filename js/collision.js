@@ -1,17 +1,29 @@
-function checkCollisions(playerData, coneHitbox, obstacle) {
+const obstacles = [];
+
+function registerObstacle(hitbox, element) {
+    obstacles.push({ hitbox, element });
+}
+
+function checkCollisions(playerData) {
     const playerCorners = calculateOBB(playerData);
-    const coneHitboxRect = coneHitbox[0].getBoundingClientRect();
-    const obstacleRect = obstacle[0].getBoundingClientRect();
 
-    // Adjust coneHitboxRect to be relative to the obstacle's position
-    const adjustedConeHitboxRect = {
-        left: coneHitboxRect.left - obstacleRect.left + obstacleRect.left,
-        top: coneHitboxRect.top - obstacleRect.top + obstacleRect.top,
-        right: coneHitboxRect.right - obstacleRect.left + obstacleRect.left,
-        bottom: coneHitboxRect.bottom - obstacleRect.top + obstacleRect.top
-    };
+    for (let { hitbox, element } of obstacles) {
+        const hitboxRect = hitbox[0].getBoundingClientRect();
+        const obstacleRect = element[0].getBoundingClientRect();
+        
+        const adjustedHitboxRect = {
+            left: hitboxRect.left - obstacleRect.left + obstacleRect.left,
+            top: hitboxRect.top - obstacleRect.top + obstacleRect.top,
+            right: hitboxRect.right - obstacleRect.left + obstacleRect.left,
+            bottom: hitboxRect.bottom - obstacleRect.top + obstacleRect.top
+        };
 
-    return checkCollision(playerCorners, adjustedConeHitboxRect);
+        if (checkCollision(playerCorners, adjustedHitboxRect)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function calculateOBB(data) {
@@ -67,4 +79,4 @@ function projectOntoAxis(corners, axis) {
     return { min: Math.min(...dots), max: Math.max(...dots) };
 }
 
-export { checkCollisions };
+export { checkCollisions, registerObstacle };
