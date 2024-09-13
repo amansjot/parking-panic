@@ -36,8 +36,22 @@ body {
     top: 0;
     left: 0;
     z-index: 0; /* Make sure map is behind other elements */
-    background-image: url("../img/GrassBackground.png");
+    background-image: url("../img/map/GrassBackground.png");
     background-repeat: repeat; /* Make it repeat both horizontally and vertically */
     background-size: auto; /* Keep the original size of the image */
     z-index: -1;
+}
+
+.parking-lot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust as needed */
+    height: 80%; /* Adjust as needed */
+    background-image: url("../img/map/parkinglot.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 0; /* Above the grass background, but below other elements */
 }

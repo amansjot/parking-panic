@@ -1,6 +1,7 @@
-/* Player's Car */
 #car {
     position: absolute;
+    left: 375px; /* Centered horizontally */
+    top: 250px; /* Adjust as needed */
     z-index: 3;
 }
 
