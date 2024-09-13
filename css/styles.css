@@ -18,7 +18,6 @@ body {
     width: 100%;
     height: 100vh;
     overflow-y: auto;
-    background-color: rgb(65, 65, 65);
     text-align: center;
     z-index: 1;
 }
@@ -28,4 +27,17 @@ body {
     color: #FFF;
     font-size: 30pt;
     font-family: "Anton", sans-serif;
+}
+
+.map-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Make sure map is behind other elements */
+    background-image: url("../img/GrassBackground.png");
+    background-repeat: repeat; /* Make it repeat both horizontally and vertically */
+    background-size: auto; /* Keep the original size of the image */
+    z-index: -1;
 }
