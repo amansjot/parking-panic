@@ -59,19 +59,18 @@ $(function () {
         const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
         const playerCorners = calculateOBB(playerData);
 
-        // Create a bounding box for the parking spot
-        const parkingSpotCorners = [
-            { x: parkingSpotRect.left, y: parkingSpotRect.top },
-            { x: parkingSpotRect.right, y: parkingSpotRect.top },
-            { x: parkingSpotRect.right, y: parkingSpotRect.bottom },
-            { x: parkingSpotRect.left, y: parkingSpotRect.bottom }
-        ];
+        // Check if all four corners of the car are within the parking spot's rectangle
+        const carIsCompletelyParked = playerCorners.every(corner => (
+            corner.x >= parkingSpotRect.left &&
+            corner.x <= parkingSpotRect.right &&
+            corner.y >= parkingSpotRect.top &&
+            corner.y <= parkingSpotRect.bottom
+        ));
 
-        // Check if the player's bounding box covers the parking spot
-        if (checkCollision(playerCorners, parkingSpotCorners)) {
+        if (carIsCompletelyParked) {
             missionMessage.show(); // Show mission complete message
         } else {
-            missionMessage.hide(); // Hide message if not covering
+            missionMessage.hide(); // Hide message if not completely parked
         }
     }
 

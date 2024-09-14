@@ -80,33 +80,32 @@ body {
 }
 
 #parking-spot {
-    width: 140px; /* A bit bigger than the car's width (50px) */
-    height: 160px; /* A bit bigger than the car's height (100px) */
+    width: 65px; /* A bit bigger than the car's width (50px) */
+    height: 115px; /* A bit bigger than the car's height (100px) */
     position: absolute;
     left: 400px; /* Adjust as needed to place it correctly on your canvas */
     top: 300px; /* Adjust as needed */
     border: 3px dashed yellow; /* Parking boundary */
     background-color: rgba(255, 255, 0, 0.1); /* Light yellow background */
     z-index: 1; /* Behind the car */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #parking-spot-text {
     position: absolute;
-    top: -35px; /* Position above the parking spot */
-    left: 50%;  /* Center horizontally */
-    transform: translateX(-50%); /* Adjust to ensure it is centered */
+    top: 270px;
+    left: 430px;
     color: yellow;
-    font-size: 12px;
-    text-align: center;
-    z-index: 2; /* In front of the parking spot */
+    font-size: 14px;
+    z-index: 3;
 }
 
 #mission-message {
-    display: none; /* Hidden by default, shown when car is parked correctly */
+    display: none;
     color: #00ff00;
     font-size: 24px;
     font-weight: bold;
+    position: absolute;
+    top: 480px; 
+    left: 380px;
+    z-index: 3;
 }
