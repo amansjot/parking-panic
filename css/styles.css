@@ -68,9 +68,9 @@ body {
 
 #obstacle {
     position: absolute;
-    left: 250px; /* Adjust to ensure it's inside the visible container */
-    top: 250px;  /* Adjust this as well to position the cone correctly */
-    z-index: 2;  /* Ensure the cone is placed behind the car but in front of the background */
+    left: 250px; 
+    top: 250px; 
+    z-index: 2; 
 }
 
 #obstacle-coneIMG {
@@ -80,14 +80,14 @@ body {
 }
 
 #parking-spot {
-    width: 65px; /* A bit bigger than the car's width (50px) */
-    height: 115px; /* A bit bigger than the car's height (100px) */
+    width: 65px; 
+    height: 115px;
     position: absolute;
-    left: 400px; /* Adjust as needed to place it correctly on your canvas */
-    top: 300px; /* Adjust as needed */
-    border: 3px dashed yellow; /* Parking boundary */
-    background-color: rgba(255, 255, 0, 0.1); /* Light yellow background */
-    z-index: 1; /* Behind the car */
+    left: 400px;
+    top: 300px;
+    border: 3px dashed yellow;
+    background-color: rgba(255, 255, 0, 0.1);
+    z-index: 1;
 }
 
 #parking-spot-text {
@@ -108,4 +108,21 @@ body {
     top: 480px; 
     left: 380px;
     z-index: 3;
+}
+
+.glow {
+    box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.7);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+#timer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 5;
 }

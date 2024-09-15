@@ -36,6 +36,7 @@ $(function () {
     const headlights = $('#headlights');
     const parkingSpot = $('#parking-spot');
     const missionMessage = $('#mission-message');
+    const timerElement = $('#timer');
 
     // Handle key presses
     $(document).on('keydown', handleKeyDown);
@@ -43,6 +44,9 @@ $(function () {
 
     // Main update loop: Runs 50 times per second (every 20ms)
     setInterval(updatePlayer, 10);
+
+    let timeLeft = 30; // Starting time in seconds
+    let timerInterval;
 
     // Set initial state: Turn headlights off
     headlights.hide();
@@ -55,32 +59,75 @@ $(function () {
         checkParkingCompletion();
     }
 
+    // Start the timer when the player starts moving the car
+    function startTimer() {
+        if (!timerInterval) {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    // Update the timer every second
+    function updateTimer() {
+        timeLeft -= 1;
+        timerElement.text(timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerElement.text("Time's up!");
+            // Trigger a failure state if time runs out and car is not parked
+            if (!isCarCompletelyInSpot) {
+                alert("Mission failed: Time's up!");
+                // Optionally reset game or display failure UI
+            }
+        }
+    }
+
+    // Stop the timer when the car is parked
+    function stopTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    }
+
+    // Function to react when the player has successfully parked the car in the parking spot
     function checkParkingCompletion() {
         const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
         const playerCorners = calculateOBB(playerData);
 
-        // Check if all four corners of the car are within the parking spot's rectangle
-        const carIsCompletelyParked = playerCorners.every(corner => (
-            corner.x >= parkingSpotRect.left &&
-            corner.x <= parkingSpotRect.right &&
-            corner.y >= parkingSpotRect.top &&
-            corner.y <= parkingSpotRect.bottom
-        ));
+        const carFullyInSpot = isCarCompletelyInSpot(playerCorners, parkingSpotRect);
 
-        if (carIsCompletelyParked) {
+        if (carFullyInSpot) {
             missionMessage.show(); // Show mission complete message
+            stopTimer();
+            parkingSpot.addClass('glow'); // Add the glow effect to the parking spot
         } else {
-            missionMessage.hide(); // Hide message if not completely parked
+            missionMessage.hide(); // Hide message if not fully parked
+            parkingSpot.removeClass('glow'); // Remove the glow effect if not parked
         }
+    }
+
+    // Function to check if the car is completely within the parking spot
+    function isCarCompletelyInSpot(carCorners, spotRect) {
+        // Check if all corners of the car are within the parking spot
+        return carCorners.every(corner =>
+            corner.x >= spotRect.left &&
+            corner.x <= spotRect.right &&
+            corner.y >= spotRect.top &&
+            corner.y <= spotRect.bottom
+        );
     }
 
 
     // Function to handle car movement (forward, backward)
     function moveCar() {
         if (keys.w) {  // If 'w' is pressed, accelerate forward
+            startTimer();
             playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
         } 
         else if (keys.s) {  // If 's' is pressed, accelerate backward
+            startTimer();
             playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
         } 
         else {  // If no key is pressed, gradually slow down (decelerate)
@@ -209,12 +256,14 @@ $(function () {
         return axes.every(axis => overlapOnAxis(playerCorners, obstacleCorners, axis));
     }
 
+    // Function to check if two sets of corners overlap on a given axis
     function overlapOnAxis(cornersA, cornersB, axis) {
         const projA = projectOntoAxis(cornersA, axis);
         const projB = projectOntoAxis(cornersB, axis);
         return projA.min <= projB.max && projB.min <= projA.max;
     }
 
+    // Function to project a set of corners (vertices) onto a given axis
     function projectOntoAxis(corners, axis) {
         const dots = corners.map(corner => corner.x * axis.x + corner.y * axis.y);
         return { min: Math.min(...dots), max: Math.max(...dots) };
@@ -242,4 +291,7 @@ $(function () {
     function degreesToRadians(degrees) {
         return degrees * (Math.PI / 180);
     }
+
+    // Initialize the timer display
+    timerElement.text(timeLeft);
 });
