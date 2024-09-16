@@ -22,73 +22,103 @@ $(function () {
         headlightsOn: false
     };
 
+    // Timer & Game status
+    let gameTimer = 30;
+    let gameInterval = null;
+    let gameActive = true;
+
     // Key states
-    const keys = {
-        w: false,
-        s: false,
-        a: false,
-        d: false
-    };
+    const keys = { w: false, s: false, a: false, d: false };
 
     // DOM elements
     const player = $('#car');
     const obstacle = $('#obstacle');
     const headlights = $('#headlights');
     const parkingSpot = $('#parking-spot');
-    const missionMessage = $('#mission-message');
-    const timerElement = $('#timer');
+    const missionCompleteMessage = $('#mission-complete-message');
+    const missionFailedMessage = $('#mission-failed-message');
+    const timerDisplay = $('#timer-display');
 
     // Handle key presses
     $(document).on('keydown', handleKeyDown);
     $(document).on('keyup', handleKeyUp);
 
-    // Main update loop: Runs 50 times per second (every 20ms)
-    setInterval(updatePlayer, 10);
-
-    let timeLeft = 30; // Starting time in seconds
-    let timerInterval;
-
     // Set initial state: Turn headlights off
     headlights.hide();
 
+    // Initialize the game
+    function startGame() {
+        gameTimer = 30;
+        gameActive = true;
+        missionFailedMessage.hide();
+        timerDisplay.text(gameTimer);
+
+        gameInterval = setInterval(() => {
+            gameTimer -= 1;
+            timerDisplay.text(gameTimer);
+
+            if (gameTimer <= 0 && !checkParkingCompletion()) {
+                missionFailed();
+            }
+        }, 1000);
+
+        setInterval(updatePlayer, 10);
+    }
+
+    // Start the game when the page loads
+    startGame();
+
     function updatePlayer() {
-        moveCar();
-        rotateCar();
+        if (gameActive) {
+            moveCar();
+            rotateCar();
+            updatePlayerCSS();
+            checkCollisions();
+            checkParkingCompletion();
+        }
+    }
+
+    // Function to reset the game
+    function resetGame() {
+        playerData.x = 200;
+        playerData.y = 200;
+        playerData.angle = 0;
+        playerData.currentSpeed = 0;
         updatePlayerCSS();
-        checkCollisions();
-        checkParkingCompletion();
+        missionCompleteMessage.hide();
+        missionFailedMessage.hide();
+        startGame(); 
     }
 
     // Start the timer when the player starts moving the car
     function startTimer() {
-        if (!timerInterval) {
-            timerInterval = setInterval(updateTimer, 1000);
+        if (!gameInterval) {
+            gameInterval = setInterval(updateTimer, 1000);
         }
     }
 
     // Update the timer every second
     function updateTimer() {
         timeLeft -= 1;
-        timerElement.text(timeLeft);
+        timerDisplay.text(timeLeft);
 
         if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            timerElement.text("Time's up!");
-            // Trigger a failure state if time runs out and car is not parked
-            if (!isCarCompletelyInSpot) {
-                alert("Mission failed: Time's up!");
-                // Optionally reset game or display failure UI
-            }
+            clearInterval(gameInterval);
+            gameInterval = null;
+            timerDisplay.text("Time's up!");
         }
     }
 
-    // Stop the timer when the car is parked
-    function stopTimer() {
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
+    // Function to handle when the mission fails
+    function missionFailed() {
+        gameActive = false;
+        missionFailedMessage.show();
+        clearInterval(gameInterval);
+
+        // Optionally reset game after a delay (e.g., 3 seconds)
+        setTimeout(() => {
+            resetGame();
+        }, 3000); 
     }
 
     // Function to react when the player has successfully parked the car in the parking spot
@@ -99,12 +129,13 @@ $(function () {
         const carFullyInSpot = isCarCompletelyInSpot(playerCorners, parkingSpotRect);
 
         if (carFullyInSpot) {
-            missionMessage.show(); // Show mission complete message
-            stopTimer();
-            parkingSpot.addClass('glow'); // Add the glow effect to the parking spot
+            missionCompleteMessage.show();
+            parkingSpot.addClass('glow');
+            clearInterval(gameInterval);
+            gameActive = false;
         } else {
-            missionMessage.hide(); // Hide message if not fully parked
-            parkingSpot.removeClass('glow'); // Remove the glow effect if not parked
+            missionCompleteMessage.hide();
+            parkingSpot.removeClass('glow');
         }
     }
 
@@ -165,11 +196,11 @@ $(function () {
 
     // Function to handle car rotation (turning left or right)
     function rotateCar() {
-        if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
-            // Scale rotation speed based on the current speed
-            let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
-            let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; // Scale rotation speed based on speed
-
+        if (playerData.currentSpeed !== 0) {
+            
+            let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed;
+            let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; 
+            
             if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
                 playerData.angle -= scaledRotationSpeed;
             }
@@ -275,7 +306,7 @@ $(function () {
             keys[e.key.toLowerCase()] = true;
         }
         
-        if (e.key.toLowerCase() === 'h') {  // Toggle headlights when 'H' key is pressed
+        if (e.key.toLowerCase() === 'h') {
             toggleHeadlights();
         }
     }
@@ -293,5 +324,5 @@ $(function () {
     }
 
     // Initialize the timer display
-    timerElement.text(timeLeft);
+    //timerDisplay.text(gameTimer);
 });

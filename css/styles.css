@@ -99,9 +99,9 @@ body {
     z-index: 3;
 }
 
-#mission-message {
+#mission-complete-message,
+#mission-failed-message {
     display: none;
-    color: #00ff00;
     font-size: 24px;
     font-weight: bold;
     position: absolute;
@@ -110,12 +110,22 @@ body {
     z-index: 3;
 }
 
+#mission-complete-message {
+    background-color: #00ff00; /* Red background for fail message */
+    color: white;
+}
+
+#mission-failed-message {
+    background-color: rgba(255, 0, 0, 0.8); /* Red background for fail message */
+    color: white;
+}
+
 .glow {
     box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.7);
     transition: box-shadow 0.3s ease-in-out;
 }
 
-#timer {
+#timer-display {
     position: absolute;
     top: 20px;
     left: 20px;
