@@ -23,8 +23,8 @@ body {
     z-index: 1;
 }
 
-#container h1, 
-#container p {
+#ProjectTitle, 
+#GroupListing {
     font-family: "Silkscreen", sans-serif;
     font-weight: 700;
     font-style: normal;
@@ -42,6 +42,7 @@ body {
     color: #ffffff;
     font-size: 16px;
     line-height: 1.6;
+    font-family: "Silkscreen", sans-serif;
 }
 
 #Controls img {
