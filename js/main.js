@@ -22,7 +22,11 @@ $(function () {
         w: false,
         s: false,
         a: false,
-        d: false
+        d: false,
+        ArrowUp: false,
+        ArrowDown: false,
+        ArrowLeft: false,
+        ArrowRight: false
     };
 
     // Handle key presses
@@ -50,19 +54,25 @@ $(function () {
 
     // Handle key down
     function handleKeyDown(e) {
-        if (keys.hasOwnProperty(e.key.toLowerCase())) {
-            keys[e.key.toLowerCase()] = true;
+        const key = e.key.toLowerCase();
+    
+        if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
+            keys[key] = true;
+            keys[e.code] = true;
         }
-
-        if (e.key.toLowerCase() === 'h') {
+    
+        if (key === 'h') {
             toggleHeadlights($('#headlights'));
         }
     }
 
     // Handle key up
     function handleKeyUp(e) {
-        if (keys.hasOwnProperty(e.key.toLowerCase())) {
-            keys[e.key.toLowerCase()] = false;
+        const key = e.key.toLowerCase();
+    
+        if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
+            keys[key] = false;
+            keys[e.code] = false;
         }
     }
 });

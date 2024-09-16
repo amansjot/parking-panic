@@ -21,10 +21,10 @@ let playerData = {
 };
 
 function moveCar(keys) {
-    if (keys.w) {  // If 'w' is pressed, accelerate forward
+    if (keys.w || keys.ArrowUp) {  // If 'w' or up arrow is pressed, accelerate forward
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
     } 
-    else if (keys.s) {  // If 's' is pressed, accelerate backward
+    else if (keys.s || keys.ArrowDown) {  // If 's' or down arrow is pressed, accelerate backward
         playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
     } 
     else {  // If no key is pressed, gradually slow down (decelerate)
@@ -47,10 +47,10 @@ function rotateCar(keys) {
         let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
         let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; // Scale rotation speed based on speed
 
-        if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
+        if (keys.a || keys.ArrowLeft) {  // If 'a' or left arrow is pressed, rotate left (counterclockwise)
             playerData.angle -= scaledRotationSpeed;
         }
-        if (keys.d) {  // If 'd' is pressed, rotate right (clockwise)
+        if (keys.d || keys.ArrowRight) {  // If 'd' or right arrow is pressed, rotate right (clockwise)
             playerData.angle += scaledRotationSpeed;
         }
     }
