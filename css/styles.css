@@ -5,53 +5,78 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color:rgb(65, 65,65) ;
 }
 
 /* Body Styling */
 body {
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
+    overflow: scroll;
+    margin:0 auto; 
+    padding:0;
+}
+
+#title{
+    width: 100%;
+    height: 10%;
+    align-items: center;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif;  
+    justify-content: center;
+    display: flex;
+    margin-top: 12px;
 }
 
 /* Container */
-.container {
+
+#container{
+    display:flex;
     width: 100%;
-    height: 100vh;
-    overflow-y: auto;
-    text-align: center;
+    height: 40%;
+    justify-content:center;
+    position: relative;
     z-index: 1;
+    margin-top: 50px;
+    min-height: 450px;
+    max-height: 40%;
+    align-items: center;
+   
 }
 
-.container h1, 
-.container p {
-    color: #FFF;
-    font-size: 30pt;
-    font-family: "Anton", sans-serif;
-}
 
-.map-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0; /* Make sure map is behind other elements */
-    background-image: url("../img/map/GrassBackground.png");
-    background-repeat: repeat; /* Make it repeat both horizontally and vertically */
-    background-size: auto; /* Keep the original size of the image */
-    z-index: -1;
-}
-
-.parking-lot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%; /* Adjust as needed */
-    height: 80%; /* Adjust as needed */
+#map-container {
+    position: relative;
     background-image: url("../img/map/parkinglot.png");
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    z-index: 0; /* Above the grass background, but below other elements */
+    background-size:contain;
+    justify-content: center;
+    align-items: center;
+    padding: 40%;
+    height: 50%;
+    width: 80%;
+    z-index: 1;
+    display:flex;
+    border: 3px solid #000;
+    
+}
+*/
+
+#test{
+    background-color: black;
+    padding-top: 50px;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    position: relative;
+}
+.bottom-page{
+    position: relative;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    
 }
