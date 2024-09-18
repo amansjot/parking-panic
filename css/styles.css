@@ -63,7 +63,7 @@ body {
     align-items: center;
     padding: 0;
     height: 75vh;
-    width: 200%;
+    width: 100%;
     z-index: 1;
     display:flex;
 }
