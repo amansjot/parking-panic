@@ -111,12 +111,12 @@ body {
 }
 
 #mission-complete-message {
-    background-color: #00ff00; /* Red background for fail message */
+    background-color: #00ff00;
     color: white;
 }
 
 #mission-failed-message {
-    background-color: rgba(255, 0, 0, 0.8); /* Red background for fail message */
+    background-color: rgba(255, 0, 0, 0.8);
     color: white;
 }
 
