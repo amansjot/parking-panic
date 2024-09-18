@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Car Parking Simulator</title>
+  <title>Parking Simulator Car</title>
+
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/obstacles.css">
+  <link rel="stylesheet" href="css/car.css">
+  <link rel="stylesheet" href="css/parkingspot.css">
+
+  <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    >
+  </script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
   </style>
 
-  <link rel="preload" href="img/StarterCarSkin.png" as="image">
-  <link rel="preload" href="img/cone.png" as="image">
 </head>
 <body>
-  <div class="container">
-    <h1 class="anton-regular">🏁 Parking Simulator Car Development 🏎️</h1>
+  <div id="container">
+    <h1 id="ProjectTitle">🏁 Parking Simulator Car Development 🏎️</h1>
 
-    <p class="anton-regular">
+    <p id="GroupListing">
       Group 8<br>
       Aman Singh<br>
       Julia O'Neill<br>
@@ -26,6 +36,17 @@
       Solenn Gacon<br>
       Suhas Bolledula
     </p>
+
+    <div id="Controls">
+      <h1 id="ControlHeader">Controls:</h1>
+      <p id="ControlListing">
+        Forward: <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30"> or <img src="img/keyboard-keys/Up-Arrow.svg" alt="Up Arrow Key" width="30"><br>
+        Backwards: <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30"> or <img src="img/keyboard-keys/Down-Arrow.svg" alt="Down Arrow Key" width="30"><br>
+        Left: <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30"> or <img src="img/keyboard-keys/Left-Arrow.svg" alt="Left Arrow Key" width="30"><br>
+        Right: <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="30"> or <img src="img/keyboard-keys/Right-Arrow.svg" alt="Right Arrow Key" width="30"><br>
+        Headlights: <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="30"><br>
+      </p>
+    </div>
 
     <div id="timer-display">30</div>
 
@@ -36,23 +57,29 @@
     </div>
 
     <div id="car">
-      <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="The player's car in the parking simulator">
+      <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
+      <div id="car-hitbox"></div>
       <div id="headlights">
         <div id="left-headlight"></div>
         <div id="right-headlight"></div>
       </div>
     </div>
   
-    <div id="obstacle">
-      <img id="obstacle-coneIMG" src="img/cone.png" alt="A traffic cone as an obstacle">
+    <div id="cone-obstacle">
+      <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
+      <div id="cone-hitbox"></div>
+    </div>
+    
+    <div id="dumpster-obstacle">
+      <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
+      <div id="dumpster-hitbox"></div>
     </div>
   </div>
 
-  <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous">
-  </script>
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/movement.js"></script>
+  <script type="module" src="js/collision.js"></script>
+  <script type="module" src="js/parkingspot.js"></script>
+
 </body>
 </html>

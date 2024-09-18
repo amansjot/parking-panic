@@ -1,0 +1,47 @@
+/* Player's Car */
+#car {
+    position: absolute;
+    z-index: 3;
+}
+
+#playersCar-img {
+    width: 50px;
+    height: 100px;
+    transform-origin: center;
+    position: relative;
+    z-index: 4;
+}
+
+#left-headlight, 
+#right-headlight {
+    width: 50px;
+    height: 150px;
+    position: absolute;
+    top: -120px;
+    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    pointer-events: none;
+    transform: rotate(180deg);
+    opacity: 1;
+    z-index: 5;
+}
+
+#left-headlight {
+    left: -15px;
+}
+
+#right-headlight {
+    left: 15px;
+}
+
+#car-hitbox {
+    position: absolute;
+    width: 50px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    background-color: rgba(0, 255, 0, 0.3);
+    border: 1px solid green;
+    z-index: 3;
+}
