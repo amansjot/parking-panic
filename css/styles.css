@@ -9,23 +9,73 @@
 
 /* Body Styling */
 body {
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
+    overflow: scroll;
+    margin:0 auto; 
+    padding:0;
+    background-color:rgb(65, 65,65);
+}
+#fullscreen{
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    width: 100%;
+}
+#fullscreen{
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    width: 100%;
+}
+
+#title{
+    width: 100%;
+    height: 8%;
+    align-items: center;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif;  
+    justify-content: center;
+    display: flex;
 }
 
 /* Container */
-.container {
+
+#container{
+    display:flex;
     width: 100%;
-    height: 100vh;
-    overflow-y: auto;
-    background-color: rgb(65, 65, 65);
-    text-align: center;
+    height: 75vh;
+    justify-content:center;
+    position: relative;
     z-index: 1;
+    margin-top: 30px;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.container h1, 
-.container p {
-    color: #FFF;
-    font-size: 30pt;
-    font-family: "Anton", sans-serif;
+
+#map-container {
+    position: relative;
+    background-image: url("../img/map/parkinglot.png");
+    background-repeat: no-repeat;
+    background-size:  contain;
+    justify-content: center;
+    background-position: center;
+    align-items: center;
+    padding: 0;
+    height: 75vh;
+    width: 100%;
+    z-index: 1;
+    display:flex;
+}
+
+#bottom-page{
+    position: absolute;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:300px;
+    
 }
