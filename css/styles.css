@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color:rgb(65, 65,65) ;
 }
 
 /* Body Styling */
@@ -14,6 +13,13 @@ body {
     overflow: scroll;
     margin:0 auto; 
     padding:0;
+    background-color:rgb(65, 65,65);
+}
+#fullscreen{
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    width: 100%;
 }
 #fullscreen{
     justify-content: center;
@@ -51,7 +57,7 @@ body {
     position: relative;
     background-image: url("../img/map/parkinglot.png");
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size:  contain;
     justify-content: center;
     background-position: center;
     align-items: center;
