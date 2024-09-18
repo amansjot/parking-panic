@@ -56,3 +56,13 @@ $(function () {
         }
     }
 });
+
+// Open game screen when you click a game mode
+
+$("#buttons .btn").on("click", function () {
+    $("#gameScreen").show();
+    $("#gameScreen").animate(
+        { marginTop: "-100vh" },
+        1000
+    );
+});

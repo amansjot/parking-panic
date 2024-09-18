@@ -7,47 +7,66 @@
 body {
     height: 100vh;
     overflow: hidden;
+    position: relative;
 }
 
 .container {
-    width: 100%;
+    padding: 30px;
+    width: 100vw;
     height: 100vh;
     overflow-y: auto;
-    background: rgb(65, 65, 65);
+    background: #b3b3b3;
     text-align: center;
     z-index: 1;
+    position: relative;
+    margin: 0 auto;
 }
 
-.container h1, .container p {
+.container {
     color: #FFF;
-    font-size: 30pt;
+    /* font-size: 30pt; */
     font-family: "Anton", sans-serif;
 }
 
 #car {
-    z-index: 3; /* Increased z-index for the entire car container */
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Increased z-index for the entire car container */
 }
 
-#car, #obstacle {
+#car,
+#obstacle {
     position: absolute;
+    margin-top: -175px;
+    margin-left: -130px;
 }
 
 #playersCarIMG {
     width: 50px;
     height: 100px;
-    transform-origin: center;
-    position: relative;
     z-index: 4;
 }
 
-#left-headlight, #right-headlight {
+#parkingButtons {
+    background-color: #767373;
+    width: 600px;
+    height: 240px;
+    margin: 0 auto;
+    position: relative;
+    border: 2px dashed black;
+}
+
+#left-headlight,
+#right-headlight {
     width: 50px;
     height: 150px;
-    position: absolute;
-    top: -120px;
     background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     pointer-events: none;
+    position: absolute;
+    
     transform: rotate(180deg);
     opacity: 1;
     z-index: 5;
@@ -65,8 +84,9 @@ body {
     width: 50px;
     height: 50px;
     left: 250px;
-    top: 250px;
-    z-index: 2; /* Below car??? */
+    bottom: 50px;
+    z-index: 2;
+    /* Below car??? */
 }
 
 #car-hitbox {
@@ -78,13 +98,14 @@ body {
     transform-origin: center;
     background-color: rgba(0, 255, 0, 0.3);
     border: 1px solid green;
-    z-index: 3; /* Below car */
+    z-index: 3;
+    /* Below car */
 }
 
 #obstacle {
     position: absolute;
-    left: 250px;
-    top: 250px;
+    left: 200px;
+    bottom: 50px;
     z-index: 2;
 }
 
@@ -95,7 +116,8 @@ body {
 
 #cone-hitbox {
     position: absolute;
-    width: 20px;  /* Adjust these dimensions as needed */
+    width: 20px;
+    /* Adjust these dimensions as needed */
     height: 40px;
     top: 50%;
     left: 50%;
@@ -103,4 +125,56 @@ body {
     background-color: rgba(255, 0, 0, 0.3);
     border: 1px solid red;
     z-index: 3;
+}
+
+#buttons {
+    padding: 30px;
+    position: absolute;
+    right: 0;
+}
+
+.btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 3px solid black;
+    /* transition: 0.3s; */
+}
+
+.btn:hover {
+    /* animation: shake 1s infinite; */
+}
+
+@keyframes shake {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#easyMode,
+#hardMode {
+    border: 1px solid white;
+    border-radius: 0;
+    width: 210px;
+    height: 90px;
+}
+
+#startScreen {
+    /* background: url('https://opengameart.org/sites/default/files/styles/medium/public/tarmac_tile_preview.jpg') repeat; */
+    /* background-size: auto; */
+}
+
+#gameScreen {
+    z-index: 999;
+}
+
+#controls {
+    font-family: monospace;
 }

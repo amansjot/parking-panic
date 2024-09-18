@@ -1,55 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Parking Simulator Car</title>
-  <link rel="stylesheet" href="css/styles.css">
 
-  <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    >
-  </script>
+<head>
+  <title>Parking Panic</title>
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
   <script src="js/main.js"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
   </style>
-
 </head>
-<body>
-  <div class="container">
-    <h1 class="anton-regular">🏁 Parking Simulator Car Development 🏎️</h1>
 
-    <p class="anton-regular">
-      Group 8<br>
-      Aman Singh<br>
-      Julia O'Neill<br>
-      Kyle Malice<br>
-      Solenn Gacon<br>
+<body style="width: 100%; background-color: #b3b3b3">
+  <div class="container" id="startScreen">
+    <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
+    <h3 class="anton-regular">Group 8</h3>
+    <br />
+
+    <p class="anton-regular" style="font-size: 20px">
+      Aman Singh •
+      Julia O'Neill •
+      Kyle Malice •
+      Solenn Gacon •
       Suhas Bolledula
     </p>
 
-    <div id="car">
-      <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="Car">
-      <div id="car-hitbox"></div>
-      <div id="headlights">
-        <div id="left-headlight"></div>
-        <div id="right-headlight"></div>
+    <div id="parkingButtons">
+      <div id="buttons">
+        <button class="btn btn-lg btn-success" id="easyMode">
+          Easy Mode
+        </button>
+        <br />
+        <button class="btn btn-lg btn-danger" id="hardMode">Hard Mode</button>
+      </div>
+
+      <div id="car">
+        <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="Car" />
+        <div id="car-hitbox"></div>
+        <div id="headlights">
+          <div id="left-headlight"></div>
+          <div id="right-headlight"></div>
+        </div>
+      </div>
+
+      <div id="obstacle">
+        <img id="obstacle-coneIMG" src="img/cone.png" alt="Traffic Cone" />
+        <div id="cone-hitbox"></div>
       </div>
     </div>
-  
-    <div id="obstacle">
-      <img id="obstacle-coneIMG" src="img/cone.png" alt="Traffic Cone">
-      <div id="cone-hitbox"></div>
+
+    <br>
+    <h3>Controls:</h3>
+
+    <div id="controls">
+      <div class="control">
+        <span class="icon">↑</span> W - Move Forward
+      </div>
+      <div class="control">
+        <span class="icon">↓</span> S - Move Backward
+      </div>
+      <div class="control">
+        <span class="icon">←</span> A - Steer Left
+      </div>
+      <div class="control">
+        <span class="icon">➡</span> D - Steer Right
+      </div>
     </div>
+  </div>
+  </div>
+
+  <div class="container" id="gameScreen" style="display: none">
+    <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
+
 </html>
