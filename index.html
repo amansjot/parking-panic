@@ -2,24 +2,16 @@
 <html lang="en">
   <head>
     <title>Parking Panic</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="stylesheet" href="css/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="js/main.js"></script>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
@@ -27,8 +19,63 @@
   </head>
 
   <body style="width: 100%; background-color: #b3b3b3">
-    <div class="container" id="startScreen">
-      <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
+    <div class="game" id="startScreen">
+      <div class="header">
+        <h1>Parking Panic</h1>
+        <p>Group 8: Aman Singh • Julia O'Neill • Kyle Malice • Solenn Gacon • Suhas
+          Bolledula</p>
+      </div>
+
+      <div id="window">
+        <div id="scroll-window">
+          <div id="drivingArea">
+            <div id="parkingSpots">
+              <button class="btn btn-lg btn-success" id="easyMode">
+                Easy Mode
+              </button>
+              <br />
+              <button class="btn btn-lg btn-danger" id="hardMode">Hard Mode</button>
+            </div>
+          </div>
+
+          <div id="Controls" style="font-size: 40px; text-align: center;">
+            <h1 id="ControlHeader" style="font-size: 55px">Controls</h1>
+            <p id="ControlListing">
+              Forward:
+              <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="60" /> or
+              <img
+                src="img/keyboard-keys/Up-Arrow.svg"
+                alt="Up Arrow Key"
+                width="60"
+              /><br />
+              Backward:
+              <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="60" /> or
+              <img
+                src="img/keyboard-keys/Down-Arrow.svg"
+                alt="Down Arrow Key"
+                width="60"
+              /><br />
+              Left:
+              <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="60" /> or
+              <img
+                src="img/keyboard-keys/Left-Arrow.svg"
+                alt="Left Arrow Key"
+                width="60"
+              /><br />
+              Right:
+              <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="60" /> or
+              <img
+                src="img/keyboard-keys/Right-Arrow.svg"
+                alt="Right Arrow Key"
+                width="60"
+              /><br />
+              Headlights:
+              <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="60" /><br />
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
       <h3 class="anton-regular">Group 8</h3>
       <br />
 
@@ -37,7 +84,7 @@
         Bolledula
       </p>
 
-      <div id="parkingButtons">
+      <div id="drivingArea">
         <div id="buttons">
           <button class="btn btn-lg btn-success" id="easyMode">
             Easy Mode
@@ -66,42 +113,42 @@
         <h2 id="ControlHeader">Controls</h2>
         <p id="ControlListing">
           Forward:
-          <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30" /> or
+          <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="60" /> or
           <img
             src="img/keyboard-keys/Up-Arrow.svg"
             alt="Up Arrow Key"
-            width="30"
+            width="60"
           /><br />
           Backwards:
-          <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30" /> or
+          <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="60" /> or
           <img
             src="img/keyboard-keys/Down-Arrow.svg"
             alt="Down Arrow Key"
-            width="30"
+            width="60"
           /><br />
           Left:
-          <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30" /> or
+          <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="60" /> or
           <img
             src="img/keyboard-keys/Left-Arrow.svg"
             alt="Left Arrow Key"
-            width="30"
+            width="60"
           /><br />
           Right:
-          <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="30" /> or
+          <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="60" /> or
           <img
             src="img/keyboard-keys/Right-Arrow.svg"
             alt="Right Arrow Key"
-            width="30"
+            width="60"
           /><br />
           Headlights:
-          <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="30" /><br />
+          <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="60" /><br />
         </p>
-      </div>
+      </div> -->
     </div>
 
-    <div class="container" id="gameScreen" style="display: none">
+    <!-- <div class="container" id="gameScreen" style="display: none">
       <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
-    </div>
+    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="js/main.js"></script>

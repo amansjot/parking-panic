@@ -36,8 +36,8 @@ body {
     /* Increased z-index for the entire car container */
 }
 
-#car,
-#obstacle {
+/* #obstacle, */
+#car {
     position: absolute;
     margin-top: -175px;
     margin-left: -130px;
@@ -49,7 +49,7 @@ body {
     z-index: 4;
 }
 
-#parkingButtons {
+#drivingArea {
     background-color: #767373;
     /* max-width: 600px; */
     /* width: 90%; */
@@ -129,7 +129,7 @@ body {
     z-index: 3;
 }
 
-#buttons {
+#parkingSpots {
     padding: 30px;
     position: absolute;
     right: 0;
@@ -178,6 +178,70 @@ body {
     z-index: 999;
 }
 
-#controls {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#drivingArea {
+    width: 100%;
+    height: 50%;
+    border: 1px solid white;
+    background-color: #767373;
+}
+
+#Controls {
     font-family: monospace;
+    width: 100%;
+    height: 50%;
+    padding: 40px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 40px;
+}
+
+.header {
+    height: 100px;
+    color: white;
+    padding-top: 8px;
+    text-align: center;
+}
+
+#window {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    bottom: 40px;
+    overflow: hidden;
+}
+
+#scroll-window {
+    position: relative;
+    margin: auto;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 5px;
+    transform-origin: top left;
+    box-sizing: content-box;
+    overflow: hidden;
+    /* border: 1px solid white; */
+    /* background-color: #767373;  */
 }
