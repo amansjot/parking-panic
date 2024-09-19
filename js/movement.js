@@ -50,8 +50,8 @@ function moveCar(keys) {
     // Calculate the actual visible area taking into account the centered positioning
     const visibleLeft = rect.left - 265 - 5;
     const visibleRight = rect.right - 315 + 5;
-    const visibleTop = rect.top - 90 - 5;
-    const visibleBottom = rect.bottom - 90 + 5;
+    const visibleTop = rect.top - 20 - 5;
+    const visibleBottom = rect.bottom - 20 + 5;
 
     // Check horizontal boundaries
     if (newX < visibleLeft) {

@@ -39,7 +39,7 @@ body {
 #car,
 #obstacle {
     position: absolute;
-    margin-top: -110px;
+    margin-top: -175px;
     margin-left: -130px;
 }
 
@@ -51,6 +51,8 @@ body {
 
 #parkingButtons {
     background-color: #767373;
+    /* max-width: 600px; */
+    /* width: 90%; */
     width: 600px;
     height: 240px;
     margin: 0 auto;
@@ -164,6 +166,7 @@ body {
     border-radius: 0;
     width: 210px;
     height: 90px;
+    font-size: 30px;
 }
 
 #startScreen {
