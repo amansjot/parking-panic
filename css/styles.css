@@ -83,12 +83,203 @@
  
  
  #bottom-page{
-    position: absolute;
+    position:relative;
     font-size: 10pt;
     font-family: "Anton", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-   
     width: 100%;
+ }
+
+
+ /* Parking Spots  */
+
+ .spot{ /*class styling for all spots*/
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: cadetblue;
+    z-index: 2;
+    width: 3.35%;
+    height: 7.75%;
+ }
+
+ /*Top Row Of spots*/
+ #one{
+    top: 18.7%;
+    left:32.34%;
+    opacity: 0.5;
+ }
+ #two{
+    top: 18.7%;
+    left:35.87%;
+    opacity: .5;
+ }
+ #three{
+    top: 18.7%;
+    left:39.43%;
+    opacity: .5;
+}
+#four{
+    top: 18.7%;
+    left:42.93%;
+    opacity: .5;
+ }
+ #five{
+    top: 18.7%;
+    left:46.45%;
+    opacity: .5;
+ }
+
+ #six{
+    top: 18.7%;
+    left:49.94%;
+    opacity: .5;
+ }
+ #seven{
+    top: 18.7%;
+    left:53.46%;
+    opacity: .5;
+ }
+ #eight{
+    top: 18.7%;
+    left:57%;
+    opacity: .5;
+ }
+ #nine{
+    top: 18.7%;
+    left:60.53%;
+    opacity: .5;
+ }
+ #ten{
+    top: 18.7%;
+    left:63.96%;
+    opacity: .5;
+ }
+ #eleven{
+    top: 18.7%;
+    left:67.58%;
+    opacity: .5;
+ }
+
+ /* Top Left side Parking Group */
+
+/* Top Row */
+ #twelve{
+    top: 31.3%;
+    left:35.95%;
+    opacity: .5;
+ }
+ #thirteen{
+    top: 31.3%;
+    left:39.47%;
+    opacity: .5;
+ }
+ #fourteen{
+    top: 31.3%;
+    left:42.98%;
+    opacity: .5;
+ }
+ #fifteen{
+    top: 31.3%;
+    left:46.55%;
+    opacity: .5;
+ }
+
+ /* Bottom Row */
+ #sixteen{
+    top: 40.6%;
+    left:35.95%;
+    opacity: .5;
+ }
+ #seventeen{
+    top: 40.6%;
+    left:39.47%;
+    opacity: .5;
+ }
+ #eighteen{
+    top: 40.6%;
+    left:42.98%;
+    opacity: .5;
+ }
+ #nineteen{
+    top: 40.6%;
+    left:46.55%;
+    opacity: .5;
+ }
+
+ /* Top Right side Parking Group */
+
+ /* Top Row */
+ #twenty{
+    top: 31.3%;
+    left:53.6%;
+    opacity: .5;
+ }
+
+ #twenty-one{
+    top: 31.3%;
+    left:57.1%;
+    opacity: .5;
+ }
+ #twenty-two{
+    top: 31.3%;
+    left:60.6%;
+    opacity: .5;
+ }
+
+ #twenty-three{
+    top: 31.3%;
+    left:64.1%;
+    opacity: .5;
+ }
+ /* Bottom Row */
+
+ #twenty-four{
+    top: 40.6%;
+    left:53.6%;
+    opacity: .5;
+ }
+ #twenty-five{
+    top: 40.6%;
+    left:57.1%;
+    opacity: .5;
+ }
+ #twenty-six{
+    top: 40.6%;
+    left:60.6%;
+    opacity: .5;
+ }
+ #twenty-seven{
+    top: 40.6%;
+    left:64.1%;
+    opacity: .5;
+ }
+
+ /* Bottom Left Parking Group*/
+ /* Top Row */
+ #twenty-eight{
+    top: 56.25%;
+    left:35.95%;
+    opacity: .5;
+ }
+ #twenty-nine{
+    top: 56.25%;
+    left:39.47%;
+    opacity: .5;
+ }
+ #thirty{
+    top: 56.25%;
+    left:42.98%;
+    opacity: .5;
+ }
+ #thirty-one{
+    top: 56.25%;
+    left:46.55%;
+    opacity: .5;
+ }
+ #thirty-two{
+    top: 56.25%;
+    left:50.05%;
+    opacity: .5;
  }
