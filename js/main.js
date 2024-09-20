@@ -1,5 +1,6 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle } from './collision.js';
+import { scaleGame } from './scaling.js';
 
 $(function () {
     // Car Vars
@@ -29,6 +30,9 @@ $(function () {
     $(document).on('keydown', handleKeyDown);
     $(document).on('keyup', handleKeyUp);
 
+    // Call scaleGame initially
+    scaleGame();
+
     // Main update loop
     setInterval(updatePlayer, 10);
 
@@ -42,6 +46,7 @@ $(function () {
         updatePlayerCSS(player);
         const collision = checkCollisions(playerData);
         updateCollisionVisual(collision);
+        scaleGame();
     }
 
     function updateCollisionVisual(collision) {

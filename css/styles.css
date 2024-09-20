@@ -9,8 +9,48 @@
 
 /* Body Styling */
 body {
+<<<<<<< Updated upstream
     height: 100vh;
     overflow: hidden;
+=======
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color:rgb(65, 65,65);
+}
+
+#game-scaler {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#game-container {
+    width: 1600px;  /* Set your desired game world width */
+    height: 900px;  /* Set your desired game world height */
+    position: relative;
+    transform-origin: top left;
+}
+
+#fullscreen{
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    width: 100%;
+}
+
+#title{
+    width: 100%;
+    height: 8%;
+    align-items: center;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif;  
+    justify-content: center;
+    display: flex;
+>>>>>>> Stashed changes
 }
 
 /* Container */
@@ -23,9 +63,40 @@ body {
     z-index: 1;
 }
 
+<<<<<<< Updated upstream
 .container h1, 
 .container p {
     color: #FFF;
     font-size: 30pt;
     font-family: "Anton", sans-serif;
 }
+=======
+
+#map-container {
+    position: relative;
+    background-image: url("../img/map/parkinglot.png");
+    background-repeat: no-repeat;
+    background-size:  contain;
+    justify-content: center;
+    background-position: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display:flex;
+}
+
+#bottom-page{
+    position: absolute;
+    font-size: 10pt;
+    font-family: "Anton", sans-serif; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    height:300px;
+    
+}
+>>>>>>> Stashed changes

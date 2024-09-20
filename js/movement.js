@@ -1,11 +1,11 @@
 // Player data
 let playerData = {
     // Starting Positioning & Dimensions
-    x: 200,
-    y: 200,
+    x: 23.4375, // 375 / 1600 * 100
+    y: 27.7778, // 250 / 900 * 100
     angle: 0,
-    width: 50,
-    height: 100,
+    width: 3.125, // 50 / 1600 * 100
+    height: 11.1111, // 100 / 900 * 100
 
     // Speed & Movement
     maxForwardSpeed: 5,
@@ -36,6 +36,10 @@ function moveCar(keys) {
         }
     }
 
+    const gameContainer = document.getElementById('game-container');
+    const containerWidth = gameContainer.offsetWidth;
+    const containerHeight = gameContainer.offsetHeight;
+
     // Update the car's position based on current speed and direction (angle)
     playerData.x += playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
     playerData.y += playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
@@ -57,9 +61,13 @@ function rotateCar(keys) {
 }
 
 function updatePlayerCSS(player) {
+    const gameContainer = document.getElementById('game-container');
+    const containerWidth = gameContainer.offsetWidth;
+    const containerHeight = gameContainer.offsetHeight;
+
     player.css({
-        top: `${playerData.y}px`,
-        left: `${playerData.x}px`,
+        top: `${(playerData.y / containerHeight) * 100}%`,
+        left: `${(playerData.x / containerWidth) * 100}%`,
         transform: `rotate(${playerData.angle}deg)`
     });
 }
