@@ -1,107 +1,94 @@
 /* Game Background + Text */
 
+
 /* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-/* Body Styling */
-body {
+ }
+ 
+ 
+ /* Body Styling */
+ body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     height: 100%;
-    overflow: scroll;
-    margin:0 auto; 
-    padding:0;
+    overflow: hidden;
     background-color:rgb(65, 65,65);
-}
-#fullscreen{
+ }
+ 
+ 
+ #game-scaler {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ }
+ 
+ 
+ #game-container {
+    width: 1600px;  /* Set your desired game world width */
+    height: 900px;  /* Set your desired game world height */
+    position: relative;
+    transform-origin: top left;
+ }
+ 
+ 
+ #fullscreen{
     justify-content: center;
     align-items: center;
     padding: 5%;
     width: 100%;
-}
-#fullscreen{
-    justify-content: center;
-    align-items: center;
-    padding: 5%;
-    width: 100%;
-}
-
-#title{
+ }
+ 
+ 
+ #title{
     width: 100%;
     height: 8%;
     align-items: center;
     font-size: 10pt;
-    font-family: "Anton", sans-serif;  
+    font-family: "Anton", sans-serif; 
     justify-content: center;
     display: flex;
-}
-
-/* Container */
-
-#container{
-    display:flex;
+ }
+ 
+ 
+ /* Container */
+ #container {
     width: 100%;
-    height: 75vh;
-    justify-content:center;
-    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: rgb(65, 65, 65);
+    text-align: center;
     z-index: 1;
-    margin-top: 30px;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-
-#map-container {
+ }
+ 
+ 
+ #map-container {
     position: relative;
-    background-image: url("../img/map/parkinglot.png");
+    background-image: url("../img/parkinglot.png");
     background-repeat: no-repeat;
     background-size:  contain;
     justify-content: center;
     background-position: center;
     align-items: center;
     padding: 0;
-    height: 75vh;
-    width: 75vw;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     display:flex;
-}
-
-#bottom-page{
+ }
+ 
+ 
+ #bottom-page{
     position: absolute;
     font-size: 10pt;
-    font-family: "Anton", sans-serif; 
+    font-family: "Anton", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+   
     width: 100%;
-    height:300px;
-    
-}
-
-#parking-spots{
-    position: absolute;
-    justify-content: center;
-    background-position: center;
-    align-items: center;
-    padding: 0;
-    height: 75vh;
-    width: 75vw;
-    z-index: 2;
-    display:flex;
-}
-
-#spot-1{
-    position:absolute;
-    z-index: 3;
-    background: pink;
-    max-width: 6%;
-    width: 6%;
-    left: 15.7%;
-    top: 14.5%;
-    height: 7.75%;
-    opacity: 0.9;
-    
-
-}
+ }

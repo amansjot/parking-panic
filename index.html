@@ -1,70 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Parking Simulator Car</title>
+ <title>Parking Simulator Car</title>
 
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/obstacles.css">
-  <link rel="stylesheet" href="css/car.css">
 
-  <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous">
-  </script>
+ <link rel="stylesheet" href="css/styles.css">
+ <link rel="stylesheet" href="css/obstacles.css">
+ <link rel="stylesheet" href="css/car.css">
 
-  <script src="js/main.js"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script
+     src="https://code.jquery.com/jquery-3.7.1.min.js"
+     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+     crossorigin="anonymous">
+ </script>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-  </style>
+
+ <script src="js/main.js"></script>
+
+
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+ <style>
+   @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+ </style>
 </head>
 <body>
-  <div id="fullscreen"> 
+
+
+ <div id="title">
+   <h1>🏁 Parking Simulator Car Development 🏎️</h1>
+ </div>
+
+
+ <div id="game-scaler">
+   <div id="game-container">
     
-    <div id="title">
-      <h1 >🏁 Parking Simulator Car Development 🏎️</h1>
-    </div>
+     <div id="map-container"></div>
 
-    <div id="container">
-      <div id="map-container"></div>
-      <div id="parking-spots">
-        <div id="spot-1"></div>
-      </div>
-    </div>
 
-    
+     <div id="car">
+       <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
+       <div id="car-hitbox"></div>
+       <div id="headlights">
+         <div id="left-headlight"></div>
+         <div id="right-headlight"></div>
+       </div>
+     </div>
 
-  <div class="botton-page">
-    <div class="botton-page">Group 8</div>
-    <div>
-      Aman Singh Julia O'Neill Kyle Malice Solenn Gacon Suhas Bolledula
-    </div>
-  </div>
 
-    <div id="car">
-      <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
-      <div id="car-hitbox"></div>
-      <div id="headlights">
-        <div id="left-headlight"></div>
-        <div id="right-headlight"></div>
-      </div>
-    </div>
-  
-    <div id="cone-obstacle">
-      <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
-      <div id="cone-hitbox"></div>
-    </div>
+     <div id="cone-obstacle">
+       <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
+       <div id="cone-hitbox"></div>
+     </div>
 
-    <div id="dumpster-obstacle">
-      <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
-      <div id="dumpster-hitbox"></div>
-    </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="module" src="js/main.js"></script>
+     <div id="dumpster-obstacle">
+       <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
+       <div id="dumpster-hitbox"></div>
+     </div>
+   </div>
+ </div>
+
+
+ <div class="footer">
+   <div>Group 8</div>
+   <div>
+     Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula
+   </div>
+ </div>
+
+
+ <script type="module" src="js/main.js"></script>
 </body>
 </html>

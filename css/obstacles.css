@@ -4,14 +4,16 @@
     left: 250px;
     top: 250px;
     z-index: 2;
-}
-
-#cone-img {
+ }
+ 
+ 
+ #cone-img {
     width: 50px;
     height: 50px;
-}
-
-#cone-hitbox {
+ }
+ 
+ 
+ #cone-hitbox {
     position: absolute;
     width: 20px;
     height: 30px;
@@ -21,29 +23,33 @@
     background-color: rgba(255, 0, 0, 0.3);
     border: 1px solid red;
     z-index: 3;
-}
-
-/* Dumpster Obstacle */
-#dumpster-obstacle {
+ }
+ 
+ 
+ /* Dumpster Obstacle */
+ #dumpster-obstacle {
     position: absolute;
     left: 400px;
     top: 300px;
     z-index: 2;
-}
-
-#dumpster-img {
+ }
+ 
+ 
+ #dumpster-img {
     width: 100px;
-    height: 80px;  
-}
-
-#dumpster-hitbox {
+    height: 80px; 
+ }
+ 
+ 
+ #dumpster-hitbox {
     position: absolute;
     width: 90px;
     height: 70px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 255, 0.3); 
+    background-color: rgba(0, 0, 255, 0.3);
     border: 1px solid blue;
     z-index: 3;
-}
+ }
+ 
