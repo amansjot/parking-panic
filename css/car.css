@@ -1,13 +1,10 @@
 /* Player's Car */
 #car {
     position: absolute;
-<<<<<<< Updated upstream
-=======
     left: 23.4375%; /* 375px / 1600px * 100 */
     top: 27.7778%; /* 250px / 900px * 100 */
     width: 3.125%; /* 50px / 1600px * 100 */
     height: 11.1111%; /* 100px / 900px * 100 */
->>>>>>> Stashed changes
     z-index: 3;
 }
 

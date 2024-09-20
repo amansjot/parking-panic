@@ -9,10 +9,6 @@
 
 /* Body Styling */
 body {
-<<<<<<< Updated upstream
-    height: 100vh;
-    overflow: hidden;
-=======
     margin: 0;
     padding: 0;
     width: 100%;
@@ -50,7 +46,6 @@ body {
     font-family: "Anton", sans-serif;  
     justify-content: center;
     display: flex;
->>>>>>> Stashed changes
 }
 
 /* Container */
@@ -63,18 +58,9 @@ body {
     z-index: 1;
 }
 
-<<<<<<< Updated upstream
-.container h1, 
-.container p {
-    color: #FFF;
-    font-size: 30pt;
-    font-family: "Anton", sans-serif;
-}
-=======
-
 #map-container {
     position: relative;
-    background-image: url("../img/map/parkinglot.png");
+    background-image: url("../img/parkinglot.png");
     background-repeat: no-repeat;
     background-size:  contain;
     justify-content: center;
@@ -99,4 +85,3 @@ body {
     height:300px;
     
 }
->>>>>>> Stashed changes
