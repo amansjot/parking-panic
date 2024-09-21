@@ -18,40 +18,7 @@
     z-index: 3;
 }
 
-#mission-complete-message,
-#mission-failed-message {
-    display: none;
-    font-size: 24px;
-    font-weight: bold;
-    position: absolute;
-    top: 480px; 
-    left: 380px;
-    z-index: 3;
-}
-
-#mission-complete-message {
-    background-color: #00ff00;
-    color: white;
-}
-
-#mission-failed-message {
-    background-color: rgba(255, 0, 0, 0.8);
-    color: white;
-}
-
 .glow {
     box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.7);
     transition: box-shadow 0.3s ease-in-out;
-}
-
-#timer-display {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 24px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 5;
 }
