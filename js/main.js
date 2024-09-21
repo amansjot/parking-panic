@@ -1,5 +1,6 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle, calculateOBB } from './collision.js';
+import { startTimer, stopTimer } from './timer.js';
 
 $(function () {
     // Car Vars
@@ -15,16 +16,10 @@ $(function () {
     // Parking spot and messages
     const parkingSpot = $('#parking-spot');
     const missionCompleteMessage = $('#mission-complete-message');
-    const missionFailedMessage = $('#mission-failed-message');
 
     // Register obstacles
     registerObstacle(coneHitbox, cone);
     registerObstacle(dumpsterHitbox, dumpster);
-
-    // Timer
-    let timeLeft = 30; // Starting time in seconds
-    let timerInterval;
-    const timerElement = $('#timer-display');
 
     // Key states
     const keys = {
@@ -47,7 +42,6 @@ $(function () {
 
     // Set initial state: Turn headlights off
     headlights.hide();
-
 
     function updatePlayer() {
         moveCar(keys, startTimer);
@@ -109,36 +103,6 @@ $(function () {
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
             keys[key] = false;
             keys[e.code] = false;
-        }
-    }
-
-    function startTimer() {
-        if (!timerInterval) {
-            timerInterval = setInterval(updateTimer, 1000);
-        }
-    }
-
-    // Update the timer every second
-    function updateTimer() {
-        timeLeft -= 1;
-        timerElement.text(timeLeft);
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            timerElement.text("Time's up!");
-            // Trigger a failure state if time runs out and car is not parked
-            if (!isCarCompletelyInSpot) {
-                alert("Mission failed: Time's up!");
-                // Optionally reset game or display failure UI
-            }
-        }
-    }
-
-    function stopTimer() {
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
         }
     }
 });
