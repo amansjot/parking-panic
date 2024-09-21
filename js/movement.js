@@ -1,115 +1,148 @@
-// // Player data
-// let playerData = {
-//     // Starting Positioning & Dimensions
-//     x: 200,
-//     y: 200,
-//     angle: 0,
-//     width: 50,
-//     height: 100,
+class Car {
+    constructor(playerElement, scale) {
+        this.playerElement = playerElement; // DOM element representing the car
+        this.x = 200;
+        this.y = 200;
+        this.angle = 90;
+        this.width = 70;
+        this.height = 140;
+        this.currentSpeed = 0;
+        this.maxForwardSpeed = 8;
+        this.maxReverseSpeed = 5;
+        this.acceleration = 0.3;
+        this.deceleration = 0.2;
+        this.rotationSpeed = 4;
+        this.scale = scale; // Store the scale factor
+        this.headlightsOn = false; // Headlights start as off
+        this.startScreen = true;
+    }
 
-//     // Speed & Movement
-//     maxForwardSpeed: 3, // 5
-//     maxReverseSpeed: 2, // 3
-//     acceleration: 0.3,
-//     deceleration: 0.2,
-//     rotationSpeed: 2, // 3
-//     currentSpeed: 0,
-//     angle: 90,
+    // Function to move the car based on key input
+    move(keys) {
+        // Handle acceleration and deceleration with both W/S and ArrowUp/ArrowDown
+        if (keys.w || keys.ArrowUp) {
+            this.currentSpeed = Math.min(this.currentSpeed + this.acceleration, this.maxForwardSpeed);
+        } else if (keys.s || keys.ArrowDown) {
+            this.currentSpeed = Math.max(this.currentSpeed - this.acceleration, -this.maxReverseSpeed);
+        } else {
+            if (this.currentSpeed > 0) {
+                this.currentSpeed = Math.max(this.currentSpeed - this.deceleration, 0);
+            } else if (this.currentSpeed < 0) {
+                this.currentSpeed = Math.min(this.currentSpeed + this.deceleration, 0);
+            }
+        }
 
-//     // Extra Features
-//     headlightsOn: false
-// };
+        // Calculate new positions based on the car's speed and angle
+        let newX = this.x + this.currentSpeed * Math.cos(this.degreesToRadians(this.angle - 90));
+        let newY = this.y + this.currentSpeed * Math.sin(this.degreesToRadians(this.angle - 90));
 
-// function moveCar(keys) {
-//     if (keys.w) {  // If 'w' is pressed, accelerate forward
-//         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
-//     }
-//     else if (keys.s) {  // If 's' is pressed, accelerate backward
-//         playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
-//     }
-//     else {  // If no key is pressed, gradually slow down (decelerate)
-//         if (playerData.currentSpeed > 0) {
-//             playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.deceleration, 0);
-//         }
-//         else if (playerData.currentSpeed < 0) {
-//             playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.deceleration, 0);
-//         }
-//     }
+        const container = document.getElementById('drivingArea');
 
-//     // Update the car's position based on current speed and direction (angle)
-//     let newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
-//     let newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+        // Use offsetWidth and offsetHeight to get the actual driving area dimensions
+        const carWidth = this.width;
+        const carHeight = this.height;
 
-//     // Ensure the car stays within the bounds of the container
-//     const container = $('#drivingArea')[0]; // Get the DOM element
-//     const rect = container.getBoundingClientRect(); // Get bounding rect from the DOM element
+        // Get padding, margin, and border values if any (use window.getComputedStyle)
+        const computedStyle = window.getComputedStyle(container);
+        const paddingX = parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+        const paddingY = parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        const borderX = parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
+        const borderY = parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth);
 
-//     const carWidth = playerData.width;
-//     const carHeight = playerData.height;
+        // Adjust the boundaries based on the scale factor and subtract the extra space
+        const maxX = (container.offsetWidth - carWidth - paddingX - borderX) / this.scale;
+        const maxY = (container.offsetHeight - carHeight - paddingY - borderY) / this.scale;
 
-//     // Calculate the actual visible area taking into account the centered positioning
-//     const visibleLeft = rect.left - 265 - 5;
-//     const visibleRight = rect.right - 315 + 5;
-//     const visibleTop = rect.top - 20 - 5;
-//     const visibleBottom = rect.bottom - 20 + 5;
+        const boundaryOffset = 55;  // Apply a small offset for left/right boundary
 
-//     // Check horizontal boundaries
-//     if (newX < visibleLeft) {
-//         newX = visibleLeft; // Snap to the left boundary
-//     }
-//     if (newX + carWidth > visibleRight) {
-//         newX = visibleRight - carWidth; // Snap to the right boundary
-//     }
+        // Constrain the car's movement within the scaled boundaries
+        if (newX < boundaryOffset) newX = boundaryOffset;
+        if (newX > maxX - boundaryOffset) newX = maxX - boundaryOffset;
+        if (newY < 0) newY = 0;
+        if (newY > maxY) newY = maxY;
 
-//     // Check vertical boundaries
-//     if (newY < visibleTop) {
-//         newY = visibleTop; // Snap to the top boundary
-//     }
-//     if (newY + carHeight > visibleBottom) {
-//         newY = visibleBottom - carHeight; // Snap to the bottom boundary
-//     }
+        // Update the car's position
+        this.x = newX;
+        this.y = newY;
 
-//     // Update player data with the new position
-//     playerData.x = newX;
-//     playerData.y = newY;
+        // Check if the car is inside the #easyMode button
+        if (this.startScreen) {
+            this.checkContainmentButtons();
+        }
+    }
 
-// }
+    // Function to check if the car is contained within the #easyMode button
+    checkContainmentButtons() {
+        const easyModeButton = document.getElementById('easyMode');
+        const easyModeRect = easyModeButton.getBoundingClientRect();
 
-// function rotateCar(keys) {
-//     if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
-//         // Scale rotation speed based on the current speed
-//         let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
-//         let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; // Scale rotation speed based on speed
+        const hardModeButton = document.getElementById('hardMode');
+        const hardModeRect = hardModeButton.getBoundingClientRect();
 
-//         if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
-//             playerData.angle -= scaledRotationSpeed;
-//         }
-//         if (keys.d) {  // If 'd' is pressed, rotate right (clockwise)
-//             playerData.angle += scaledRotationSpeed;
-//         }
-//     }
-// }
+        // Get the car's position and dimensions using getBoundingClientRect
+        const carRect = this.playerElement.getBoundingClientRect();
 
-// function updatePlayerCSS(player) {
-//     player.css({
-//         top: `${playerData.y}px`,
-//         left: `${playerData.x}px`,
-//         transform: `rotate(${playerData.angle}deg)`
-//     });
-// }
+        // Check if the car is fully contained within the easyMode button
+        if (
+            carRect.left >= easyModeRect.left &&
+            carRect.right <= easyModeRect.right &&
+            carRect.top >= easyModeRect.top &&
+            carRect.bottom <= easyModeRect.bottom
+        ) {
+            $("#easyMode").trigger("click");
+            this.startScreen = false;
+        }
 
-// function toggleHeadlights(headlights) {
-//     playerData.headlightsOn = !playerData.headlightsOn;
+        if (
+            carRect.left >= hardModeRect.left &&
+            carRect.right <= hardModeRect.right &&
+            carRect.top >= hardModeRect.top &&
+            carRect.bottom <= hardModeRect.bottom
+        ) {
+            $("#hardMode").trigger("click");
+            this.startScreen = false;
+        }
+    }
 
-//     if (playerData.headlightsOn) {
-//         headlights.show();
-//     } else {
-//         headlights.hide();
-//     }
-// }
+    // Function to rotate the car based on key input
+    rotate(keys) {
+        if (this.currentSpeed !== 0) {
+            let speedFactor = Math.abs(this.currentSpeed) / this.maxForwardSpeed;
+            let scaledRotationSpeed = this.rotationSpeed * speedFactor;
 
-// function degreesToRadians(degrees) {
-//     return degrees * (Math.PI / 180);
-// }
+            // Handle A/D and ArrowLeft/ArrowRight for rotation
+            if (keys.a || keys.ArrowLeft) {
+                this.angle -= scaledRotationSpeed;
+            }
+            if (keys.d || keys.ArrowRight) {
+                this.angle += scaledRotationSpeed;
+            }
+        }
+    }
 
-// export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights };
+    // Update the car's position and rotation in the CSS
+    updateCSS() {
+        // Apply scaling to the car's position and update its CSS properties
+        this.playerElement.style.top = `${this.y * this.scale}px`;
+        this.playerElement.style.left = `${this.x * this.scale}px`;
+        this.playerElement.style.transform = `rotate(${this.angle}deg)`;
+    }
+
+    // Toggle the headlights on and off
+    toggleHeadlights(headlights) {
+        this.headlightsOn = !this.headlightsOn; // Toggle the state
+
+        if (this.headlightsOn) {
+            headlights.show(); // Show the headlights
+        } else {
+            headlights.hide(); // Hide the headlights
+        }
+    }
+
+    // Helper function to convert degrees to radians
+    degreesToRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+}
+
+export { Car };

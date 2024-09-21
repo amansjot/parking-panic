@@ -1,133 +1,59 @@
-// import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
-// import { checkCollisions } from './collision.js';
-
-// $(function () {
-//     // Key states
-//     const keys = {
-//         w: false,
-//         s: false,
-//         a: false,
-//         d: false
-//     };
-
-//     // DOM elements
-//     const player = $('#car');
-//     const obstacle = $('#obstacle');
-//     const coneHitbox = $('#cone-hitbox');
-//     const headlights = $('#headlights');
-
-//     // Handle key presses
-//     $(document).on('keydown', handleKeyDown);
-//     $(document).on('keyup', handleKeyUp);
-
-//     // Main update loop: Runs 50 times per second (every 20ms)
-//     setInterval(updatePlayer, 10);
-
-//     // Set initial state: Turn headlights off
-//     headlights.hide();
-
-//     function updatePlayer() {
-//         moveCar(keys);
-//         rotateCar(keys);
-//         updatePlayerCSS(player);
-//         const collision = checkCollisions(playerData, coneHitbox, obstacle);
-//         updateCollisionVisual(collision);
-//     }
-
-//     function updateCollisionVisual(collision) {
-//         $('#car-hitbox').css('background-color', collision ? 'rgba(0, 255, 0, 0.3)' : 'transparent');
-//     }
-
-//     // Handle key down
-//     function handleKeyDown(e) {
-//         if (keys.hasOwnProperty(e.key.toLowerCase())) {
-//             keys[e.key.toLowerCase()] = true;
-//         }
-
-//         if (e.key.toLowerCase() === 'h') {  // Toggle headlights when 'H' key is pressed
-//             toggleHeadlights(headlights);
-//         }
-//     }
-
-//     // Handle key up
-//     function handleKeyUp(e) {
-//         if (keys.hasOwnProperty(e.key.toLowerCase())) {
-//             keys[e.key.toLowerCase()] = false;
-//         }
-//     }
-// });
-
-// // Open game screen when you click a game mode
-
-// $("#buttons .btn").on("click", function () {
-//     $("#gameScreen").show();
-//     $("#gameScreen").animate(
-//         { marginTop: "-100vh" },
-//         1000
-//     );
-// });
-
-
-
-
-
-
-
-
-
-
-/* Various contstants used throughout the game*/
-var Constants={
-	unscaledSize: 1002,  //1000 plus border.
-	shipHeight:70,
-	shipWidth:50,
-	headerHeight:150,
-	borderWidth:1,
-	timeInterval:60/1000, // 60 FPS
-	initialFuel:100,
-	engineThrust:5,
-	crashVelocity:10,
-	initialFuel:100,
-	rotationSpeed:10,
-	terrainSegmentWidth:100,
-	maxTerrainHeight:100,
-	allowedHeightDifference:5
-}
+import { Car } from './movement.js';
 
 $(function () {
-    console.log("x");
-    let game = new Game();
-    console.log("z");
+    const game = new Game();
+    const keys = { w: false, s: false, a: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+    const carElement = document.getElementById('car');
+    const car = new Car(carElement, game.scale);
+
+    const headlights = $('#headlights'); // DOM element for headlights
+
+    $(document).on('keydown', function (e) {
+        if (keys.hasOwnProperty(e.key)) {
+            keys[e.key] = true;
+        }
+
+        // Handle 'H' key to toggle headlights
+        if (e.key.toLowerCase() === 'h') {
+            car.toggleHeadlights(headlights);
+        }
+    });
+
+    $(document).on('keyup', function (e) {
+        if (keys.hasOwnProperty(e.key)) {
+            keys[e.key] = false;
+        }
+    });
+
+    setInterval(() => {
+        car.move(keys);  // Move the car based on the keys
+        car.rotate(keys); // Rotate the car
+        car.updateCSS();  // Update the car's position and rotation in the DOM
+    }, 20); // Run the update loop 50 times per second
 });
 
 class Game {
     constructor() {
         this.scaleWindow = document.getElementById("scroll-window");
-        // this.state = new GameState();
-        // this.hud = new Hud(this.state);
-        // this.ship = new Ship(this.state);
-        // this.popup = new Popup();
-        //handle resize events
+        this.scale = 1; // Default scale factor
         window.addEventListener("resize", this.resize);
-        //handle keydown events
-        // window.addEventListener("keydown", this.keyDown);
-        // window.addEventListener("keyup", this.keyUp);
-        //initial size
-        this.resize();
-        //update the game
-        // this.hud.update();
-        // this.state.update();
-        // this.running = false;
-        // this.timeout = null;
-    };
+        this.resize(); // Initialize the scale on page load
+    }
+
     resize = () => {
-        console.log("w");
         let width = window.innerWidth;
-        let height = window.innerHeight - Constants.headerHeight;
+        let height = window.innerHeight - 100; // Adjust height if necessary
         let newSize = Math.min(width, height);
-        let scale = newSize / Constants.unscaledSize;
-        this.scaleWindow.style.transform = `scale(${scale})`;
+        this.scale = newSize / 1002;  // Dynamically calculate the scale factor
+        this.scaleWindow.style.transform = `scale(${this.scale})`;  // Apply scale to the game window
         this.scaleWindow.style.marginLeft = (width - newSize) / 2 + "px";
-        // this.scaleWindow.style.marginTop = Constants.headerHeight + "px";
     };
 }
+
+$("#easyMode").on("click", function () {
+    $("#gameScreen").show();
+});
+
+$("#hardMode").on("click", function () {
+    console.log("hard mode");
+});
