@@ -1,6 +1,7 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle, calculateOBB } from './collision.js';
-import { startTimer, stopTimer } from './timer.js';
+import { startTimer } from './timer.js';
+import { checkParkingCompletion } from './parkingspot.js';
 
 $(function () {
     // Car Vars
@@ -12,10 +13,6 @@ $(function () {
     const cone = $('#cone-obstacle');
     const dumpsterHitbox = $('#dumpster-hitbox');
     const dumpster = $('#dumpster-obstacle');
-
-    // Parking spot and messages
-    const parkingSpot = $('#parking-spot');
-    const missionCompleteMessage = $('#mission-complete-message');
 
     // Register obstacles
     registerObstacle(coneHitbox, cone);
@@ -55,32 +52,6 @@ $(function () {
     function updateCollisionVisual(collision) {
         $('#car-hitbox').css('background-color', collision ? 'rgba(0, 255, 0, 0.3)' : 'transparent');
     }
-
-    function checkParkingCompletion() {
-        const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
-        const playerCorners = calculateOBB(playerData);
-
-        const carFullyInSpot = isCarCompletelyInSpot(playerCorners, parkingSpotRect);
-
-        if (carFullyInSpot) {
-            missionCompleteMessage.show(); // Show mission complete message
-            stopTimer();
-            parkingSpot.addClass('glow'); // Add the glow effect to the parking spot
-        } else {
-            missionCompleteMessage.hide(); // Hide message if not fully parked
-            parkingSpot.removeClass('glow'); // Remove the glow effect if not parked
-        }
-    }       
-    
-    function isCarCompletelyInSpot(carCorners, spotRect) {
-        // Check if all corners of the car are within the parking spot
-        return carCorners.every(corner =>
-            corner.x >= spotRect.left &&
-            corner.x <= spotRect.right &&
-            corner.y >= spotRect.top &&
-            corner.y <= spotRect.bottom
-        );
-    }    
 
     // Handle key down
     function handleKeyDown(e) {
