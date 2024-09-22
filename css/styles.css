@@ -256,7 +256,10 @@ body {
     background-color: #767373;
     width: 1000px;
     height: 1000px;
+    font-size: 40px;
+    color: white;
     margin: 0 auto;
+    text-align: center;
     position: relative;
     z-index: 999;
     border: 2px dashed black;
