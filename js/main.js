@@ -30,11 +30,61 @@ $(function () {
         car.rotate(keys); // Rotate the car
         car.updateCSS();  // Update the car's position and rotation in the DOM
     }, 20); // Run the update loop 50 times per second
+
+    $("#easyMode").on("click", function () {
+        console.log("easy mode");
+
+        $("#parkingSpots .btn").unbind("click");
+        game.startScreen = false;
+
+        $(this).css("background-color", "darkgreen");
+
+        setTimeout(function () {
+            $("#start-scroll-window").animate({
+                opacity: 0
+            }, 500);
+        }, 700);
+
+        game.scaleWindow = document.getElementById("easyMode-scroll-window");
+        setTimeout(function () {
+            $("#start-scroll-window").hide();
+            $("#hardMode-scroll-window").hide();
+            $("#easyMode-scroll-window").animate({
+                opacity: 1
+            }, 500);
+        }, 1200);
+        game.resize();
+    });
+
+    $("#hardMode").on("click", function () {
+        console.log("hard mode");
+
+        $("#parkingSpots .btn").unbind("click");
+        game.startScreen = false;
+
+        $(this).css("background-color", "darkred");
+
+        setTimeout(function () {
+            $("#start-scroll-window").animate({
+                opacity: 0
+            }, 500);
+        }, 700);
+
+        game.scaleWindow = document.getElementById("hardMode-scroll-window");
+        setTimeout(function () {
+            $("#start-scroll-window").hide();
+            $("#easyMode-scroll-window").hide();
+            $("#hardMode-scroll-window").animate({
+                opacity: 1
+            }, 500);
+        }, 1200);
+        game.resize();
+    });
 });
 
 class Game {
     constructor() {
-        this.scaleWindow = document.getElementById("scroll-window");
+        this.scaleWindow = document.getElementById("start-scroll-window");
         this.scale = 1; // Default scale factor
         window.addEventListener("resize", this.resize);
         this.resize(); // Initialize the scale on page load
@@ -49,11 +99,3 @@ class Game {
         this.scaleWindow.style.marginLeft = (width - newSize) / 2 + "px";
     };
 }
-
-$("#easyMode").on("click", function () {
-    $("#gameScreen").show();
-});
-
-$("#hardMode").on("click", function () {
-    console.log("hard mode");
-});

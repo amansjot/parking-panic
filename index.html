@@ -27,7 +27,7 @@
       </div>
 
       <div id="window">
-        <div id="scroll-window">
+        <div class="scroll-window" id="start-scroll-window">
           <div id="drivingArea">
             <div id="parkingSpots">
               <button class="btn btn-lg btn-success" id="easyMode">
@@ -86,11 +86,17 @@
             </p>
           </div>
         </div>
+        <div class="scroll-window" id="easyMode-scroll-window" style="opacity: 0">
+          <div class="game" id="easyMode-game">
+            EASY MODE
+          </div>
+        </div>
+        <div class="scroll-window" id="hardMode-scroll-window" style="opacity: 0">
+          <div class="game" id="hardMode-game">
+            HARD MODE
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="container" id="gameScreen" style="display: none">
-      <h1 class="anton-regular">🏁 Parking Panic 🏎️</h1>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

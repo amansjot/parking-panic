@@ -9,12 +9,11 @@ class Car {
         this.currentSpeed = 0;
         this.maxForwardSpeed = 8;
         this.maxReverseSpeed = 5;
-        this.acceleration = 0.3;
+        this.acceleration = 0.4;
         this.deceleration = 0.2;
-        this.rotationSpeed = 4;
+        this.rotationSpeed = 3;
         this.scale = scale; // Store the scale factor
         this.headlightsOn = false; // Headlights start as off
-        this.startScreen = true;
     }
 
     // Function to move the car based on key input
@@ -66,9 +65,7 @@ class Car {
         this.y = newY;
 
         // Check if the car is inside the #easyMode button
-        if (this.startScreen) {
-            this.checkContainmentButtons();
-        }
+        this.checkContainmentButtons();
     }
 
     // Function to check if the car is contained within the #easyMode button
@@ -90,7 +87,6 @@ class Car {
             carRect.bottom <= easyModeRect.bottom
         ) {
             $("#easyMode").trigger("click");
-            this.startScreen = false;
         }
 
         if (
@@ -100,7 +96,6 @@ class Car {
             carRect.bottom <= hardModeRect.bottom
         ) {
             $("#hardMode").trigger("click");
-            this.startScreen = false;
         }
     }
 
