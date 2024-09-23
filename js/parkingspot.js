@@ -1,13 +1,13 @@
 //parkingspot.js
 import { stopTimer } from './timer.js';
-import { playerData } from './movement.js';
+import { playerData, stopCarMovement } from './movement.js';
 import { calculateOBB } from './collision.js';
 
 // Parking spot and messages
 const parkingSpot = $('#parking-spot');
 const missionCompleteMessage = $('#mission-complete-message');
 
-function checkParkingCompletion() {
+function checkParkingCompletion(setGameInactive) {
     const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
     const playerCorners = calculateOBB(playerData);
 
@@ -17,6 +17,8 @@ function checkParkingCompletion() {
         missionCompleteMessage.show(); // Show mission complete message
         stopTimer();
         parkingSpot.addClass('glow'); // Add the glow effect to the parking spot
+        stopCarMovement();
+        setGameInactive();
     } else {
         missionCompleteMessage.hide(); // Hide message if not fully parked
         parkingSpot.removeClass('glow'); // Remove the glow effect if not parked

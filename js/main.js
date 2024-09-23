@@ -1,6 +1,6 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
-import { checkCollisions, registerObstacle, calculateOBB } from './collision.js';
-import { startTimer } from './timer.js';
+import { checkCollisions, registerObstacle } from './collision.js';
+import { startTimer, stopTimer } from './timer.js';
 import { checkParkingCompletion } from './parkingspot.js';
 
 $(function () {
@@ -13,6 +13,8 @@ $(function () {
     const cone = $('#cone-obstacle');
     const dumpsterHitbox = $('#dumpster-hitbox');
     const dumpster = $('#dumpster-obstacle');
+
+    let gameActive = true;
 
     // Register obstacles
     registerObstacle(coneHitbox, cone);
@@ -41,12 +43,14 @@ $(function () {
     headlights.hide();
 
     function updatePlayer() {
-        moveCar(keys, startTimer);
-        rotateCar(keys);
-        updatePlayerCSS(player);
-        const collision = checkCollisions(playerData);
-        updateCollisionVisual(collision);
-        checkParkingCompletion();
+        if (gameActive) {
+            moveCar(keys, startTimer);
+            rotateCar(keys);
+            updatePlayerCSS(player);
+            const collision = checkCollisions(playerData);
+            updateCollisionVisual(collision);
+            checkParkingCompletion(setGameInactive); // Check if the game should end
+        }
     }
 
     function updateCollisionVisual(collision) {
@@ -55,6 +59,7 @@ $(function () {
 
     // Handle key down
     function handleKeyDown(e) {
+        if (!gameActive) return;
         const key = e.key.toLowerCase();
     
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
@@ -69,11 +74,17 @@ $(function () {
 
     // Handle key up
     function handleKeyUp(e) {
+        if (!gameActive) return;
         const key = e.key.toLowerCase();
     
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
             keys[key] = false;
             keys[e.code] = false;
         }
+    }
+
+    // This function sets game as inactive
+    function setGameInactive() {
+        gameActive = false; // Disable game active status to stop car movement
     }
 });

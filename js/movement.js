@@ -20,7 +20,10 @@ let playerData = {
     headlightsOn: false
 };
 
+let gameActive = true;
+
 function moveCar(keys, startTimer) {
+    if (!gameActive) return;
     if (keys.w || keys.ArrowUp) {  // If 'w' or up arrow is pressed, accelerate forward
         startTimer();
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
@@ -64,8 +67,12 @@ function moveCar(keys, startTimer) {
     playerData.y = newY;
 }
 
+function stopCarMovement() {
+    gameActive = false; // Disable game active status to stop car movement
+}
 
 function rotateCar(keys) {
+    if (!gameActive) return;
     if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
         // Scale rotation speed based on the current speed
         let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
@@ -102,4 +109,4 @@ function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights };
+export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights, stopCarMovement };

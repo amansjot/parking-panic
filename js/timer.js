@@ -1,7 +1,9 @@
 // timer.js
+import { stopCarMovement } from './movement.js';
 
 let timeLeft = 30; // Starting time in seconds
 let timerInterval;
+let gameActive = true;
 
 //constant variables
 const timerElement = $('#timer-display');
@@ -9,7 +11,7 @@ const missionFailedMessage = $('#mission-failed-message');
 
 // Start the timer
 function startTimer() {
-    if (!timerInterval) {
+    if (!timerInterval && gameActive) {
         timerInterval = setInterval(updateTimer, 1000);
     }
 }
@@ -23,6 +25,8 @@ function updateTimer() {
         stopTimer();
         timerElement.text("Time's up!");
         missionFailedMessage.show();
+        stopCarMovement();
+        gameActive = false;
     }
 }
 
@@ -40,4 +44,4 @@ function resetTimer() {
     timerElement.text(timeLeft);
 }
 
-export { startTimer, stopTimer, resetTimer };
+export { startTimer, stopTimer, resetTimer, gameActive };
