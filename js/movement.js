@@ -14,10 +14,16 @@ class Car {
         this.rotationSpeed = 3;
         this.scale = scale; // Store the scale factor
         this.headlightsOn = false; // Headlights start as off
+        this.lastValidX = this.x; // Store last valid X position
+        this.lastValidY = this.y; // Store last valid Y position
     }
 
     // Function to move the car based on key input
     move(keys) {
+        // Save the current position before calculating the new one
+        this.lastValidX = this.x;
+        this.lastValidY = this.y;
+
         // Handle acceleration and deceleration with both W/S and ArrowUp/ArrowDown
         if (keys.w || keys.ArrowUp) {
             this.currentSpeed = Math.min(this.currentSpeed + this.acceleration, this.maxForwardSpeed);
@@ -60,12 +66,51 @@ class Car {
         if (newY < 0) newY = 0;
         if (newY > maxY) newY = maxY;
 
-        // Update the car's position
-        this.x = newX;
-        this.y = newY;
+        // // Update the car's position
+        // this.x = newX;
+        // this.y = newY;
 
-        // Check if the car is inside the #easyMode button
+        // Check if the car is inside the mode buttons
         this.checkContainmentButtons();
+
+        // Check for collision before updating the car's position
+        const collision = this.checkCollision(newX, newY);
+
+        // If no collision, update the car's position
+        if (!collision.xCollision && !collision.yCollision) {
+            this.x = newX;
+            this.y = newY;
+        } else {
+            // If a collision occurs, revert to the last valid position
+            this.x = this.lastValidX;
+            this.y = this.lastValidY;
+        }
+    }
+
+    checkCollision(newX, newY) {
+        const coneHitbox = document.getElementById('cone-hitbox');
+        const carRect = this.playerElement.getBoundingClientRect();
+        const coneRect = coneHitbox.getBoundingClientRect();
+
+        let xCollision = false;
+        let yCollision = false;
+
+        // Calculate the car's new rectangle based on the new position
+        const newCarRect = carRect;
+
+        // Check if the car's hitbox overlaps with the cone's hitbox
+        if (
+            newCarRect.left < coneRect.right &&
+            newCarRect.right > coneRect.left &&
+            newCarRect.top < coneRect.bottom &&
+            newCarRect.bottom > coneRect.top
+        ) {
+            console.log("Collision detected!");
+            xCollision = true;
+            yCollision = true;
+        }
+
+        return { xCollision, yCollision };
     }
 
     // Function to check if the car is contained within the #easyMode button

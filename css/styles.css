@@ -99,6 +99,7 @@ body {
     transform-origin: center;
     background-color: rgba(0, 255, 0, 0.3);
     border: 1px solid green;
+    opacity: 1;
     z-index: 3;
     /* Below car */
 }
@@ -117,7 +118,7 @@ body {
 
 #cone-hitbox {
     position: absolute;
-    width: 40px;
+    width: 30px;
     /* Adjust these dimensions as needed */
     height: 60px;
     top: 50%;
@@ -125,6 +126,7 @@ body {
     transform: translate(-50%, -50%);
     background-color: rgba(255, 0, 0, 0.3);
     border: 1px solid red;
+    opacity: 1;
     z-index: 3;
 }
 
