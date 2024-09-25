@@ -7,24 +7,37 @@ import { calculateOBB } from './collision.js';
 const parkingSpot = $('#parking-spot');
 const missionCompleteMessage = $('#mission-complete-message');
 
-function checkParkingCompletion(setGameInactive) {
+/**
+ * Checks if the car has been parked correctly by determining
+ * if all corners of the car are fully within the parking spot.
+ * If the car is parked, it shows the mission complete message,
+ * stops the timer and car movement, and calls setGameInactive.
+ * If the car isn't parked, it hides the message and removes the glow.
+ */
+function checkParkingCompletion() {
     const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
     const playerCorners = calculateOBB(playerData);
 
     const carFullyInSpot = isCarCompletelyInSpot(playerCorners, parkingSpotRect);
 
     if (carFullyInSpot) {
-        missionCompleteMessage.show(); // Show mission complete message
+        missionCompleteMessage.show(); 
         stopTimer();
-        parkingSpot.addClass('glow'); // Add the glow effect to the parking spot
+        parkingSpot.addClass('glow'); 
         stopCarMovement();
         setGameInactive();
     } else {
-        missionCompleteMessage.hide(); // Hide message if not fully parked
-        parkingSpot.removeClass('glow'); // Remove the glow effect if not parked
+        missionCompleteMessage.hide();
+        parkingSpot.removeClass('glow');
     }
 }       
 
+/**
+ * Determines if all corners of the car are within the boundaries of the parking spot.
+ * Returns true if the car is completely inside the parking spot, otherwise false.
+ * @param {Array} carCorners - The corners of the car's bounding box.
+ * @param {DOMRect} spotRect - The dimensions of the parking spot.
+ */
 function isCarCompletelyInSpot(carCorners, spotRect) {
     // Check if all corners of the car are within the parking spot
     return carCorners.every(corner =>
@@ -33,6 +46,12 @@ function isCarCompletelyInSpot(carCorners, spotRect) {
         corner.y >= spotRect.top &&
         corner.y <= spotRect.bottom
     );
-}    
+}
 
-export { checkParkingCompletion };
+// Reset the parking spot file
+function resetParkingFile() {
+    missionCompleteMessage.hide(); 
+    parkingSpot.removeClass('glow'); 
+}
+
+export { checkParkingCompletion, resetParkingFile };

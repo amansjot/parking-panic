@@ -1,3 +1,5 @@
+import { isGameActive, setGameActive } from './gamestate.js';
+
 // Player data
 let playerData = {
     // Starting Positioning & Dimensions
@@ -20,10 +22,9 @@ let playerData = {
     headlightsOn: false
 };
 
-let gameActive = true;
-
+// Moves the car based on key presses and updates its position and speed
 function moveCar(keys, startTimer) {
-    if (!gameActive) return;
+    if (!isGameActive()) return;
     if (keys.w || keys.ArrowUp) {  // If 'w' or up arrow is pressed, accelerate forward
         startTimer();
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
@@ -67,12 +68,14 @@ function moveCar(keys, startTimer) {
     playerData.y = newY;
 }
 
+// Stops the car's movement by setting the game state to inactive
 function stopCarMovement() {
-    gameActive = false; // Disable game active status to stop car movement
+    setGameActive(false); // Disable game active status to stop car movement
 }
 
+// Rotates the car left or right based on key presses
 function rotateCar(keys) {
-    if (!gameActive) return;
+    if (!isGameActive()) return;
     if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
         // Scale rotation speed based on the current speed
         let speedFactor = Math.abs(playerData.currentSpeed) / playerData.maxForwardSpeed; // Ranges from 0 to 1
@@ -87,6 +90,7 @@ function rotateCar(keys) {
     }
 }
 
+// Updates the car's CSS position and rotation on the screen
 function updatePlayerCSS(player) {
     player.css({
         top: `${playerData.y}px`,
@@ -95,6 +99,7 @@ function updatePlayerCSS(player) {
     });
 }
 
+// Toggles the car's headlights on and off
 function toggleHeadlights(headlights) {
     playerData.headlightsOn = !playerData.headlightsOn;
 
@@ -105,8 +110,17 @@ function toggleHeadlights(headlights) {
     }
 }
 
+// Converts degrees to radians for rotation calculations
 function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights, stopCarMovement };
+// Resets the car's position, angle, and speed to its initial state
+function resetCarPosition() {
+    playerData.x = 200;
+    playerData.y = 200;
+    playerData.angle = 0;
+    playerData.currentSpeed = 0;
+}
+
+export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights, stopCarMovement, resetCarPosition };

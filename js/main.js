@@ -1,7 +1,8 @@
-import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
+import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights, resetCarPosition } from './movement.js';
 import { checkCollisions, registerObstacle } from './collision.js';
-import { startTimer, stopTimer } from './timer.js';
-import { checkParkingCompletion } from './parkingspot.js';
+import { startTimer, resetTimerFile } from './timer.js';
+import { checkParkingCompletion, resetParkingFile } from './parkingspot.js';
+import { setGameActive, isGameActive } from './gamestate.js'; 
 
 $(function () {
     // Car Vars
@@ -14,7 +15,10 @@ $(function () {
     const dumpsterHitbox = $('#dumpster-hitbox');
     const dumpster = $('#dumpster-obstacle');
 
-    let gameActive = true;
+    // Parking Vars
+    const parkingSpot = $('#parking-spot');
+    const missionCompleteMessage = $('#mission-complete-message');
+    const missionFailedMessage = $('#mission-failed-message');
 
     // Register obstacles
     registerObstacle(coneHitbox, cone);
@@ -43,23 +47,24 @@ $(function () {
     headlights.hide();
 
     function updatePlayer() {
-        if (gameActive) {
+        if (isGameActive()) {
             moveCar(keys, startTimer);
             rotateCar(keys);
             updatePlayerCSS(player);
             const collision = checkCollisions(playerData);
             updateCollisionVisual(collision);
-            checkParkingCompletion(setGameInactive); // Check if the game should end
+            checkParkingCompletion(); 
         }
     }
 
+    // Create collision visual: green box when there is a collision
     function updateCollisionVisual(collision) {
         $('#car-hitbox').css('background-color', collision ? 'rgba(0, 255, 0, 0.3)' : 'transparent');
     }
 
     // Handle key down
     function handleKeyDown(e) {
-        if (!gameActive) return;
+        if (!isGameActive()) return; 
         const key = e.key.toLowerCase();
     
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
@@ -74,7 +79,7 @@ $(function () {
 
     // Handle key up
     function handleKeyUp(e) {
-        if (!gameActive) return;
+        if (!isGameActive()) return; 
         const key = e.key.toLowerCase();
     
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
@@ -84,7 +89,17 @@ $(function () {
     }
 
     // This function sets game as inactive
-    function setGameInactive() {
-        gameActive = false; // Disable game active status to stop car movement
+    // setGameInactive function is defined in the global scope (attached to the window object)
+    window.setGameInactive = function() {
+        setGameActive(false); 
+        setTimeout(resetGame, 3000); 
+    }
+
+    // Reset the game
+    function resetGame() {
+        resetCarPosition(); // Reset car position and speed
+        resetTimerFile(); // Reset the timer
+        resetParkingFile();
+        setGameActive(true); // Reactivate game
     }
 });
