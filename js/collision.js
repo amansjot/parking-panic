@@ -8,14 +8,14 @@ function checkCollisions(playerData) {
     const playerCorners = calculateOBB(playerData);
 
     for (let { hitbox, element } of obstacles) {
-        const hitboxRect = hitbox[0].getBoundingClientRect();
-        const obstacleRect = element[0].getBoundingClientRect();
+        const hitboxRect = getElementRect(hitbox[0]);
+        const obstacleRect = getElementRect(element[0]);
         
         const adjustedHitboxRect = {
-            left: hitboxRect.left - obstacleRect.left + obstacleRect.left,
-            top: hitboxRect.top - obstacleRect.top + obstacleRect.top,
-            right: hitboxRect.right - obstacleRect.left + obstacleRect.left,
-            bottom: hitboxRect.bottom - obstacleRect.top + obstacleRect.top
+            left: hitboxRect.left,
+            top: hitboxRect.top,
+            right: hitboxRect.right,
+            bottom: hitboxRect.bottom
         };
 
         if (checkCollision(playerCorners, adjustedHitboxRect)) {
@@ -24,6 +24,21 @@ function checkCollisions(playerData) {
     }
 
     return false;
+}
+
+function getElementRect(element) {
+    const rect = element.getBoundingClientRect();
+    const scrollWindow = document.getElementById('scroll-window');
+    const scrollRect = scrollWindow.getBoundingClientRect();
+    
+    return {
+        left: rect.left - scrollRect.left,
+        top: rect.top - scrollRect.top,
+        right: rect.right - scrollRect.left,
+        bottom: rect.bottom - scrollRect.top,
+        width: rect.width,
+        height: rect.height
+    };
 }
 
 function calculateOBB(data) {

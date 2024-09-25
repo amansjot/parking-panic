@@ -1,16 +1,8 @@
 /* Game Background + Text */
 
-/* Global Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* Body Styling */
-body {
-    height: 100vh;
-    overflow: hidden;
+body{
+	margin:0;
 }
 
 /* Container */
@@ -20,7 +12,31 @@ body {
     overflow-y: auto;
     background-color: rgb(65, 65, 65);
     text-align: center;
+    position:relative;
+    overflow: hidden;
     z-index: 1;
+}
+
+#window{
+	position: absolute;
+	top:50px;
+	left:0;
+	width:100%;
+	bottom:50px;
+	overflow: hidden;
+}
+#scroll-window{
+	position: relative;
+	margin: auto;
+	width:1000px;
+	height:1000px;
+	border-radius:5px;
+	transform-origin: top left;
+	border:1px solid white;
+	box-sizing: content-box;
+	overflow:hidden;
+	background-image: url(../img/bg2.jpg);
+
 }
 
 #ProjectTitle, 

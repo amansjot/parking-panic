@@ -21,13 +21,13 @@ let playerData = {
 };
 
 function moveCar(keys) {
-    if (keys.w || keys.ArrowUp) {  // If 'w' or up arrow is pressed, accelerate forward
+    if (keys.w || keys.ArrowUp) {
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
     } 
-    else if (keys.s || keys.ArrowDown) {  // If 's' or down arrow is pressed, accelerate backward
+    else if (keys.s || keys.ArrowDown) {
         playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
     } 
-    else {  // If no key is pressed, gradually slow down (decelerate)
+    else {
         if (playerData.currentSpeed > 0) {
             playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.deceleration, 0);
         } 
@@ -36,9 +36,12 @@ function moveCar(keys) {
         }
     }
 
-    // Update the car's position based on current speed and direction (angle)
-    playerData.x += playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
-    playerData.y += playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+    const newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
+    const newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+
+    // Constrain the player within the game window
+    playerData.x = Math.max(0, Math.min(newX, 1000 - playerData.width));
+    playerData.y = Math.max(0, Math.min(newY, 1000 - playerData.height));
 }
 
 function rotateCar(keys) {
