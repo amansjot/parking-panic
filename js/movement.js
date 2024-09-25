@@ -4,8 +4,8 @@ class Car {
         this.x = 200;
         this.y = 200;
         this.angle = 90;
-        this.width = 70;
-        this.height = 140;
+        this.width = 50;
+        this.height = 100;
         this.currentSpeed = 0;
         this.maxForwardSpeed = 8;
         this.maxReverseSpeed = 5;

@@ -22,8 +22,10 @@
     <div class="game" id="startScreen">
       <div class="header">
         <h1>Parking Panic</h1>
-        <p>Group 8: Aman Singh • Julia O'Neill • Kyle Malice • Solenn Gacon • Suhas
-          Bolledula</p>
+        <p>
+          Group 8: Aman Singh • Julia O'Neill • Kyle Malice • Solenn Gacon •
+          Suhas Bolledula
+        </p>
       </div>
 
       <div id="window">
@@ -34,7 +36,9 @@
                 Easy Mode
               </button>
               <br />
-              <button class="btn btn-lg btn-danger" id="hardMode">Hard Mode</button>
+              <button class="btn btn-lg btn-danger" id="hardMode">
+                Hard Mode
+              </button>
             </div>
             <div id="car">
               <img id="playersCarIMG" src="img/StarterCarSkin.png" alt="Car" />
@@ -45,56 +49,92 @@
               </div>
             </div>
             <div id="obstacle">
-              <img id="obstacle-coneIMG" src="img/cone.png" alt="Traffic Cone" />
+              <img
+                id="obstacle-coneIMG"
+                src="img/cone.png"
+                alt="Traffic Cone"
+              />
               <div id="cone-hitbox"></div>
             </div>
           </div>
 
-          <div id="Controls" style="font-size: 32px; text-align: center;">
+          <div id="Controls" style="font-size: 32px; text-align: center">
             <h1 id="ControlHeader" style="font-size: 55px">Controls</h1>
             <p id="ControlListing">
               Forward:
-              <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="40" /> or
+              <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="40" />
+              or
               <img
                 src="img/keyboard-keys/Up-Arrow.svg"
                 alt="Up Arrow Key"
                 width="40"
               /><br />
               Backward:
-              <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="40" /> or
+              <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="40" />
+              or
               <img
                 src="img/keyboard-keys/Down-Arrow.svg"
                 alt="Down Arrow Key"
                 width="40"
               /><br />
               Left:
-              <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="40" /> or
+              <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="40" />
+              or
               <img
                 src="img/keyboard-keys/Left-Arrow.svg"
                 alt="Left Arrow Key"
                 width="40"
               /><br />
               Right:
-              <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="40" /> or
+              <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="40" />
+              or
               <img
                 src="img/keyboard-keys/Right-Arrow.svg"
                 alt="Right Arrow Key"
                 width="40"
               /><br />
               Headlights:
-              <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="40" /><br />
+              <img
+                src="img/keyboard-keys/H-Key.svg"
+                alt="H Key"
+                width="40"
+              /><br />
             </p>
           </div>
         </div>
-        <div class="scroll-window" id="easyMode-scroll-window" style="opacity: 0">
+        <div
+          class="scroll-window"
+          id="easyMode-scroll-window"
+          style="opacity: 0"
+        >
           <div class="game" id="easyMode-game">
-            EASY MODE
+            <img
+              src="./img/parkinglot.png"
+              alt="Parking Lot Background"
+              id="easyBG"
+            />
+            <div id="easy-drivingArea">
+              <div id="easyMode-car">
+                <img
+                  id="playersCarIMG"
+                  src="img/StarterCarSkin.png"
+                  alt="Car"
+                />
+                <div id="car-hitbox"></div>
+                <div id="headlights">
+                  <div id="left-headlight"></div>
+                  <div id="right-headlight"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="scroll-window" id="hardMode-scroll-window" style="opacity: 0">
-          <div class="game" id="hardMode-game">
-            HARD MODE
-          </div>
+        <div
+          class="scroll-window"
+          id="hardMode-scroll-window"
+          style="opacity: 0"
+        >
+          <div class="game" id="hardMode-game">HARD MODE</div>
         </div>
       </div>
     </div>
