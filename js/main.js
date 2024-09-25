@@ -1,6 +1,7 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle } from './collision.js';
 import { scaleGame } from './scaling.js';
+import { updateSpot } from './random_spot.js';
 
 
 $(function () {
@@ -8,6 +9,8 @@ $(function () {
    const player = $('#car');
    const headlights = $('#headlights');
 
+    //setup Parking Spot
+    updateSpot();
 
    // Obstacle Vars
    const coneHitbox = $('#cone-hitbox');
@@ -48,7 +51,7 @@ $(function () {
    // Set initial state: Turn headlights off
    headlights.hide();
 
-
+   
 
 
    function updatePlayer() {

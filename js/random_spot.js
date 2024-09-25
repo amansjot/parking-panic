@@ -1,6 +1,6 @@
 //Randomizing which parking spot gets chosen for round
 
-spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seven",
+const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seven",
 8:"eight", 9:"nine", 10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen",
 15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty",
 21: "twenty-one", 22: "twenty-two", 23: "twenty-three", 24: "twenty-four", 25: "twenty-five",
@@ -11,7 +11,17 @@ spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seven",
 48: "fourty-eight", 49: "fourty-nine"
 }
 
-
-for ((key, value) in spots){
-
+function randomSpot(){ //Gets the random spot number
+    const num = Math.floor((Math.random() * 49) + 1);
+    return num;
 }
+
+function updateSpot(){//Take a random number, associates it with a spot, and adjusts the spots css to glow
+    const spotNum = randomSpot();
+    const spotId = spots[spotNum];//Gets id value for it's div
+    const spotDiv = document.getElementById(spotId);
+    spotDiv.style.border= "3px dashed yellow;";
+    /*spotDiv.style.backgroundColor= "rgba(255, 255, 0, 0.1)";*/
+}
+
+export {updateSpot, randomSpot}

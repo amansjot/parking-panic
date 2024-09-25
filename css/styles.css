@@ -102,64 +102,65 @@
     z-index: 2;
     width: 3.35%;
     height: 7.75%;
+    opacity: 0;
  }
 
  /*Top Row Of spots*/
  #one{
     top: 18.7%;
     left:32.34%;
-    opacity: 0.5;
+    /*opacity: 0.5;*/
  }
  #two{
     top: 18.7%;
     left:35.87%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #three{
     top: 18.7%;
     left:39.43%;
-    opacity: .5;
+     /*opacity: 0.5;*/
 }
 #four{
     top: 18.7%;
     left:42.93%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #five{
     top: 18.7%;
     left:46.45%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
 
  #six{
     top: 18.7%;
     left:49.94%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #seven{
     top: 18.7%;
     left:53.46%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #eight{
     top: 18.7%;
     left:57%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #nine{
     top: 18.7%;
     left:60.53%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #ten{
     top: 18.7%;
     left:63.96%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #eleven{
     top: 18.7%;
     left:67.58%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
 
  /* Top Left side Parking Group */
@@ -168,44 +169,44 @@
  #twelve{
     top: 31.3%;
     left:35.95%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #thirteen{
     top: 31.3%;
     left:39.47%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #fourteen{
     top: 31.3%;
     left:42.98%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #fifteen{
     top: 31.3%;
     left:46.55%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
 
  /* Bottom Row */
  #sixteen{
     top: 40.6%;
     left:35.95%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #seventeen{
     top: 40.6%;
     left:39.47%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
  #eighteen{
     top: 40.6%;
     left:42.98%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #nineteen{
     top: 40.6%;
     left:46.55%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
 
  /* Top Right side Parking Group */
@@ -214,46 +215,46 @@
  #twenty{
     top: 31.3%;
     left:53.6%;
-    opacity: .5;
+     /*opacity: 0.5;*/
  }
 
  #twenty-one{
     top: 31.3%;
     left:57.1%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #twenty-two{
     top: 31.3%;
     left:60.6%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
 
  #twenty-three{
     top: 31.3%;
     left:64.1%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  /* Bottom Row */
 
  #twenty-four{
     top: 40.6%;
     left:53.6%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #twenty-five{
     top: 40.6%;
     left:57.1%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #twenty-six{
     top: 40.6%;
     left:60.6%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #twenty-seven{
     top: 40.6%;
     left:64.1%;
-    opacity: .5;
+   /*opacity: 0.5;*/
  }
 
  /* Bottom Left Parking Group*/
@@ -262,27 +263,27 @@
  #twenty-eight{
     top: 56.25%;
     left:35.95%;
-    opacity: .5;
+   /*opacity: 0.5;*/
  }
  #twenty-nine{
     top: 56.25%;
     left:39.47%;
-    opacity: .5;
+   /*opacity: 0.5;*/
  }
  #thirty{
     top: 56.25%;
     left:42.98%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #thirty-one{
     top: 56.25%;
     left:46.55%;
-    opacity: .5;
+ /*opacity: 0.5;*/
  }
  #thirty-two{
     top: 56.25%;
     left:50.05%;
-    opacity: .5;
+ /*opacity: 0.5;*/
  }
 
  /* Bottom Row*/
@@ -293,7 +294,7 @@
     height: 8.3%;
     top: 66.3%;
     left:35.35%;
-    opacity: .5;
+   /*opacity: 0.5;*/
     rotate: 18deg;
 }
 
@@ -302,7 +303,7 @@
     height: 8.6%;
     top: 66.5%;
     left:38.35%;
-    opacity: .5;
+  /*opacity: 0.5;*/
     rotate: 18deg;
  }
  #thirty-five{
@@ -310,7 +311,7 @@
     height: 8.6%;
     top: 66.5%;
     left:41.1%;
-    opacity: .5;
+    /*opacity: 0.5;*/
     rotate: 18deg;
  }
  #thirty-six{
@@ -318,7 +319,7 @@
     height: 8.6%;
     top: 66.5%;
     left:43.99%;
-    opacity: .5;
+    /*opacity: 0.5;*/
     rotate: 18deg;
  }
  #thirty-seven{
@@ -326,7 +327,7 @@
     height: 8.6%;
     top: 66.5%;
     left:46.99%;
-    opacity: .5;
+  /*opacity: 0.5;*/
     rotate: 18deg;
  }
 
@@ -335,13 +336,13 @@
  #thirty-eight{
     top: 58.34%;
     left:54.9%;
-    opacity: .5;
+    /*opacity: 0.5;*/
     rotate:90deg;
  }
  #thirty-nine{
     top: 64.56%;
     left:54.9%;
-    opacity: .5;
+    /*opacity: 0.5;*/
     rotate:90deg;
  }
 
@@ -349,13 +350,13 @@
  #fourty{
     top: 58.34%;
     left:60.25%;
-    opacity: .5;
+  /*opacity: 0.5;*/
     rotate:90deg;
  }
  #fourty-one{
     top: 64.56%;
     left:60.25%;
-    opacity: .5;
+    /*opacity: 0.5;*/
     rotate:90deg;
  }
 
@@ -363,40 +364,40 @@
  #fourty-two{
     top: 81.28%;
     left:42.9%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #fourty-three{
     top: 81.28%;
     left:46.45%;
-    opacity: .5;
+   /*opacity: 0.5;*/
  }
  #fourty-four{
     top: 81.28%;
     left:49.95%;
-    opacity: .5;
+    /*opacity: 0.5;*/
  }
  #fourty-five{
     top: 81.28%;
     left:53.48%;
-    opacity: .5;
+   /*opacity: 0.5;*/
  }
  #fourty-six{
     top: 81.28%;
     left:56.96%;
-    opacity: .5;
+  /*opacity: 0.5;*/
  }
  #fourty-seven{
     top: 81.28%;
     left:60.48%;
-    opacity: .5;
+ /*opacity: 0.5;*/
  }
  #fourty-eight{
     top: 81.28%;
     left:63.99%;
-    opacity: .5;
+ /*opacity: 0.5;*/
  }
  #fourty-nine{
     top: 81.28%;
     left:67.57%;
-    opacity: .5;
+ /*opacity: 0.5;*/
  }
