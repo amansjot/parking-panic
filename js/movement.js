@@ -4,8 +4,8 @@ let playerData = {
     x: 200,
     y: 200,
     angle: 0,
-    width: 50,
-    height: 100,
+    width: 35,
+    height: 70,
 
     // Speed & Movement
     maxForwardSpeed: 2,
