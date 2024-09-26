@@ -89,13 +89,13 @@ body{
 #lives-counter {
     display: none;
     position: absolute;
-    background-color: black;
+    background-color: rgb(0, 0, 0, 0.7);
     color: white;
     top: 10px;
     right: 10px;
     padding: 12px 15px;
     font-size: 40px;
-    width: 140px;
+    width: auto;
     font-family: "Silkscreen", sans-serif;
 }
 

@@ -115,7 +115,11 @@ $(function () {
     }
 
     function resetLives() {
-        lives = 3;
+        if (gameState == "easy-mode") {
+            lives = 5;
+        } else if (gameState == "hard-mode") {
+            lives = 3;
+        }
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
