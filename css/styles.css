@@ -13,38 +13,53 @@ body{
     background-color: rgb(65, 65, 65);
     text-align: center;
     position:relative;
-    overflow: hidden;
     z-index: 1;
 }
 
-#window{
-	position: absolute;
-	top:50px;
-	left:0;
-	width:100%;
-	bottom:50px;
-	overflow: hidden;
-}
-#scroll-window{
-	position: relative;
-	margin: auto;
-	width:1000px;
-	height:1000px;
-	border-radius:5px;
-	transform-origin: top left;
-	border:1px solid white;
-	box-sizing: content-box;
-	overflow:hidden;
-	background-image: url(../img/parkinglot.png);
-
+#window {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    height: calc(100vh - 100px); /* Ensure it uses the full height minus the margins */
+    overflow: hidden;
 }
 
-#ProjectTitle, 
-#GroupListing {
+
+#scroll-window {
+    position: relative;
+    margin: auto;
+    width: 1000px;
+    height: 1000px;
+    min-height: 1000px; /* Ensures the container doesn't shrink below the image size */
+    min-width: 1000px;
+    border-radius: 5px;
+    transform-origin: top left;
+    border: 1px solid white;
+    box-sizing: content-box;
+    overflow: hidden;
+    background-image: url(../img/parkinglot.png);
+    background-size: contain;
+    background-position: center;
+}
+
+
+
+#ProjectTitle {
     font-family: "Silkscreen", sans-serif;
-    font-weight: 700;
+    font-weight: 500;
     font-style: normal;
     color: white;
+    margin-bottom: 10px; /* Reduce the space below the title */
+}
+
+#GroupListing {
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+    margin-top: 5px; /* Reduce the space above the group listing */
 }
 
 #Controls {

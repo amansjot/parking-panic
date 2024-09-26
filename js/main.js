@@ -4,8 +4,8 @@ import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 $(function () {
     // Scaling functionality
     const $scaleWindow = $('#scroll-window'); // Use jQuery to select the element
-    let unscaledSize = 1002;
-    let headerHeight = 0;
+    let unscaledSize = 1000;
+    let headerHeight = 150;
 
     // Initial resize
     resize();
