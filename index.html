@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/obstacles.css">
   <link rel="stylesheet" href="css/car.css">
+  <link rel="stylesheet" href="css/hud.css">
 
   <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -27,16 +28,19 @@
 </head>
 <body>
   <div id="container">
-    <h1 id="ProjectTitle">🏁 Parking Panic 🏎️</h1>
 
-    <p id="Subtitle">
-      Group 8:
-      Aman Singh,
-      Julia O'Neill,
-      Kyle Malice,
-      Solenn Gacon,
-      Suhas Bolledula
-    </p>
+    <div id="heading">
+      <h1 id="project-title">🏁 Parking Panic 🏎️</h1>
+
+      <p id="group-listing">
+        Group 8:
+        Aman Singh,
+        Julia O'Neill,
+        Kyle Malice,
+        Solenn Gacon,
+        Suhas Bolledula
+      </p>
+    </div>
 
     <div id="window">
       <div id="scroll-window">
@@ -55,9 +59,6 @@
         </div>
 
         <div id="lives-counter">
-          <!-- <div class="game-life">💙</div>
-          <div class="game-life">💙</div>
-          <div class="game-life">💙</div> -->
         </div>
 
         <div id="start-buttons">
@@ -78,9 +79,9 @@
       </div>
     </div>
 
-    <div id="Controls">
-      <h1 id="ControlHeader">Controls:</h1>
-      <p id="ControlListing">
+    <div id="controls">
+      <h1 id="control-header">Controls:</h1>
+      <p id="control-listing">
         Forward: <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30"> or <img src="img/keyboard-keys/Up-Arrow.svg" alt="Up Arrow Key" width="30"><br>
         Backwards: <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30"> or <img src="img/keyboard-keys/Down-Arrow.svg" alt="Down Arrow Key" width="30"><br>
         Left: <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30"> or <img src="img/keyboard-keys/Left-Arrow.svg" alt="Left Arrow Key" width="30"><br>

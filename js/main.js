@@ -123,7 +123,15 @@ $(function () {
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
-            life.innerHTML = "💙";
+            
+            // Create an image element
+            const lifeImg = document.createElement("img");
+            lifeImg.src = "../img/hud/wrench-screwdriver.png";
+            lifeImg.alt = "Life"; // Alt text for accessibility
+            lifeImg.width = 40; // Adjust the size if needed
+    
+            // Append the image to the life div
+            life.appendChild(lifeImg);
             $("#lives-counter").append(life);
         }
     }
