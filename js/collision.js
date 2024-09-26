@@ -1,5 +1,11 @@
 const obstacles = [];
 
+let currentScale = 1;
+
+function updateScale(scale) {
+    currentScale = scale;
+}
+
 function registerObstacle(hitbox, element) {
     obstacles.push({ hitbox, element });
 }
@@ -32,12 +38,12 @@ function getElementRect(element) {
     const scrollRect = scrollWindow.getBoundingClientRect();
     
     return {
-        left: rect.left - scrollRect.left,
-        top: rect.top - scrollRect.top,
-        right: rect.right - scrollRect.left,
-        bottom: rect.bottom - scrollRect.top,
-        width: rect.width,
-        height: rect.height
+        left: (rect.left - scrollRect.left) / currentScale,
+        top: (rect.top - scrollRect.top) / currentScale,
+        right: (rect.right - scrollRect.left) / currentScale,
+        bottom: (rect.bottom - scrollRect.top) / currentScale,
+        width: rect.width / currentScale,
+        height: rect.height / currentScale
     };
 }
 
@@ -94,4 +100,4 @@ function projectOntoAxis(corners, axis) {
     return { min: Math.min(...dots), max: Math.max(...dots) };
 }
 
-export { checkCollisions, registerObstacle };
+export { checkCollisions, registerObstacle, updateScale };

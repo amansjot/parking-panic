@@ -1,7 +1,16 @@
 import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
-import { checkCollisions, registerObstacle } from './collision.js';
+import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
+    // Scaling functionality
+    const $scaleWindow = $('#scroll-window'); // Use jQuery to select the element
+    let unscaledSize = 1002;
+    let headerHeight = 0;
+
+    // Initial resize
+    resize();
+
+
     // Car Vars
     const player = $('#car');
     const headlights = $('#headlights');
@@ -38,6 +47,23 @@ $(function () {
 
     // Set initial state: Turn headlights off
     headlights.hide();
+
+    function resize() {
+        let width = window.innerWidth;
+        let height = window.innerHeight - headerHeight;
+        let newSize = Math.min(width, height);
+        let scale = newSize / unscaledSize;
+    
+        $scaleWindow.css('transform', `scale(${scale})`);
+        $scaleWindow.css('margin-left', (width - newSize) / 2 + "px");
+        
+        // Update the scale in collision.js
+        updateScale(scale);
+    }
+
+    // Add resize event listener
+    window.addEventListener("resize", resize);  // Resize game window on resize event
+
 
 
     function updatePlayer() {
