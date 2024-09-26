@@ -1,4 +1,4 @@
-import { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
+import { playerData, moveCar, rotateCar, resetCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
@@ -74,6 +74,9 @@ $(function () {
         rotateCar(keys);
         updatePlayerCSS(player);
         const collision = checkCollisions(playerData);
+        if (collision) {
+            resetCar(keys);
+        }
         updateCollisionVisual(collision);
     }
 

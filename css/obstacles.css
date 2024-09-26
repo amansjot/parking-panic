@@ -1,8 +1,8 @@
 /* Cone Obstacle */
 #cone-obstacle {
     position: absolute;
-    left: 250px;
-    top: 250px;
+    left: 285px;
+    top: 225px;
     z-index: 2;
 }
 
@@ -26,8 +26,8 @@
 /* Dumpster Obstacle */
 #dumpster-obstacle {
     position: absolute;
-    left: 400px;
-    top: 300px;
+    left: 355px;
+    top: 270px;
     z-index: 2;
 }
 

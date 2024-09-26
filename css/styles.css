@@ -64,8 +64,8 @@ body{
 
 #Controls {
     position: fixed;
-    left: -25px;
-    bottom: -25px;
+    left: 10px;
+    bottom: 10px;
     margin: 0;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.35);
@@ -73,6 +73,7 @@ body{
     color: #ffffff;
     font-size: 16px;
     line-height: 1.6;
+    transform-origin: left bottom;
     font-family: "Silkscreen", sans-serif;
 }
 

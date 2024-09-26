@@ -1,20 +1,19 @@
 // Player data
 let playerData = {
     // Starting Positioning & Dimensions
-    x: 200,
-    y: 200,
+    x: 240,
+    y: 900,
     angle: 0,
     width: 35,
     height: 70,
 
     // Speed & Movement
     maxForwardSpeed: 2,
-    maxReverseSpeed: 1,
+    maxReverseSpeed: 1.5,
     acceleration: 0.1,
     deceleration: 0.1,
     rotationSpeed: 2,
     currentSpeed: 0,
-    angle: 0,
     
     // Extra Features
     headlightsOn: false
@@ -59,6 +58,13 @@ function rotateCar(keys) {
     }
 }
 
+function resetCar(keys) {
+    playerData.currentSpeed = 0;
+    playerData.x = 240;
+    playerData.y = 900;
+    playerData.angle = 0;
+}
+
 function updatePlayerCSS(player) {
     player.css({
         top: `${playerData.y}px`,
@@ -81,4 +87,4 @@ function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-export { playerData, moveCar, rotateCar, updatePlayerCSS, toggleHeadlights };
+export { playerData, moveCar, rotateCar, resetCar, updatePlayerCSS, toggleHeadlights };
