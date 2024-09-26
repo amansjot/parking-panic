@@ -41,6 +41,9 @@ function moveCar(keys) {
     // Constrain the player within the game window
     playerData.x = Math.max(0, Math.min(newX, 1000 - playerData.width));
     playerData.y = Math.max(0, Math.min(newY, 1000 - playerData.height));
+
+    // Check if the player chooses a mode
+    checkContainmentButtons();
 }
 
 function rotateCar(keys) {
@@ -58,11 +61,54 @@ function rotateCar(keys) {
     }
 }
 
+function stopCar(keys) {
+    setTimeout(function() {
+        playerData.maxForwardSpeed = 0;
+        playerData.maxReverseSpeed = 0;
+    }, 50);
+}
+
 function resetCar(keys) {
     playerData.currentSpeed = 0;
     playerData.x = 240;
     playerData.y = 900;
     playerData.angle = 0;
+    playerData.maxForwardSpeed = 2;
+    playerData.maxReverseSpeed = 1.5;
+}
+
+// Function to check if the car is contained within the start buttons
+function checkContainmentButtons() {
+    const easyModeButton = document.getElementById('easy-mode-button');
+    const easyModeRect = easyModeButton.getBoundingClientRect();
+
+    const hardModeButton = document.getElementById('hard-mode-button');
+    const hardModeRect = hardModeButton.getBoundingClientRect();
+
+    // Get the car's position and dimensions using getBoundingClientRect
+    const car = document.getElementById("car");
+    const carRect = car.getBoundingClientRect();
+
+    // Check if the car is fully contained within the mode buttons
+    if (
+        carRect.left >= easyModeRect.left &&
+        carRect.right <= easyModeRect.right &&
+        carRect.top >= easyModeRect.top &&
+        carRect.bottom <= easyModeRect.bottom
+    ) {
+        return "easy-mode";
+    }
+
+    if (
+        carRect.left >= hardModeRect.left &&
+        carRect.right <= hardModeRect.right &&
+        carRect.top >= hardModeRect.top &&
+        carRect.bottom <= hardModeRect.bottom
+    ) {
+        return "hard-mode";
+    }
+
+    return false;
 }
 
 function updatePlayerCSS(player) {
@@ -87,4 +133,4 @@ function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-export { playerData, moveCar, rotateCar, resetCar, updatePlayerCSS, toggleHeadlights };
+export { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights };

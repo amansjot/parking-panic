@@ -1,4 +1,4 @@
-import { playerData, moveCar, rotateCar, resetCar, updatePlayerCSS, toggleHeadlights } from './movement.js';
+import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
@@ -13,6 +13,7 @@ $(function () {
 
     // Game Vars
     let gameState = 'start';
+    let lives = 0;
 
     // Car Vars
     const player = $('#car');
@@ -55,13 +56,13 @@ $(function () {
         let height = window.innerHeight - headerHeight;
         let newSize = Math.min(width, height);
         let scale = newSize / unscaledSize;
-    
+
         $scaleWindow.css('transform', `scale(${scale})`);
         $scaleWindow.css('margin-left', (width - newSize) / 2 + "px");
 
         $controls.css('transform', `scale(${scale * 1.3})`);
         // $controls.css('margin-left', (width - newSize) / 2 + "px");
-        
+
         // Update the scale in collision.js
         updateScale(scale);
     }
@@ -73,10 +74,18 @@ $(function () {
         moveCar(keys);
         rotateCar(keys);
         updatePlayerCSS(player);
+
+        // Collisions
         const collision = checkCollisions(playerData);
         if (collision) {
             resetCar(keys);
+            removeLife();
         }
+
+        // Containment
+        const chosenMode = checkContainmentButtons();
+        if (chosenMode && gameState == "start") startGame(chosenMode);
+
         updateCollisionVisual(collision);
     }
 
@@ -84,15 +93,57 @@ $(function () {
         $('#car-hitbox').css('background-color', collision ? 'rgba(0, 255, 0, 0.3)' : 'transparent');
     }
 
+    function startGame(mode) {
+        stopCar();
+        gameState = mode;
+
+        $("#Subtitle").text(mode.replace("-", " "));
+
+        setTimeout(function () {
+            $("#start-buttons").hide();
+            $("#game-buttons").show();
+            $("#lives-counter").show();
+            resetCar();
+            resetLives();
+        }, 700);
+
+        if (mode == "easy-mode") {
+            $("#easy-mode-button").css("background-color", "darkgreen");
+        } else if (mode == "hard-mode") {
+            $("#hard-mode-button").css("background-color", "darkred");
+        }
+    }
+
+    function resetLives() {
+        lives = 3;
+        for (let i = 0; i < lives; i++) {
+            const life = document.createElement("div");
+            life.classList.add("game-life");
+            life.innerHTML = "💙";
+            $("#lives-counter").append(life);
+        }
+    }
+
+    function removeLife() {
+        if (gameState != "start") {
+            let livesElements = $(".game-life");
+            livesElements[lives - 1].remove();
+            lives -= 1;
+            if (lives == 0) {
+                // Handle game end
+            }
+        }
+    }
+
     // Handle key down
     function handleKeyDown(e) {
         const key = e.key.toLowerCase();
-    
+
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
             keys[key] = true;
             keys[e.code] = true;
         }
-    
+
         if (key === 'h') {
             toggleHeadlights($('#headlights'));
         }
@@ -101,10 +152,24 @@ $(function () {
     // Handle key up
     function handleKeyUp(e) {
         const key = e.key.toLowerCase();
-    
+
         if (keys.hasOwnProperty(key) || keys.hasOwnProperty(e.code)) {
             keys[key] = false;
             keys[e.code] = false;
         }
     }
+
+    $("#exit-game-button").on("click", function () {
+        gameState = 'start';
+
+        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
+
+        $("#game-buttons").hide();
+        $("#start-buttons").show();
+
+        $("#easy-mode-button").css("background-color", "green");
+        $("#hard-mode-button").css("background-color", "red");
+
+        resetCar();
+    });
 });

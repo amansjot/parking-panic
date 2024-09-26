@@ -51,15 +51,15 @@ body{
     font-weight: 500;
     font-style: normal;
     color: white;
-    margin-bottom: 10px; /* Reduce the space below the title */
+    margin-bottom: 10px;
 }
 
-#GroupListing {
+#Subtitle {
     font-family: "Silkscreen", sans-serif;
     font-weight: 500;
     font-style: normal;
     color: white;
-    margin-top: 5px; /* Reduce the space above the group listing */
+    margin-bottom: -10px;
 }
 
 #Controls {
@@ -82,8 +82,31 @@ body{
     margin-right: 5px;
 }
 
+#game-buttons {
+    display: none;
+}
 
-#start-buttons div {
+#lives-counter {
+    display: none;
+    position: absolute;
+    background-color: black;
+    color: white;
+    top: 10px;
+    right: 10px;
+    padding: 12px 15px;
+    font-size: 40px;
+    width: 140px;
+    font-family: "Silkscreen", sans-serif;
+}
+
+.game-life {
+    margin-left: 2px;
+    margin-right: 2px;
+    display: inline-block;
+}
+
+#start-buttons div,
+#game-buttons button {
     width: 165px;
     height: 50px;
     font-size: 20px;
@@ -105,4 +128,12 @@ body{
     top: 630px;
     left: 620px;
     background-color: red;
+}
+
+#exit-game-button {
+    top: 10px;
+    left: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
 }
