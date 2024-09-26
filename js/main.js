@@ -3,13 +3,13 @@ import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
     // Scaling functionality
-    const $scaleWindow = $('#scroll-window'); // Use jQuery to select the element
+    const $scaleWindow = $('#scroll-window');
+    const $controls = $('#Controls')
     let unscaledSize = 1000;
     let headerHeight = 150;
 
     // Initial resize
     resize();
-
 
     // Car Vars
     const player = $('#car');
@@ -56,6 +56,9 @@ $(function () {
     
         $scaleWindow.css('transform', `scale(${scale})`);
         $scaleWindow.css('margin-left', (width - newSize) / 2 + "px");
+
+        $controls.css('transform', `scale(${scale * 1.3})`);
+        // $controls.css('margin-left', (width - newSize) / 2 + "px");
         
         // Update the scale in collision.js
         updateScale(scale);

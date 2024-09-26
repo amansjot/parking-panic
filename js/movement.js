@@ -8,11 +8,11 @@ let playerData = {
     height: 100,
 
     // Speed & Movement
-    maxForwardSpeed: 5,
-    maxReverseSpeed: 3,
-    acceleration: 0.3,
-    deceleration: 0.2,
-    rotationSpeed: 3,
+    maxForwardSpeed: 2,
+    maxReverseSpeed: 1,
+    acceleration: 0.1,
+    deceleration: 0.1,
+    rotationSpeed: 2,
     currentSpeed: 0,
     angle: 0,
     

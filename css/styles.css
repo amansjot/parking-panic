@@ -64,11 +64,11 @@ body{
 
 #Controls {
     position: fixed;
-    left: 20px;
-    bottom: 20px;
+    left: -25px;
+    bottom: -25px;
     margin: 0;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 10px;
     color: #ffffff;
     font-size: 16px;
