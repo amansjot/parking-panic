@@ -81,3 +81,28 @@ body{
     vertical-align: middle;
     margin-right: 5px;
 }
+
+
+#start-buttons div {
+    width: 165px;
+    height: 50px;
+    font-size: 20px;
+    position: absolute;
+    font-family: "Silkscreen", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+#easy-mode-button {
+    top: 565px;
+    left: 620px;
+    background-color: green;
+}
+
+#hard-mode-button {
+    top: 630px;
+    left: 620px;
+    background-color: red;
+}

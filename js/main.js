@@ -11,6 +11,9 @@ $(function () {
     // Initial resize
     resize();
 
+    // Game Vars
+    let gameState = 'start';
+
     // Car Vars
     const player = $('#car');
     const headlights = $('#headlights');
@@ -20,7 +23,6 @@ $(function () {
     const cone = $('#cone-obstacle');
     const dumpsterHitbox = $('#dumpster-hitbox');
     const dumpster = $('#dumpster-obstacle');
-
 
     // Register obstacles
     registerObstacle(coneHitbox, cone);
@@ -66,8 +68,6 @@ $(function () {
 
     // Add resize event listener
     window.addEventListener("resize", resize);  // Resize game window on resize event
-
-
 
     function updatePlayer() {
         moveCar(keys);
