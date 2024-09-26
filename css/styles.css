@@ -16,6 +16,35 @@ body{
     z-index: 1;
 }
 
+#heading {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 95px; /* Set the height to 150px */
+    z-index: 2;
+}
+
+#project-title {
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+    margin: 0;
+    padding-top: 10px; /* Add some padding for better alignment */
+}
+
+#group-listing {
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+    margin: 0;
+}
+
+
 #window {
     position: absolute;
     top: 100px;
@@ -44,25 +73,7 @@ body{
     background-position: center;
 }
 
-
-
-#ProjectTitle {
-    font-family: "Silkscreen", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    color: white;
-    margin-bottom: 10px; /* Reduce the space below the title */
-}
-
-#GroupListing {
-    font-family: "Silkscreen", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    color: white;
-    margin-top: 5px; /* Reduce the space above the group listing */
-}
-
-#Controls {
+#controls {
     position: fixed;
     left: -25px;
     bottom: -25px;
@@ -76,7 +87,7 @@ body{
     font-family: "Silkscreen", sans-serif;
 }
 
-#Controls img {
+#controls img {
     vertical-align: middle;
     margin-right: 5px;
 }
