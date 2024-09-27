@@ -104,6 +104,11 @@ $(function () {
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
         $("#game-mode").text(mode.replace("-", " "));
 
+        let numObstacles = 2;
+        if (gameState == "hard-mode") {
+            numObstacles = 3;
+        }
+
         setTimeout(function () {
             $("#start-buttons").hide();
             $("#game-buttons").show();
@@ -112,19 +117,19 @@ $(function () {
             resetCar(gameState);
             resetLives();
 
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < numObstacles; i++) {
                 const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 createObstacle("cone", random1, random2);
             }
-            
-            for (let i = 0; i < 2; i++) {
+
+            for (let i = 0; i < numObstacles; i++) {
                 const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 createObstacle("dumpster", random1, random2);
             }
 
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < numObstacles; i++) {
                 const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 createObstacle("car", random1, random2);
@@ -179,7 +184,7 @@ $(function () {
         } else if (result == "lose") {
             displayMessage("You Lose!", "red", "white");
         }
-        
+
         startGame(gameState);
     }
 
@@ -242,8 +247,9 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
-        $("#start-buttons").show();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
+        $("#start-buttons").show();
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
 
