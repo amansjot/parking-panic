@@ -1,43 +1,85 @@
 //parkingspot.js
 import { stopTimer } from './timer.js';
-import { playerData, stopCarMovement } from './movement.js';
+import { playerData } from './movement.js';
 import { calculateOBB } from './collision.js';
+
+let currentParkingSpot;
+
+const parkingSpots = {
+        1: $('#one'),
+        2: $('#two'),
+        3: $('#three'),
+        4: $('#four'),
+        5: $('#five'),
+        6: $('#six'),
+        7: $('#seven'),
+        8: $('#eight'),
+        9: $('#nine'),
+        10: $('#ten'),
+        11: $('#eleven'),
+        12: $('#twelve'),
+        13: $('#thirteen'),
+        14: $('#fourteen'),
+        15: $('#fifteen'),
+        16: $('#sixteen'),
+        17: $('#seventeen'),
+        18: $('#eighteen'),
+        19: $('#nineteen'),
+        20: $('#twenty'),
+        21: $('#twenty-one'),
+        22: $('#twenty-two'),
+        23: $('#twenty-three'),
+        24: $('#twenty-four'),
+        25: $('#twenty-five'),
+        26: $('#twenty-six'),
+        27: $('#twenty-seven'),
+        28: $('#twenty-eight'),
+        29: $('#twenty-nine'),
+        30: $('#thirty'),
+        31: $('#thirty-one'),
+        32: $('#thirty-two'),
+        33: $('#thirty-three'),
+        34: $('#thirty-four'),
+        35: $('#thirty-five'),
+        36: $('#thirty-six'),
+        37: $('#thirty-seven'),
+        38: $('#thirty-eight'),
+        39: $('#thirty-nine'),
+        40: $('#fourty'),
+        41: $('#fourty-one'),
+        42: $('#fourty-two'),
+        43: $('#fourty-three'),
+        44: $('#fourty-four'),
+        45: $('#fourty-five'),
+        46: $('#fourty-six'),
+        47: $('#fourty-seven'),
+        48: $('#fourty-eight'),
+        49: $('#fourty-nine')
+};
+
+function setRandomParkingSpot() {
+    const spotKeys = Object.keys(parkingSpots);
+    const randomIndex = Math.floor(Math.random() * spotKeys.length);
+    currentParkingSpot = parkingSpots[spotKeys[randomIndex]];  // Select random parking spot
+}
 
 // Parking spot and messages
 const parkingSpot = $('#parking-spot');
 const missionCompleteMessage = $('#mission-complete-message');
 
-/**
- * Checks if the car has been parked correctly by determining
- * if all corners of the car are fully within the parking spot.
- * If the car is parked, it shows the mission complete message,
- * stops the timer and car movement, and calls setGameInactive.
- * If the car isn't parked, it hides the message and removes the glow.
- */
 function checkParkingCompletion() {
-    const parkingSpotRect = parkingSpot[0].getBoundingClientRect();
+    const parkingSpotRect = currentParkingSpot[0].getBoundingClientRect();
     const playerCorners = calculateOBB(playerData);
-
     const carFullyInSpot = isCarCompletelyInSpot(playerCorners, parkingSpotRect);
-
     if (carFullyInSpot) {
-        missionCompleteMessage.show(); 
+        missionCompleteMessage.show(); // Show mission complete message
         stopTimer();
-        parkingSpot.addClass('glow'); 
-        stopCarMovement();
-        setGameInactive();
+        currentParkingSpot.addClass('glow'); // Add the glow effect to the parking spot
     } else {
-        missionCompleteMessage.hide();
-        parkingSpot.removeClass('glow');
+        missionCompleteMessage.hide(); // Hide message if not fully parked
+        currentParkingSpot.removeClass('glow'); // Remove the glow effect if not parked
     }
 }       
-
-/**
- * Determines if all corners of the car are within the boundaries of the parking spot.
- * Returns true if the car is completely inside the parking spot, otherwise false.
- * @param {Array} carCorners - The corners of the car's bounding box.
- * @param {DOMRect} spotRect - The dimensions of the parking spot.
- */
 function isCarCompletelyInSpot(carCorners, spotRect) {
     // Check if all corners of the car are within the parking spot
     return carCorners.every(corner =>
@@ -46,12 +88,5 @@ function isCarCompletelyInSpot(carCorners, spotRect) {
         corner.y >= spotRect.top &&
         corner.y <= spotRect.bottom
     );
-}
-
-// Reset the parking spot file
-function resetParkingFile() {
-    missionCompleteMessage.hide(); 
-    parkingSpot.removeClass('glow'); 
-}
-
-export { checkParkingCompletion, resetParkingFile };
+}    
+export { checkParkingCompletion, setRandomParkingSpot };

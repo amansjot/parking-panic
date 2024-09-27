@@ -17,7 +17,8 @@ function randomSpot(){ //Gets the random spot number
 }
 
 function updateSpot(){//Take a random number, associates it with a spot, and adjusts the spots css to glow 
-    const spotNum = randomSpot(); const spotId = spots[spotNum];//Gets id value for it's div 
+    const spotNum = randomSpot(); 
+    const spotId = spots[spotNum];//Gets id value for it's div 
     console.log(spotId); 
     const spotDiv = document.getElementById(spotId); 
     console.log(spotDiv); 
