@@ -44,4 +44,5 @@
     background-color: rgba(0, 255, 0, 0.3);
     border: 1px solid green;
     z-index: 3;
+    visibility: hidden;
 }

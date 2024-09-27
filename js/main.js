@@ -111,7 +111,17 @@ $(function () {
             resetCar(gameState);
             resetLives();
 
-            createObstacle("cone", 400, 400);
+            for (let i = 0; i < 4; i++) {
+                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+                createObstacle("cone", random1, random2);
+            }
+            
+            for (let i = 0; i < 3; i++) {
+                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+                createObstacle("car", random1, random2);
+            }
         }, 700);
 
         if (mode == "easy-mode") {
@@ -158,11 +168,14 @@ $(function () {
 
     function resetGame(result) {
         stopCar();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove();
+
         if (result == "win") {
             displayMessage("You Win!", "green", "white");
         } else if (result == "lose") {
             displayMessage("You Lose!", "red", "white");
         }
+        
         startGame(gameState);
     }
 

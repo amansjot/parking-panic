@@ -1,3 +1,25 @@
+.car-obstacle {
+    position: absolute;
+    z-index: 2;
+}
+
+.car-img {
+    width: 35px;
+    height: 70px;  
+}
+
+.car-hitbox {
+    position: absolute;
+    width: 35px;
+    height: 70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 1px solid red;
+    z-index: 3;
+}
+
 /* Cone Obstacle */
 .cone-obstacle {
     position: absolute;
