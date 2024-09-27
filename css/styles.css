@@ -1,8 +1,8 @@
 /* Game Background + Text */
 
 /* Body Styling */
-body{
-	margin:0;
+body {
+    margin: 0;
 }
 
 /* Container */
@@ -12,7 +12,7 @@ body{
     overflow-y: auto;
     background-color: rgb(65, 65, 65);
     text-align: center;
-    position:relative;
+    position: relative;
     z-index: 1;
 }
 
@@ -23,17 +23,21 @@ body{
     top: 0;
     left: 0;
     right: 0;
-    height: 95px; /* Set the height to 150px */
+    height: 95px;
+    /* Set the height to 150px */
     z-index: 2;
 }
+
 #project-title {
     font-family: "Silkscreen", sans-serif;
     font-weight: 500;
     font-style: normal;
     color: white;
     margin: 0;
-    padding-top: 10px; /* Add some padding for better alignment */
+    padding-top: 10px;
+    /* Add some padding for better alignment */
 }
+
 #group-listing {
     font-family: "Silkscreen", sans-serif;
     font-weight: 500;
@@ -48,7 +52,8 @@ body{
     left: 0;
     right: 0;
     bottom: 50px;
-    height: calc(100vh - 100px); /* Ensure it uses the full height minus the margins */
+    height: calc(100vh - 100px);
+    /* Ensure it uses the full height minus the margins */
     overflow: hidden;
 }
 
@@ -58,7 +63,8 @@ body{
     margin: auto;
     width: 1000px;
     height: 1000px;
-    min-height: 1000px; /* Ensures the container doesn't shrink below the image size */
+    min-height: 1000px;
+    /* Ensures the container doesn't shrink below the image size */
     min-width: 1000px;
     border-radius: 5px;
     transform-origin: top left;
@@ -85,14 +91,36 @@ body{
     border: 1px solid white;
 }
 
+@keyframes glow-red {
+    from {
+        box-shadow: 0 0 10px -10px lightcoral;
+    }
+
+    to {
+        box-shadow: 0 0 3px 3px lightcoral;
+    }
+}
+
+@keyframes glow-green {
+    from {
+        box-shadow: 0 0 10px -10px lightgreen;
+    }
+
+    to {
+        box-shadow: 0 0 3px 3px lightgreen;
+    }
+}
+
 #easy-mode-button {
     top: 565px;
     left: 620px;
     background-color: green;
+    animation: glow-green 1s infinite alternate;
 }
 
 #hard-mode-button {
     top: 630px;
     left: 620px;
     background-color: red;
+    animation: glow-red 1s infinite alternate;
 }

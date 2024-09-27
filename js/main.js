@@ -55,6 +55,11 @@ $(function () {
     // Set initial state: Turn headlights off
     headlights.hide();
 
+    displayMessage("Welcome to Parking Panic!", "black", "white", 2000);
+    setTimeout(function () {
+        displayMessage("Drive into the Easy or Hard spot to play!", "black", "white", 3000);
+    }, 2500);
+
     function resize() {
         let width = window.innerWidth;
         let height = window.innerHeight - headerHeight;
@@ -188,7 +193,7 @@ $(function () {
         startGame(gameState);
     }
 
-    function displayMessage(message, bg, text) {
+    function displayMessage(message, bg, text, time = 900) {
         $("#message").show();
         $("#message").text(message);
         $("#message").css({
@@ -197,7 +202,7 @@ $(function () {
         });
         setTimeout(function () {
             $("#message").hide();
-        }, 900);
+        }, time);
     }
 
     function createObstacle(type, x, y) {
