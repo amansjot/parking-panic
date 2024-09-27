@@ -1,10 +1,10 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
-import { checkCollisions, registerObstacle, updateScale } from './collision.js';
+import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
     // Scaling functionality
     const $scaleWindow = $('#scroll-window');
-    const $controls = $('#Controls')
+    const $controls = $('#controls')
     let unscaledSize = 1000;
     let headerHeight = 150;
 
@@ -20,14 +20,18 @@ $(function () {
     const headlights = $('#headlights');
 
     // Obstacle Vars
-    const coneHitbox = $('#cone-hitbox');
-    const cone = $('#cone-obstacle');
-    const dumpsterHitbox = $('#dumpster-hitbox');
-    const dumpster = $('#dumpster-obstacle');
+    const coneHitboxes = $('.cone-hitbox');
+    const cones = $('.cone-obstacle');
+    const dumpsterHitboxes = $('.dumpster-hitbox');
+    const dumpsters = $('.dumpster-obstacle');
 
-    // Register obstacles
-    registerObstacle(coneHitbox, cone);
-    registerObstacle(dumpsterHitbox, dumpster);
+    cones.each(function (index) {
+        registerObstacle(coneHitboxes.eq(index), cones.eq(index));
+    });
+
+    dumpsters.each(function (index) {
+        registerObstacle(dumpsterHitboxes.eq(index), dumpsters.eq(index));
+    });
 
     // Key states
     const keys = {
@@ -78,7 +82,7 @@ $(function () {
         // Collisions
         const collision = checkCollisions(playerData);
         if (collision) {
-            resetCar(keys);
+            resetCar(gameState);
             removeLife();
         }
 
@@ -97,14 +101,17 @@ $(function () {
         stopCar();
         gameState = mode;
 
-        $("#Subtitle").text(mode.replace("-", " "));
+        $("#game-mode").text(mode.replace("-", " "));
 
         setTimeout(function () {
             $("#start-buttons").hide();
             $("#game-buttons").show();
             $("#lives-counter").show();
-            resetCar();
+
+            resetCar(gameState);
             resetLives();
+
+            createObstacle("cone", 400, 400);
         }, 700);
 
         if (mode == "easy-mode") {
@@ -118,18 +125,22 @@ $(function () {
         if (gameState == "easy-mode") {
             lives = 5;
         } else if (gameState == "hard-mode") {
+            // Less lives, faster, more obstacles
             lives = 3;
+            playerData.maxForwardSpeed = 3;
+            playerData.maxReverseSpeed = 2;
+            playerData.rotationSpeed = 2.5;
         }
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
-            
+
             // Create an image element
             const lifeImg = document.createElement("img");
             lifeImg.src = "../img/hud/wrench-screwdriver.png";
             lifeImg.alt = "Life"; // Alt text for accessibility
             lifeImg.width = 40; // Adjust the size if needed
-    
+
             // Append the image to the life div
             life.appendChild(lifeImg);
             $("#lives-counter").append(life);
@@ -141,9 +152,45 @@ $(function () {
             let livesElements = $(".game-life");
             livesElements[lives - 1].remove();
             lives -= 1;
-            if (lives == 0) {
-                // Handle game end
-            }
+            if (lives == 0) resetGame("lose");
+        }
+    }
+
+    function resetGame(result) {
+        stopCar();
+        if (result == "win") {
+            displayMessage("You Win!", "green", "white");
+        } else if (result == "lose") {
+            displayMessage("You Lose!", "red", "white");
+        }
+        startGame(gameState);
+    }
+
+    function displayMessage(message, bg, text) {
+        $("#message").show();
+        $("#message").text(message);
+        $("#message").css({
+            "background-color": bg,
+            "color": text
+        });
+        setTimeout(function () {
+            $("#message").hide();
+        }, 900);
+    }
+
+    function createObstacle(type, x, y) {
+        if (["dumpster", "cone"].includes(type)) {
+            const html = `<div class="${type}-obstacle" style="top: ${x}px; right: ${x}px;">
+            <img class="${type}-img" src="img/obstacles/${type}.png" alt="${type}">
+            <div class="${type}-hitbox"></div>
+            </div>`
+            $("#scroll-window").append(html);
+
+            const obstacleClass = $(`.${type}-obstacle`);
+            const obstacleHitboxes = $(`.${type}-hitbox`);
+
+            const index = obstacleClass.length - 1;
+            registerObstacle(obstacleHitboxes.eq(index), obstacleClass.eq(index));
         }
     }
 
@@ -176,12 +223,13 @@ $(function () {
 
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 
+        $("#lives-counter").hide();
         $("#game-buttons").hide();
         $("#start-buttons").show();
 
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
 
-        resetCar();
+        resetCar(gameState);
     });
 });

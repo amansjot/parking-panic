@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/car.css">
   <link rel="stylesheet" href="css/hud.css">
 
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
   <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -15,7 +17,7 @@
     >
   </script>
 
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,25 +57,33 @@
         </div>
 
         <div id="game-buttons">
-          <button id="exit-game-button">Exit Game</button>
+          <div id="game-mode">Easy Mode</div>
+          <div id="exit-game-button">Exit Game</div>
         </div>
 
         <div id="lives-counter">
         </div>
+
+        <div id="message"></div>
 
         <div id="start-buttons">
           <div id="easy-mode-button">Easy Mode</div>
           <div id="hard-mode-button">Hard Mode</div>
         </div>
       
-        <div id="cone-obstacle">
-          <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
-          <div id="cone-hitbox"></div>
+        <div class="cone-obstacle" id="cone-1">
+          <img class="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
+          <div class="cone-hitbox"></div>
+        </div>
+
+        <div class="cone-obstacle" id="cone-2">
+          <img class="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
+          <div class="cone-hitbox"></div>
         </div>
     
-        <div id="dumpster-obstacle">
-          <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
-          <div id="dumpster-hitbox"></div>
+        <div class="dumpster-obstacle">
+          <img class="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
+          <div class="dumpster-hitbox"></div>
         </div>
 
       </div>

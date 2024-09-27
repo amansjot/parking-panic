@@ -27,9 +27,15 @@
     display: none;
 }
 
-#exit-game-button {
+#game-mode {
     top: 10px;
     left: 10px;
+    background-color: white;
+}
+
+#exit-game-button {
+    top: 10px;
+    left: 170px;
     background-color: black;
     color: white;
     cursor: pointer;
@@ -53,4 +59,19 @@
 #controls img {
     vertical-align: middle;
     margin-right: 5px;
+}
+
+#message {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    font-family: "Silkscreen", sans-serif;
+    padding: 25px 30px;
+    border: 2px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 9999;  
+    display: none;
 }

@@ -68,11 +68,18 @@ function stopCar(keys) {
     }, 50);
 }
 
-function resetCar(keys) {
+function resetCar(mode) {
     playerData.currentSpeed = 0;
     playerData.x = 240;
     playerData.y = 900;
     playerData.angle = 0;
+    // if (mode == "easy-mode") {
+    //     playerData.maxForwardSpeed = 2;
+    //     playerData.maxReverseSpeed = 1.5;
+    // } else if (mode == "hard-mode") {
+    //     playerData.maxForwardSpeed = 3;
+    //     playerData.maxReverseSpeed = 2;
+    // }
     playerData.maxForwardSpeed = 2;
     playerData.maxReverseSpeed = 1.5;
 }

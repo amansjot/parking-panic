@@ -1,17 +1,25 @@
 /* Cone Obstacle */
-#cone-obstacle {
+.cone-obstacle {
     position: absolute;
-    left: 285px;
-    top: 225px;
     z-index: 2;
 }
 
-#cone-img {
+#cone-1 {
+    top: 225px;
+    left: 285px;
+}
+
+#cone-2 {
+    top: 225px;
+    left: 450px;
+}
+
+.cone-img {
     width: 50px;
     height: 50px;
 }
 
-#cone-hitbox {
+.cone-hitbox {
     position: absolute;
     width: 20px;
     height: 30px;
@@ -24,19 +32,19 @@
 }
 
 /* Dumpster Obstacle */
-#dumpster-obstacle {
+.dumpster-obstacle {
     position: absolute;
     left: 355px;
     top: 270px;
     z-index: 2;
 }
 
-#dumpster-img {
+.dumpster-img {
     width: 100px;
     height: 80px;  
 }
 
-#dumpster-hitbox {
+.dumpster-hitbox {
     position: absolute;
     width: 90px;
     height: 70px;

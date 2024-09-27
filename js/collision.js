@@ -15,7 +15,7 @@ function checkCollisions(playerData) {
 
     for (let { hitbox, element } of obstacles) {
         const hitboxRect = getElementRect(hitbox[0]);
-        const obstacleRect = getElementRect(element[0]);
+        // const obstacleRect = getElementRect(element[0]);
         
         const adjustedHitboxRect = {
             left: hitboxRect.left,
@@ -100,4 +100,4 @@ function projectOntoAxis(corners, axis) {
     return { min: Math.min(...dots), max: Math.max(...dots) };
 }
 
-export { checkCollisions, registerObstacle, updateScale };
+export { obstacles, checkCollisions, registerObstacle, updateScale };
