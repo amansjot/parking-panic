@@ -112,15 +112,21 @@ $(function () {
             resetCar(gameState);
             resetLives();
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 createObstacle("cone", random1, random2);
             }
             
-            for (let i = 0; i < 3; i++) {
-                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+            for (let i = 0; i < 2; i++) {
+                const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                createObstacle("dumpster", random1, random2);
+            }
+
+            for (let i = 0; i < 2; i++) {
+                const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 createObstacle("car", random1, random2);
             }
         }, 700);
@@ -168,8 +174,6 @@ $(function () {
     }
 
     function resetGame(result) {
-        stopCar();
-
         if (result == "win") {
             displayMessage("You Win!", "green", "white");
         } else if (result == "lose") {
@@ -192,8 +196,8 @@ $(function () {
     }
 
     function createObstacle(type, x, y) {
-        if (["dumpster", "cone"].includes(type)) {
-            const html = `<div class="${type}-obstacle" style="top: ${x}px; right: ${x}px;">
+        if (["dumpster", "cone", "car"].includes(type)) {
+            const html = `<div class="${type}-obstacle" style="top: ${x}px; left: ${x}px;">
             <img class="${type}-img" src="img/obstacles/${type}.png" alt="${type}">
             <div class="${type}-hitbox"></div>
             </div>`
