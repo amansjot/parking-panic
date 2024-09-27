@@ -1,136 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <title>Parking Simulator Car</title>
+  <title>Parking Simulator Car</title>
 
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/obstacles.css">
+  <link rel="stylesheet" href="css/car.css">
+  <link rel="stylesheet" href="css/parkingspot.css">
+  <link rel="stylesheet" href="css/timer.css">
 
- <link rel="stylesheet" href="css/styles.css">
- <link rel="stylesheet" href="css/obstacles.css">
- <link rel="stylesheet" href="css/car.css">
+  <!-- jQuery CDN -->
+  <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+  </script>
 
+  <!-- Meta Information -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <script
-     src="https://code.jquery.com/jquery-3.7.1.min.js"
-     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-     crossorigin="anonymous">
- </script>
-
-
- <script src="js/main.js"></script>
-
-
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
- <style>
-   @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
- </style>
+  <!-- Google Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+  </style>
 </head>
 <body>
+  <!-- Header Section -->
+  <div id="container">
+    <h1 id="ProjectTitle">🏁 Parking Simulator Car Development 🏎️</h1>
+    <p id="GroupListing">
+      Group 8<br>
+      Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula
+    </p>
+  </div>
 
+  <!-- Controls Section -->
+  <div id="Controls">
+    <h1 id="ControlHeader">Controls:</h1>
+    <p id="ControlListing">
+      Forward: <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30"> or <img src="img/keyboard-keys/Up-Arrow.svg" alt="Up Arrow Key" width="30"><br>
+      Backwards: <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30"> or <img src="img/keyboard-keys/Down-Arrow.svg" alt="Down Arrow Key" width="30"><br>
+      Left: <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30"> or <img src="img/keyboard-keys/Left-Arrow.svg" alt="Left Arrow Key" width="30"><br>
+      Right: <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="30"> or <img src="img/keyboard-keys/Right-Arrow.svg" alt="Right Arrow Key" width="30"><br>
+      Headlights: <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="30"><br>
+    </p>
+  </div>
 
- <div id="title">
-   <h1>🏁 Parking Simulator Car Development 🏎️</h1>
- </div>
+  <!-- Timer and Parking Spot Section -->
+  <div id="timer-display">30</div>
+  <div id="parking-spot">
+    <span id="parking-spot-text">PARK HERE</span>
+    <span id="mission-complete-message" style="display: none;">Mission Complete!</span>
+    <span id="mission-failed-message" style="display: none;">Mission Failed!</span>
+  </div>
 
+  <!-- Car Section -->
+  <div id="car">
+    <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
+    <div id="car-hitbox"></div>
+    <div id="headlights">
+      <div id="left-headlight"></div>
+      <div id="right-headlight"></div>
+    </div>
+  </div>
 
- <div id="game-scaler">
-   <div id="game-container">
-    
-     <div id="map-container">
-      <div class="spot" id="one"></div>
-      <div class="spot" id="two"></div>
-      <div class="spot" id="three"></div>
-      <div class="spot" id="four"></div>
-      <div class="spot" id="five"></div>
-      <div class="spot" id="six"></div>
-      <div class="spot" id="seven"></div>
-      <div class="spot" id="eight"></div>
-      <div class="spot" id="nine"></div>
-      <div class="spot" id="ten"></div>
-      <div class="spot" id="eleven"></div>
+  <!-- Obstacles Section -->
+  <div id="cone-obstacle">
+    <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
+    <div id="cone-hitbox"></div>
+  </div>
+  <div id="dumpster-obstacle">
+    <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
+    <div id="dumpster-hitbox"></div>
+  </div>
 
-
-      <div class="spot" id="twelve"></div>
-      <div class="spot" id="thirteen"></div>
-      <div class="spot" id="fourteen"></div>
-      <div class="spot" id="fifteen"></div>
-      <div class="spot" id="sixteen"></div>
-      <div class="spot" id="seventeen"></div>
-      <div class="spot" id="eighteen"></div>
-      <div class="spot" id="nineteen"></div>
-
-      <div class="spot" id="twenty"></div>
-      <div class="spot" id="twenty-one"></div>
-      <div class="spot" id="twenty-two"></div>
-      <div class="spot" id="twenty-three"></div>
-      <div class="spot" id="twenty-four"></div>
-      <div class="spot" id="twenty-five"></div>
-      <div class="spot" id="twenty-six"></div>
-      <div class="spot" id="twenty-seven"></div>
-
-
-      <div class="spot" id="twenty-eight"></div>
-      <div class="spot" id="twenty-nine"></div>
-      <div class="spot" id="thirty"></div>
-      <div class="spot" id="thirty-one"></div>
-      <div class="spot" id="thirty-two"></div>
-      <div class="spot" id="thirty-three"></div>
-      <div class="spot" id="thirty-four"></div>
-      <div class="spot" id="thirty-five"></div>
-      <div class="spot" id="thirty-six"></div>
-      <div class="spot" id="thirty-seven"></div>
-
-      <div class="spot" id="thirty-eight"></div>
-      <div class="spot" id="thirty-nine"></div>
-      <div class="spot" id="fourty"></div>
-      <div class="spot" id="fourty-one"></div>
-
-      <div class="spot" id="fourty-two"></div>
-      <div class="spot" id="fourty-three"></div>
-      <div class="spot" id="fourty-four"></div>
-      <div class="spot" id="fourty-five"></div>
-      <div class="spot" id="fourty-six"></div>
-      <div class="spot" id="fourty-seven"></div>
-      <div class="spot" id="fourty-eight"></div>
-      <div class="spot" id="fourty-nine"></div>
-     </div>
-
-
-     <div id="car">
-       <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
-       <div id="car-hitbox"></div>
-       <div id="headlights">
-         <div id="left-headlight"></div>
-         <div id="right-headlight"></div>
+  <!-- Parking Spots Section -->
+  <div id="game-scaler">
+    <div id="game-container">
+      <div id="map-container">
+        <div class="spot" id="one"></div>
+        <div class="spot" id="two"></div>
+        <div class="spot" id="three"></div>
+        <div class="spot" id="four"></div>
+        <div class="spot" id="five"></div>
+        <div class="spot" id="six"></div>
+        <div class="spot" id="seven"></div>
+        <div class="spot" id="eight"></div>
+        <div class="spot" id="nine"></div>
+        <div class="spot" id="ten"></div>
+        <div class="spot" id="eleven"></div>
+  
+  
+        <div class="spot" id="twelve"></div>
+        <div class="spot" id="thirteen"></div>
+        <div class="spot" id="fourteen"></div>
+        <div class="spot" id="fifteen"></div>
+        <div class="spot" id="sixteen"></div>
+        <div class="spot" id="seventeen"></div>
+        <div class="spot" id="eighteen"></div>
+        <div class="spot" id="nineteen"></div>
+  
+        <div class="spot" id="twenty"></div>
+        <div class="spot" id="twenty-one"></div>
+        <div class="spot" id="twenty-two"></div>
+        <div class="spot" id="twenty-three"></div>
+        <div class="spot" id="twenty-four"></div>
+        <div class="spot" id="twenty-five"></div>
+        <div class="spot" id="twenty-six"></div>
+        <div class="spot" id="twenty-seven"></div>
+  
+  
+        <div class="spot" id="twenty-eight"></div>
+        <div class="spot" id="twenty-nine"></div>
+        <div class="spot" id="thirty"></div>
+        <div class="spot" id="thirty-one"></div>
+        <div class="spot" id="thirty-two"></div>
+        <div class="spot" id="thirty-three"></div>
+        <div class="spot" id="thirty-four"></div>
+        <div class="spot" id="thirty-five"></div>
+        <div class="spot" id="thirty-six"></div>
+        <div class="spot" id="thirty-seven"></div>
+  
+        <div class="spot" id="thirty-eight"></div>
+        <div class="spot" id="thirty-nine"></div>
+        <div class="spot" id="fourty"></div>
+        <div class="spot" id="fourty-one"></div>
+  
+        <div class="spot" id="fourty-two"></div>
+        <div class="spot" id="fourty-three"></div>
+        <div class="spot" id="fourty-four"></div>
+        <div class="spot" id="fourty-five"></div>
+        <div class="spot" id="fourty-six"></div>
+        <div class="spot" id="fourty-seven"></div>
+        <div class="spot" id="fourty-eight"></div>
+        <div class="spot" id="fourty-nine"></div>
        </div>
-     </div>
+    </div>
+  </div>
 
+  <!-- Footer Section -->
+  <div class="footer">
+    <div>Group 8</div>
+    <div>Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula</div>
+  </div>
 
-     <div id="cone-obstacle">
-       <img id="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
-       <div id="cone-hitbox"></div>
-     </div>
-
-
-     <div id="dumpster-obstacle">
-       <img id="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
-       <div id="dumpster-hitbox"></div>
-     </div>
-   </div>
- </div>
-
-
- <div class="footer">
-   <div>Group 8</div>
-   <div>
-     Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula
-   </div>
- </div>
-
-
- <script type="module" src="js/main.js"></script>
- <script type="module" src="js/random_spot.js"></script>
- </body>
+  <!-- JS Scripts -->
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/movement.js"></script>
+  <script type="module" src="js/collision.js"></script>
+  <script type="module" src="js/parkingspot.js"></script>
+  <script type="module" src="js/timer.js"></script>
+  <script type="module" src="js/random_spot.js"></script>
+</body>
 </html>
