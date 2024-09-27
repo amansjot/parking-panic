@@ -101,6 +101,7 @@ $(function () {
         stopCar();
         gameState = mode;
 
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
         $("#game-mode").text(mode.replace("-", " "));
 
         setTimeout(function () {
@@ -168,7 +169,6 @@ $(function () {
 
     function resetGame(result) {
         stopCar();
-        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove();
 
         if (result == "win") {
             displayMessage("You Win!", "green", "white");
