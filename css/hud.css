@@ -1,0 +1,77 @@
+#lives-counter {
+    display: none;
+    position: absolute;
+    color: white;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    height: 80px;
+    font-family: "Silkscreen", sans-serif;
+    
+    background-image: url(../img/hud/health-bg.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.game-life {
+    margin-top: 17px;
+    display: inline-block;
+    background-position: right;
+}
+
+#game-buttons {
+    display: none;
+}
+
+#game-mode {
+    top: 10px;
+    left: 10px;
+    background-color: white;
+}
+
+#exit-game-button {
+    top: 10px;
+    left: 170px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+#controls {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    margin: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.6;
+    transform-origin: left bottom;
+    font-family: "Silkscreen", sans-serif;
+}
+
+#controls img {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#message {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    font-family: "Silkscreen", sans-serif;
+    padding: 25px 30px;
+    border: 2px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 9999;  
+    display: none;
+}

@@ -9,8 +9,8 @@
 }
 
 #playersCar-img {
-    width: 100%;
-    height: 100%;
+    width: 35px;
+    height: 70px;
     transform-origin: center;
     position: relative;
     z-index: 4;
@@ -18,8 +18,8 @@
 
 #left-headlight,
 #right-headlight {
-    width: 100%;
-    height: 150%;
+    width: 35px;
+    height: 150px;
     position: absolute;
     top: -120%;
     background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
@@ -31,21 +31,22 @@
 }
 
 #left-headlight {
-    left: -30%;
+    left: -8px;
 }
 
 #right-headlight {
-    left: 30%;
+    left: 8px;
 }
 
 #car-hitbox {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 35px;
+    height: 70px;
     top: 0;
     left: 0;
     transform-origin: center;
     background-color: rgba(0, 255, 0, 0.3);
     border: 1px solid green;
     z-index: 3;
+    visibility: hidden;
 }

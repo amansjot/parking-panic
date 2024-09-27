@@ -1,17 +1,47 @@
-/* Cone Obstacle */
-#cone-obstacle {
+.car-obstacle {
     position: absolute;
-    left: 250px;
-    top: 250px;
     z-index: 2;
 }
 
-#cone-img {
+.car-img {
+    width: 35px;
+    height: 70px;  
+}
+
+.car-hitbox {
+    position: absolute;
+    width: 35px;
+    height: 70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 1px solid red;
+    z-index: 3;
+}
+
+/* Cone Obstacle */
+.cone-obstacle {
+    position: absolute;
+    z-index: 2;
+}
+
+#cone-1 {
+    top: 225px;
+    left: 285px;
+}
+
+#cone-2 {
+    top: 225px;
+    left: 450px;
+}
+
+.cone-img {
     width: 50px;
     height: 50px;
 }
 
-#cone-hitbox {
+.cone-hitbox {
     position: absolute;
     width: 20px;
     height: 30px;
@@ -24,19 +54,19 @@
 }
 
 /* Dumpster Obstacle */
-#dumpster-obstacle {
+.dumpster-obstacle {
     position: absolute;
-    left: 400px;
-    top: 300px;
+    left: 355px;
+    top: 270px;
     z-index: 2;
 }
 
-#dumpster-img {
+.dumpster-img {
     width: 100px;
     height: 80px;  
 }
 
-#dumpster-hitbox {
+.dumpster-hitbox {
     position: absolute;
     width: 90px;
     height: 70px;
