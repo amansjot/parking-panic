@@ -1,5 +1,8 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
+import { startTimer } from './timer.js';
+//import { checkParkingCompletion, setRandomParkingSpot,setCurrentParkingSpot } from './parkingspot.js';
+import { updateSpot } from './randomspot.js';
 
 $(function () {
     // Scaling functionality
@@ -10,6 +13,9 @@ $(function () {
 
     // Initial resize
     resize();
+
+    //Choose parking spot
+    updateSpot();
 
     // Game Vars
     let gameState = 'start';
@@ -75,7 +81,7 @@ $(function () {
     window.addEventListener("resize", resize);  // Resize game window on resize event
 
     function updatePlayer() {
-        moveCar(keys);
+        moveCar(keys, startTimer);
         rotateCar(keys);
         updatePlayerCSS(player);
 
