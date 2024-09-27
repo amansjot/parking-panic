@@ -23,30 +23,27 @@ let playerData = {
  
  
  function moveCar(keys) {
-    if (keys.w) {  // If 'w' is pressed, accelerate forward
+    if (keys.w || keys.ArrowUp) {
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
-    }
-    else if (keys.s) {  // If 's' is pressed, accelerate backward
+    } 
+    else if (keys.s || keys.ArrowDown) {
         playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.acceleration, -playerData.maxReverseSpeed);
-    }
-    else {  // If no key is pressed, gradually slow down (decelerate)
+    } 
+    else {
         if (playerData.currentSpeed > 0) {
             playerData.currentSpeed = Math.max(playerData.currentSpeed - playerData.deceleration, 0);
-        }
+        } 
         else if (playerData.currentSpeed < 0) {
             playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.deceleration, 0);
         }
     }
- 
- 
-    const gameContainer = document.getElementById('game-container');
-    const containerWidth = gameContainer.offsetWidth;
-    const containerHeight = gameContainer.offsetHeight;
- 
- 
-    // Update the car's position based on current speed and direction (angle)
-    playerData.x += playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
-    playerData.y += playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+
+    const newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
+    const newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
+
+    // Constrain the player within the game window
+    playerData.x = Math.max(0, Math.min(newX, 1000 - playerData.width));
+    playerData.y = Math.max(0, Math.min(newY, 1000 - playerData.height));
  }
  
  
@@ -57,10 +54,10 @@ let playerData = {
         let scaledRotationSpeed = playerData.rotationSpeed * speedFactor; // Scale rotation speed based on speed
  
  
-        if (keys.a) {  // If 'a' is pressed, rotate left (counterclockwise)
+        if (keys.a || keys.ArrowLeft) {  // If 'a' or left arrow is pressed, rotate left (counterclockwise)
             playerData.angle -= scaledRotationSpeed;
         }
-        if (keys.d) {  // If 'd' is pressed, rotate right (clockwise)
+        if (keys.d || keys.ArrowRight) {  // If 'd' or right arrow is pressed, rotate right (clockwise)
             playerData.angle += scaledRotationSpeed;
         }
     }
@@ -68,17 +65,12 @@ let playerData = {
  
  
  function updatePlayerCSS(player) {
-    const gameContainer = document.getElementById('game-container');
-    const containerWidth = gameContainer.offsetWidth;
-    const containerHeight = gameContainer.offsetHeight;
- 
- 
     player.css({
-        top: `${(playerData.y / containerHeight) * 100}%`,
-        left: `${(playerData.x / containerWidth) * 100}%`,
+        top: `${playerData.y}px`,
+        left: `${playerData.x}px`,
         transform: `rotate(${playerData.angle}deg)`
     });
- }
+}
  
  
  function toggleHeadlights(headlights) {

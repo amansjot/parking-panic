@@ -5,6 +5,10 @@ import { calculateOBB } from './collision.js';
 
 let currentParkingSpot;
 
+// Parking spot and messages
+//const parkingSpot = $('#parking-spot');
+const missionCompleteMessage = $('#mission-complete-message');
+
 const parkingSpots = {
         1: $('#one'),
         2: $('#two'),
@@ -63,9 +67,22 @@ function setRandomParkingSpot() {
     currentParkingSpot = parkingSpots[spotKeys[randomIndex]];  // Select random parking spot
 }
 
-// Parking spot and messages
-const parkingSpot = $('#parking-spot');
-const missionCompleteMessage = $('#mission-complete-message');
+function setCurrentParkingSpot() {
+    // Remove any previous parking spot styling
+    $('.parking-spot').removeClass('glow').css({
+        border: "",
+        zIndex: "",
+        backgroundColor: ""
+    });
+
+    // Apply the CSS styling to the newly selected parking spot
+    currentParkingSpot.css({
+        border: "3px dashed yellow",
+        zIndex: "3",
+        backgroundColor: "rgba(255, 255, 0, 0.1)"
+    });
+}
+
 
 function checkParkingCompletion() {
     const parkingSpotRect = currentParkingSpot[0].getBoundingClientRect();

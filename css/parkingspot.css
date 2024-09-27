@@ -1,9 +1,4 @@
-#parking-spot {
-    width: 65px; 
-    height: 115px;
-    position: absolute;
-    left: 400px;
-    top: 300px;
+.parking-spot {
     border: 3px dashed yellow;
     background-color: rgba(255, 255, 0, 0.1);
     z-index: 1;

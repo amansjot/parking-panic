@@ -1,5 +1,12 @@
 const obstacles = [];
 
+let currentScale = 1;
+
+
+function updateScale(scale) {
+    currentScale = scale;
+}
+
 
 function registerObstacle(hitbox, element) {
    obstacles.push({ hitbox, element });
@@ -7,29 +14,42 @@ function registerObstacle(hitbox, element) {
 
 
 function checkCollisions(playerData) {
-   const playerCorners = calculateOBB(playerData);
+    const playerCorners = calculateOBB(playerData);
 
+    for (let { hitbox, element } of obstacles) {
+        const hitboxRect = getElementRect(hitbox[0]);
+        const obstacleRect = getElementRect(element[0]);
+        
+        const adjustedHitboxRect = {
+            left: hitboxRect.left,
+            top: hitboxRect.top,
+            right: hitboxRect.right,
+            bottom: hitboxRect.bottom
+        };
 
-   for (let { hitbox, element } of obstacles) {
-       const hitboxRect = hitbox[0].getBoundingClientRect();
-       const obstacleRect = element[0].getBoundingClientRect();
-      
-       const adjustedHitboxRect = {
-           left: hitboxRect.left - obstacleRect.left + obstacleRect.left,
-           top: hitboxRect.top - obstacleRect.top + obstacleRect.top,
-           right: hitboxRect.right - obstacleRect.left + obstacleRect.left,
-           bottom: hitboxRect.bottom - obstacleRect.top + obstacleRect.top
-       };
+        if (checkCollision(playerCorners, adjustedHitboxRect)) {
+            return true;
+        }
+    }
 
-
-       if (checkCollision(playerCorners, adjustedHitboxRect)) {
-           return true;
-       }
-   }
-
-
-   return false;
+    return false;
 }
+
+function getElementRect(element) {
+    const rect = element.getBoundingClientRect();
+    const scrollWindow = document.getElementById('scroll-window');
+    const scrollRect = scrollWindow.getBoundingClientRect();
+    
+    return {
+        left: (rect.left - scrollRect.left) / currentScale,
+        top: (rect.top - scrollRect.top) / currentScale,
+        right: (rect.right - scrollRect.left) / currentScale,
+        bottom: (rect.bottom - scrollRect.top) / currentScale,
+        width: rect.width / currentScale,
+        height: rect.height / currentScale
+    };
+}
+
 
 
 function calculateOBB(data) {
@@ -92,4 +112,4 @@ function projectOntoAxis(corners, axis) {
 }
 
 
-export { checkCollisions, registerObstacle };
+export { checkCollisions, registerObstacle, updateScale };
