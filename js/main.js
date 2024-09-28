@@ -28,15 +28,6 @@ $(function () {
         registerObstacle(boundHitbox, mapBounds);
     });
 
-    // map bounds
-    const mapBounds = $('#map-bounds');
-    const boundsSides = ['top', 'right', 'bottom', 'left'];
-
-    boundsSides.forEach(side => {
-        const boundHitbox = $(`#${side}-bounds`);
-        registerObstacle(boundHitbox, mapBounds);
-    });
-
     // Obstacle-related variables
     const coneHitboxes = $('.cone-hitbox');
     const cones = $('.cone-obstacle');
