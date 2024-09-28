@@ -1,5 +1,5 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
-import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
+import { checkCollisions, registerObstacle, updateScale } from './collision.js';
 
 $(function () {
     // DOM elements and scaling variables
@@ -18,6 +18,24 @@ $(function () {
     // Car-related variables
     const player = $('#car');
     const headlights = $('#headlights');
+
+    // map bounds
+    const mapBounds = $('#map-bounds');
+    const boundsSides = ['top', 'right', 'bottom', 'left'];
+
+    boundsSides.forEach(side => {
+        const boundHitbox = $(`#${side}-bounds`);
+        registerObstacle(boundHitbox, mapBounds);
+    });
+
+    // map bounds
+    const mapBounds = $('#map-bounds');
+    const boundsSides = ['top', 'right', 'bottom', 'left'];
+
+    boundsSides.forEach(side => {
+        const boundHitbox = $(`#${side}-bounds`);
+        registerObstacle(boundHitbox, mapBounds);
+    });
 
     // Obstacle-related variables
     const coneHitboxes = $('.cone-hitbox');
