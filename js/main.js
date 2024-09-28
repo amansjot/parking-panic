@@ -109,8 +109,12 @@ $(function () {
         // Check for collisions with obstacles
         const collision = checkCollisions(playerData);
         if (collision) {
-            resetCar(gameState); // Reset car if collision occurs
-            removeLife(); // Remove a life on collision
+            stopCar();
+            // add explode animation here!
+            setTimeout(function() {
+                resetCar(gameState); // Reset car if collision occurs
+                removeLife(); // Remove a life on collision
+            }, 700);
         }
 
         // Check if the car is contained within the mode buttons

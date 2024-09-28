@@ -80,19 +80,19 @@ function stopCar() {
 
 // Function to reset the car to its starting position and speed for a given mode
 function resetCar(mode) {
+    // Set speeds based on selected mode (easy or hard)
+    if (mode == "hard-mode") {
+        playerData.maxForwardSpeed = 3;
+        playerData.maxReverseSpeed = 2;
+    } else {
+        playerData.maxForwardSpeed = 2;
+        playerData.maxReverseSpeed = 1.5;
+    }
+    
     playerData.currentSpeed = 0;
     playerData.x = 240;
     playerData.y = 900;
     playerData.angle = 0;
-    
-    // Set speeds based on selected mode (easy or hard)
-    if (mode == "easy-mode") {
-        playerData.maxForwardSpeed = 2;
-        playerData.maxReverseSpeed = 1.5;
-    } else if (mode == "hard-mode") {
-        playerData.maxForwardSpeed = 3;
-        playerData.maxReverseSpeed = 2;
-    }
 }
 
 // Function to check if the car is contained within the start buttons
