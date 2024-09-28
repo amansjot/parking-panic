@@ -30,12 +30,19 @@ $(function () {
 
     // Map Dividers
     const mapParkingDividers = $('#map-bounds');
-    const parkingDividerSides = ['top-left', 'top-right', 'bottom-left', /*'bottom-right'*/];
+    // let parkingDividerSides = ['bottom-left'];
 
+    // let boundHitbox = $(`#${side}-divider`);
+    // registerObstacle(boundHitbox, mapParkingDividers);
+
+    const parkingDividerSides = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
     parkingDividerSides.forEach(side => {
-        const boundHitbox = $(`#${side}-divider`);
+        let boundHitbox = $(`#${side}-divider`);
         registerObstacle(boundHitbox, mapParkingDividers);
     });
+
+    // Hide dividers for the start screen
+    $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
 
     // Obstacle-related variables
     const coneHitboxes = $('.cone-hitbox');
@@ -132,8 +139,14 @@ $(function () {
             $("#game-buttons").show();
             $("#lives-counter").show();
 
+            // Display the game background
+            $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
+
             resetCar(gameState); // Reset car for the new game mode
             resetLives(); // Reset player lives
+
+            // Show dividers for the game screen
+            $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
             // Generate random cone obstacles
             for (let i = 0; i < 4; i++) {
@@ -270,6 +283,13 @@ $(function () {
     // Function to handle the exit game button click
     $("#exit-game-button").on("click", function () {
         gameState = 'start'; // Reset game state to 'start'
+
+        // Display the start background
+        $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
+
+        // Hide dividers and obstacles for the start screen
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove();
+        $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
 
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 

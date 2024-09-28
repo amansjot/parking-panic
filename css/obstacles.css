@@ -28,13 +28,13 @@
 }
 
 #cone-1 {
-    top: 225px;
-    left: 285px;
+    top: 535px;
+    left: 290px;
 }
 
 #cone-2 {
-    top: 225px;
-    left: 450px;
+    top: 790px;
+    left: 475px;
 }
 
 .cone-img {
@@ -57,8 +57,8 @@
 /* Dumpster Obstacle */
 .dumpster-obstacle {
     position: absolute;
-    left: 355px;
-    top: 270px;
+    left: 360px;
+    top: 515px;
     z-index: 2;
 }
 
@@ -77,4 +77,9 @@
     background-color: rgba(0, 0, 255, 0.3); 
     border: 1px solid blue;
     z-index: 3;
+}
+
+#map-bounds,
+#map-parking-dividers div {
+    visibility: hidden;
 }

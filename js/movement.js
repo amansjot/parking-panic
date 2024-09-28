@@ -71,7 +71,7 @@ function rotateCar(keys) {
 }
 
 // Function to stop the car after a delay
-function stopCar(keys) {
+function stopCar() {
     setTimeout(function() {
         playerData.maxForwardSpeed = 0;
         playerData.maxReverseSpeed = 0;

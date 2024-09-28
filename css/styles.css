@@ -71,7 +71,7 @@ body {
     border: 1px solid white;
     box-sizing: content-box;
     overflow: hidden;
-    background-image: url(../img/parkinglot.png);
+    background-image: url(../img/starter-parkinglot.png);
     background-size: contain;
     background-position: center;
 }
