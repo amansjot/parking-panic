@@ -58,7 +58,7 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
             carRect.bottom <= spotRect.bottom
         ){
             missionCompleteMessage.show(); // Show mission complete message
-            stopTimer();
+            //stopTimer();
             spotDiv.style.boxShadow="0 0 15px 10px rgba(0, 255, 0, 0.7)";
             spotDiv.style.transition= "box-shadow 0.3s ease-in-out";
             return true;
