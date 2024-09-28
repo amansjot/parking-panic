@@ -1,6 +1,6 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
-import { startTimer } from './timer.js';
+import { startTimer, stopTimer, resetTimer } from './timer.js';
 
 //import { checkParkingCompletion, setRandomParkingSpot,setCurrentParkingSpot } from './parkingspot.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
@@ -87,13 +87,16 @@ $(function () {
         moveCar(keys, startTimer);
         rotateCar(keys);
         updatePlayerCSS(player);
+        startTimer();
+        
 
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if(correctSpot){
             resetGame("win");
             revertParkingSpot();
-
+            stopTimer();
+            resetTimer();
         }
 
         // Collisions
@@ -119,6 +122,7 @@ $(function () {
     function startGame(mode) {
         stopCar();
         gameState = mode;
+    
 
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
         $("#game-mode").text(mode.replace("-", " "));
