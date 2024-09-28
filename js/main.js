@@ -114,7 +114,7 @@ $(function () {
             setTimeout(function() {
                 resetCar(gameState); // Reset car if collision occurs
                 removeLife(); // Remove a life on collision
-            }, 700);
+            }, 300);
         }
 
         // Check if the car is contained within the mode buttons
