@@ -1,8 +1,9 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
 import { startTimer } from './timer.js';
+
 //import { checkParkingCompletion, setRandomParkingSpot,setCurrentParkingSpot } from './parkingspot.js';
-import { updateSpot } from './randomspot.js';
+import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
 
 $(function () {
     // Scaling functionality
@@ -11,6 +12,7 @@ $(function () {
     let unscaledSize = 1000;
     let headerHeight = 150;
 
+    //parking spot check
     // Initial resize
     resize();
 
@@ -80,10 +82,19 @@ $(function () {
     // Add resize event listener
     window.addEventListener("resize", resize);  // Resize game window on resize event
 
+
     function updatePlayer() {
         moveCar(keys, startTimer);
         rotateCar(keys);
         updatePlayerCSS(player);
+
+        //Check if car is in the chose parking spot
+        const correctSpot = checkParkingCompletion();
+        if(correctSpot){
+            resetGame("win");
+            revertParkingSpot();
+
+        }
 
         // Collisions
         const collision = checkCollisions(playerData);
@@ -95,6 +106,8 @@ $(function () {
         // Containment
         const chosenMode = checkContainmentButtons();
         if (chosenMode && gameState == "start") startGame(chosenMode);
+
+
 
         updateCollisionVisual(collision);
     }

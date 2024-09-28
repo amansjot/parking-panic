@@ -1,5 +1,5 @@
 // timer.js
-let timeLeft = 30; // Starting time in seconds
+let time = 0; // Starting time in seconds
 let timerInterval;
 
 //constant variables
@@ -14,13 +14,8 @@ function startTimer() {
 }
 // Update the timer every second
 function updateTimer() {
-    timeLeft -= 1;
-    timerElement.text(timeLeft);
-    if (timeLeft <= 0) {
-        stopTimer();
-        timerElement.text("Time's up!");
-        missionFailedMessage.show();
-    }
+    time += 1;
+    timerElement.text(time);
 }
 // Stop the timer
 function stopTimer() {
@@ -31,7 +26,7 @@ function stopTimer() {
 }
 // Reset the timer
 function resetTimer() {
-    timeLeft = 30;
-    timerElement.text(timeLeft);
+    time = 0;
+    timerElement.text(time);
 }
 export { startTimer, stopTimer, resetTimer };

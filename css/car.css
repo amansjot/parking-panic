@@ -36,13 +36,13 @@
 
 #car-hitbox {
     position: absolute;
-    width: 35px;
-    height: 70px;
+    width: 33px;
+    height: 67px;
     top: 0;
     left: 0;
     transform-origin: center;
     background-color: rgba(0, 255, 0, 0.3);
     border: 1px solid green;
     z-index: 3;
-    visibility: hidden;
+    visibility:hidden;
 }

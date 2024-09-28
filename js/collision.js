@@ -100,4 +100,4 @@ function projectOntoAxis(corners, axis) {
     return { min: Math.min(...dots), max: Math.max(...dots) };
 }
 
-export { obstacles, checkCollisions, registerObstacle, updateScale };
+export { obstacles, checkCollisions, registerObstacle, updateScale, getElementRect };

@@ -8,7 +8,7 @@ let currentParkingSpot;
 
 // Parking spot and messages
 //const parkingSpot = $('#parking-spot');
-const missionCompleteMessage = $('#mission-complete-message');
+
 
 const parkingSpots = {
         1: $('#one'),
