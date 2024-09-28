@@ -44,6 +44,9 @@ $(function () {
     // Hide dividers for the start screen
     $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
 
+    // Collision related variables
+    let registerCollision = true;
+    
     // Obstacle-related variables
     const coneHitboxes = $('.cone-hitbox');
     const cones = $('.cone-obstacle');
@@ -108,13 +111,14 @@ $(function () {
 
         // Check for collisions with obstacles
         const collision = checkCollisions(playerData);
-        if (collision) {
-            stopCar();
+        if (registerCollision && collision) {
+            // stopCar();
+            removeLife(); // Remove a life on collision
             // add explode animation here!
-            setTimeout(function() {
-                resetCar(gameState); // Reset car if collision occurs
-                removeLife(); // Remove a life on collision
-            }, 300);
+            // resetCar(gameState);
+            // setTimeout(function() {
+            //     resetCar(gameState); // Reset car if collision occurs
+            // }, 300);
         }
 
         // Check if the car is contained within the mode buttons
@@ -131,7 +135,13 @@ $(function () {
 
     // Function to start the game based on the selected mode
     function startGame(mode) {
-        stopCar(); // Stop the car when starting a new game
+        if (gameState == "start") {
+            stopCar();
+            setTimeout(function () {
+                resetCar(gameState); // Reset car for the new game mode
+            }, 700);
+        }
+
         gameState = mode;
 
         // Display the selected game mode (Easy or Hard)
@@ -146,7 +156,6 @@ $(function () {
             // Display the game background
             $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
 
-            resetCar(gameState); // Reset car for the new game mode
             resetLives(); // Reset player lives
 
             // Show dividers for the game screen
@@ -187,6 +196,7 @@ $(function () {
         }
 
         // Display the remaining lives on the screen
+        $(".game-life").remove();
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
@@ -203,18 +213,34 @@ $(function () {
 
     // Function to remove a life after a collision
     function removeLife() {
+        if (gameState == "start") {
+            resetCar(gameState);
+        } else {
+            registerCollision = false;
+            stopCar();
+            setTimeout(function () {
+                resetCar(gameState);
+                registerCollision = true;
+            }, 700);
+        }
+
         if (gameState != "start") {
             let livesElements = $(".game-life");
             livesElements[lives - 1].remove(); // Remove the last life icon
             lives -= 1; // Decrease life count
-            if (lives == 0) resetGame("lose"); // Reset game if no lives are left
+            if (lives == 0) {
+                resetGame("lose");
+            }
         }
     }
 
     // Function to reset the game when the player wins or loses
     function resetGame(result) {
-        stopCar(); // Stop the car
-        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
+        // stopCar(); // Stop the car
+
+        setTimeout(function () {
+            $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
+        }, 700);
 
         // Display win or lose message
         if (result == "win") {

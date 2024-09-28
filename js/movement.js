@@ -72,10 +72,8 @@ function rotateCar(keys) {
 
 // Function to stop the car after a delay
 function stopCar() {
-    setTimeout(function() {
-        playerData.maxForwardSpeed = 0;
-        playerData.maxReverseSpeed = 0;
-    }, 50);  // Delay of 50ms before stopping
+    playerData.maxForwardSpeed = 0;
+    playerData.maxReverseSpeed = 0;
 }
 
 // Function to reset the car to its starting position and speed for a given mode
@@ -88,7 +86,7 @@ function resetCar(mode) {
         playerData.maxForwardSpeed = 2;
         playerData.maxReverseSpeed = 1.5;
     }
-    
+
     playerData.currentSpeed = 0;
     playerData.x = 240;
     playerData.y = 900;
