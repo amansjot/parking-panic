@@ -92,7 +92,7 @@
     transform: translate(-50%, -50%);
     background-color: rgba(255, 251, 0, 0.3); 
     border: 1px solid yellow;
-    z-index: 3;
+    z-index: 1;
 }
 
 #left-bounds{
@@ -104,7 +104,7 @@
     transform: translate(-50%, -50%);
     background-color: rgba(255, 251, 0, 0.3); 
     border: 1px solid yellow;
-    z-index: 3;
+    z-index: 1;
 }
 
 #right-bounds{
@@ -116,7 +116,7 @@
     transform: translate(-50%, -50%);
     background-color: rgba(255, 251, 0, 0.3); 
     border: 1px solid yellow;
-    z-index: 3;
+    z-index: 1;
 }
 
 #bottom-bounds{
@@ -128,5 +128,5 @@
     transform: translate(-50%, -50%);
     background-color: rgba(255, 251, 0, 0.3); 
     border: 1px solid yellow;
-    z-index: 3;
+    z-index: 1;
 }

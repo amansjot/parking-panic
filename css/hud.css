@@ -39,6 +39,7 @@
     background-color: black;
     color: white;
     cursor: pointer;
+    z-index: 999;
 }
 
 #controls {
