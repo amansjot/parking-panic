@@ -19,13 +19,22 @@ $(function () {
     const player = $('#car');
     const headlights = $('#headlights');
 
-    // map bounds
+    // Map Bounds
     const mapBounds = $('#map-bounds');
     const boundsSides = ['top', 'right', 'bottom', 'left'];
 
     boundsSides.forEach(side => {
         const boundHitbox = $(`#${side}-bounds`);
         registerObstacle(boundHitbox, mapBounds);
+    });
+
+    // Map Dividers
+    const mapParkingDividers = $('#map-bounds');
+    const parkingDividerSides = ['top-left', 'top-right', 'bottom-left', /*'bottom-right'*/];
+
+    parkingDividerSides.forEach(side => {
+        const boundHitbox = $(`#${side}-divider`);
+        registerObstacle(boundHitbox, mapParkingDividers);
     });
 
     // Obstacle-related variables

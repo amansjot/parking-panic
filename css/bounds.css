@@ -1,0 +1,71 @@
+#top-bounds, #left-bounds, #right-bounds, #bottom-bounds{
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 251, 0, 0.3); 
+    border: 1px solid yellow;
+}
+
+#top-bounds{
+    width: 1000px;
+    height: 290px;
+    top: 0px;
+    left: 500px;
+}
+
+#left-bounds{
+    width: 290px;
+    height: 1000px;
+    top: 500px;
+    left: 0px;
+}
+
+#right-bounds{
+    width: 290px;
+    height: 1000px;
+    top: 500px;
+    right: -290px;
+}
+
+#bottom-bounds{
+    width: 1000px;
+    height: 290px;
+    top: 1000px;
+    left: 792px;
+}
+
+#top-left-divider, #top-right-divider, #bottom-left-divider, #bottom-right-divider{
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 251, 0, 0.3); 
+    border: 1px solid yellow;
+}
+
+#top-left-divider{
+    width: 245px;
+    height: 10px;
+    top: 359px;
+    left: 345px;
+}
+
+#top-right-divider{
+    width: 240px;
+    height: 10px;
+    top: 359px;
+    left: 660px;
+}
+
+#bottom-left-divider{
+    width: 307px;
+    height: 8px;
+    top: 609px;
+    left: 376px;
+}
+
+#bottom-right-divider{
+    width: 8px;
+    height: 120px;
+    top: 623px;
+    left: 703px;
+}
