@@ -73,7 +73,6 @@ $(function () {
         if (correctSpot) {
             displayMessage("Next Round!", "green", "white");
             increaseLevels();
-            revertParkingSpot();
             stopCar();
             registerCollision = false;
             //resetGame();
@@ -287,8 +286,7 @@ $(function () {
             $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
         }, 700);
 
-        revertParkingSpot();
-        currentSpot = updateSpot();
+        revertParkingSpot();   
         startGame(gameState);
     }
 
