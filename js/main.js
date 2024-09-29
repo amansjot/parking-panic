@@ -2,8 +2,9 @@ import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButt
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
-import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { startTimer, stopTimer, resetTimer, saveTime } from './timer.js';
 import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
+// import { showWinEndScreen, showLoseEndScreen, hideEndPopUp, handlePlayAgainButton, handleExitButton, handleExitGameButton } from './ui.js';
 
 $(function () {
     // Initial resize of the game window
@@ -72,16 +73,12 @@ $(function () {
 
             resetGame("win");
             revertParkingSpot();
-            stopTimer();
-            resetTimer();
             revertParkingSpot();
 
             setTimeout(function () {
                 registerCollision = true;
                 resetCar(gameState);
             }, 700);
-
-            // updateSpot();
         }
 
         // Check for collisions with obstacles
@@ -244,6 +241,7 @@ $(function () {
             lives -= 1; // Decrease life count
             if (lives == 0) {
                 resetGame("lose");
+                showEndScreen();
             }
         }
     }
@@ -258,7 +256,7 @@ $(function () {
 
         // Display win or lose message
         if (result == "win") {
-            displayMessage("You Win!", "green", "white");
+            displayMessage("Next Round!", "green", "white");
         } else if (result == "lose") {
             displayMessage("You Lose!", "red", "white");
         }
@@ -267,7 +265,6 @@ $(function () {
         revertParkingSpot();
         currentSpot = updateSpot();
         // resetRedZones();
-        resetTimer();
         startGame(gameState);
     }
 
@@ -341,4 +338,84 @@ $(function () {
         revertParkingSpot();
         resetCar(gameState); // Reset the car to the start position
     });
+
+    //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
+    function showEndScreen(){
+        stopTimer();
+        const popUp = document.getElementById("endscreen-popup");
+        popUp.style.visibility = "visible";
+        const congrats = document.getElementById("congrats");
+        congrats.style.visibility = "visible";
+        const totalTime = saveTime(); // This will now correctly return the current time
+        const userTime = document.getElementById("userTime");
+        userTime.style.visibility = "visible";
+        const userText = "You took " + totalTime + " Seconds to Pass.";
+        userTime.textContent = userText;
+
+        resetTimer();
+    }
+
+    //Hides the end of round popup
+    function hideEndPopUp(){
+        const popUp = document.getElementById("endscreen-popup");
+        popUp.style.visibility="hidden";
+        //win pop up values
+        const congrats = document.getElementById("congrats");
+        congrats.style.visibility= "hidden";
+        const userTime = document.getElementById("userTime");
+        userTime.style.visibility="hidden";
+        //lost pop up values
+        const lost = document.getElementById("lost");
+        lost.style.visibility= "hidden";
+        const lostMsg = document.getElementById("lostMsg");
+        lostMsg.style.visibility= "hidden";
+    }
+
+    //Play again button on popup
+    $("#play-again").on("click", function () {
+        startGame(gameState);
+        hideEndPopUp();
+        resetTimer();
+    });
+
+    //Exit button on popup
+    $("#exit").on("click", function () {
+        gameState = 'start';
+
+        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
+
+        $("#lives-counter").hide();
+        $("#game-buttons").hide();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
+
+        $("#start-buttons").show();
+        $("#easy-mode-button").css("background-color", "green");
+        $("#hard-mode-button").css("background-color", "red");
+        startTimer();
+        hideEndPopUp();
+        stopTimer();
+        revertParkingSpot();
+        resetCar(gameState);
+        resetTimer();
+    });
+
+
+    $("#exit-game-button").on("click", function () {
+        gameState = 'start';
+
+        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
+
+        $("#lives-counter").hide();
+        $("#game-buttons").hide();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
+
+        $("#start-buttons").show();
+        $("#easy-mode-button").css("background-color", "green");
+        $("#hard-mode-button").css("background-color", "red");
+        revertParkingSpot();
+        stopTimer();
+        resetTimer();
+        resetCar(gameState);
+    });
+
 });

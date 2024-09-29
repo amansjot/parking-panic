@@ -1,0 +1,113 @@
+#endscreen-popup{
+    background-color: rgba(0, 0, 0, 0.825);
+    visibility: hidden;
+    width: 450px;
+    height: 350px;
+    z-index: 6;
+    top:320px;
+    left: 280px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#congrats{
+    position: relative;
+    color: white;
+    width: 150px;
+    height: 50px;
+    top:30px;
+    left:50px;
+    font-family: "Silkscreen", sans-serif;
+    font-size: xx-large;
+    visibility: hidden;
+    z-index: 3;
+
+}
+#lost{
+    position: relative;
+    color: white;
+    width: 200px;
+    height: 50px;
+    top:-10px;
+    left:120px;
+    font-family: "Silkscreen", sans-serif;
+    font-size: xx-large;
+    visibility: hidden;
+    z-index: 4;
+}
+
+#lostMsg{
+    position: relative;
+    color: white;
+    width: 400px;
+    height: 60px;
+    top:30px;
+    left:20px;
+    font-family: "Silkscreen", sans-serif;
+    font-size: x-large;
+    word-wrap: break-word;
+    z-index: 4;
+    visibility: hidden;
+}
+
+#userTime{
+    position: relative;
+    color: white;
+    width: 400px;
+    height: 50px;
+    top:-20px;
+    left:20px;
+    font-family: "Silkscreen", sans-serif;
+    font-size: x-large;
+    word-wrap: break-word;
+    z-index: 3;
+    visibility: hidden;
+}
+
+#play-again{
+    position: relative;
+    color: black;
+    font-size: x-large;
+    font-family: "Silkscreen", sans-serif;
+    top:30px;
+    left:-10px;
+    width: 190px;
+    height: 60px;
+    opacity:1;
+    border-radius: 10px;
+    animation: play-again-glow .75s infinite alternate;
+}
+
+#exit{
+    position: relative;
+    color: black;
+    font-size: x-large;
+    font-family: "Silkscreen", sans-serif;
+    top:30px;
+    left:10px;
+    width: 180px;
+    height: 60px;
+    opacity:1;
+    border-radius: 10px;
+    animation: exit-glow .75s infinite alternate;
+}
+
+@keyframes play-again-glow {
+    from {
+        box-shadow: 0 0 10px -10px rgb(54, 205, 54);
+    }
+    to {
+        box-shadow: 0 0 3px 3px rgb(54, 205, 54);
+    }
+}
+
+@keyframes exit-glow {
+    from {
+        box-shadow: 0 0 10px -10px rgb(176, 33, 33);;
+    }
+    to {
+        box-shadow: 0 0 3px 3px rgb(176, 33, 33);
+    }
+}
