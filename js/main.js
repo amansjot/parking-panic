@@ -40,6 +40,7 @@ $(function () {
     };
 
     let currentSpot;
+    const angledSpots = ["spot-33", "spot-34", "spot-35", "spot-36", "spot-37"];
 
     const coneSize = { w: 50, h: 50 }; // 50x50 px cones
     const dumpsterSize = { w: 45, h: 25 };
@@ -130,6 +131,9 @@ $(function () {
 
     // Function to start the game based on the selected mode
     function startGame(mode) {
+        console.log("x");
+        stopCar();
+        
         if (gameState == "start") {
             $("#cone-1, #cone-2, #car-0, .dumpster-obstacle").hide();
             stopCar();
@@ -185,7 +189,7 @@ $(function () {
             let carsRemaining = numCars;
             while (carsRemaining > 0) {
                 const spot = Math.floor(Math.random() * 49) + 1;
-                if (spot != currentSpot) {
+                if ("spot-" + spot != currentSpot && !(angledSpots.includes(spot))) {
                     createCarObstacle(spot);
                     carsRemaining--;
                 }
@@ -233,7 +237,9 @@ $(function () {
     function removeLife() {
         registerCollision = false;
         stopCar();
+        
         setTimeout(function () {
+            console.log("y");
             resetCar(gameState);
             registerCollision = true;
         }, 1600);
