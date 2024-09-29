@@ -318,24 +318,10 @@ $(function () {
         lostMsg.style.visibility= "hidden";
     }
 
-    //Start button on popup
+    //Play again button on popup
     $("#play-again").on("click", function () {
-        gameState = 'start';
-
-        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
-
-        $("#lives-counter").hide();
-        $("#game-buttons").hide();
-        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
-
-        $("#start-buttons").show();
-        $("#easy-mode-button").css("background-color", "green");
-        $("#hard-mode-button").css("background-color", "red");
-        startTimer();
+        startGame(gameState);
         hideEndPopUp();
-        revertParkingSpot();
-        resetCar(gameState);
-        stopTimer();
         resetTimer();
     });
 
