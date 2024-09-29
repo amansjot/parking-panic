@@ -58,6 +58,11 @@ $(function () {
     // Set initial state: Turn headlights off
     headlights.hide();
 
+    displayMessage("Welcome to Parking Panic!", "black", "white", 2000);
+    setTimeout(function () {
+        displayMessage("Drive into the Easy or Hard spot to play!", "black", "white", 3000);
+    }, 2500);
+
     function resize() {
         let width = window.innerWidth;
         let height = window.innerHeight - headerHeight;
@@ -105,7 +110,13 @@ $(function () {
         stopCar();
         gameState = mode;
 
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
         $("#game-mode").text(mode.replace("-", " "));
+
+        let numObstacles = 2;
+        if (gameState == "hard-mode") {
+            numObstacles = 3;
+        }
 
         setTimeout(function () {
             $("#start-buttons").hide();
@@ -115,15 +126,21 @@ $(function () {
             resetCar(gameState);
             resetLives();
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < numObstacles; i++) {
                 const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 createObstacle("cone", random1, random2);
             }
-            
-            for (let i = 0; i < 3; i++) {
-                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+
+            for (let i = 0; i < numObstacles; i++) {
+                const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                createObstacle("dumpster", random1, random2);
+            }
+
+            for (let i = 0; i < numObstacles; i++) {
+                const random1 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
+                const random2 = Math.floor(Math.random() * (800 - 150 + 1)) + 150;
                 createObstacle("car", random1, random2);
             }
         }, 700);
@@ -171,19 +188,16 @@ $(function () {
     }
 
     function resetGame(result) {
-        stopCar();
-        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove();
-
         if (result == "win") {
             displayMessage("You Win!", "green", "white");
         } else if (result == "lose") {
             displayMessage("You Lose!", "red", "white");
         }
-        
+
         startGame(gameState);
     }
 
-    function displayMessage(message, bg, text) {
+    function displayMessage(message, bg, text, time = 900) {
         $("#message").show();
         $("#message").text(message);
         $("#message").css({
@@ -192,12 +206,12 @@ $(function () {
         });
         setTimeout(function () {
             $("#message").hide();
-        }, 900);
+        }, time);
     }
 
     function createObstacle(type, x, y) {
-        if (["dumpster", "cone"].includes(type)) {
-            const html = `<div class="${type}-obstacle" style="top: ${x}px; right: ${x}px;">
+        if (["dumpster", "cone", "car"].includes(type)) {
+            const html = `<div class="${type}-obstacle" style="top: ${x}px; left: ${x}px;">
             <img class="${type}-img" src="img/obstacles/${type}.png" alt="${type}">
             <div class="${type}-hitbox"></div>
             </div>`
@@ -242,8 +256,9 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
-        $("#start-buttons").show();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
+        $("#start-buttons").show();
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
 
