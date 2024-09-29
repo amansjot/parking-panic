@@ -62,7 +62,7 @@ export function initializeObstacles() {
 // Function to create a new obstacle (cones or cars) at a specific position
 export function createObstacle(type, x, y) {
     if (["dumpster", "cone"].includes(type)) {
-        const html = `<div class="${type}-obstacle" style="top: ${x}px; right: ${x}px;">
+        const html = `<div class="${type}-obstacle" style="top: ${y}px; left: ${x}px;">
             <img class="${type}-img" src="img/obstacles/${type}.png" alt="${type}">
             <div class="${type}-hitbox"></div>
         </div>`;

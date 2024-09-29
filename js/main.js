@@ -1,5 +1,5 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn } from './movement.js';
-import { checkCollisions} from './collision.js';
+import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
 
@@ -15,7 +15,7 @@ $(function () {
     // Car-related variables
     const player = $('#car');
     const headlights = $('#headlights');
-    
+
     // Collision related variables
     let registerCollision = true;
 
@@ -35,6 +35,42 @@ $(function () {
         ArrowLeft: false,
         ArrowRight: false
     };
+
+    const coneSize = 50; // 50x50 px cones
+
+    // Define red zones with their boundaries (top-left and bottom-right corners)
+    const redZones = [
+        {
+            x1: 145,   // top-left x
+            y1: 145,   // top-left y
+            x2: 145 + 710,  // bottom-right x
+            y2: 145 + 80    // bottom-right y
+        },
+        {
+            x1: 215,
+            y1: 275,
+            x2: 215 + 570,
+            y2: 275 + 165
+        },
+        {
+            x1: 215,
+            y1: 525,
+            x2: 215 + 320,
+            y2: 525 + 165
+        },
+        {
+            x1: 620,
+            y1: 560,
+            x2: 620 + 170,
+            y2: 560 + 130
+        },
+        {
+            x1: 340,
+            y1: 775,
+            x2: 340 + 515,
+            y2: 775 + 85
+        }
+    ];
 
     // Handle key presses (keydown and keyup events)
     $(document).on('keydown', handleKeyDown);
@@ -75,20 +111,20 @@ $(function () {
         // Get the explosion and car elements
         const carExplosion = document.getElementById('car-explosion');
         const carImage = document.getElementById('playersCar-img');
-        
+
         // Hide the car element
         carImage.style.visibility = 'hidden'; // Use 'visibility' to keep layout, or 'display' to remove it
-    
+
         // Show the explosion over the car
         carExplosion.style.display = 'block';
-    
+
         // Hide the explosion and show the car again after a short delay (duration of your GIF)
         setTimeout(() => {
             carExplosion.style.display = 'none';  // Hide the explosion
             carImage.style.visibility = 'visible';  // Show the car again
         }, 1600); // Adjust this timing to match your GIF duration
     }
-    
+
 
     // Visual indicator for collision detection (changes car hitbox color)
     function updateCollisionVisual(collision) {
@@ -123,12 +159,7 @@ $(function () {
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
-            // Generate random cone obstacles
-            for (let i = 0; i < 4; i++) {
-                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                createObstacle("cone", random1, random2);
-            }
+            generateCones();
 
             // Generate random car obstacles
             for (let i = 0; i < 3; i++) {
@@ -143,6 +174,55 @@ $(function () {
             $("#easy-mode-button").css("background-color", "darkgreen");
         } else if (mode == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
+        }
+    }
+
+    // Function to check if two rectangles overlap
+    function doRectanglesOverlap(rect1, rect2) {
+        return !(rect1.x1 > rect2.x2 ||  // left of cone is to the right of the red zone
+            rect1.x2 < rect2.x1 ||  // right of cone is to the left of the red zone
+            rect1.y1 > rect2.y2 ||  // top of cone is below the red zone
+            rect1.y2 < rect2.y1);   // bottom of cone is above the red zone
+    }
+
+    // Check if a cone intersects any red zone
+    function isInRedZone(coneX, coneY) {
+        // Define the rectangle for the cone (top-left corner and size 50x50)
+        const coneRect = {
+            x1: coneX,             // cone's top-left x
+            y1: coneY,             // cone's top-left y
+            x2: coneX + coneSize,  // cone's bottom-right x
+            y2: coneY + coneSize   // cone's bottom-right y
+        };
+
+        // Check if the cone's rectangle overlaps with any red zone
+        for (const zone of redZones) {
+            if (doRectanglesOverlap(coneRect, zone)) {
+                return true;  // The cone overlaps a red zone
+            }
+        }
+
+        console.log(coneX + " " + coneY);
+        return false;  // No overlap
+    }
+
+    function generateConePosition(redZones) {
+        let coneX, coneY;
+
+        do {
+            coneX = Math.floor(Math.random() * (805 - 145 + 1)) + 145;  // Generate random X
+            coneY = Math.floor(Math.random() * (805 - 145 + 1)) + 145;  // Generate random Y
+        } while (isInRedZone(coneX, coneY, redZones));
+
+        return { coneX, coneY };  // Return the valid coordinates
+    }
+
+
+    function generateCones() {
+        // Generate random cone obstacles
+        for (let i = 0; i < 4; i++) {
+            const { coneX, coneY } = generateConePosition(redZones);
+            createObstacle("cone", coneX, coneY);
         }
     }
 
@@ -243,7 +323,7 @@ $(function () {
             toggleHeadlights($('#headlights'));
         }
 
-         // Play horn with g
+        // Play horn with g
         if (key === 'g') {  // ' ' is the spacebar key
             playHorn();
         }
