@@ -1,5 +1,45 @@
 import { registerObstacle } from './collision.js';
 
+// Define red zones with their boundaries (top-left and bottom-right corners)
+const redZones = [
+    {
+        x1: 145,   // top-left x
+        y1: 145,   // top-left y
+        x2: 145 + 710,  // bottom-right x
+        y2: 145 + 72    // bottom-right y
+    },
+    {
+        x1: 215,
+        y1: 282,
+        x2: 215 + 255,
+        y2: 282 + 165
+    },
+    {
+        x1: 540,
+        y1: 282,
+        x2: 540 + 245,
+        y2: 282 + 165
+    },
+    {
+        x1: 215,
+        y1: 525,
+        x2: 215 + 320,
+        y2: 525 + 165
+    },
+    {
+        x1: 620,
+        y1: 560,
+        x2: 620 + 170,
+        y2: 560 + 130
+    },
+    {
+        x1: 340,
+        y1: 775,
+        x2: 340 + 515,
+        y2: 775 + 85
+    }
+];
+
 /** Map Bounds Registration
  * Registers the boundaries (map bounds) as obstacles for collision detection.
  * 
@@ -76,6 +116,10 @@ export function createObstacle(type, x, y) {
     }
 }
 
+export function resetRedZones() {
+    redZones.splice(6);
+}
+
 // Function to check if two rectangles overlap
 function doRectanglesOverlap(rect1, rect2) {
     return !(rect1.x1 > rect2.x2 ||  // left of cone is to the right of the red zone
@@ -84,27 +128,30 @@ function doRectanglesOverlap(rect1, rect2) {
         rect1.y2 < rect2.y1);   // bottom of cone is above the red zone
 }
 
-// Check if a cone intersects any red zone
-function isInRedZone(redZones, size, posX, posY) {
-    // Define the rectangle for the cone (top-left corner and size 50x50)
-    const coneRect = {
-        x1: posX,             // cone's top-left x
-        y1: posY,             // cone's top-left y
-        x2: posX + size.h,  // cone's bottom-right x
-        y2: posY + size.w   // cone's bottom-right y
+// Check if an obstacle intersects any red zone
+function isInRedZone(size, posX, posY) {
+    // Define the rectangle for the obstacle
+    const obstacleRect = {
+        x1: posX,             // obstacle's top-left x
+        y1: posY,             // obstacle's top-left y
+        x2: posX + size.h,  // obstacle's bottom-right x
+        y2: posY + size.w   // obstacle's bottom-right y
     };
 
-    // Check if the cone's rectangle overlaps with any red zone
+    // Check if the obstacle's rectangle overlaps with any red zone
     for (const zone of redZones) {
-        if (doRectanglesOverlap(coneRect, zone)) {
-            return true;  // The cone overlaps a red zone
+        if (doRectanglesOverlap(obstacleRect, zone)) {
+            return true;  // The obstacle overlaps a red zone
         }
     }
+
+    // Add the obstacle to redZones
+    redZones.push(obstacleRect);
 
     return false;  // No overlap
 }
 
-export function generateObstaclePosition(redZones, obstacleSize) {
+export function generateObstaclePosition(obstacleSize) {
     let posX, posY;
     let minX = 145;
     let minY = 145;
@@ -114,8 +161,7 @@ export function generateObstaclePosition(redZones, obstacleSize) {
     do {
         posX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;  // Generate random X
         posY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;  // Generate random Y
-    } while (isInRedZone(redZones, obstacleSize, posX, posY));
+    } while (isInRedZone(obstacleSize, posX, posY));
 
-    console.log(posX + " " + posY);
     return { posX, posY };  // Return the valid coordinates
 }

@@ -1,7 +1,7 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn } from './movement.js';
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
-import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, generateObstaclePosition } from './obstacles.js';
+import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
@@ -40,46 +40,6 @@ $(function () {
 
     const coneSize = { w: 50, h: 50 }; // 50x50 px cones
     const dumpsterSize = { w: 45, h: 25 };
-
-    // Define red zones with their boundaries (top-left and bottom-right corners)
-    const redZones = [
-        {
-            x1: 145,   // top-left x
-            y1: 145,   // top-left y
-            x2: 145 + 710,  // bottom-right x
-            y2: 145 + 72    // bottom-right y
-        },
-        {
-            x1: 215,
-            y1: 282,
-            x2: 215 + 255,
-            y2: 282 + 165
-        },
-        {
-            x1: 540,
-            y1: 282,
-            x2: 540 + 245,
-            y2: 282 + 165
-        },
-        {
-            x1: 215,
-            y1: 525,
-            x2: 215 + 320,
-            y2: 525 + 165
-        },
-        {
-            x1: 620,
-            y1: 560,
-            x2: 620 + 170,
-            y2: 560 + 130
-        },
-        {
-            x1: 340,
-            y1: 775,
-            x2: 340 + 515,
-            y2: 775 + 85
-        }
-    ];
 
     // Handle key presses (keydown and keyup events)
     $(document).on('keydown', handleKeyDown);
@@ -203,14 +163,14 @@ $(function () {
 
             // Generate random cone obstacles
             for (let i = 0; i < numCones; i++) {
-                let { posX, posY } = generateObstaclePosition(redZones, coneSize);
+                let { posX, posY } = generateObstaclePosition(coneSize);
                 console.log(posX);
                 createObstacle("cone", posX, posY);
             }
 
             // Generate random dumpster obstacles
             for (let i = 0; i < numDumpsters; i++) {
-                const { posX, posY } = generateObstaclePosition(redZones, dumpsterSize);
+                const { posX, posY } = generateObstaclePosition(dumpsterSize);
                 createObstacle("dumpster", posX, posY );
             }
 
@@ -297,6 +257,7 @@ $(function () {
 
         // Restart the game after displaying the result
         revertParkingSpot();
+        resetRedZones();
         updateSpot();
         resetTimer();
         startGame(gameState);
