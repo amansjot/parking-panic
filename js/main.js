@@ -296,19 +296,24 @@ $(function () {
         const lostMsg = document.getElementById("lostMsg");
         lostMsg.style.visibility= "visible";
         playAgain();
+
     }
 
-    function playAgain(){
-        $("play-again").on("click", function (){
+/*
+    function playAgain() {
+        $("#play-again").on("click", function () { 
+            //hideEndPopUp();
             revertParkingSpot();
             resetTimer();
             updateSpot();
             startGame(gameState);
             resetCar(gameState);
+            
         });
+        //hideEndPopUp();
     }
 
-
+    */
     //Hides the end of round popup
     function hideEndPopUp(){
         const popUp = document.getElementById("endscreen-popup");
@@ -316,7 +321,6 @@ $(function () {
         //win pop up values
         const congrats = document.getElementById("congrats");
         congrats.style.visibility= "hidden";
-        
         const userTime = document.getElementById("userTime");
         userTime.style.visibility="hidden";
         //lost pop up values
@@ -325,6 +329,25 @@ $(function () {
         const lostMsg = document.getElementById("lostMsg");
         lostMsg.style.visibility= "hidden";
     }
+    $("#play-again").on("click", function () {
+        gameState = 'start';
+
+        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
+
+        $("#lives-counter").hide();
+        $("#game-buttons").hide();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
+
+        $("#start-buttons").show();
+        $("#easy-mode-button").css("background-color", "green");
+        $("#hard-mode-button").css("background-color", "red");
+        startTimer();
+        hideEndPopUp();
+        stopTimer();
+        revertParkingSpot();
+        resetCar(gameState);
+        resetTimer();
+    });
 
     $("#exit").on("click", function () {
         gameState = 'start';
@@ -338,6 +361,7 @@ $(function () {
         $("#start-buttons").show();
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
+        startTimer();
         hideEndPopUp();
         stopTimer();
         revertParkingSpot();
