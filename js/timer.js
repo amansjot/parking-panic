@@ -26,6 +26,7 @@ function stopTimer() {
    const getFinalTime = saveTime();
    timerDiv.textContent = getFinalTime;
    clearInterval(timerInterval);
+   timerInterval = null;
 
 }
 // Reset the timer
