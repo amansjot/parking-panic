@@ -21,6 +21,11 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
     //let spotDiv = document.getElementById(spotId); //getting the correct parking div
 
     function updateSpot(){//Take a random number, associates it with a spot, and adjusts the spots css to glow 
+
+        // Reassign a new spot number and spot ID for each round
+        spotNum = randomSpot(); // Generate a new random spot number
+        spotId = spots[spotNum]; // Update the spotId to match the new spot number
+
         const spotDiv = document.getElementById(spotId);  
         spotDiv.style.border= "3px dashed yellow";
         spotDiv.style.zIndex="3"; 

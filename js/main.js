@@ -97,6 +97,8 @@ $(function () {
             revertParkingSpot();
             stopTimer();
             resetTimer();
+            revertParkingSpot();
+            updateSpot();
         }
 
         // Collisions
@@ -164,6 +166,9 @@ $(function () {
         } else if (mode == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
+
+        revertParkingSpot();
+        updateSpot();
     }
 
     function resetLives() {
@@ -208,6 +213,9 @@ $(function () {
             displayMessage("You Lose!", "red", "white");
         }
 
+        revertParkingSpot();
+        updateSpot();
+        resetTimer();
         startGame(gameState);
     }
 
