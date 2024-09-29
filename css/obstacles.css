@@ -60,6 +60,7 @@
     left: 360px;
     top: 515px;
     z-index: 2;
+    transform: translate(-37px, -20px);
 }
 
 .dumpster-img {
@@ -77,6 +78,7 @@
     background-color: rgba(0, 0, 255, 0.3); 
     border: 1px solid blue;
     z-index: 3;
+    visibility: hidden;
 }
 
 #map-bounds,

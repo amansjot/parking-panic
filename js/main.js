@@ -1,7 +1,7 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn } from './movement.js';
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
-import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
+import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, generateObstaclePosition } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
@@ -38,7 +38,8 @@ $(function () {
         ArrowRight: false
     };
 
-    const coneSize = 50; // 50x50 px cones
+    const coneSize = { w: 50, h: 50 }; // 50x50 px cones
+    const dumpsterSize = { w: 45, h: 25 };
 
     // Define red zones with their boundaries (top-left and bottom-right corners)
     const redZones = [
@@ -46,13 +47,19 @@ $(function () {
             x1: 145,   // top-left x
             y1: 145,   // top-left y
             x2: 145 + 710,  // bottom-right x
-            y2: 145 + 80    // bottom-right y
+            y2: 145 + 72    // bottom-right y
         },
         {
             x1: 215,
-            y1: 275,
-            x2: 215 + 570,
-            y2: 275 + 165
+            y1: 282,
+            x2: 215 + 255,
+            y2: 282 + 165
+        },
+        {
+            x1: 540,
+            y1: 282,
+            x2: 540 + 245,
+            y2: 282 + 165
         },
         {
             x1: 215,
@@ -161,7 +168,7 @@ $(function () {
     // Function to start the game based on the selected mode
     function startGame(mode) {
         if (gameState == "start") {
-            $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").hide();
+            $("#cone-1, #cone-2, .dumpster-obstacle").hide();
             stopCar();
             setTimeout(function () {
                 resetCar(gameState); // Reset car for the new game mode
@@ -187,10 +194,24 @@ $(function () {
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
+            let numCones = 3;
+            let numDumpsters = 2;
+            if (gameState == "hard-mode") {
+                numCones = 6;
+                numDumpsters = 4;
+            }
+
             // Generate random cone obstacles
-            for (let i = 0; i < 4; i++) {
-                const { coneX, coneY } = generateConePosition(redZones);
-                createObstacle("cone", coneX, coneY);
+            for (let i = 0; i < numCones; i++) {
+                let { posX, posY } = generateObstaclePosition(redZones, coneSize);
+                console.log(posX);
+                createObstacle("cone", posX, posY);
+            }
+
+            // Generate random dumpster obstacles
+            for (let i = 0; i < numDumpsters; i++) {
+                const { posX, posY } = generateObstaclePosition(redZones, dumpsterSize);
+                createObstacle("dumpster", posX, posY );
             }
 
             // Generate random car obstacles
@@ -204,53 +225,13 @@ $(function () {
         }, 700);
 
         // Change the button color based on the selected mode
-        if (mode == "easy-mode") {
+        if (gameState == "easy-mode") {
             $("#easy-mode-button").css("background-color", "darkgreen");
-        } else if (mode == "hard-mode") {
+        } else if (gameState == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
 
         revertParkingSpot();
-    }
-
-    // Function to check if two rectangles overlap
-    function doRectanglesOverlap(rect1, rect2) {
-        return !(rect1.x1 > rect2.x2 ||  // left of cone is to the right of the red zone
-            rect1.x2 < rect2.x1 ||  // right of cone is to the left of the red zone
-            rect1.y1 > rect2.y2 ||  // top of cone is below the red zone
-            rect1.y2 < rect2.y1);   // bottom of cone is above the red zone
-    }
-
-    // Check if a cone intersects any red zone
-    function isInRedZone(coneX, coneY) {
-        // Define the rectangle for the cone (top-left corner and size 50x50)
-        const coneRect = {
-            x1: coneX,             // cone's top-left x
-            y1: coneY,             // cone's top-left y
-            x2: coneX + coneSize,  // cone's bottom-right x
-            y2: coneY + coneSize   // cone's bottom-right y
-        };
-
-        // Check if the cone's rectangle overlaps with any red zone
-        for (const zone of redZones) {
-            if (doRectanglesOverlap(coneRect, zone)) {
-                return true;  // The cone overlaps a red zone
-            }
-        }
-
-        console.log(coneX + " " + coneY);
-        return false;  // No overlap
-    }
-
-    function generateConePosition(redZones) {
-        let coneX, coneY;
-
-        do {
-            coneX = Math.floor(Math.random() * (805 - 145 + 1)) + 145;  // Generate random X
-            coneY = Math.floor(Math.random() * (805 - 145 + 1)) + 145;  // Generate random Y
-        } while (isInRedZone(coneX, coneY, redZones));
-
-        return { coneX, coneY };  // Return the valid coordinates
     }
 
     // Function to reset the player's lives based on game mode
