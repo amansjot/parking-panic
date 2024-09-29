@@ -60,11 +60,8 @@ $(function () {
         if (registerCollision && collision) {
             // stopCar();
             removeLife(); // Remove a life on collision
-            // add explode animation here!
+            triggerExplosion();
             // resetCar(gameState);
-            // setTimeout(function() {
-            //     resetCar(gameState); // Reset car if collision occurs
-            // }, 300);
         }
 
         // Check if the car is contained within the mode buttons
@@ -73,6 +70,25 @@ $(function () {
 
         updateCollisionVisual(collision); // Update the collision visual
     }
+
+    function triggerExplosion() {
+        // Get the explosion and car elements
+        const carExplosion = document.getElementById('car-explosion');
+        const carImage = document.getElementById('playersCar-img');
+        
+        // Hide the car element
+        carImage.style.visibility = 'hidden'; // Use 'visibility' to keep layout, or 'display' to remove it
+    
+        // Show the explosion over the car
+        carExplosion.style.display = 'block';
+    
+        // Hide the explosion and show the car again after a short delay (duration of your GIF)
+        setTimeout(() => {
+            carExplosion.style.display = 'none';  // Hide the explosion
+            carImage.style.visibility = 'visible';  // Show the car again
+        }, 1600); // Adjust this timing to match your GIF duration
+    }
+    
 
     // Visual indicator for collision detection (changes car hitbox color)
     function updateCollisionVisual(collision) {
@@ -167,7 +183,7 @@ $(function () {
             setTimeout(function () {
                 resetCar(gameState);
                 registerCollision = true;
-            }, 700);
+            }, 1600);
         }
 
         if (gameState != "start") {
