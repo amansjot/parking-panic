@@ -7,6 +7,8 @@ import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParki
 // import { showWinEndScreen, showLoseEndScreen, hideEndPopUp, handlePlayAgainButton, handleExitButton, handleExitGameButton } from './ui.js';
 
 $(function () {
+    let gamePaused = false;
+
     // Initial resize of the game window
     resize();
     addResizeEventListener();
@@ -60,6 +62,7 @@ $(function () {
 
     // Function to update the player's position and handle collisions
     function updatePlayer() {
+        if (gamePaused) return; // Stop the function if the game is paused
         moveCar(keys); // Move the car based on key inputs
         rotateCar(keys); // Rotate the car
         updatePlayerCSS(player); // Update the car's position in CSS
@@ -80,6 +83,8 @@ $(function () {
                 registerCollision = true;
                 resetCar(gameState);
             }, 700);
+
+            return; // Exit the function early to prevent further checks in this frame
         }
 
         // Check for collisions with obstacles
@@ -343,6 +348,7 @@ $(function () {
 
     //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
     function showEndScreen(){
+        gamePaused = true
         stopTimer();
         const popUp = document.getElementById("endscreen-popup");
         popUp.style.visibility = "visible";
@@ -375,6 +381,7 @@ $(function () {
 
     //Play again button on popup
     $("#play-again").on("click", function () {
+        gamePaused = false; // Unpause the game
         hideEndPopUp();
         resetTimer();
 
@@ -387,6 +394,7 @@ $(function () {
 
     //Exit button on popup
     $("#exit").on("click", function () {
+        gamePaused = false; // Unpause the game
         gameState = 'start';
 
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
@@ -408,6 +416,7 @@ $(function () {
 
 
     $("#exit-game-button").on("click", function () {
+        gamePaused = false; // Unpause the game
         gameState = 'start';
 
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
