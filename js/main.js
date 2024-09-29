@@ -1,8 +1,6 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
 import { startTimer, stopTimer, resetTimer, saveTime } from './timer.js';
-
-//import { checkParkingCompletion, setRandomParkingSpot,setCurrentParkingSpot } from './parkingspot.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
 
 $(function () {
@@ -12,7 +10,6 @@ $(function () {
     let unscaledSize = 1000;
     let headerHeight = 150;
 
-    //parking spot check
     // Initial resize
     resize();
 
@@ -63,6 +60,7 @@ $(function () {
     // Set initial state: Turn headlights off
     headlights.hide();
 
+    // Resizes the game window when the browser window is resized.
     function resize() {
         let width = window.innerWidth;
         let height = window.innerHeight - headerHeight;
@@ -82,7 +80,7 @@ $(function () {
     // Add resize event listener
     window.addEventListener("resize", resize);  // Resize game window on resize event
 
-
+    // Updates player movement, collision checks, parking completion, and visual updates every 10 milliseconds.
     function updatePlayer() {
         moveCar(keys, startTimer);
         rotateCar(keys);
@@ -110,19 +108,22 @@ $(function () {
 
         // Containment
         const chosenMode = checkContainmentButtons();
-        if (chosenMode && gameState == "start") startGame(chosenMode);
+        if (chosenMode && gameState == "start") {
+            startGame(chosenMode); 
+        }
 
         updateCollisionVisual(collision);
     }
 
+    // Updates the visual effect for collisions, changing the color of the car hitbox on collision.
     function updateCollisionVisual(collision) {
         $('#car-hitbox').css('background-color', collision ? 'rgba(0, 255, 0, 0.3)' : 'transparent');
     }
 
+    // Starts the game, initializes obstacles, resets the car and lives, and updates the UI.
     function startGame(mode) {
         stopCar();
         gameState = mode;
-        console.log("timer starts");
         startTimer();
 
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
@@ -171,6 +172,7 @@ $(function () {
         saveTime();
     }
 
+    // Resets player lives based on the selected game mode.
     function resetLives() {
         if (gameState == "easy-mode") {
             lives = 5;
@@ -197,14 +199,16 @@ $(function () {
         }
     }
 
+    // Removes one life after a collision, and if all lives are lost, shows the losing screen.
     function removeLife() {
         if (gameState != "start") {
             let livesElements = $(".game-life");
             livesElements[lives - 1].remove();
             lives -= 1;
-            if (lives == 0)  showLoseEndScreen();//resetGame("lose");
+            if (lives == 0)  showLoseEndScreen();
         }
     }
+
     /*
     function resetGame(result) {
         if (result == "win") {
@@ -231,6 +235,8 @@ $(function () {
         }, 900);
     }
     */
+
+    // Creates a visual obstacle at random positions on the game screen.
     function createObstacle(type, x, y) {
         if (["dumpster", "cone", "car"].includes(type)) {
             const html = `<div class="${type}-obstacle" style="top: ${x}px; left: ${x}px;">
@@ -311,7 +317,8 @@ $(function () {
         const lostMsg = document.getElementById("lostMsg");
         lostMsg.style.visibility= "hidden";
     }
-    //Play again button on popup
+
+    //Start button on popup
     $("#play-again").on("click", function () {
         gameState = 'start';
 
