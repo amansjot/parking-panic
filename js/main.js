@@ -159,6 +159,7 @@ $(function () {
             $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
 
             resetLives(); // Reset player lives
+            revertParkingSpot();
 
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
@@ -204,8 +205,6 @@ $(function () {
         } else if (gameState == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
-
-        revertParkingSpot();
     }
 
     // Function to reset the player's lives based on game mode
