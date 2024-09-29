@@ -213,10 +213,16 @@ $(function () {
 
     // Function to reset the player's lives based on game mode
     function resetLives() {
+        // If the game is in hard mode and lives are already set, skip resetting lives
+        if (gameState === "hard-mode" && lives > 0) {
+            return; // Do nothing, keep current lives
+        }
+    
+        // Reset lives for other game modes
         if (gameState == "easy-mode") {
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
-            lives = 3; // Fewer lives in hard mode
+            lives = 3; // Fewer lives in hard mode if not already set
         }
     
         // Display the remaining lives on the screen
