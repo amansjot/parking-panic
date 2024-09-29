@@ -1,185 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Parking Simulator Car</title>
+  <head>
+    <title>Parking Simulator Car</title>
 
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/obstacles.css">
-  <link rel="stylesheet" href="css/car.css">
-  <link rel="stylesheet" href="css/hud.css">
-  <link rel="stylesheet" href="css/bounds.css">
-  <link rel="stylesheet" href="css/parkingspot.css">
-  <link rel="stylesheet" href="css/timer.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/obstacles.css" />
+    <link rel="stylesheet" href="css/car.css" />
+    <link rel="stylesheet" href="css/hud.css" />
+    <link rel="stylesheet" href="css/bounds.css" />
+    <link rel="stylesheet" href="css/parkingspot.css" />
+    <link rel="stylesheet" href="css/timer.css" />
 
-  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 
-  <script
+    <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
-  ></script>
+    ></script>
 
-  <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
-  </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="heading">
+        <h1 id="project-title">🏁 Parking Panic 🏎️</h1>
 
-</head>
-<body>
-  <div id="container">
+        <p id="group-listing">
+          Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas
+          Bolledula
+        </p>
+      </div>
 
-    <div id="heading">
-      <h1 id="project-title">🏁 Parking Panic 🏎️</h1>
-
-      <p id="group-listing">
-        Group 8:
-        Aman Singh,
-        Julia O'Neill,
-        Kyle Malice,
-        Solenn Gacon,
-        Suhas Bolledula
-      </p>
-    </div>
-
-    <div id="window">
-      <div id="scroll-window">
-        
-        <div id="car">
-          <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car">
-          <div id="car-hitbox"></div>
-          <div id="car-explosion"></div>
-          <div id="headlights">
-            <div id="left-headlight"></div>
-            <div id="right-headlight"></div>
+      <div id="window">
+        <div id="scroll-window">
+          <div id="car">
+            <img id="playersCar-img" src="img/StarterCarSkin.png" alt="Car" />
+            <div id="car-hitbox"></div>
+            <div id="car-explosion"></div>
+            <div id="headlights">
+              <div id="left-headlight"></div>
+              <div id="right-headlight"></div>
+            </div>
+            <audio id="horn-sound" src="img/sounds/KylesHorn.mp3"></audio>
           </div>
-          <audio id="horn-sound" src="img/sounds/KylesHorn.mp3"></audio>
+
+          <div id="game-buttons">
+            <div id="game-mode">Easy Mode</div>
+            <div id="exit-game-button">Exit Game</div>
+          </div>
+
+          <div id="lives-counter"></div>
+
+          <div id="message"></div>
+
+          <div id="start-buttons">
+            <div id="easy-mode-button">Easy Mode</div>
+            <div id="hard-mode-button">Hard Mode</div>
+          </div>
+
+          <div class="cone-obstacle" id="cone-1">
+            <img
+              class="cone-img"
+              src="img/obstacles/cone.png"
+              alt="Traffic Cone"
+            />
+            <div class="cone-hitbox"></div>
+          </div>
+
+          <div class="cone-obstacle" id="cone-2">
+            <img
+              class="cone-img"
+              src="img/obstacles/cone.png"
+              alt="Traffic Cone"
+            />
+            <div class="cone-hitbox"></div>
+          </div>
+
+          <div class="dumpster-obstacle">
+            <img
+              class="dumpster-img"
+              src="img/obstacles/dumpster.png"
+              alt="Dumpster"
+            />
+            <div class="dumpster-hitbox"></div>
+          </div>
+
+          <div id="map-bounds">
+            <div id="top-bounds"></div>
+            <div id="right-bounds"></div>
+            <div id="bottom-bounds"></div>
+            <div id="left-bounds"></div>
+          </div>
+
+          <div id="map-parking-dividers">
+            <div id="top-left-divider"></div>
+            <div id="top-right-divider"></div>
+            <div id="bottom-left-divider"></div>
+            <div id="bottom-right-divider"></div>
+          </div>
+
+          <!-- <div class="car-obstacle">
+            <img class="car-img" src="img/obstacles/car.png" alt="Car">
+            <div class="car-hitbox"></div>
+          </div> -->
+
+          <div id="timer-display">0</div>
+          <div class="spot parking-spot" id="one"></div>
+          <div class="spot parking-spot" id="two"></div>
+          <div class="spot parking-spot" id="three"></div>
+          <div class="spot parking-spot" id="four"></div>
+          <div class="spot parking-spot" id="five"></div>
+          <div class="spot parking-spot" id="six"></div>
+          <div class="spot parking-spot" id="seven"></div>
+          <div class="spot parking-spot" id="eight"></div>
+          <div class="spot parking-spot" id="nine"></div>
+          <div class="spot parking-spot" id="ten"></div>
+          <div class="spot parking-spot" id="eleven"></div>
+
+          <div class="spot parking-spot" id="twelve"></div>
+          <div class="spot parking-spot" id="thirteen"></div>
+          <div class="spot parking-spot" id="fourteen"></div>
+          <div class="spot parking-spot" id="fifteen"></div>
+          <div class="spot parking-spot" id="sixteen"></div>
+          <div class="spot parking-spot" id="seventeen"></div>
+          <div class="spot parking-spot" id="eighteen"></div>
+          <div class="spot parking-spot" id="nineteen"></div>
+
+          <div class="spot parking-spot" id="twenty"></div>
+          <div class="spot parking-spot" id="twenty-one"></div>
+          <div class="spot parking-spot" id="twenty-two"></div>
+          <div class="spot parking-spot" id="twenty-three"></div>
+          <div class="spot parking-spot" id="twenty-four"></div>
+          <div class="spot parking-spot" id="twenty-five"></div>
+          <div class="spot parking-spot" id="twenty-six"></div>
+          <div class="spot parking-spot" id="twenty-seven"></div>
+
+          <div class="spot parking-spot" id="twenty-eight"></div>
+          <div class="spot parking-spot" id="twenty-nine"></div>
+          <div class="spot parking-spot" id="thirty"></div>
+          <div class="spot parking-spot" id="thirty-one"></div>
+          <div class="spot parking-spot" id="thirty-two"></div>
+          <div class="spot parking-spot" id="thirty-three"></div>
+          <div class="spot parking-spot" id="thirty-four"></div>
+          <div class="spot parking-spot" id="thirty-five"></div>
+          <div class="spot parking-spot" id="thirty-six"></div>
+          <div class="spot parking-spot" id="thirty-seven"></div>
+
+          <div class="spot parking-spot" id="thirty-eight"></div>
+          <div class="spot parking-spot" id="thirty-nine"></div>
+          <div class="spot parking-spot" id="fourty"></div>
+          <div class="spot parking-spot" id="fourty-one"></div>
+
+          <div class="spot parking-spot" id="fourty-two"></div>
+          <div class="spot parking-spot" id="fourty-three"></div>
+          <div class="spot parking-spot" id="fourty-four"></div>
+          <div class="spot parking-spot" id="fourty-five"></div>
+          <div class="spot parking-spot" id="fourty-six"></div>
+          <div class="spot parking-spot" id="fourty-seven"></div>
+          <div class="spot parking-spot" id="fourty-eight"></div>
+          <div class="spot parking-spot" id="fourty-nine"></div>
         </div>
+      </div>
 
-        <div id="game-buttons">
-          <div id="game-mode">Easy Mode</div>
-          <div id="exit-game-button">Exit Game</div>
-        </div>
-
-        <div id="lives-counter"></div>
-
-        <div id="message"></div>
-
-        <div id="start-buttons">
-          <div id="easy-mode-button">Easy Mode</div>
-          <div id="hard-mode-button">Hard Mode</div>
-        </div>
-      
-        <div class="cone-obstacle" id="cone-1">
-          <img class="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
-          <div class="cone-hitbox"></div>
-        </div>
-
-        <div class="cone-obstacle" id="cone-2">
-          <img class="cone-img" src="img/obstacles/cone.png" alt="Traffic Cone">
-          <div class="cone-hitbox"></div>
-        </div>
-    
-        <div class="dumpster-obstacle">
-          <img class="dumpster-img" src="img/obstacles/dumpster.png" alt="Dumpster">
-          <div class="dumpster-hitbox"></div>
-        </div>
-
-        <div id="map-bounds">
-          <div id="top-bounds"></div>
-          <div id="right-bounds"></div>
-          <div id="bottom-bounds"></div>
-          <div id="left-bounds"></div>
-        </div>
-
-        <div id="map-parking-dividers">
-          <div id="top-left-divider"></div>
-          <div id="top-right-divider"></div>
-          <div id="bottom-left-divider"></div>
-          <div id="bottom-right-divider"></div>
-        </div>
-
-        <!-- <div class="car-obstacle">
-          <img class="car-img" src="img/obstacles/car.png" alt="Car">
-          <div class="car-hitbox"></div>
-        </div> -->
-
-      <div id="timer-display">0</div>
-       <div class="spot parking-spot" id="one"></div>
-       <div class="spot parking-spot" id="two"></div>
-       <div class="spot parking-spot" id="three"></div>
-       <div class="spot parking-spot" id="four"></div>
-       <div class="spot parking-spot" id="five"></div>
-       <div class="spot parking-spot" id="six"></div>
-       <div class="spot parking-spot" id="seven"></div>
-       <div class="spot parking-spot" id="eight"></div>
-       <div class="spot parking-spot" id="nine"></div>
-       <div class="spot parking-spot" id="ten"></div>
-       <div class="spot parking-spot" id="eleven"></div>
-      
-      
-       <div class="spot parking-spot" id="twelve"></div>
-       <div class="spot parking-spot" id="thirteen"></div>
-       <div class="spot parking-spot" id="fourteen"></div>
-       <div class="spot parking-spot" id="fifteen"></div>
-       <div class="spot parking-spot" id="sixteen"></div>
-       <div class="spot parking-spot" id="seventeen"></div>
-       <div class="spot parking-spot" id="eighteen"></div>
-       <div class="spot parking-spot" id="nineteen"></div>
-      
-       <div class="spot parking-spot" id="twenty"></div>
-       <div class="spot parking-spot" id="twenty-one"></div>
-       <div class="spot parking-spot" id="twenty-two"></div>
-       <div class="spot parking-spot" id="twenty-three"></div>
-       <div class="spot parking-spot" id="twenty-four"></div>
-       <div class="spot parking-spot" id="twenty-five"></div>
-       <div class="spot parking-spot" id="twenty-six"></div>
-       <div class="spot parking-spot" id="twenty-seven"></div>
-      
-      
-       <div class="spot parking-spot" id="twenty-eight"></div>
-       <div class="spot parking-spot" id="twenty-nine"></div>
-       <div class="spot parking-spot" id="thirty"></div>
-       <div class="spot parking-spot" id="thirty-one"></div>
-       <div class="spot parking-spot" id="thirty-two"></div>
-       <div class="spot parking-spot" id="thirty-three"></div>
-       <div class="spot parking-spot" id="thirty-four"></div>
-       <div class="spot parking-spot" id="thirty-five"></div>
-       <div class="spot parking-spot" id="thirty-six"></div>
-       <div class="spot parking-spot" id="thirty-seven"></div>
-      
-       <div class="spot parking-spot" id="thirty-eight"></div>
-       <div class="spot parking-spot" id="thirty-nine"></div>
-       <div class="spot parking-spot" id="fourty"></div>
-       <div class="spot parking-spot" id="fourty-one"></div>
-      
-       <div class="spot parking-spot" id="fourty-two"></div>
-       <div class="spot parking-spot" id="fourty-three"></div>
-       <div class="spot parking-spot" id="fourty-four"></div>
-       <div class="spot parking-spot" id="fourty-five"></div>
-       <div class="spot parking-spot" id="fourty-six"></div>
-       <div class="spot parking-spot" id="fourty-seven"></div>
-       <div class="spot parking-spot" id="fourty-eight"></div>
-       <div class="spot parking-spot" id="fourty-nine"></div>
+      <div id="controls">
+        <h1 id="control-header">Controls:</h1>
+        <p id="control-listing">
+          Forward:
+          <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30" /> or
+          <img
+            src="img/keyboard-keys/Up-Arrow.svg"
+            alt="Up Arrow Key"
+            width="30"
+          /><br />
+          Backwards:
+          <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30" /> or
+          <img
+            src="img/keyboard-keys/Down-Arrow.svg"
+            alt="Down Arrow Key"
+            width="30"
+          /><br />
+          Left:
+          <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30" /> or
+          <img
+            src="img/keyboard-keys/Left-Arrow.svg"
+            alt="Left Arrow Key"
+            width="30"
+          /><br />
+          Right:
+          <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="30" /> or
+          <img
+            src="img/keyboard-keys/Right-Arrow.svg"
+            alt="Right Arrow Key"
+            width="30"
+          /><br />
+          Headlights:
+          <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="30" /><br />
+        </p>
       </div>
     </div>
-
-    <div id="controls">
-      <h1 id="control-header">Controls:</h1>
-      <p id="control-listing">
-        Forward: <img src="img/keyboard-keys/W-Key.svg" alt="W Key" width="30"> or <img src="img/keyboard-keys/Up-Arrow.svg" alt="Up Arrow Key" width="30"><br>
-        Backwards: <img src="img/keyboard-keys/S-Key.svg" alt="S Key" width="30"> or <img src="img/keyboard-keys/Down-Arrow.svg" alt="Down Arrow Key" width="30"><br>
-        Left: <img src="img/keyboard-keys/A-Key.svg" alt="A Key" width="30"> or <img src="img/keyboard-keys/Left-Arrow.svg" alt="Left Arrow Key" width="30"><br>
-        Right: <img src="img/keyboard-keys/D-Key.svg" alt="D Key" width="30"> or <img src="img/keyboard-keys/Right-Arrow.svg" alt="Right Arrow Key" width="30"><br>
-        Headlights: <img src="img/keyboard-keys/H-Key.svg" alt="H Key" width="30"><br>
-      </p>
-    </div>
-
-  </div>
-
-</body>
+  </body>
 </html>

@@ -1,313 +1,288 @@
 /* Parking Spots  */
 
-
 .spot{ /*class styling for all spots*/
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    width: 60px;
-    height: 76px;
-    opacity: 1;
- }
- 
- 
- /*Top Row Of spots*/
- #one{
-    top: 186px;
-    left: 186.5px ;
-    /*opacity: 0.5;*/
- }
- #two{
-    top: 186px;
-    left: 249px;
-     /*opacity: 0.5;*/
- }
- #three{
-    top: 186px;
-    left: 311.5px;
-     /*opacity: 0.5;*/
- }
- #four{
-    top: 186px;
-    left: 374px;
-     /*opacity: 0.5;*/
- }
- #five{
-    top: 186px;
-    left: 436.5px;
-     /*opacity: 0.5;*/
- }
- 
- 
- #six{
-    top: 186px;
-    left: 499px;
-     /*opacity: 0.5;*/
- }
- #seven{
-    top: 186px;
-    left: 561.5px;
-    /*opacity: 0.5;*/
- }
- #eight{
-    top: 186px;
-    left: 624px;
-     /*opacity: 0.5;*/
- }
- #nine{
-    top: 186px;
-    left: 686.5px;
-    /*opacity: 0.5;*/
- }
- #ten{
-    top: 186px;
-    left: 749px;
-     /*opacity: 0.5;*/
- }
- #eleven{
-    top: 186px;
-    width:62px;
-    left:812.5px;
-     /*opacity: 0.5;*/
- }
- 
- /* Top Left side Parking Group */
- /* Top Row */
- #twelve{
-    top: 314px;
-    left: 251px;
-     /*opacity: 0.5;*/
- }
- #thirteen{
-    top: 314px;
-    left: 313.5px;
-     /*opacity: 0.5;*/
- }
- #fourteen{
-    top: 314px;
-    left: 376px;
-    /*opacity: 0.5;*/
- }
- #fifteen{
-    top: 314px;
-    left: 438.5px;
-     /*opacity: 0.5;*/
- }
- 
- /* Bottom Row */
- #sixteen{
-    top: 405px;
-    left: 251px;
-     /*opacity: 0.5;*/
- }
- #seventeen{
-    top: 405px;
-    left: 313.5px;
-     /*opacity: 0.5;*/
- }
- #eighteen{
-    top: 405px;
-    left: 376px;
-    /*opacity: 0.5;*/
- }
- #nineteen{
-    top: 405px;
-    left: 438.5px;
-    /*opacity: 0.5;*/
- }
- 
- /* Top Right side Parking Group */
- /* Top Row */
- #twenty{
-    width:56px;
-    top: 314px;
-    left:566px;
-     /*opacity: 0.5;*/
- }
- #twenty-one{
-    top: 314px;
-    left:626px;
-    /*opacity: 0.5;*/
- }
- #twenty-two{
-    top: 314px;
-    left:688.5px;
-    /*opacity: 0.5;*/
- }
- 
- #twenty-three{
-    top: 314px;
-    left: 751px;
-    /*opacity: 0.5;*/
- }
+   position: absolute;
+   transform: translate(-50%, -50%);
+   z-index: 1;
+   width: 60px;
+   height: 76px;
+   opacity: 1;
+}
 
- /* Bottom Row */
- #twenty-four{
-    width:56px;
-    top: 405px;
-    left:566px;
-    /*opacity: 0.5;*/
- }
- #twenty-five{
-    top: 405px;
-    left:626px;
-    /*opacity: 0.5;*/
- }
- #twenty-six{
-    top: 405px;
-    left:688.5px;
-    /*opacity: 0.5;*/
- }
- #twenty-seven{
-    top: 405px;
-    left: 751px;
-   /*opacity: 0.5;*/
- }
- 
- /* Bottom Left Parking Group*/
- /* Top Row */
- #twenty-eight{
-    top: 564px;
-    left:251px;
-   /*opacity: 0.5;*/
- }
- #twenty-nine{
-    top: 564px;
-    left:313.5px;
-   /*opacity: 0.5;*/
- }
- #thirty{
-    top: 564px;
-    left:376px;
-    /*opacity: 0.5;*/
- }
- #thirty-one{
-    top: 564px;
-    left:438.5px;
- /*opacity: 0.5;*/
- }
- #thirty-two{
-    top: 564px;
-    left:501px;
+/*Top Row Of spots*/
+#spot-1 {
+   top: 186px;
+   left: 186.5px;
+}
 
- /*opacity: 0.5;*/
- }
- 
- /* Bottom Row*/
- /* These look kinda bad sorry */
- 
- #thirty-three{
-    width: 50px;
-    height: 76px;
-    top: 660px;
-    left:240px;
-   /*opacity: 0.5;*/
-    rotate: 18deg;
- }
- 
- 
- #thirty-four{
-    width: 50px;
-    height: 76px;
-    top: 660px;
-    left:293px;
-  /*opacity: 0.5;*/
-    rotate: 18deg;
- }
- #thirty-five{
-    width: 50px;
-    height: 76px;
-    top: 660px;
-    left:344px;
-    /*opacity: 0.5;*/
-    rotate: 18deg;
- }
- #thirty-six{
-    width: 50px;
-    height: 76px;
-    top: 660px;
-    left:395px;
-    /*opacity: 0.5;*/
-    rotate: 18deg;
- }
- #thirty-seven{
-    width: 50px;
-    height: 76px;
-    top: 660px;
-    left:448px;
-  /*opacity: 0.5;*/
-    rotate: 18deg;
- }
- 
- 
- /* Right Side Bottom Parking Group */
- /* Left Side */
- #thirty-eight{
-    top: 584.5px;
-    left:590px;
-    /*opacity: 0.5;*/
-    rotate:90deg;
- }
- #thirty-nine{
-    top: 647.5px;
-    left:590px;
-    /*opacity: 0.5;*/
-    rotate:90deg;
- }
- 
- /* Right Side */
- #fourty{
-    top: 584.5px;
-    left:680px;
-  /*opacity: 0.5;*/
-    rotate:90deg;
- }
- #fourty-one{
-    top: 647.5px;
-    left:680px;
-    /*opacity: 0.5;*/
-    rotate:90deg;
- }
- 
- /* Bottom Row of parking */
- #fourty-two{
-    top: 814px;
-    left:374px;
-    /*opacity: 0.5;*/
- }
- #fourty-three{
-    top: 814px;
-    left:436.5px;
-   /*opacity: 0.5;*/
- }
- #fourty-four{
-    top: 814px;
-    left:499px;
-    /*opacity: 0.5;*/
- }
- #fourty-five{
-    top: 814px;
-    left:561.5px;
-   /*opacity: 0.5;*/
- }
- #fourty-six{
-    top: 814px;
-    left:624px;
-  /*opacity: 0.5;*/
- }
- #fourty-seven{
-    top: 814px;
-    left:686.5px;
- /*opacity: 0.5;*/
- }
- #fourty-eight{
-    top: 814px;
-    left:749px;
- /*opacity: 0.5;*/
- }
- #fourty-nine{
-    width:62px;
-    top: 814px;
-    left:812.5px;
- /*opacity: 0.5;*/
- }
+#spot-2 {
+   top: 186px;
+   left: 249px;
+}
+
+#spot-3 {
+   top: 186px;
+   left: 311.5px;
+}
+
+#spot-4 {
+   top: 186px;
+   left: 374px;
+}
+
+#spot-5 {
+   top: 186px;
+   left: 436.5px;
+}
+
+#spot-6 {
+   top: 186px;
+   left: 499px;
+}
+
+#spot-7 {
+   top: 186px;
+   left: 561.5px;
+}
+
+#spot-8 {
+   top: 186px;
+   left: 624px;
+}
+
+#spot-9 {
+   top: 186px;
+   left: 686.5px;
+}
+
+#spot-10 {
+   top: 186px;
+   left: 749px;
+}
+
+#spot-11 {
+   top: 186px;
+   width: 62px;
+   left: 812.5px;
+}
+
+/* Top Left side Parking Group */
+#spot-12 {
+   top: 314px;
+   left: 251px;
+}
+
+#spot-13 {
+   top: 314px;
+   left: 313.5px;
+}
+
+#spot-14 {
+   top: 314px;
+   left: 376px;
+}
+
+#spot-15 {
+   top: 314px;
+   left: 438.5px;
+}
+
+/* Bottom Row */
+#spot-16 {
+   top: 405px;
+   left: 251px;
+}
+
+#spot-17 {
+   top: 405px;
+   left: 313.5px;
+}
+
+#spot-18 {
+   top: 405px;
+   left: 376px;
+}
+
+#spot-19 {
+   top: 405px;
+   left: 438.5px;
+}
+
+/* Top Right side Parking Group */
+#spot-20 {
+   width: 56px;
+   top: 314px;
+   left: 566px;
+}
+
+#spot-21 {
+   top: 314px;
+   left: 626px;
+}
+
+#spot-22 {
+   top: 314px;
+   left: 688.5px;
+}
+
+#spot-23 {
+   top: 314px;
+   left: 751px;
+}
+
+/* Bottom Row */
+#spot-24 {
+   width: 56px;
+   top: 405px;
+   left: 566px;
+}
+
+#spot-25 {
+   top: 405px;
+   left: 626px;
+}
+
+#spot-26 {
+   top: 405px;
+   left: 688.5px;
+}
+
+#spot-27 {
+   top: 405px;
+   left: 751px;
+}
+
+/* Bottom Left Parking Group */
+#spot-28 {
+   top: 564px;
+   left: 251px;
+}
+
+#spot-29 {
+   top: 564px;
+   left: 313.5px;
+}
+
+#spot-30 {
+   top: 564px;
+   left: 376px;
+}
+
+#spot-31 {
+   top: 564px;
+   left: 438.5px;
+}
+
+#spot-32 {
+   top: 564px;
+   left: 501px;
+}
+
+/* Bottom Row*/
+#spot-33 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 240px;
+   rotate: 18deg;
+}
+
+#spot-34 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 293px;
+   rotate: 18deg;
+}
+
+#spot-35 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 344px;
+   rotate: 18deg;
+}
+
+#spot-36 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 395px;
+   rotate: 18deg;
+}
+
+#spot-37 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 448px;
+   rotate: 18deg;
+}
+
+/* Right Side Bottom Parking Group */
+#spot-38 {
+   top: 584.5px;
+   left: 590px;
+   rotate: 90deg;
+}
+
+#spot-39 {
+   top: 647.5px;
+   left: 590px;
+   rotate: 90deg;
+}
+
+/* Right Side */
+#spot-40 {
+   top: 584.5px;
+   left: 680px;
+   rotate: 90deg;
+}
+
+#spot-41 {
+   top: 647.5px;
+   left: 680px;
+   rotate: 90deg;
+}
+
+/* Bottom Row of parking */
+#spot-42 {
+   top: 814px;
+   left: 374px;
+}
+
+#spot-43 {
+   top: 814px;
+   left: 436.5px;
+}
+
+#spot-44 {
+   top: 814px;
+   left: 499px;
+}
+
+#spot-45 {
+   top: 814px;
+   left: 561.5px;
+}
+
+#spot-46 {
+   top: 814px;
+   left: 624px;
+}
+
+#spot-47 {
+   top: 814px;
+   left: 686.5px;
+}
+
+#spot-48 {
+   top: 814px;
+   left: 749px;
+}
+
+#spot-49 {
+   width: 62px;
+   top: 814px;
+   left: 812.5px;
+}

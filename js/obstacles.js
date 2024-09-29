@@ -1,5 +1,4 @@
 import { registerObstacle } from './collision.js';
-import { spots } from './randomspot.js';
 
 // Define red zones with their boundaries (top-left and bottom-right corners)
 let goalSpot;
@@ -128,7 +127,7 @@ export function createCarObstacle(spot) {
             <div class="car-hitbox"></div>
         </div>`;
         
-    $(`#${spots[spot]}`).append(html);
+    $(`#spot-${spot}`).append(html);
 
     // Register the new obstacle for collision detection
     const obstacleID = $(`#car-${spot}`);

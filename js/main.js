@@ -3,7 +3,7 @@ import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
-import { updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
+import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
 $(function () {
     // Initial resize of the game window
@@ -25,6 +25,7 @@ $(function () {
     initializeMapBounds();
     initializeParkingDividers();
     initializeObstacles();
+    initializeParkingSpots();
 
     // Key states for controlling the car
     const keys = {
