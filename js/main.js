@@ -102,7 +102,7 @@ $(function () {
             stopTimer();
             resetTimer();
             revertParkingSpot();
-            updateSpot();
+            // updateSpot();
         }
 
         // Check for collisions with obstacles
@@ -182,6 +182,8 @@ $(function () {
                 const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 createObstacle("car", random1, random2);
             }
+            
+            updateSpot();
         }, 700);
 
         // Change the button color based on the selected mode
@@ -192,7 +194,6 @@ $(function () {
         }
 
         revertParkingSpot();
-        updateSpot();
     }
 
     // Function to check if two rectangles overlap
@@ -383,6 +384,7 @@ $(function () {
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
 
+        revertParkingSpot();
         resetCar(gameState); // Reset the car to the start position
     });
 });
