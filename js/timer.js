@@ -38,15 +38,19 @@ let levels = 0;
 let levelCount = document.getElementById("level-display");
 
 function increaseLevels(){//Increases Game level for the user
-    const levelTot = 0;
-    levelTot += 1;
+    levels += 1;
     //const level = document.getElementById("level-display");
-    levelCount.textContent = "Level: " + levelTot;
+    //levelCount.textContent = "Level: " + levelTot;
 }
 
+function getLevels(){
+    const levelTot = levels;
+    return levelTot;
+}
 
 function resetLevels(){ //when game resets returns back to 0
     //const levelCount = document.getElementById("level-display");
-    levelCount.textContent = "Level: 0";
+    levels = 0;
+    levelCount.textContent = "Level: " + levels;
 }
-export { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels };
+export { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels };

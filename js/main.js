@@ -2,7 +2,7 @@ import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButt
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
-import { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels } from './timer.js';
+import { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels } from './timer.js';
 import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
 $(function () {
@@ -72,11 +72,12 @@ $(function () {
         const correctSpot = checkParkingCompletion();
         if (correctSpot) {
             displayMessage("Next Round!", "green", "white");
-            //increaseLevels();
+            increaseLevels();
             revertParkingSpot();
             stopCar();
             registerCollision = false;
             //resetGame();
+            updateLevels();
             resetGame("win");
 
 
@@ -313,6 +314,12 @@ $(function () {
         }
     }
 
+    function updateLevels(){
+        const levels = getLevels();
+        const levelCount = document.getElementById("level-display");
+        levelCount.textContent = "Level: " + levels;
+    }
+
     function showCounters(){ //shows time and level on game startup
         const timer = document.getElementById("timer-display");
         timer.style.visibility = "visible";
@@ -340,35 +347,6 @@ $(function () {
         }
     }
 
-    // Function to handle the exit game button click
-    /*
-    $("#exit-game-button").on("click", function () {
-        gameState = 'start'; // Reset game state to 'start'
-
-        // Display the start background
-        $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
-
-        // Hide dividers and obstacles for the start screen
-        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove();
-        $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
-
-        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
-
-        $("#lives-counter").hide(); // Hide lives counter
-        $("#game-buttons").hide(); // Hide game buttons
-        $("#start-buttons").show(); // Show start buttons
-        $("#cone-1, #cone-2").show();
-
-        // Reset button colors
-        $("#easy-mode-button").css("background-color", "green");
-        $("#hard-mode-button").css("background-color", "red");
-
-        revertParkingSpot();
-        resetCar(gameState); // Reset the car to the start position
-        resetLevels();
-    });
-    */
-
     //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
     function showEndScreen(){
         gamePaused = true
@@ -378,9 +356,10 @@ $(function () {
         const gameover = document.getElementById("game-over");
         gameover.style.visibility= "visible";
         const totalTime = saveTime(); // This will now correctly return the current time
+        const totalLevels = getLevels(); //total amount of levels passed
         const userTime = document.getElementById("userTime");
         userTime.style.visibility = "visible";
-        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " + " LEVELS";
+        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " +totalLevels + " LEVELS";
         userTime.textContent = userText;
         resetTimer();
     }
@@ -408,6 +387,7 @@ $(function () {
         }, 700);
 
         resetGame("lose");
+        resetLevels();
     });
 
     //Exit button on popup
