@@ -17,10 +17,16 @@ function startTimer() {
 }
 // Stop the timer
 function stopTimer() {
+    /*
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
     }
+    */
+   const getFinalTime = saveTime();
+   timerDiv.textContent = getFinalTime;
+   clearInterval(timerInterval);
+
 }
 // Reset the timer
 function resetTimer() {
@@ -28,7 +34,11 @@ function resetTimer() {
     timerDiv.textContent = time;
 }
 
-
+//Save timer for end popup
+function saveTime(){
+    const userTime = time;
+    return userTime;
+}
 
 /*
 let time = 0; // Starting time in seconds
@@ -65,4 +75,4 @@ function resetTimer() {
     
 }
 */
-export { startTimer, stopTimer, resetTimer };
+export { startTimer, stopTimer, resetTimer, saveTime };

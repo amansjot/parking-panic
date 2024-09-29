@@ -1,6 +1,6 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
 import { obstacles, checkCollisions, registerObstacle, updateScale } from './collision.js';
-import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { startTimer, stopTimer, resetTimer, saveTime } from './timer.js';
 
 //import { checkParkingCompletion, setRandomParkingSpot,setCurrentParkingSpot } from './parkingspot.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
@@ -17,7 +17,7 @@ $(function () {
     resize();
 
     //Choose parking spot
-    updateSpot();
+    //updateSpot();
 
     // Game Vars
     let gameState = 'start';
@@ -87,18 +87,18 @@ $(function () {
         moveCar(keys, startTimer);
         rotateCar(keys);
         updatePlayerCSS(player);
-        startTimer();
-        
 
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if(correctSpot){
-            resetGame("win");
+            /*resetGame("win");
             revertParkingSpot();
             stopTimer();
             resetTimer();
             revertParkingSpot();
             updateSpot();
+            startTimer();*/ //Remove comments if you want the old "you lose back"
+            showWinEndScreen();
         }
 
         // Collisions
@@ -112,8 +112,6 @@ $(function () {
         const chosenMode = checkContainmentButtons();
         if (chosenMode && gameState == "start") startGame(chosenMode);
 
-
-
         updateCollisionVisual(collision);
     }
 
@@ -124,7 +122,8 @@ $(function () {
     function startGame(mode) {
         stopCar();
         gameState = mode;
-    
+        console.log("timer starts");
+        startTimer();
 
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
         $("#game-mode").text(mode.replace("-", " "));
@@ -166,9 +165,10 @@ $(function () {
         } else if (mode == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
-
         revertParkingSpot();
         updateSpot();
+        startTimer();
+        saveTime();
     }
 
     function resetLives() {
@@ -202,22 +202,22 @@ $(function () {
             let livesElements = $(".game-life");
             livesElements[lives - 1].remove();
             lives -= 1;
-            if (lives == 0) resetGame("lose");
+            if (lives == 0)  showLoseEndScreen();//resetGame("lose");
         }
     }
-
+    /*
     function resetGame(result) {
         if (result == "win") {
             displayMessage("You Win!", "green", "white");
         } else if (result == "lose") {
             displayMessage("You Lose!", "red", "white");
         }
-
-        revertParkingSpot();
-        updateSpot();
+        stopTimer();
         resetTimer();
+        revertParkingSpot();
         startGame(gameState);
     }
+    
 
     function displayMessage(message, bg, text) {
         $("#message").show();
@@ -230,7 +230,7 @@ $(function () {
             $("#message").hide();
         }, 900);
     }
-
+    */
     function createObstacle(type, x, y) {
         if (["dumpster", "cone", "car"].includes(type)) {
             const html = `<div class="${type}-obstacle" style="top: ${x}px; left: ${x}px;">
@@ -271,6 +271,81 @@ $(function () {
         }
     }
 
+    //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
+    function showWinEndScreen(){
+        stopTimer();
+        const popUp = document.getElementById("endscreen-popup");
+        popUp.style.visibility= "visible"; //shows it
+        const congrats = document.getElementById("congrats");
+        congrats.style.visibility= "visible";
+        const totalTime = saveTime();
+        const userTime = document.getElementById("userTime");
+        userTime.style.visibility="visible";
+        const userText = "You took "+ totalTime + " Seconds to Pass."
+        userTime.textContent = userText;
+        playAgain();
+    }
+    
+    //Shows a losing message to the user
+    function showLoseEndScreen(){
+        stopTimer();
+        const popUp = document.getElementById("endscreen-popup");
+        popUp.style.visibility= "visible"; //shows it
+        const lost = document.getElementById("lost");
+        lost.style.visibility= "visible";
+        const lostMsg = document.getElementById("lostMsg");
+        lostMsg.style.visibility= "visible";
+        playAgain();
+    }
+
+    function playAgain(){
+        $("play-again").on("click", function (){
+            revertParkingSpot();
+            resetTimer();
+            updateSpot();
+            startGame(gameState);
+            resetCar(gameState);
+        });
+    }
+
+
+    //Hides the end of round popup
+    function hideEndPopUp(){
+        const popUp = document.getElementById("endscreen-popup");
+        popUp.style.visibility="hidden";
+        //win pop up values
+        const congrats = document.getElementById("congrats");
+        congrats.style.visibility= "hidden";
+        
+        const userTime = document.getElementById("userTime");
+        userTime.style.visibility="hidden";
+        //lost pop up values
+        const lost = document.getElementById("lost");
+        lost.style.visibility= "hidden";
+        const lostMsg = document.getElementById("lostMsg");
+        lostMsg.style.visibility= "hidden";
+    }
+
+    $("#exit").on("click", function () {
+        gameState = 'start';
+
+        $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
+
+        $("#lives-counter").hide();
+        $("#game-buttons").hide();
+        $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
+
+        $("#start-buttons").show();
+        $("#easy-mode-button").css("background-color", "green");
+        $("#hard-mode-button").css("background-color", "red");
+        hideEndPopUp();
+        stopTimer();
+        revertParkingSpot();
+        resetCar(gameState);
+        resetTimer();
+    });
+
+
     $("#exit-game-button").on("click", function () {
         gameState = 'start';
 
@@ -283,7 +358,9 @@ $(function () {
         $("#start-buttons").show();
         $("#easy-mode-button").css("background-color", "green");
         $("#hard-mode-button").css("background-color", "red");
-
+        revertParkingSpot();
+        stopTimer();
+        resetTimer();
         resetCar(gameState);
     });
 });
