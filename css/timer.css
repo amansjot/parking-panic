@@ -1,0 +1,35 @@
+#timer-display {
+    position: absolute;
+    
+    top: 25px;
+    left: 5px;
+    font-size: 26px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    z-index: 5;
+}
+
+#mission-complete-message,
+#mission-failed-message {
+    display: none;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 480px; 
+    left: 380px;
+    z-index: 3;
+}
+
+#mission-complete-message {
+    background-color: #00ff00;
+    color: white;
+}
+
+#mission-failed-message {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+}
