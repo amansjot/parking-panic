@@ -81,7 +81,7 @@ body {
 #game-buttons div,
 #game-buttons button {
     width: 165px;
-    height: 50px;
+    height: 54px;
     font-size: 20px;
     position: absolute;
     font-family: "Silkscreen", sans-serif;
@@ -112,7 +112,7 @@ body {
 }
 
 #easy-mode-button {
-    top: 565px;
+    top: 563px;
     left: 620px;
     background-color: green;
     animation: glow-green 1s infinite alternate;

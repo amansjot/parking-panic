@@ -32,4 +32,21 @@ function saveTime(){
     const userTime = time;
     return userTime;
 }
-export { startTimer, stopTimer, resetTimer, saveTime };
+
+//im adding the level counting functions in here 
+let levels = 0;
+let levelCount = document.getElementById("level-display");
+
+function increaseLevels(){//Increases Game level for the user
+    const levelTot = 0;
+    levelTot += 1;
+    //const level = document.getElementById("level-display");
+    levelCount.textContent = "Level: " + levelTot;
+}
+
+
+function resetLevels(){ //when game resets returns back to 0
+    //const levelCount = document.getElementById("level-display");
+    levelCount.textContent = "Level: 0";
+}
+export { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels };

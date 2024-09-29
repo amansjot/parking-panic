@@ -1,16 +1,16 @@
 #timer-display {
     position: absolute;
-    
-    top: 25px;
-    left: 5px;
+    top: 15px;
+    left: 350px;
     font-size: 26px;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
-    width: 25px;
+    width: 40px;
     height: 25px;
     z-index: 5;
+    visibility: hidden;
 }
 
 #mission-complete-message,
@@ -32,4 +32,21 @@
 #mission-failed-message {
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
+}
+
+#level-display{
+    position: absolute;
+    top: 892px;
+    left: 330px;
+    font-size: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.574);
+    padding: 10px;
+    border-radius: 5px;
+    width: 120px;
+    height: 33px;
+    z-index: 5;
+    align-items: center;
+    justify-self: center;
+    visibility: hidden;
 }
