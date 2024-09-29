@@ -4,8 +4,8 @@ let playerData = {
     x: 240,  // X-coordinate of the car
     y: 900,  // Y-coordinate of the car
     angle: 0,  // Rotation angle of the car
-    width: 35,  // Width of the car
-    height: 70, // Height of the car
+    width: 30,  // Width of the car
+    height: 65, // Height of the car
 
     // Speed & Movement settings
     maxForwardSpeed: 2,  // Maximum forward speed
