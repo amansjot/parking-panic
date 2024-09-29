@@ -1,15 +1,20 @@
+// An array to store all obstacles in the game
 const obstacles = [];
 
+// Variable to hold the current scale factor of the game
 let currentScale = 1;
 
+// Function to update the scale of the game (used for scaling hitboxes if the game is zoomed in/out)
 function updateScale(scale) {
     currentScale = scale;
 }
 
+// Function to register an obstacle by adding its hitbox and associated element to the obstacles array
 function registerObstacle(hitbox, element) {
     obstacles.push({ hitbox, element });
 }
 
+// Function to check for collisions between the player's car and any registered obstacles
 function checkCollisions(playerData) {
     const playerCorners = calculateOBB(playerData);
 
@@ -32,11 +37,13 @@ function checkCollisions(playerData) {
     return false;
 }
 
+// Function to retrieve the bounding rectangle of an element and adjust it based on the current game scale
 function getElementRect(element) {
     const rect = element.getBoundingClientRect();
     const scrollWindow = document.getElementById('scroll-window');
     const scrollRect = scrollWindow.getBoundingClientRect();
     
+    // Return the element's rect values adjusted for the game's current scale
     return {
         left: (rect.left - scrollRect.left) / currentScale,
         top: (rect.top - scrollRect.top) / currentScale,
@@ -47,6 +54,7 @@ function getElementRect(element) {
     };
 }
 
+// Function to calculate the oriented bounding box (OBB) of the player using their position, size, and angle
 function calculateOBB(data) {
     const halfWidth = data.width / 2;
     const halfHeight = data.height / 2;
@@ -62,6 +70,7 @@ function calculateOBB(data) {
     }));
 }
 
+// Function to rotate a point around the origin (0, 0) by a specified angle
 function rotatePoint(x, y, angle) {
     const radians = angle * Math.PI / 180;
     const cos = Math.cos(radians);
@@ -72,6 +81,7 @@ function rotatePoint(x, y, angle) {
     };
 }
 
+// Function to check if the player's bounding box collides with the obstacle's bounding box
 function checkCollision(playerCorners, obstacleRect) {
     const obstacleCorners = [
         { x: obstacleRect.left, y: obstacleRect.top },
@@ -89,12 +99,14 @@ function checkCollision(playerCorners, obstacleRect) {
     return axes.every(axis => overlapOnAxis(playerCorners, obstacleCorners, axis));
 }
 
+// Function to check if two shapes overlap on a given axis
 function overlapOnAxis(cornersA, cornersB, axis) {
     const projA = projectOntoAxis(cornersA, axis);
     const projB = projectOntoAxis(cornersB, axis);
     return projA.min <= projB.max && projB.min <= projA.max;
 }
 
+// Function to project the corners of a shape onto a given axis and return the min/max projections
 function projectOntoAxis(corners, axis) {
     const dots = corners.map(corner => corner.x * axis.x + corner.y * axis.y);
     return { min: Math.min(...dots), max: Math.max(...dots) };

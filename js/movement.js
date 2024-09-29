@@ -19,6 +19,7 @@ let playerData = {
     headlightsOn: false
 };
 
+// Moves the car forward or backward based on input keys (W, S, Arrow keys).
 function moveCar(keys) {
     if (keys.w || keys.ArrowUp) {
         playerData.currentSpeed = Math.min(playerData.currentSpeed + playerData.acceleration, playerData.maxForwardSpeed);
@@ -35,6 +36,7 @@ function moveCar(keys) {
         }
     }
 
+    // Calculate new position based on speed and angle.
     const newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
     const newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
 
@@ -42,10 +44,11 @@ function moveCar(keys) {
     playerData.x = Math.max(0, Math.min(newX, 1000 - playerData.width));
     playerData.y = Math.max(0, Math.min(newY, 1000 - playerData.height));
 
-    // Check if the player chooses a mode
+    // Check if the car is inside the mode selection buttons.
     checkContainmentButtons();
 }
 
+// Rotates the car left or right based on input keys (A, D, Arrow keys) when the car is moving.
 function rotateCar(keys) {
     if (playerData.currentSpeed !== 0) {  // Only rotate if the car is moving
         // Scale rotation speed based on the current speed
@@ -61,6 +64,7 @@ function rotateCar(keys) {
     }
 }
 
+// Stops the car by setting the maximum speed to zero after a short delay.
 function stopCar(keys) {
     setTimeout(function() {
         playerData.maxForwardSpeed = 0;
@@ -68,6 +72,7 @@ function stopCar(keys) {
     }, 50);
 }
 
+// Resets the car to its starting position and speed based on the selected game mode (easy or hard).
 function resetCar(mode) {
     playerData.currentSpeed = 0;
     playerData.x = 240;
@@ -82,7 +87,7 @@ function resetCar(mode) {
     }
 }
 
-// Function to check if the car is contained within the start buttons
+// Checks if the car is fully contained within the easy-mode or hard-mode button areas.
 function checkContainmentButtons() {
     const easyModeButton = document.getElementById('easy-mode-button');
     const easyModeRect = easyModeButton.getBoundingClientRect();
@@ -90,7 +95,6 @@ function checkContainmentButtons() {
     const hardModeButton = document.getElementById('hard-mode-button');
     const hardModeRect = hardModeButton.getBoundingClientRect();
 
-    // Get the car's position and dimensions using getBoundingClientRect
     const car = document.getElementById("car");
     const carRect = car.getBoundingClientRect();
 
@@ -116,6 +120,7 @@ function checkContainmentButtons() {
     return false;
 }
 
+// Updates the car's CSS to reflect its current position and rotation angle in the game.
 function updatePlayerCSS(player) {
     player.css({
         top: `${playerData.y}px`,
@@ -124,6 +129,7 @@ function updatePlayerCSS(player) {
     });
 }
 
+// Toggles the car's headlights on and off.
 function toggleHeadlights(headlights) {
     playerData.headlightsOn = !playerData.headlightsOn;
 
@@ -134,6 +140,7 @@ function toggleHeadlights(headlights) {
     }
 }
 
+// Converts an angle from degrees to radians.
 function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
