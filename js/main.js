@@ -148,6 +148,7 @@ $(function () {
     // Function to start the game based on the selected mode
     function startGame(mode) {
         if (gameState == "start") {
+            $("#cone-1, #cone-2").hide();
             stopCar();
             setTimeout(function () {
                 resetCar(gameState); // Reset car for the new game mode
@@ -376,6 +377,7 @@ $(function () {
         $("#lives-counter").hide(); // Hide lives counter
         $("#game-buttons").hide(); // Hide game buttons
         $("#start-buttons").show(); // Show start buttons
+        $("#cone-1, #cone-2").show();
 
         // Reset button colors
         $("#easy-mode-button").css("background-color", "green");
