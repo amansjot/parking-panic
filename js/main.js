@@ -214,6 +214,9 @@ $(function () {
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
             lives = 3; // Fewer lives in hard mode
+            playerData.maxForwardSpeed = 3;
+            playerData.maxReverseSpeed = 2;
+            playerData.rotationSpeed = 2.5;
         }
 
         // Display the remaining lives on the screen
