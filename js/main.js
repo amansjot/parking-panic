@@ -68,10 +68,11 @@ $(function () {
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if (correctSpot) {
+            displayMessage("Next Round!", "green", "white");
             stopCar();
             registerCollision = false;
 
-            resetGame("win");
+            resetGame();
             revertParkingSpot();
             revertParkingSpot();
 
@@ -239,29 +240,30 @@ $(function () {
             let livesElements = $(".game-life");
             livesElements[lives - 1].remove(); // Remove the last life icon
             lives -= 1; // Decrease life count
+
+            let result = ""; // for the display message
+
             if (lives == 0) {
-                resetGame("lose");
+                result = "lose";  // Set result to "lose" when lives reach 0
+            }
+
+            if (result === "lose") {
+                displayMessage("You Lose!", "red", "white"); // Display lose message
+            setTimeout(function () {
                 showEndScreen();
+            }, 1300);
             }
         }
     }
 
     // Function to reset the game when the player wins or loses
-    function resetGame(result) {
+    function resetGame() {
         // stopCar(); // Stop the car
 
         setTimeout(function () {
             $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
         }, 700);
 
-        // Display win or lose message
-        if (result == "win") {
-            displayMessage("Next Round!", "green", "white");
-        } else if (result == "lose") {
-            displayMessage("You Lose!", "red", "white");
-        }
-
-        // Restart the game after displaying the result
         revertParkingSpot();
         currentSpot = updateSpot();
         // resetRedZones();
@@ -373,9 +375,14 @@ $(function () {
 
     //Play again button on popup
     $("#play-again").on("click", function () {
-        startGame(gameState);
         hideEndPopUp();
         resetTimer();
+
+        setTimeout(function () {
+            $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
+        }, 700);
+
+        resetGame("lose")
     });
 
     //Exit button on popup
