@@ -1,6 +1,8 @@
 import { registerObstacle } from './collision.js';
+import { spots } from './randomspot.js';
 
 // Define red zones with their boundaries (top-left and bottom-right corners)
+let goalSpot;
 const redZones = [
     {
         x1: 145,   // top-left x
@@ -116,8 +118,30 @@ export function createObstacle(type, x, y) {
     }
 }
 
-export function resetRedZones() {
+export function createCarObstacle(spot) {
+    // Generate random car type
+    // const carType = Math.floor(Math.random() * 4) + 1;
+    const carType = 2;
+
+    const html = `<div class="car-obstacle" id="car-${spot}" style="left: 12.5px;">
+            <img class="car-img" src="img/obstacles/car${carType}.png" alt="car">
+            <div class="car-hitbox"></div>
+        </div>`;
+        
+    $(`#${spots[spot]}`).append(html);
+
+    // Register the new obstacle for collision detection
+    const obstacleID = $(`#car-${spot}`);
+    const obstacleHitbox = $(`#car-${spot} .car-hitbox`);
+    registerObstacle(obstacleHitbox, obstacleID);
+}
+
+export function resetRedZones(spotID) {
+    // Remove any obstacle red zone
     redZones.splice(6);
+
+    // Update the goal spot ID
+    goalSpot = spotID;
 }
 
 // Function to check if two rectangles overlap

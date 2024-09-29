@@ -1,7 +1,7 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn } from './movement.js';
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
-import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
+import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
 import { updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
@@ -37,6 +37,8 @@ $(function () {
         ArrowLeft: false,
         ArrowRight: false
     };
+
+    let currentSpot;
 
     const coneSize = { w: 50, h: 50 }; // 50x50 px cones
     const dumpsterSize = { w: 45, h: 25 };
@@ -154,17 +156,21 @@ $(function () {
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
+            currentSpot = updateSpot();
+            resetRedZones();
+
             let numCones = 3;
             let numDumpsters = 2;
+            let numCars = 5;
             if (gameState == "hard-mode") {
                 numCones = 6;
                 numDumpsters = 4;
+                numCars = 12;
             }
 
             // Generate random cone obstacles
             for (let i = 0; i < numCones; i++) {
                 let { posX, posY } = generateObstaclePosition(coneSize);
-                console.log(posX);
                 createObstacle("cone", posX, posY);
             }
 
@@ -174,14 +180,15 @@ $(function () {
                 createObstacle("dumpster", posX, posY );
             }
 
-            // Generate random car obstacles
-            // for (let i = 0; i < 3; i++) {
-            //     const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-            //     const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-            //     createObstacle("car", random1, random2);
-            // }
-
-            updateSpot();
+            // Generate random car obstacles by spot ID (1-49)
+            let carsRemaining = numCars;
+            while (carsRemaining > 0) {
+                const spot = Math.floor(Math.random() * 49) + 1;
+                if (spot != currentSpot) {
+                    createCarObstacle(spot);
+                    carsRemaining--;
+                }
+            }
         }, 700);
 
         // Change the button color based on the selected mode
@@ -257,8 +264,8 @@ $(function () {
 
         // Restart the game after displaying the result
         revertParkingSpot();
-        resetRedZones();
-        updateSpot();
+        currentSpot = updateSpot();
+        // resetRedZones();
         resetTimer();
         startGame(gameState);
     }

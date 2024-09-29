@@ -30,6 +30,8 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
         spotDiv.style.border= "3px dashed yellow";
         spotDiv.style.zIndex="3"; 
         spotDiv.style.backgroundColor= "rgba(255, 255, 0, 0.1)";
+
+        return spotId;
     }
 
     /*
@@ -82,4 +84,4 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
         spotDiv.style.transition= "";
     }
 
-    export {updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot};
+    export {spots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot};
