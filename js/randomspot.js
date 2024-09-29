@@ -44,6 +44,17 @@ function isCarCompletelyInSpot(carCorners, spotRect) {
 
 const missionCompleteMessage = $('#mission-complete-message');
 
+function triggerConfetti() {
+    const confetti = document.getElementById("car-confetti");
+    confetti.style.display = "block"; // Show the confetti gif
+
+    // Hide the confetti after 2 seconds (or however long you want it to display)
+    setTimeout(() => {
+        confetti.style.display = "none"; // Hide the confetti gif
+    }, 500);
+}
+
+
 function checkParkingCompletion() {
     //Getting Parking spot location
     const spotDiv = document.getElementById(spotId);
@@ -63,6 +74,7 @@ function checkParkingCompletion() {
         //stopTimer();
         spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
         spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
+        triggerConfetti();
         return true;
     }
     else {
