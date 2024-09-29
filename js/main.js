@@ -187,14 +187,18 @@ $(function () {
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
-            generateCones();
+            // Generate random cone obstacles
+            for (let i = 0; i < 4; i++) {
+                const { coneX, coneY } = generateConePosition(redZones);
+                createObstacle("cone", coneX, coneY);
+            }
 
             // Generate random car obstacles
-            for (let i = 0; i < 3; i++) {
-                const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
-                createObstacle("car", random1, random2);
-            }
+            // for (let i = 0; i < 3; i++) {
+            //     const random1 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+            //     const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
+            //     createObstacle("car", random1, random2);
+            // }
 
             updateSpot();
         }, 700);
@@ -247,15 +251,6 @@ $(function () {
         } while (isInRedZone(coneX, coneY, redZones));
 
         return { coneX, coneY };  // Return the valid coordinates
-    }
-
-
-    function generateCones() {
-        // Generate random cone obstacles
-        for (let i = 0; i < 4; i++) {
-            const { coneX, coneY } = generateConePosition(redZones);
-            createObstacle("cone", coneX, coneY);
-        }
     }
 
     // Function to reset the player's lives based on game mode
