@@ -161,7 +161,7 @@ $(function () {
     // Function to start the game based on the selected mode
     function startGame(mode) {
         if (gameState == "start") {
-            $("#cone-1, #cone-2").hide();
+            $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").hide();
             stopCar();
             setTimeout(function () {
                 resetCar(gameState); // Reset car for the new game mode
