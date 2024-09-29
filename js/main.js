@@ -1,15 +1,12 @@
 import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
-import { checkCollisions, registerObstacle, updateScale } from './collision.js';
+import { checkCollisions} from './collision.js';
+import { resize, addResizeEventListener } from './resize.js';
+import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
 
 $(function () {
-    // DOM elements and scaling variables
-    const $scaleWindow = $('#scroll-window');
-    const $controls = $('#controls');
-    let unscaledSize = 1000;
-    let headerHeight = 150;
-
     // Initial resize of the game window
     resize();
+    addResizeEventListener();
 
     // Game state variables
     let gameState = 'start'; // Initial game state
@@ -18,49 +15,14 @@ $(function () {
     // Car-related variables
     const player = $('#car');
     const headlights = $('#headlights');
-
-    // Map Bounds
-    const mapBounds = $('#map-bounds');
-    const boundsSides = ['top', 'right', 'bottom', 'left'];
-
-    boundsSides.forEach(side => {
-        const boundHitbox = $(`#${side}-bounds`);
-        registerObstacle(boundHitbox, mapBounds);
-    });
-
-    // Map Dividers
-    const mapParkingDividers = $('#map-bounds');
-    // let parkingDividerSides = ['bottom-left'];
-
-    // let boundHitbox = $(`#${side}-divider`);
-    // registerObstacle(boundHitbox, mapParkingDividers);
-
-    const parkingDividerSides = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
-    parkingDividerSides.forEach(side => {
-        let boundHitbox = $(`#${side}-divider`);
-        registerObstacle(boundHitbox, mapParkingDividers);
-    });
-
-    // Hide dividers for the start screen
-    $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
-
+    
     // Collision related variables
     let registerCollision = true;
-    
-    // Obstacle-related variables
-    const coneHitboxes = $('.cone-hitbox');
-    const cones = $('.cone-obstacle');
-    const dumpsterHitboxes = $('.dumpster-hitbox');
-    const dumpsters = $('.dumpster-obstacle');
 
-    // Register each obstacle (cones and dumpsters)
-    cones.each(function (index) {
-        registerObstacle(coneHitboxes.eq(index), cones.eq(index));
-    });
-
-    dumpsters.each(function (index) {
-        registerObstacle(dumpsterHitboxes.eq(index), dumpsters.eq(index));
-    });
+    // Initialize map boundaries, parking dividers, and obstacles
+    initializeMapBounds();
+    initializeParkingDividers();
+    initializeObstacles();
 
     // Key states for controlling the car
     const keys = {
@@ -83,22 +45,6 @@ $(function () {
 
     // Initially hide the headlights
     headlights.hide();
-
-    // Function to resize the game window and adjust scaling
-    function resize() {
-        let width = window.innerWidth;
-        let height = window.innerHeight - headerHeight;
-        let newSize = Math.min(width, height);
-        let scale = newSize / unscaledSize;
-
-        // Apply scale to the game window and controls
-        $scaleWindow.css('transform', `scale(${scale})`);
-        $scaleWindow.css('margin-left', (width - newSize) / 2 + "px");
-        $controls.css('transform', `scale(${scale * 1.3})`);
-
-        // Update the scale in the collision detection module
-        updateScale(scale);
-    }
 
     // Add resize event listener for the game window
     window.addEventListener("resize", resize);
@@ -264,23 +210,6 @@ $(function () {
         setTimeout(function () {
             $("#message").hide();
         }, 900); // Hide the message after 900ms
-    }
-
-    // Function to create obstacles (cones or cars) at random positions
-    function createObstacle(type, x, y) {
-        if (["dumpster", "cone"].includes(type)) {
-            const html = `<div class="${type}-obstacle" style="top: ${x}px; right: ${x}px;">
-            <img class="${type}-img" src="img/obstacles/${type}.png" alt="${type}">
-            <div class="${type}-hitbox"></div>
-            </div>`
-            $("#scroll-window").append(html);
-
-            // Register the new obstacle for collision detection
-            const obstacleClass = $(`.${type}-obstacle`);
-            const obstacleHitboxes = $(`.${type}-hitbox`);
-            const index = obstacleClass.length - 1;
-            registerObstacle(obstacleHitboxes.eq(index), obstacleClass.eq(index));
-        }
     }
 
     // Function to handle keydown events
