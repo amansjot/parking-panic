@@ -82,9 +82,11 @@ function resetCar(mode) {
     if (mode == "hard-mode") {
         playerData.maxForwardSpeed = 3;
         playerData.maxReverseSpeed = 2;
+        playerData.rotationSpeed = 2.5;
     } else {
         playerData.maxForwardSpeed = 2;
         playerData.maxReverseSpeed = 1.5;
+        playerData.rotationSpeed = 2;
     }
 
     playerData.currentSpeed = 0;

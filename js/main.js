@@ -40,7 +40,7 @@ $(function () {
     };
 
     let currentSpot;
-    const angledSpots = ["spot-33", "spot-34", "spot-35", "spot-36", "spot-37"];
+    const angledSpots = [33, 34, 35, 36, 37];
 
     const coneSize = { w: 50, h: 50 }; // 50x50 px cones
     const dumpsterSize = { w: 45, h: 25 };
@@ -71,8 +71,8 @@ $(function () {
             stopCar();
             registerCollision = false;
 
-            resetGame("win");
             revertParkingSpot();
+            resetGame("win");
             stopTimer();
             resetTimer();
             revertParkingSpot();
@@ -131,7 +131,6 @@ $(function () {
 
     // Function to start the game based on the selected mode
     function startGame(mode) {
-        console.log("x");
         stopCar();
         
         if (gameState == "start") {
@@ -161,6 +160,7 @@ $(function () {
             // Show dividers for the game screen
             $("#top-left-divider, #top-right-divider, #bottom-right-divider").show();
 
+            revertParkingSpot();
             currentSpot = updateSpot();
             resetRedZones();
 
@@ -202,8 +202,6 @@ $(function () {
         } else if (gameState == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
-
-        revertParkingSpot();
     }
 
     // Function to reset the player's lives based on game mode
@@ -212,9 +210,6 @@ $(function () {
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
             lives = 3; // Fewer lives in hard mode
-            playerData.maxForwardSpeed = 3; // Adjust car speed for hard mode
-            playerData.maxReverseSpeed = 2;
-            playerData.rotationSpeed = 2.5;
         }
 
         // Display the remaining lives on the screen
@@ -239,7 +234,6 @@ $(function () {
         stopCar();
         
         setTimeout(function () {
-            console.log("y");
             resetCar(gameState);
             registerCollision = true;
         }, 1600);

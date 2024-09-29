@@ -46,7 +46,6 @@ const missionCompleteMessage = $('#mission-complete-message');
 
 function checkParkingCompletion() {
     //Getting Parking spot location
-    console.log("check parking");
     const spotDiv = document.getElementById(spotId);
     const spotRect = spotDiv.getBoundingClientRect();
 
