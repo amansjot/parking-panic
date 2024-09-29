@@ -149,10 +149,16 @@ function toggleHeadlights(headlights) {
     }
 }
 
+function playHorn() {
+    const hornSound = document.getElementById('horn-sound');
+    hornSound.currentTime = 0; // Reset the sound to the beginning
+    hornSound.play(); // Play the horn sound
+}
+
 // Convert degrees to radians (for angle calculations)
 function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
 // Export functions and player data for use in other modules
-export { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights };
+export { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn };

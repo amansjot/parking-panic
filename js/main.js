@@ -1,4 +1,4 @@
-import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights } from './movement.js';
+import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButtons, updatePlayerCSS, toggleHeadlights, playHorn } from './movement.js';
 import { checkCollisions} from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
@@ -225,6 +225,11 @@ $(function () {
         // Toggle headlights with 'H' key
         if (key === 'h') {
             toggleHeadlights($('#headlights'));
+        }
+
+         // Play horn with g
+        if (key === 'g') {  // ' ' is the spacebar key
+            playHorn();
         }
     }
 
