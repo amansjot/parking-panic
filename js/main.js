@@ -3,7 +3,7 @@ import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer } from './timer.js';
-import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
+import { updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
 $(function () {
     // Initial resize of the game window
@@ -96,7 +96,7 @@ $(function () {
 
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
-        if(correctSpot){
+        if (correctSpot) {
             stopCar();
             registerCollision = false;
 
@@ -105,10 +105,10 @@ $(function () {
             stopTimer();
             resetTimer();
             revertParkingSpot();
-        
-            setTimeout(function() {
+
+            setTimeout(function () {
                 registerCollision = true;
-                resetCar();
+                resetCar(gameState);
             }, 700);
 
             // updateSpot();
@@ -131,6 +131,8 @@ $(function () {
     }
 
     function triggerExplosion() {
+        stopCar();
+
         // Get the explosion and car elements
         const carExplosion = document.getElementById('car-explosion');
         const carImage = document.getElementById('playersCar-img');
@@ -145,7 +147,9 @@ $(function () {
         setTimeout(() => {
             carExplosion.style.display = 'none';  // Hide the explosion
             carImage.style.visibility = 'visible';  // Show the car again
-        }, 1600); // Adjust this timing to match your GIF duration
+
+            resetCar(gameState);
+        }, 1610); // Adjust this timing to match your GIF duration
     }
 
 
@@ -191,7 +195,7 @@ $(function () {
                 const random2 = Math.floor(Math.random() * (850 - 150 + 1)) + 150;
                 createObstacle("car", random1, random2);
             }
-            
+
             updateSpot();
         }, 700);
 
@@ -283,16 +287,12 @@ $(function () {
 
     // Function to remove a life after a collision
     function removeLife() {
-        if (gameState == "start") {
+        registerCollision = false;
+        stopCar();
+        setTimeout(function () {
             resetCar(gameState);
-        } else {
-            registerCollision = false;
-            stopCar();
-            setTimeout(function () {
-                resetCar(gameState);
-                registerCollision = true;
-            }, 1600);
-        }
+            registerCollision = true;
+        }, 1600);
 
         if (gameState != "start") {
             let livesElements = $(".game-life");
