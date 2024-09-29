@@ -97,11 +97,20 @@ $(function () {
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if(correctSpot){
+            stopCar();
+            registerCollision = false;
+
             resetGame("win");
             revertParkingSpot();
             stopTimer();
             resetTimer();
             revertParkingSpot();
+        
+            setTimeout(function() {
+                registerCollision = true;
+                resetCar();
+            }, 700);
+
             // updateSpot();
         }
 
