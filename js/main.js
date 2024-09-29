@@ -2,6 +2,8 @@ import { playerData, moveCar, rotateCar, stopCar, resetCar, checkContainmentButt
 import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle } from './obstacles.js';
+import { startTimer, stopTimer, resetTimer } from './timer.js';
+import { updateSpot, checkParkingCompletion, revertParkingSpot} from './randomspot.js';
 
 $(function () {
     // Initial resize of the game window
@@ -90,6 +92,18 @@ $(function () {
         moveCar(keys); // Move the car based on key inputs
         rotateCar(keys); // Rotate the car
         updatePlayerCSS(player); // Update the car's position in CSS
+        startTimer();
+
+        //Check if car is in the chose parking spot
+        const correctSpot = checkParkingCompletion();
+        if(correctSpot){
+            resetGame("win");
+            revertParkingSpot();
+            stopTimer();
+            resetTimer();
+            revertParkingSpot();
+            updateSpot();
+        }
 
         // Check for collisions with obstacles
         const collision = checkCollisions(playerData);
@@ -175,6 +189,9 @@ $(function () {
         } else if (mode == "hard-mode") {
             $("#hard-mode-button").css("background-color", "darkred");
         }
+
+        revertParkingSpot();
+        updateSpot();
     }
 
     // Function to check if two rectangles overlap
@@ -292,6 +309,9 @@ $(function () {
         }
 
         // Restart the game after displaying the result
+        revertParkingSpot();
+        updateSpot();
+        resetTimer();
         startGame(gameState);
     }
 
