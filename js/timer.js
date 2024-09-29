@@ -34,7 +34,7 @@ function saveTime(){
 }
 
 //im adding the level counting functions in here 
-let levels = 0;
+let levels = 1;
 let levelCount = document.getElementById("level-display");
 
 function increaseLevels(){//Increases Game level for the user
@@ -50,7 +50,7 @@ function getLevels(){
 
 function resetLevels(){ //when game resets returns back to 0
     //const levelCount = document.getElementById("level-display");
-    levels = 0;
+    levels = 1;
     levelCount.textContent = "Level: " + levels;
 }
 export { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels };

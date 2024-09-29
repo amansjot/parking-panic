@@ -212,6 +212,9 @@ $(function () {
     // Function to reset the player's lives based on game mode
     function resetLives() {
         if (gameState == "easy-mode") {
+            playerData.maxForwardSpeed = 2;
+            playerData.maxReverseSpeed = 1.5;
+            playerData.rotationSpeed = 2;
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
             lives = 3; // Fewer lives in hard mode
@@ -220,6 +223,9 @@ $(function () {
             playerData.rotationSpeed = 2.5;
         }
 
+   // }
+
+    //function displayLives(){
         // Display the remaining lives on the screen
         $(".game-life").remove();
         for (let i = 0; i < lives; i++) {
@@ -378,7 +384,7 @@ $(function () {
 
     //Play again button on popup
     $("#play-again").on("click", function () {
-        gamePaused = false; // Unpause the game
+         // Unpause the game
         hideEndPopUp();
         resetTimer();
 
@@ -387,7 +393,9 @@ $(function () {
         }, 700);
 
         resetGame("lose");
+        resetLives();
         resetLevels();
+        gamePaused = false;
     });
 
     //Exit button on popup
@@ -413,6 +421,7 @@ $(function () {
         resetTimer();
         hideCounters();
         resetLevels();
+        resetLives();
 
     });
 
@@ -438,5 +447,6 @@ $(function () {
         resetCar(gameState);
         hideCounters();
         resetLevels();
+        resetLives();
     });
 });
