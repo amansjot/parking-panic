@@ -215,33 +215,36 @@ $(function () {
     // Function to reset the player's lives based on game mode
     function resetLives() {
         if (gameState == "easy-mode") {
-            playerData.maxForwardSpeed = 2;
-            playerData.maxReverseSpeed = 1.5;
-            playerData.rotationSpeed = 2;
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
             lives = 3; // Fewer lives in hard mode
-            playerData.maxForwardSpeed = 3;
-            playerData.maxReverseSpeed = 2;
-            playerData.rotationSpeed = 2.5;
         }
-
-   // }
-
-    //function displayLives(){
+    
         // Display the remaining lives on the screen
         $(".game-life").remove();
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
-
+    
             const lifeImg = document.createElement("img");
             lifeImg.src = "../img/hud/wrench-screwdriver.png";
             lifeImg.alt = "Life";
             lifeImg.width = 40;
-
+    
             life.appendChild(lifeImg);
             $("#lives-counter").append(life);
+        }
+    }
+
+    function setPlayerSpeed(mode) {
+        if (mode == "easy-mode") {
+            playerData.maxForwardSpeed = 2;
+            playerData.maxReverseSpeed = 1.5;
+            playerData.rotationSpeed = 2;
+        } else if (mode == "hard-mode") {
+            playerData.maxForwardSpeed = 3;
+            playerData.maxReverseSpeed = 2;
+            playerData.rotationSpeed = 2.5;
         }
     }
 
@@ -397,6 +400,7 @@ $(function () {
 
         resetGame("lose");
         resetLives();
+        setPlayerSpeed(gameState);
         resetLevels();
         gamePaused = false;
     });
@@ -429,6 +433,7 @@ $(function () {
         hideCounters();
         resetLevels();
         resetLives();
+        setPlayerSpeed(gameState);
 
     });
 
@@ -460,5 +465,6 @@ $(function () {
         hideCounters();
         resetLevels();
         resetLives();
+        setPlayerSpeed(gameState);
     });
 });
