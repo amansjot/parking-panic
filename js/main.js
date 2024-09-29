@@ -61,6 +61,7 @@ $(function () {
 
     // Function to update the player's position and handle collisions
     function updatePlayer() {
+        if (gamePaused) return; // Stop the function if the game is paused
         moveCar(keys); // Move the car based on key inputs
         rotateCar(keys); // Rotate the car
         updatePlayerCSS(player); // Update the car's position in CSS
