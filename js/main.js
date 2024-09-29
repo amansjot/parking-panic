@@ -283,7 +283,6 @@ $(function () {
         userTime.style.visibility="visible";
         const userText = "You took "+ totalTime + " Seconds to Pass."
         userTime.textContent = userText;
-        playAgain();
     }
     
     //Shows a losing message to the user
@@ -295,25 +294,8 @@ $(function () {
         lost.style.visibility= "visible";
         const lostMsg = document.getElementById("lostMsg");
         lostMsg.style.visibility= "visible";
-        playAgain();
-
     }
 
-/*
-    function playAgain() {
-        $("#play-again").on("click", function () { 
-            //hideEndPopUp();
-            revertParkingSpot();
-            resetTimer();
-            updateSpot();
-            startGame(gameState);
-            resetCar(gameState);
-            
-        });
-        //hideEndPopUp();
-    }
-
-    */
     //Hides the end of round popup
     function hideEndPopUp(){
         const popUp = document.getElementById("endscreen-popup");
@@ -329,6 +311,7 @@ $(function () {
         const lostMsg = document.getElementById("lostMsg");
         lostMsg.style.visibility= "hidden";
     }
+    //Play again button on popup
     $("#play-again").on("click", function () {
         gameState = 'start';
 
@@ -343,12 +326,13 @@ $(function () {
         $("#hard-mode-button").css("background-color", "red");
         startTimer();
         hideEndPopUp();
-        stopTimer();
         revertParkingSpot();
         resetCar(gameState);
+        stopTimer();
         resetTimer();
     });
 
+    //Exit button on popup
     $("#exit").on("click", function () {
         gameState = 'start';
 
