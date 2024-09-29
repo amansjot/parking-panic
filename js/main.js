@@ -157,6 +157,9 @@ $(function () {
             $("#game-buttons").show();
             $("#lives-counter").show();
 
+            $("#controls").hide();
+            $("#objective").hide();
+
             // Display the game background
             $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
 
@@ -408,6 +411,10 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
+
+        $("#controls").show();
+        $("#objective").show();
+
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
         $("#start-buttons").show();
@@ -436,6 +443,11 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
+
+        $("#controls").show();
+        $("#objective").show();
+
+
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
         $("#start-buttons").show();
