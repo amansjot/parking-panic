@@ -131,7 +131,7 @@ $(function () {
     // Function to start the game based on the selected mode
     function startGame(mode) {
         if (gameState == "start") {
-            $("#cone-1, #cone-2, .dumpster-obstacle").hide();
+            $("#cone-1, #cone-2, #car-0, .dumpster-obstacle").hide();
             stopCar();
             setTimeout(function () {
                 resetCar(gameState); // Reset car for the new game mode
@@ -264,9 +264,6 @@ $(function () {
         }
 
         // Restart the game after displaying the result
-        revertParkingSpot();
-        currentSpot = updateSpot();
-        // resetRedZones();
         resetTimer();
         startGame(gameState);
     }

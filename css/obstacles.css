@@ -3,6 +3,11 @@
     z-index: 3;
 }
 
+#car-0 {
+    top: 778px;
+    left: 607px;
+}
+
 .car-img {
     width: 35px;
     height: 70px;  
@@ -10,8 +15,8 @@
 
 .car-hitbox {
     position: absolute;
-    width: 35px;
-    height: 70px;
+    width: 30px;
+    height: 65px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
