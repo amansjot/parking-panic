@@ -417,6 +417,7 @@ $(function () {
 
     $("#exit-game-button").on("click", function () {
         gamePaused = false; // Unpause the game
+        hideEndPopUp();
         gameState = 'start';
 
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
