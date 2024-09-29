@@ -11,20 +11,20 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
     48: "fourty-eight", 49: "fourty-nine"
     }
 
-    function randomSpot(){ //Gets the random spot number
+    // Function to generate a random parking spot number (between 1 and 49)
+    function randomSpot(){ 
         const num = Math.floor((Math.random() * 49) + 1);
         return num;
     }
     
     let spotNum = randomSpot(); //global constant for the parkingspot in the round
     let spotId = spots[spotNum]; //Gets id value for it's div 
-    //let spotDiv = document.getElementById(spotId); //getting the correct parking div
 
-    function updateSpot(){//Take a random number, associates it with a spot, and adjusts the spots css to glow 
-
+    // Function to update the chosen parking spot for the current round
+    function updateSpot(){ 
         // Reassign a new spot number and spot ID for each round
-        spotNum = randomSpot(); // Generate a new random spot number
-        spotId = spots[spotNum]; // Update the spotId to match the new spot number
+        spotNum = randomSpot();
+        spotId = spots[spotNum];
 
         const spotDiv = document.getElementById(spotId);  
         spotDiv.style.border= "3px dashed yellow";
@@ -32,20 +32,9 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
         spotDiv.style.backgroundColor= "rgba(255, 255, 0, 0.1)";
     }
 
-    /*
-    function isCarCompletelyInSpot(carCorners, spotRect) {
-        // Check if all corners of the car are within the parking spot
-        return carCorners.every(corner =>
-            corner.x >= spotRect.left &&
-            corner.x <= spotRect.right &&
-            corner.y >= spotRect.top &&
-            corner.y <= spotRect.bottom
-        );
-    }  
-    */
+    //const missionCompleteMessage = $('#mission-complete-message'); //not needed as of now
 
-    const missionCompleteMessage = $('#mission-complete-message');
-
+    // Function to check if the car has been successfully parked within the parking spot
     function checkParkingCompletion() {
         //Getting Parking spot location
         console.log("check parking");
@@ -62,8 +51,8 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
             carRect.top >= spotRect.top &&
             carRect.bottom <= spotRect.bottom
         ){
-            missionCompleteMessage.show(); // Show mission complete message
-            //stopTimer();
+            //missionCompleteMessage.show(); //not needed as of now
+            //stopTimer(); //not needed as of now
             spotDiv.style.boxShadow="0 0 15px 10px rgba(0, 255, 0, 0.7)";
             spotDiv.style.transition= "box-shadow 0.3s ease-in-out";
             return true;
@@ -73,7 +62,8 @@ const spots = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seve
         }  
     }
     
-    function revertParkingSpot(){ //Removes outline and glow after round is done
+    // Function to remove the parking spot's highlight and restore its default state after each round
+    function revertParkingSpot(){ 
         const spotDiv = document.getElementById(spotId); 
         spotDiv.style.border= "";
         spotDiv.style.zIndex="2"; 
