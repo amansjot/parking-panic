@@ -26,7 +26,6 @@ function updateSpot() {//Take a random number, associates it with a spot, and ad
     spotDiv.style.border = "3px dashed yellow";
     spotDiv.style.zIndex = "3";
     spotDiv.style.backgroundColor = "rgba(255, 255, 0, 0.1)";
-
     return spotId;
 }
 
@@ -59,16 +58,25 @@ function checkParkingCompletion() {
         carRect.top >= spotRect.top &&
         carRect.bottom <= spotRect.bottom
     ) {
-        missionCompleteMessage.show(); // Show mission complete message
+        //missionCompleteMessage.show(); // Show mission complete message
         //stopTimer();
+       /*
         spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
         spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
+        //console.log("post glow");
+        */
         return true;
     }
     else {
         return false;
     }
 }
+
+function glowSpot(){
+    const spotDiv = document.getElementById(spotId);
+    spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
+    spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
+} 
 
 function revertParkingSpot() { //Removes outline and glow after round is done
     const spotDiv = document.getElementById(spotId);
@@ -79,4 +87,4 @@ function revertParkingSpot() { //Removes outline and glow after round is done
     spotDiv.style.transition = "";
 }
 
-export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot };
+export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot, glowSpot};

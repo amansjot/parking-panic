@@ -3,7 +3,7 @@ import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels } from './timer.js';
-import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
+import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot, glowSpot } from './randomspot.js';
 
 $(function () {
     // Initial resize of the game window
@@ -71,20 +71,24 @@ $(function () {
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if (correctSpot) {
-            displayMessage("Next Round!", "green", "white");
-            increaseLevels();
-            revertParkingSpot();
-            stopCar();
+            glowSpot();
+            //increaseLevels();
+        
+            setTimeout(function () {
+                stopCar();
             registerCollision = false;
             //resetGame();
             updateLevels();
+            revertParkingSpot();
+            displayMessage("Next Round!", "green", "white");
             resetGame("win");
+            resetCar(gameState);
+            }, 700);
 
-
-            setTimeout(function () {
+            /*setTimeout(function () {
                 registerCollision = true;
                 resetCar(gameState);
-            }, 700);
+            }, 700);*/
             return; // Exit the function early to prevent further checks in this frame
         }
 
