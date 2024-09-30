@@ -99,10 +99,7 @@ $(function () {
 
         // Check if the car is contained within the mode buttons
         const chosenMode = checkContainmentButtons();
-        if (chosenMode && gameState == "start") {
-            console.log(chosenMode);
-            if (chosenMode == "hard-mode") startGame(chosenMode);
-        }
+        if (chosenMode && gameState == "start") startGame(chosenMode);
         updateCollisionVisual(collision); // Update the collision visual
     }
 
