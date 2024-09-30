@@ -26,6 +26,7 @@ function updateSpot() {//Take a random number, associates it with a spot, and ad
     spotDiv.style.border = "3px dashed yellow";
     spotDiv.style.zIndex = "3";
     spotDiv.style.backgroundColor = "rgba(255, 255, 0, 0.1)";
+    spotDiv.style.animation = "glow-red 1s infinite alternate";
     return spotId;
 }
 
@@ -85,6 +86,7 @@ function revertParkingSpot() { //Removes outline and glow after round is done
     spotDiv.style.backgroundColor = "";
     spotDiv.style.boxShadow = "";
     spotDiv.style.transition = "";
+    spotDiv.style.animation = "";
 }
 
 export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot, glowSpot};

@@ -111,6 +111,16 @@ body {
     }
 }
 
+@keyframes glow-yellow {
+    from {
+        box-shadow: 0 0 10px -10px yellow;
+    }
+
+    to {
+        box-shadow: 0 0 3px 3px yellow;
+    }
+}
+
 #easy-mode-button {
     top: 563px;
     left: 620px;
