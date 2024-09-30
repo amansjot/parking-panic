@@ -119,8 +119,7 @@ export function createObstacle(type, x, y) {
 
 export function createCarObstacle(spot) {
     // Generate random car type
-    // const carType = Math.floor(Math.random() * 4) + 1;
-    const carType = 4;
+    const carType = Math.floor(Math.random() * 4) + 1;
 
     const html = `<div class="car-obstacle" id="car-${spot}" style="left: 12.5px;">
             <img class="car-img" src="img/obstacles/car${carType}.png" alt="car">
