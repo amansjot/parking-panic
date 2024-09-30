@@ -16,16 +16,16 @@
 /* Common Headlight Styles */
 #left-headlight, 
 #right-headlight {
-    width: 35px;
-    height: 150px;
-    position: absolute;
-    top: -120px;
-    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    pointer-events: none;
-    transform: rotate(180deg);
-    opacity: 1;
-    z-index: 5;
+    width: 35px; /* Matches the width of the car */
+    height: 150px; /* Length of the headlight beam */
+    position: absolute; /* Positioned relative to the car */
+    top: -120px; /* Positioned above the car */
+    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%); /* Headlight beam effect */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Triangle shape to simulate a beam */
+    pointer-events: none; /* Allows elements to be clickable behind the headlights */
+    transform: rotate(180deg); /* Rotates the beam so it's directed outwards */
+    opacity: 1; /* Visibility of the headlight */
+    z-index: 5; /* Slightly below the car in the z-layering */
 }
 
 /* Positioning for the Left Headlight */

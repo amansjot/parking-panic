@@ -40,10 +40,6 @@ function moveCar(keys) {
         }
     }
 
-    const gameContainer = document.getElementById('game-container');
-    const containerWidth = gameContainer.offsetWidth;
-    const containerHeight = gameContainer.offsetHeight;
-
     // Calculate new position based on speed and angle
     const newX = playerData.x + playerData.currentSpeed * Math.cos(degreesToRadians(playerData.angle - 90));
     const newY = playerData.y + playerData.currentSpeed * Math.sin(degreesToRadians(playerData.angle - 90));
@@ -136,10 +132,6 @@ function checkContainmentButtons() {
 
 // Update the car's position and rotation in the CSS
 function updatePlayerCSS(player) {
-    const gameContainer = document.getElementById('game-container');
-    const containerWidth = gameContainer.offsetWidth;
-    const containerHeight = gameContainer.offsetHeight;
-
     player.css({
         top: `${playerData.y}px`,  // Update top position
         left: `${playerData.x}px`,  // Update left position

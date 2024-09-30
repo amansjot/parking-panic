@@ -51,9 +51,6 @@ $(function () {
     $(document).on('keydown', handleKeyDown);
     $(document).on('keyup', handleKeyUp);
 
-    // Call scaleGame initially
-    scaleGame();
-
     // Main update loop for moving and rotating the car
     setInterval(updatePlayer, 10);
 
