@@ -60,11 +60,11 @@ function checkParkingCompletion() {
     ) {
         //missionCompleteMessage.show(); // Show mission complete message
         //stopTimer();
-       /*
+       ///*
         spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
         spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
         //console.log("post glow");
-        */
+        //*/
         return true;
     }
     else {

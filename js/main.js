@@ -71,24 +71,21 @@ $(function () {
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if (correctSpot) {
-            glowSpot();
-            //increaseLevels();
-        
-            setTimeout(function () {
-                stopCar();
-            registerCollision = false;
-            //resetGame();
+            //glowSpot();
+            increaseLevels();
             updateLevels();
+            stopCar();
             revertParkingSpot();
+            registerCollision = false;
             displayMessage("Next Round!", "green", "white");
             resetGame("win");
             resetCar(gameState);
-            }, 700);
+            //}, 700);
 
-            /*setTimeout(function () {
+            setTimeout(function () {
                 registerCollision = true;
                 resetCar(gameState);
-            }, 700);*/
+            }, 700);
             return; // Exit the function early to prevent further checks in this frame
         }
 
