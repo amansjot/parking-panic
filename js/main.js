@@ -15,7 +15,7 @@ $(function () {
     let lives = 0; // Initial player lives
     let gamePaused = false;
 
-    
+
     // Car-related variables
     const player = $('#car');
     const headlights = $('#headlights');
@@ -138,7 +138,7 @@ $(function () {
         showCounters();
         stopCar();
         startTimer();
-        
+
         if (gameState == "start") {
             $("#cone-1, #cone-2, #car-0, .dumpster-obstacle").hide();
             stopCar();
@@ -191,7 +191,7 @@ $(function () {
             // Generate random dumpster obstacles
             for (let i = 0; i < numDumpsters; i++) {
                 const { posX, posY } = generateObstaclePosition(dumpsterSize);
-                createObstacle("dumpster", posX, posY );
+                createObstacle("dumpster", posX, posY);
             }
 
             // Generate random car obstacles by spot ID (1-49)
@@ -219,25 +219,25 @@ $(function () {
         if (gameState === "hard-mode" && lives > 0) {
             return; // Do nothing, keep current lives
         }
-    
+
         // Reset lives for other game modes
         if (gameState == "easy-mode") {
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
             lives = 3; // Fewer lives in hard mode if not already set
         }
-    
+
         // Display the remaining lives on the screen
         $(".game-life").remove();
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
-    
+
             const lifeImg = document.createElement("img");
             lifeImg.src = "../img/hud/wrench-screwdriver.png";
             lifeImg.alt = "Life";
             lifeImg.width = 40;
-    
+
             life.appendChild(lifeImg);
             $("#lives-counter").append(life);
         }
@@ -259,7 +259,7 @@ $(function () {
     function removeLife() {
         registerCollision = false;
         stopCar();
-        
+
         setTimeout(function () {
             resetCar(gameState);
             registerCollision = true;
@@ -271,17 +271,11 @@ $(function () {
 
             lives -= 1; // Decrease life count
 
-            let result = ""; // for the display message
-
             if (lives == 0) {
-                result = "lose";  // Set result to "lose" when lives reach 0
-            }
-
-            if (result === "lose") {
                 displayMessage("You Lose!", "red", "white"); // Display lose message
-            setTimeout(function () {
-                showEndScreen();
-            }, 1300);
+                setTimeout(function () {
+                    showEndScreen();
+                }, 1300);
             }
         }
     }
@@ -294,7 +288,7 @@ $(function () {
             $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
         }, 700);
 
-        revertParkingSpot();   
+        revertParkingSpot();
         startGame(gameState);
     }
 
@@ -332,27 +326,27 @@ $(function () {
         }
     }
 
-    function updateLevels(){
+    function updateLevels() {
         const levels = getLevels();
         const levelCount = document.getElementById("level-display");
         levelCount.textContent = "Level: " + levels;
     }
 
-    function showCounters(){ //shows time and level on game startup
+    function showCounters() { //shows time and level on game startup
         const timer = document.getElementById("timer-display");
         timer.style.visibility = "visible";
 
         const level = document.getElementById("level-display");
         level.style.visibility = "visible";
-    }   
+    }
 
-    function hideCounters(){ //hides time and level on game startup
+    function hideCounters() { //hides time and level on game startup
         const timer = document.getElementById("timer-display");
         timer.style.visibility = "hidden";
 
         const level = document.getElementById("level-display");
         level.style.visibility = "hidden";
-    } 
+    }
 
     // Function to handle keyup events
     function handleKeyUp(e) {
@@ -366,37 +360,37 @@ $(function () {
     }
 
     //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
-    function showEndScreen(){
+    function showEndScreen() {
         gamePaused = true
         stopTimer();
         const popUp = document.getElementById("endscreen-popup");
         popUp.style.visibility = "visible";
         const gameover = document.getElementById("game-over");
-        gameover.style.visibility= "visible";
+        gameover.style.visibility = "visible";
         const totalTime = saveTime(); // This will now correctly return the current time
         const totalLevels = getLevels(); //total amount of levels passed
         const userTime = document.getElementById("userTime");
         userTime.style.visibility = "visible";
-        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " +totalLevels + " LEVELS";
+        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " + totalLevels + " LEVELS";
         userTime.textContent = userText;
         resetTimer();
     }
 
     //Hides the end of round popup
-    function hideEndPopUp(){
+    function hideEndPopUp() {
         const popUp = document.getElementById("endscreen-popup");
-        popUp.style.visibility="hidden";
+        popUp.style.visibility = "hidden";
         //top pop up values
         const gameover = document.getElementById("game-over");
-        gameover.style.visibility= "hidden";
+        gameover.style.visibility = "hidden";
         //middle pop up values
         const userTime = document.getElementById("userTime");
-        userTime.style.visibility="hidden";
+        userTime.style.visibility = "hidden";
     }
 
     //Play again button on popup
     $("#play-again").on("click", function () {
-         // Unpause the game
+        // Unpause the game
         hideEndPopUp();
         resetTimer();
 

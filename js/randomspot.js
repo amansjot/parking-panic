@@ -1,11 +1,8 @@
-
-
 function initializeParkingSpots() {
     for (let i = 1; i <= 49; i++) {
         $("#scroll-window").append(`<div class="spot parking-spot" id="spot-${i}"></div>`);
     }
 }
-
 
 function randomSpot() { //Gets the random spot number
     const num = Math.floor((Math.random() * 49) + 1);
@@ -61,7 +58,7 @@ function checkParkingCompletion() {
     ) {
         //missionCompleteMessage.show(); // Show mission complete message
         //stopTimer();
-       ///*
+        ///*
         spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
         spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
         //console.log("post glow");
@@ -73,11 +70,11 @@ function checkParkingCompletion() {
     }
 }
 
-function glowSpot(){
+function glowSpot() {
     const spotDiv = document.getElementById(spotId);
     spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
     spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
-} 
+}
 
 function revertParkingSpot() { //Removes outline and glow after round is done
     const spotDiv = document.getElementById(spotId);
@@ -89,4 +86,4 @@ function revertParkingSpot() { //Removes outline and glow after round is done
     spotDiv.style.animation = "";
 }
 
-export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot, glowSpot};
+export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot, glowSpot };

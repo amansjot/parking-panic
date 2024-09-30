@@ -1,16 +1,18 @@
 #timer-display {
     position: absolute;
-    top: 15px;
+    top: 10px;
     left: 350px;
     font-size: 26px;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
-    width: 40px;
-    height: 25px;
+    width: auto;
+    min-width: 50px;
+    height: auto;
     z-index: 5;
     visibility: hidden;
+    font-family: "Silkscreen", sans-serif;
 }
 
 #mission-complete-message,

@@ -134,3 +134,7 @@ body {
     background-color: red;
     animation: glow-red 1s infinite alternate;
 }
+
+#play-again, #exit {
+    cursor: pointer;
+}
