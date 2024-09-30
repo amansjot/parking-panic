@@ -1,0 +1,81 @@
+#top-bounds, #left-bounds, #right-bounds, #bottom-bounds {
+    /* Common properties for all boundary elements */
+    position: absolute;              /* Positioned relative to the nearest positioned ancestor */
+    z-index: 1;                      /* Ensures the elements appear above others with lower z-index */
+    transform: translate(-50%, -50%); /* Centers the element by translating 50% along X and Y axis */
+    background-color: rgba(255, 251, 0, 0.3); /* Yellow semi-transparent background */
+    border: 1px solid yellow;        /* Yellow border for better visibility */
+}
+
+#top-bounds {
+    /* Top boundary: spans the width of the game area */
+    width: 1000px;
+    height: 290px;
+    top: 0px;                        /* Positioned at the top of the container */
+    left: 500px;                     /* Horizontally centered */
+}
+
+#left-bounds {
+    /* Left boundary: spans the height of the game area */
+    width: 290px;
+    height: 1000px;
+    top: 500px;                      /* Vertically centered */
+    left: 0px;                       /* Positioned at the far left */
+}
+
+#right-bounds {
+    /* Right boundary: spans the height of the game area */
+    width: 290px;
+    height: 1000px;
+    top: 500px;                      /* Vertically centered */
+    right: -290px;                   /* Positioned off to the right side */
+}
+
+#bottom-bounds {
+    /* Bottom boundary: spans the width of the game area */
+    width: 1000px;
+    height: 290px;
+    top: 1000px;                     /* Positioned at the bottom of the container */
+    left: 792px;                     /* Positioned based on the layout, but not centered */
+}
+
+#top-left-divider, #top-right-divider, #bottom-left-divider, #bottom-right-divider {
+    /* Common properties for all divider elements */
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 251, 0, 0.3); /* Semi-transparent yellow background */
+    border: 1px solid yellow;        /* Yellow border for visibility */
+}
+
+#top-left-divider {
+    /* Horizontal divider on the top-left section */
+    width: 245px;
+    height: 10px;
+    top: 359px;                      /* Positioned vertically near the top */
+    left: 345px;                     /* Positioned horizontally on the left side */
+}
+
+#top-right-divider {
+    /* Horizontal divider on the top-right section */
+    width: 240px;
+    height: 10px;
+    top: 359px;                      /* Same vertical alignment as top-left */
+    left: 660px;                     /* Positioned on the right side */
+}
+
+#bottom-left-divider {
+    /* Horizontal divider on the bottom-left section */
+    width: 307px;
+    height: 8px;
+    top: 609px;                      /* Positioned vertically lower */
+    left: 376px;                     /* Positioned horizontally on the left side */
+}
+
+#bottom-right-divider {
+    /* Vertical divider on the bottom-right section */
+    width: 8px;
+    height: 120px;
+    top: 623px;                      /* Positioned slightly lower */
+    left: 703px;                     /* Positioned in the right section */
+}

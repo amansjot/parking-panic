@@ -1,0 +1,93 @@
+/* Popup container for end screen */
+#endscreen-popup{
+    background-color: rgba(0, 0, 0, 0.825); /* Dark semi-transparent background */
+    visibility: hidden; /* Initially hidden until game ends */
+    width: 450px; /* Width of the popup */
+    height: 350px; /* Height of the popup */
+    z-index: 999; /* Ensure it's above most other elements */
+    top: 320px; /* Positioned in the middle of the screen */
+    left: 280px; /* Horizontally centered */
+    position: relative; /* Positioned relative to its container */
+    align-items: center; /* Align content center horizontally (when combined with flex) */
+    justify-content: center; /* Align content center vertically (when combined with flex) */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* "Game Over" text styling */
+#game-over{
+    position: relative; /* Positioned relative to the popup */
+    color: white; /* Text color */
+    width: 250px; /* Width of the text box */
+    height: 60px; /* Height of the text box */
+    top: 30px; /* Offset from the top of the popup */
+    left: 100px; /* Offset from the left of the popup */
+    font-family: "Silkscreen", sans-serif; /* Custom font style */
+    font-size: xx-large; /* Extra large font size */
+    visibility: hidden; /* Hidden by default, shown when the game ends */
+    z-index: 3; /* Ensure it appears above other elements within the popup */
+}
+
+/* Displays user's time on the end screen */
+#userTime{
+    position: relative; /* Positioned relative to the popup */
+    color: white; /* Text color */
+    width: 400px; /* Width of the time box */
+    height: 70px; /* Height of the time box */
+    top: 50px; /* Offset from the top of the popup */
+    left: 20px; /* Offset from the left of the popup */
+    font-family: "Silkscreen", sans-serif; /* Custom font style */
+    font-size: x-large; /* Large font size */
+    word-wrap: break-word; /* Allows long text to wrap */
+    z-index: 3; /* Ensure it appears above other elements within the popup */
+    visibility: hidden; /* Hidden by default, shown when game ends */
+}
+
+/* "Play Again" button styling */
+#play-again{
+    position: relative; /* Positioned relative to the popup */
+    color: black; /* Text color */
+    font-size: x-large; /* Large font size */
+    font-family: "Silkscreen", sans-serif; /* Custom font style */
+    top: 110px; /* Offset from the top of the popup */
+    left: -10px; /* Slightly shifted left */
+    width: 190px; /* Width of the button */
+    height: 60px; /* Height of the button */
+    opacity: 1; /* Full visibility */
+    border-radius: 10px; /* Rounded corners */
+    animation: play-again-glow .75s infinite alternate; /* Animation for glowing effect */
+}
+
+/* "Exit" button styling */
+#exit{
+    position: relative; /* Positioned relative to the popup */
+    color: black; /* Text color */
+    font-size: x-large; /* Large font size */
+    font-family: "Silkscreen", sans-serif; /* Custom font style */
+    top: 110px; /* Offset from the top of the popup */
+    left: 10px; /* Slightly shifted right */
+    width: 180px; /* Width of the button */
+    height: 60px; /* Height of the button */
+    opacity: 1; /* Full visibility */
+    border-radius: 10px; /* Rounded corners */
+    animation: exit-glow .75s infinite alternate; /* Animation for glowing effect */
+}
+
+/* Glowing animation for the "Play Again" button */
+@keyframes play-again-glow {
+    from {
+        box-shadow: 0 0 10px -10px rgb(54, 205, 54); /* Soft glow at the start */
+    }
+    to {
+        box-shadow: 0 0 3px 3px rgb(54, 205, 54); /* Stronger glow at the end */
+    }
+}
+
+/* Glowing animation for the "Exit" button */
+@keyframes exit-glow {
+    from {
+        box-shadow: 0 0 10px -10px rgb(176, 33, 33); /* Soft glow at the start */
+    }
+    to {
+        box-shadow: 0 0 3px 3px rgb(176, 33, 33); /* Stronger glow at the end */
+    }
+}

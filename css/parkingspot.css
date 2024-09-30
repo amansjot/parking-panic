@@ -1,0 +1,346 @@
+/* Parking Spots */
+
+/* General class styling for all parking spots */
+.spot { 
+   position: absolute;
+   transform: translate(-50%, -50%); /* Centers the spot */
+   z-index: 1;
+   width: 60px;
+   height: 76px;
+   opacity: 1; /* Ensures spots are fully visible */
+}
+
+/* Top Row Of spots */
+
+/* Spot 1 - positioning in the top row */
+#spot-1 {
+   top: 186px;
+   left: 186.5px;
+}
+
+/* Spot 2 */
+#spot-2 {
+   top: 186px;
+   left: 249px;
+}
+
+/* Spot 3 */
+#spot-3 {
+   top: 186px;
+   left: 311.5px;
+}
+
+/* Spot 4 */
+#spot-4 {
+   top: 186px;
+   left: 374px;
+}
+
+/* Spot 5 */
+#spot-5 {
+   top: 186px;
+   left: 436.5px;
+}
+
+/* Spot 6 */
+#spot-6 {
+   top: 186px;
+   left: 499px;
+}
+
+/* Spot 7 */
+#spot-7 {
+   top: 186px;
+   left: 561.5px;
+}
+
+/* Spot 8 */
+#spot-8 {
+   top: 186px;
+   left: 624px;
+}
+
+/* Spot 9 */
+#spot-9 {
+   top: 186px;
+   left: 686.5px;
+}
+
+/* Spot 10 */
+#spot-10 {
+   top: 186px;
+   left: 749px;
+}
+
+/* Spot 11 with a wider width (62px) */
+#spot-11 {
+   top: 186px;
+   width: 62px;
+   left: 812.5px;
+}
+
+/* Top Left side Parking Group */
+
+/* Spot 12 - top row, left side */
+#spot-12 {
+   top: 314px;
+   left: 251px;
+}
+
+/* Spot 13 */
+#spot-13 {
+   top: 314px;
+   left: 313.5px;
+}
+
+/* Spot 14 */
+#spot-14 {
+   top: 314px;
+   left: 376px;
+}
+
+/* Spot 15 */
+#spot-15 {
+   top: 314px;
+   left: 438.5px;
+}
+
+/* Bottom Row of the left side */
+
+/* Spot 16 - bottom row */
+#spot-16 {
+   top: 405px;
+   left: 251px;
+}
+
+/* Spot 17 */
+#spot-17 {
+   top: 405px;
+   left: 313.5px;
+}
+
+/* Spot 18 */
+#spot-18 {
+   top: 405px;
+   left: 376px;
+}
+
+/* Spot 19 */
+#spot-19 {
+   top: 405px;
+   left: 438.5px;
+}
+
+/* Top Right side Parking Group */
+
+/* Spot 20 - top row, right side with a smaller width */
+#spot-20 {
+   width: 56px;
+   top: 314px;
+   left: 566px;
+}
+
+/* Spot 21 */
+#spot-21 {
+   top: 314px;
+   left: 626px;
+}
+
+/* Spot 22 */
+#spot-22 {
+   top: 314px;
+   left: 688.5px;
+}
+
+/* Spot 23 */
+#spot-23 {
+   top: 314px;
+   left: 751px;
+}
+
+/* Bottom Row of the right side */
+
+/* Spot 24 - bottom row, right side with a smaller width */
+#spot-24 {
+   width: 56px;
+   top: 405px;
+   left: 566px;
+}
+
+/* Spot 25 */
+#spot-25 {
+   top: 405px;
+   left: 626px;
+}
+
+/* Spot 26 */
+#spot-26 {
+   top: 405px;
+   left: 688.5px;
+}
+
+/* Spot 27 */
+#spot-27 {
+   top: 405px;
+   left: 751px;
+}
+
+/* Bottom Left Parking Group */
+
+/* Spot 28 - top row, bottom-left side */
+#spot-28 {
+   top: 564px;
+   left: 251px;
+}
+
+/* Spot 29 */
+#spot-29 {
+   top: 564px;
+   left: 313.5px;
+}
+
+/* Spot 30 */
+#spot-30 {
+   top: 564px;
+   left: 376px;
+}
+
+/* Spot 31 */
+#spot-31 {
+   top: 564px;
+   left: 438.5px;
+}
+
+/* Spot 32 */
+#spot-32 {
+   top: 564px;
+   left: 501px;
+}
+
+/* Bottom Row of the left side */
+
+/* Spot 33 - rotated by 18 degrees */
+#spot-33 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 240px;
+   rotate: 18deg;
+}
+
+/* Spot 34 - rotated by 18 degrees */
+#spot-34 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 293px;
+   rotate: 18deg;
+}
+
+/* Spot 35 - rotated by 18 degrees */
+#spot-35 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 344px;
+   rotate: 18deg;
+}
+
+/* Spot 36 - rotated by 18 degrees */
+#spot-36 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 395px;
+   rotate: 18deg;
+}
+
+/* Spot 37 - rotated by 18 degrees */
+#spot-37 {
+   width: 50px;
+   height: 76px;
+   top: 660px;
+   left: 448px;
+   rotate: 18deg;
+}
+
+/* Right Side Bottom Parking Group */
+
+/* Spot 38 - rotated by 90 degrees */
+#spot-38 {
+   top: 584.5px;
+   left: 590px;
+   rotate: 90deg;
+}
+
+/* Spot 39 - rotated by 90 degrees */
+#spot-39 {
+   top: 647.5px;
+   left: 590px;
+   rotate: 90deg;
+}
+
+/* Spot 40 - rotated by 90 degrees */
+#spot-40 {
+   top: 584.5px;
+   left: 680px;
+   rotate: 90deg;
+}
+
+/* Spot 41 - rotated by 90 degrees */
+#spot-41 {
+   top: 647.5px;
+   left: 680px;
+   rotate: 90deg;
+}
+
+/* Bottom Row of parking */
+
+/* Spot 42 */
+#spot-42 {
+   top: 814px;
+   left: 374px;
+}
+
+/* Spot 43 */
+#spot-43 {
+   top: 814px;
+   left: 436.5px;
+}
+
+/* Spot 44 */
+#spot-44 {
+   top: 814px;
+   left: 499px;
+}
+
+/* Spot 45 */
+#spot-45 {
+   top: 814px;
+   left: 561.5px;
+}
+
+/* Spot 46 */
+#spot-46 {
+   top: 814px;
+   left: 624px;
+}
+
+/* Spot 47 */
+#spot-47 {
+   top: 814px;
+   left: 686.5px;
+}
+
+/* Spot 48 */
+#spot-48 {
+   top: 814px;
+   left: 749px;
+}
+
+/* Spot 49 with a wider width (62px) */
+#spot-49 {
+   width: 62px;
+   top: 814px;
+   left: 812.5px;
+}

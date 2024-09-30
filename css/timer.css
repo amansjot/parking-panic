@@ -1,0 +1,63 @@
+/* Timer display styling */
+/* This displays the in-game timer at the top-left corner */
+#timer-display {
+    position: absolute;
+    top: 10px;
+    left: 350px; /* Positioned near the top center */
+    font-size: 26px;
+    color: white; /* Text color */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 10px; /* Adds padding inside the timer box */
+    border-radius: 5px; /* Rounded corners */
+    width: auto;
+    min-width: 50px; /* Ensures a minimum width */
+    height: auto;
+    z-index: 5; /* Ensure it appears above other elements */
+    visibility: hidden; /* Initially hidden */
+    font-family: "Silkscreen", sans-serif; /* Custom font */
+}
+
+/* Mission complete and mission failed messages */
+/* Styling for both success and failure messages after the mission ends */
+#mission-complete-message,
+#mission-failed-message {
+    display: none; /* Hidden by default */
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 480px; /* Position near the middle of the screen */
+    left: 380px;
+    z-index: 3; /* Appear above most other elements */
+}
+
+/* Specific styling for the mission complete message */
+#mission-complete-message {
+    background-color: #00ff00; /* Green background */
+    color: white; /* White text color */
+}
+
+/* Specific styling for the mission failed message */
+#mission-failed-message {
+    background-color: rgba(255, 0, 0, 0.8); /* Semi-transparent red background */
+    color: white; /* White text color */
+}
+
+/* Level display styling */
+/* Shows the current level on the screen */
+#level-display {
+    position: absolute;
+    top: 892px; /* Positioned near the bottom */
+    left: 330px; /* Positioned toward the center */
+    font-size: 30px; /* Large font size */
+    color: white; /* White text */
+    font-family: "Silkscreen", sans-serif; /* Custom font */
+    background-color: rgba(0, 0, 0, 0.574); /* Semi-transparent black background */
+    padding: 10px; /* Padding inside the level display */
+    border-radius: 5px; /* Rounded corners */
+    width: auto;
+    height: auto;
+    z-index: 5; /* High z-index to appear above other elements */
+    align-items: center; /* Center-align text vertically */
+    justify-self: center; /* Center-align text horizontally */
+    visibility: hidden; /* Initially hidden */
+}
