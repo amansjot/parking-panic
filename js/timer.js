@@ -51,6 +51,6 @@ function getLevels(){
 function resetLevels(){ //when game resets returns back to 0
     //const levelCount = document.getElementById("level-display");
     levels = 1;
-    levelCount.textContent = "Level: " + levels;
+    levelCount.textContent = "Round: " + levels;
 }
 export { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels };

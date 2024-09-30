@@ -99,8 +99,10 @@ $(function () {
 
         // Check if the car is contained within the mode buttons
         const chosenMode = checkContainmentButtons();
-        if (chosenMode && gameState == "start") startGame(chosenMode);
-
+        if (chosenMode && gameState == "start") {
+            console.log(chosenMode);
+            if (chosenMode == "hard-mode") startGame(chosenMode);
+        }
         updateCollisionVisual(collision); // Update the collision visual
     }
 
@@ -444,6 +446,7 @@ $(function () {
         gamePaused = false; // Unpause the game
         hideEndPopUp();
         gameState = 'start';
+        lives = 0;
 
         $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
