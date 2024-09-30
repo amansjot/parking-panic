@@ -24,6 +24,13 @@ $(function () {
     // // Append the base element to the <head>
     // $('head').append(baseElement);
 
+    // Set background-image for #car-explosion
+    $('#car-explosion').css('background-image', "url('" + basePath + "img/gifs/explosion.gif')");
+
+    // Set background-image for #car-confetti
+    $('#car-confetti').css('background-image', "url('" + basePath + "img/gifs/confetti.gif')");
+
+
     // Initial resize of the game window
     resize();
     addResizeEventListener();
@@ -463,7 +470,7 @@ $(function () {
         gameState = 'start';
         lives = 0;
 
-        $("#scroll-window").css("background-image", "url(/img/starter-parkinglot.png)");
+        $("#scroll-window").css("background-image", "url(" + basePath + "img/starter-parkinglot.png)");
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 
         $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();

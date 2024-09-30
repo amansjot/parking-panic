@@ -60,7 +60,6 @@
     height: 100px; /* Explosion image size */
     top: -10px; /* Slight adjustment to place it over the car */
     left: -30px; /* Slight adjustment to place it over the car */
-    background-image: url('/img/gifs/explosion.gif'); /* Explosion animation */
     background-size: cover; /* Ensures the explosion image fits the div */
     background-repeat: no-repeat; /* No repeating of the explosion image */
     display: none; /* Hidden by default until triggered */
@@ -74,7 +73,6 @@
     height: 250px; /* Large confetti area */
     top: -145px; /* Positioned higher relative to the car */
     left: -110px; /* Adjusted horizontally relative to the car */
-    background-image: url('/img/gifs/confetti.gif'); /* Confetti animation */
     background-size: cover; /* Ensures the confetti image fits the div */
     background-repeat: no-repeat; /* No repeating of the confetti image */
     display: none; /* Hidden by default until triggered */
