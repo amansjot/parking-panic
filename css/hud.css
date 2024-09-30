@@ -1,47 +1,53 @@
+/* Container for the lives counter displayed in the HUD */
 #lives-counter {
-    display: none;
-    position: absolute;
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to the game window */
     color: white;
     top: 10px;
     right: 10px;
     width: 300px;
     height: 80px;
-    font-family: "Silkscreen", sans-serif;
+    font-family: "Silkscreen", sans-serif; /* Custom font */
     
-    background-image: url(../img/hud/health-bg.png);
+    background-image: url(../img/hud/health-bg.png); /* Background image for the lives counter */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-
-    justify-content: center;
-    align-items: center;
+    
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
 }
 
+/* Style for individual life icons displayed in the lives counter */
 .game-life {
     margin-top: 17px;
-    display: inline-block;
-    background-position: right;
+    display: inline-block; /* Allows life icons to line up horizontally */
+    background-position: right; /* Positions background on the right */
 }
 
+/* Container for game buttons, hidden by default */
 #game-buttons {
-    display: none;
+    display: none; /* Hidden initially */
 }
 
+/* Game mode display */
 #game-mode {
     top: 10px;
     left: 10px;
-    background-color: white;
+    background-color: white; /* White background for the game mode label */
 }
 
+/* Exit game button styling */
 #exit-game-button {
     top: 10px;
     left: 170px;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-    z-index: 999;
+    background-color: black; /* Black background for the exit button */
+    color: white; /* White text */
+    cursor: pointer; /* Changes to pointer when hovered */
+    z-index: 999; /* Ensures it's above most elements */
 }
 
+/* Control panel container (for control instructions) */
 #controls {
     position: fixed;
     top: 220px;
@@ -49,7 +55,7 @@
     height: 250px;
     width: 400px;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 10px; /* Rounded corners */
     color: #ffffff;
     font-size: 17px;
     transform-origin: left bottom;
@@ -61,6 +67,7 @@
     margin-right: 5px;
 }
 
+/* Message overlay, used for displaying game notifications */
 #message {
     background-color: black;
     color: white;
@@ -71,11 +78,12 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: 9999;  
-    display: none;
+    transform: translate(-50%, -50%); /* Centers the message */
+    z-index: 9999; /* Highest z-index to make sure it appears above everything */
+    display: none; /* Hidden until triggered */
 }
 
+/* Objective panel, fixed in position */
 #objective {
     position: fixed;
     top: 220px;
@@ -83,10 +91,10 @@
     height: 250px;
     width: 400px;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 10px; /* Rounded corners */
     color: #ffffff;
     font-size: 17px;
-    transform-origin: left bottom;
+    transform-origin: left bottom; /* Used for potential scaling or animation transforms */
     font-family: "Silkscreen", sans-serif;
 }
 

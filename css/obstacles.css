@@ -1,37 +1,42 @@
+/* General styles for car obstacles */
 .car-obstacle {
     position: absolute;
-    z-index: 3;
+    z-index: 3; /* Ensures it's layered above other elements like cones */
 }
 
+/* Specific car obstacle with ID car-0, positioned on the map */
 #car-0 {
     top: 778px;
     left: 607px;
 }
 
+/* Image styling for the car obstacles */
 .car-img {
     width: 35px;
-    height: 70px;  
+    height: 70px;
 }
 
+/* Hitbox for the car obstacles, slightly smaller than the car image */
 .car-hitbox {
     position: absolute;
     width: 30px;
     height: 65px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.3);
+    top: 50%; /* Centers the hitbox vertically within the car */
+    left: 50%; /* Centers the hitbox horizontally within the car */
+    transform: translate(-50%, -50%); /* Shifts the hitbox so it's fully centered */
+    background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red background */
     border: 1px solid red;
-    opacity: 0;
+    opacity: 0; /* Initially invisible */
     z-index: 3;
 }
 
-/* Cone Obstacle */
+/* General styles for cone obstacles */
 .cone-obstacle {
     position: absolute;
-    z-index: 2;
+    z-index: 2; /* Layered below the car obstacles */
 }
 
+/* Specific cone obstacles with their respective positions */
 #cone-1 {
     top: 535px;
     left: 290px;
@@ -42,55 +47,61 @@
     left: 475px;
 }
 
+/* Image styling for the cone obstacles */
 .cone-img {
     width: 50px;
     height: 50px;
 }
 
+/* Hitbox for the cone obstacles, positioned relative to the cone image */
 .cone-hitbox {
     position: absolute;
     width: 20px;
     height: 30px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.3);
+    top: 50%; /* Centers the hitbox vertically */
+    left: 50%; /* Centers the hitbox horizontally */
+    transform: translate(-50%, -50%); /* Centers the hitbox within the cone */
+    background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red background */
     border: 1px solid red;
-    z-index: 3;
+    z-index: 3; /* Positioned above other elements */
 }
 
-/* Dumpster Obstacle */
+/* General styles for dumpster obstacles */
 .dumpster-obstacle {
     position: absolute;
     left: 360px;
     top: 515px;
-    z-index: 2;
-    transform: translate(-37px, -20px);
+    z-index: 2; /* Layered below cars but above other obstacles */
+    transform: translate(-37px, -20px); /* Adjusts its position slightly */
 }
 
+/* Image styling for the dumpster obstacles */
 .dumpster-img {
     width: 100px;
-    height: 80px;  
+    height: 80px;
 }
 
+/* Hitbox for the dumpster obstacles, positioned relative to the dumpster image */
 .dumpster-hitbox {
     position: absolute;
     width: 45px;
     height: 25px;
-    top: 45%;
+    top: 45%; /* Adjusted to position slightly below the center */
     left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 255, 0.3); 
+    transform: translate(-50%, -50%); /* Centers the hitbox within the dumpster */
+    background-color: rgba(0, 0, 255, 0.3); /* Semi-transparent blue background */
     border: 1px solid blue;
     z-index: 3;
-    visibility: hidden;
+    visibility: hidden; /* Initially hidden */
 }
 
+/* Map bounds and parking dividers, hidden by default */
 #map-bounds,
 #map-parking-dividers div {
-    visibility: hidden;
+    visibility: hidden; /* Hidden by default */
 }
 
+/* Hides the bottom-right divider by default */
 #bottom-right-divider {
-    display: none;
+    display: none; /* Not rendered on the page */
 }
