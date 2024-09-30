@@ -411,7 +411,7 @@ $(function () {
         gameState = 'start';
 
         $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
-        $("#bottom-right-divider").hide();
+        $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 
         $("#lives-counter").hide();
@@ -448,7 +448,7 @@ $(function () {
         $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 
-        $("#bottom-right-divider").hide();
+        $("#top-left-divider, #top-right-divider, #bottom-right-divider").hide();
         $("#lives-counter").hide();
         $("#game-buttons").hide();
 
