@@ -43,17 +43,15 @@
 }
 
 #controls {
-    display: none;
     position: fixed;
-    left: 10px;
-    bottom: 10px;
+    top: 260px;
+    left: 175px;
+    height: 250px;
+    width: 250px;
     margin: 0;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 10px;
     color: #ffffff;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
     transform-origin: left bottom;
     font-family: "Silkscreen", sans-serif;
 }
@@ -76,4 +74,23 @@
     transform: translate(-50%, -50%); 
     z-index: 9999;  
     display: none;
+}
+
+#objective {
+    position: fixed;
+    top: 212px;
+    left: 450px;
+    height: 250px;
+    width: 400px;
+    margin: 0;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 17px;
+    transform-origin: left bottom;
+    font-family: "Silkscreen", sans-serif;
+}
+
+#objective img {
+    vertical-align: middle;
+    margin-right: 5px;
 }

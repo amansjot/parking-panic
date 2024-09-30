@@ -161,6 +161,9 @@ $(function () {
             $("#game-buttons").show();
             $("#lives-counter").show();
 
+            $("#controls").hide();
+            $("#objective").hide();
+
             // Display the game background
             $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
 
@@ -215,34 +218,43 @@ $(function () {
 
     // Function to reset the player's lives based on game mode
     function resetLives() {
+        // If the game is in hard mode and lives are already set, skip resetting lives
+        if (gameState === "hard-mode" && lives > 0) {
+            return; // Do nothing, keep current lives
+        }
+    
+        // Reset lives for other game modes
         if (gameState == "easy-mode") {
-            playerData.maxForwardSpeed = 2;
-            playerData.maxReverseSpeed = 1.5;
-            playerData.rotationSpeed = 2;
             lives = 5; // More lives in easy mode
         } else if (gameState == "hard-mode") {
-            lives = 3; // Fewer lives in hard mode
-            playerData.maxForwardSpeed = 3;
-            playerData.maxReverseSpeed = 2;
-            playerData.rotationSpeed = 2.5;
+            lives = 3; // Fewer lives in hard mode if not already set
         }
-
-   // }
-
-    //function displayLives(){
+    
         // Display the remaining lives on the screen
         $(".game-life").remove();
         for (let i = 0; i < lives; i++) {
             const life = document.createElement("div");
             life.classList.add("game-life");
-
+    
             const lifeImg = document.createElement("img");
             lifeImg.src = "../img/hud/wrench-screwdriver.png";
             lifeImg.alt = "Life";
             lifeImg.width = 40;
-
+    
             life.appendChild(lifeImg);
             $("#lives-counter").append(life);
+        }
+    }
+
+    function setPlayerSpeed(mode) {
+        if (mode == "easy-mode") {
+            playerData.maxForwardSpeed = 2;
+            playerData.maxReverseSpeed = 1.5;
+            playerData.rotationSpeed = 2;
+        } else if (mode == "hard-mode") {
+            playerData.maxForwardSpeed = 3;
+            playerData.maxReverseSpeed = 2;
+            playerData.rotationSpeed = 2.5;
         }
     }
 
@@ -285,8 +297,7 @@ $(function () {
             $(".cone-obstacle, .dumpster-obstacle, .car-obstacle").remove(); // Remove all obstacles
         }, 700);
 
-        revertParkingSpot();
-        currentSpot = updateSpot();
+        revertParkingSpot();   
         startGame(gameState);
     }
 
@@ -398,6 +409,7 @@ $(function () {
 
         resetGame("lose");
         resetLives();
+        setPlayerSpeed(gameState);
         resetLevels();
         gamePaused = false;
     });
@@ -412,6 +424,10 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
+
+        $("#controls").show();
+        $("#objective").show();
+
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
         $("#start-buttons").show();
@@ -426,6 +442,7 @@ $(function () {
         hideCounters();
         resetLevels();
         resetLives();
+        setPlayerSpeed(gameState);
 
     });
 
@@ -440,6 +457,11 @@ $(function () {
 
         $("#lives-counter").hide();
         $("#game-buttons").hide();
+
+        $("#controls").show();
+        $("#objective").show();
+
+
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
         $("#start-buttons").show();
@@ -452,5 +474,6 @@ $(function () {
         hideCounters();
         resetLevels();
         resetLives();
+        setPlayerSpeed(gameState);
     });
 });
