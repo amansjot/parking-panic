@@ -42,11 +42,12 @@
     left: 330px;
     font-size: 30px;
     color: white;
+    font-family: "Silkscreen", sans-serif;
     background-color: rgba(0, 0, 0, 0.574);
     padding: 10px;
     border-radius: 5px;
-    width: 120px;
-    height: 33px;
+    width: auto;
+    height: auto;
     z-index: 5;
     align-items: center;
     justify-self: center;

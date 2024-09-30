@@ -329,7 +329,7 @@ $(function () {
     function updateLevels() {
         const levels = getLevels();
         const levelCount = document.getElementById("level-display");
-        levelCount.textContent = "Level: " + levels;
+        levelCount.textContent = "Round: " + levels;
     }
 
     function showCounters() { //shows time and level on game startup
