@@ -44,19 +44,19 @@
 
 #controls {
     position: fixed;
-    top: 260px;
-    left: 175px;
+    top: 220px;
+    left: 125px;
     height: 250px;
-    width: 250px;
+    width: 400px;
     margin: 0;
     border-radius: 10px;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 17px;
     transform-origin: left bottom;
     font-family: "Silkscreen", sans-serif;
 }
 
-#controls img {
+#controls img, #objective img {
     vertical-align: middle;
     margin-right: 5px;
 }
@@ -78,7 +78,7 @@
 
 #objective {
     position: fixed;
-    top: 212px;
+    top: 220px;
     left: 450px;
     height: 250px;
     width: 400px;
@@ -90,7 +90,16 @@
     font-family: "Silkscreen", sans-serif;
 }
 
-#objective img {
-    vertical-align: middle;
-    margin-right: 5px;
+#instructions {
+    position: fixed;
+    top: 400px;
+    left: 450px;
+    height: 250px;
+    width: 400px;
+    margin: 0;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 12px;
+    transform-origin: left bottom;
+    font-family: "Silkscreen", sans-serif;
 }

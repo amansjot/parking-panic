@@ -3,7 +3,6 @@ import { updateScale } from './collision.js';
 
 // DOM elements and scaling variables
 const $scaleWindow = $('#scroll-window');
-const $controls = $('#controls');
 let unscaledSize = 1000;
 let headerHeight = 150;
 
@@ -17,7 +16,7 @@ export function resize() {
     // Apply scale to the game window and controls
     $scaleWindow.css('transform', `scale(${scale})`);
     $scaleWindow.css('margin-left', (width - newSize) / 2 + "px");
-    $controls.css('transform', `scale(${scale * 1.3})`);
+    
 
     // Update the scale in the collision detection module
     updateScale(scale);

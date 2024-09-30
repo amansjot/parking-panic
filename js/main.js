@@ -159,6 +159,7 @@ $(function () {
 
             $("#controls").hide();
             $("#objective").hide();
+            $("#instructions").hide();
 
             // Display the game background
             $("#scroll-window").css("background-image", "url(../img/parkinglot.png)");
@@ -418,6 +419,7 @@ $(function () {
 
         $("#controls").show();
         $("#objective").show();
+        $("#instructions").show();
 
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
 
@@ -452,6 +454,7 @@ $(function () {
 
         $("#controls").show();
         $("#objective").show();
+        $("#instructions").show();
 
 
         $(".cone-obstacle, .dumpster-obstacle, .car-obstacle, .game-life").remove();
