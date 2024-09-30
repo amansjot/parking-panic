@@ -1,21 +1,25 @@
 /* Game Background + Text */
 
 /* Body Styling */
+/* Reset margin to 0 to remove default spacing */
 body {
     margin: 0;
 }
 
 /* Container */
+/* Main container for the game, ensuring full width and height */
 #container {
     width: 100%;
     height: 100vh;
-    overflow-y: auto;
-    background-color: rgb(65, 65, 65);
-    text-align: center;
+    overflow-y: auto; /* Allow vertical scroll if content exceeds height */
+    background-color: rgb(65, 65, 65); /* Dark gray background */
+    text-align: center; /* Center align text */
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Ensure it's at the back layer */
 }
 
+/* Heading container */
+/* Contains the project title and group listing */
 #heading {
     margin: 0;
     padding: 0;
@@ -23,60 +27,64 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 95px;
-    /* Set the height to 150px */
-    z-index: 2;
+    height: 95px; /* Fixed height for the header */
+    z-index: 2; /* Layer on top of the container */
 }
 
+/* Project title styling */
+/* Applies font styling and alignment for the game title */
 #project-title {
     font-family: "Silkscreen", sans-serif;
     font-weight: 500;
     font-style: normal;
     color: white;
     margin: 0;
-    padding-top: 10px;
-    /* Add some padding for better alignment */
+    padding-top: 10px; /* Adds padding to space it from the top */
 }
 
+/* Group listing */
+/* Styles for listing group members */
 #group-listing {
     font-family: "Silkscreen", sans-serif;
     font-weight: 500;
     font-style: normal;
     color: white;
-    margin: 0;
+    margin: 0; /* No margin to fit it nicely in the header */
 }
 
+/* Game window container */
+/* Defines the area where the game elements will be displayed */
 #window {
     position: absolute;
     top: 100px;
     left: 0;
     right: 0;
     bottom: 50px;
-    height: calc(100vh - 100px);
-    /* Ensure it uses the full height minus the margins */
-    overflow: hidden;
+    height: calc(100vh - 100px); /* Fills available height minus 100px */
+    overflow: hidden; /* Ensures content does not overflow */
 }
 
-
+/* Scrollable game window container */
+/* Central game window with fixed size and background */
 #scroll-window {
     position: relative;
     margin: auto;
-    width: 1000px;
+    width: 1000px; /* Fixed size for the game window */
     height: 1000px;
-    min-height: 1000px;
-    /* Ensures the container doesn't shrink below the image size */
+    min-height: 1000px; /* Prevents shrinking below this size */
     min-width: 1000px;
-    border-radius: 5px;
-    transform-origin: top left;
-    border: 1px solid white;
+    border-radius: 5px; /* Rounded corners */
+    transform-origin: top left; /* Set the origin for scaling or transforms */
+    border: 1px solid white; /* White border around the game window */
     box-sizing: content-box;
-    overflow: hidden;
-    background-image: url(../img/starter-parkinglot.png);
-    background-size: contain;
-    background-position: center;
+    overflow: hidden; /* Hide anything overflowing */
+    background-image: url(../img/starter-parkinglot.png); /* Background image */
+    background-size: contain; /* Fit background image */
+    background-position: center; /* Center the background image */
 }
 
-
+/* Button styling for start and game buttons */
+/* Common styling for buttons */
 #start-buttons div,
 #game-buttons div,
 #game-buttons button {
@@ -86,55 +94,61 @@ body {
     position: absolute;
     font-family: "Silkscreen", sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid white;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    border: 1px solid white; /* White border around buttons */
 }
 
+/* Animation: glowing red effect */
+/* Adds a glowing effect to elements */
 @keyframes glow-red {
     from {
-        box-shadow: 0 0 10px -10px lightcoral;
+        box-shadow: 0 0 10px -10px lightcoral; /* Initial shadow */
     }
-
     to {
-        box-shadow: 0 0 3px 3px lightcoral;
+        box-shadow: 0 0 3px 3px lightcoral; /* Final shadow */
     }
 }
 
+/* Animation: glowing green effect */
 @keyframes glow-green {
     from {
         box-shadow: 0 0 10px -10px lightgreen;
     }
-
     to {
         box-shadow: 0 0 3px 3px lightgreen;
     }
 }
 
+/* Animation: glowing yellow effect */
 @keyframes glow-yellow {
     from {
         box-shadow: 0 0 10px -10px yellow;
     }
-
     to {
         box-shadow: 0 0 3px 3px yellow;
     }
 }
 
+/* Easy mode button styling */
+/* Adds glow and green color to the easy mode button */
 #easy-mode-button {
     top: 563px;
     left: 620px;
-    background-color: green;
-    animation: glow-green 1s infinite alternate;
+    background-color: green; /* Green background */
+    animation: glow-green 1s infinite alternate; /* Green glow animation */
 }
 
+/* Hard mode button styling */
+/* Adds glow and red color to the hard mode button */
 #hard-mode-button {
     top: 630px;
     left: 620px;
-    background-color: red;
-    animation: glow-red 1s infinite alternate;
+    background-color: red; /* Red background */
+    animation: glow-red 1s infinite alternate; /* Red glow animation */
 }
 
+/* Styling for play-again and exit buttons */
 #play-again, #exit {
-    cursor: pointer;
+    cursor: pointer; /* Changes cursor to pointer on hover */
 }
