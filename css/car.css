@@ -63,13 +63,13 @@
 
 #car-confetti {
     position: absolute;
-    width: 200px; /* Make the confetti bigger */
-    height: 200px; /* Make the confetti bigger */
-    top: -120px; /* Adjust position relative to the car */
-    left: -83px; /* Adjust position relative to the car */
+    width: 250px; /* Make the confetti bigger */
+    height: 250px; /* Make the confetti bigger */
+    top: -145px; /* Adjust position relative to the car */
+    left: -110px; /* Adjust position relative to the car */
     background-image: url('/img/gifs/confetti.gif');
     background-size: cover;
     background-repeat: no-repeat;
-    display: none;
+    /* display: none; */
     z-index: 10; /* Ensure it appears above everything else */
 }
