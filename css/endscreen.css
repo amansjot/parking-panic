@@ -3,7 +3,7 @@
     visibility: hidden;
     width: 450px;
     height: 350px;
-    z-index: 6;
+    z-index: 999;
     top:320px;
     left: 280px;
     position: relative;
