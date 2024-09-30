@@ -90,3 +90,7 @@
 #map-parking-dividers div {
     visibility: hidden;
 }
+
+#bottom-right-divider {
+    display: none;
+}

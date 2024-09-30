@@ -3,7 +3,7 @@ import { checkCollisions } from './collision.js';
 import { resize, addResizeEventListener } from './resize.js';
 import { initializeMapBounds, initializeParkingDividers, initializeObstacles, createObstacle, createCarObstacle, generateObstaclePosition, resetRedZones } from './obstacles.js';
 import { startTimer, stopTimer, resetTimer, saveTime, increaseLevels, resetLevels, getLevels } from './timer.js';
-import { initializeParkingSpots, updateSpot, checkParkingCompletion, revertParkingSpot, glowSpot } from './randomspot.js';
+import { initializeParkingSpots, triggerConfetti, updateSpot, checkParkingCompletion, revertParkingSpot } from './randomspot.js';
 
 $(function () {
     // Initial resize of the game window
@@ -71,16 +71,15 @@ $(function () {
         //Check if car is in the chose parking spot
         const correctSpot = checkParkingCompletion();
         if (correctSpot) {
-            //glowSpot();
             increaseLevels();
             updateLevels();
             stopCar();
             revertParkingSpot();
+            triggerConfetti();
             registerCollision = false;
             displayMessage("Next Round!", "green", "white");
             resetGame("win");
-            resetCar(gameState);
-            //}, 700);
+            stopCar();
 
             setTimeout(function () {
                 registerCollision = true;
@@ -361,7 +360,7 @@ $(function () {
 
     //Shows a congrats screen to user with their completion time as well as the ability to exit or play agin
     function showEndScreen() {
-        gamePaused = true
+        gamePaused = true;
         stopTimer();
         const popUp = document.getElementById("endscreen-popup");
         popUp.style.visibility = "visible";
@@ -371,7 +370,7 @@ $(function () {
         const totalLevels = getLevels(); //total amount of levels passed
         const userTime = document.getElementById("userTime");
         userTime.style.visibility = "visible";
-        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " + totalLevels + " LEVELS";
+        const userText = "YOU TOOK " + totalTime + " SECONDS TO PLAY " + totalLevels + " ROUNDS";
         userTime.textContent = userText;
         resetTimer();
     }
@@ -447,6 +446,7 @@ $(function () {
         $("#scroll-window").css("background-image", "url(../img/starter-parkinglot.png)");
         $("#Subtitle").text("Group 8: Aman Singh, Julia O'Neill, Kyle Malice, Solenn Gacon, Suhas Bolledula");
 
+        $("#bottom-right-divider").hide();
         $("#lives-counter").hide();
         $("#game-buttons").hide();
 

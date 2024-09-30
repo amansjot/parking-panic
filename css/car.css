@@ -60,3 +60,16 @@
     display: none; /* Hidden by default */
     z-index: 10; /* Ensure it appears above everything else */
 }
+
+#car-confetti {
+    position: absolute;
+    width: 200px; /* Make the confetti bigger */
+    height: 200px; /* Make the confetti bigger */
+    top: -120px; /* Adjust position relative to the car */
+    left: -83px; /* Adjust position relative to the car */
+    background-image: url('/img/gifs/confetti.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: none;
+    z-index: 10; /* Ensure it appears above everything else */
+}

@@ -27,19 +27,17 @@ function updateSpot() {//Take a random number, associates it with a spot, and ad
     return spotId;
 }
 
-/*
-function isCarCompletelyInSpot(carCorners, spotRect) {
-    // Check if all corners of the car are within the parking spot
-    return carCorners.every(corner =>
-        corner.x >= spotRect.left &&
-        corner.x <= spotRect.right &&
-        corner.y >= spotRect.top &&
-        corner.y <= spotRect.bottom
-    );
-}  
-*/
-
 const missionCompleteMessage = $('#mission-complete-message');
+
+function triggerConfetti() {
+    const confetti = document.getElementById("car-confetti");
+    confetti.style.display = "block"; // Show the confetti gif
+
+    // Hide the confetti after some time
+    setTimeout(() => {
+        confetti.style.display = "none"; // Hide the confetti gif
+    }, 400);
+}
 
 function checkParkingCompletion() {
     //Getting Parking spot location
@@ -70,12 +68,6 @@ function checkParkingCompletion() {
     }
 }
 
-function glowSpot() {
-    const spotDiv = document.getElementById(spotId);
-    spotDiv.style.boxShadow = "0 0 15px 10px rgba(0, 255, 0, 0.7)";
-    spotDiv.style.transition = "box-shadow 0.3s ease-in-out";
-}
-
 function revertParkingSpot() { //Removes outline and glow after round is done
     const spotDiv = document.getElementById(spotId);
     spotDiv.style.border = "";
@@ -84,6 +76,7 @@ function revertParkingSpot() { //Removes outline and glow after round is done
     spotDiv.style.boxShadow = "";
     spotDiv.style.transition = "";
     spotDiv.style.animation = "";
+    // triggerConfetti();
 }
 
-export { initializeParkingSpots, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot, glowSpot };
+export { initializeParkingSpots, triggerConfetti, updateSpot, randomSpot, checkParkingCompletion, revertParkingSpot };
