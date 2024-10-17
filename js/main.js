@@ -17,8 +17,8 @@ $(function () {
         basePath = "/";
     } else {
         // If on GitHub Pages or another server, set the base URL for production
-        // baseElement.attr('href', '/cisc474-project1-project-group-8/');
-        basePath = "/cisc474-project1-project-group-8/";
+        // baseElement.attr('href', '/parking-panic/');
+        basePath = "/parking-panic/";
     }
 
     // // Append the base element to the <head>
