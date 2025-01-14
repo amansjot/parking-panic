@@ -1,7 +1,6 @@
 /* General styles for car obstacles */
 .car-obstacle {
     position: absolute;
-    z-index: 3; /* Ensures it's layered above other elements like cones */
 }
 
 /* Specific car obstacle with ID car-0, positioned on the map */
@@ -16,33 +15,34 @@
     height: 70px;
 }
 
-/* Hitbox for the car obstacles, slightly smaller than the car image */
-.car-hitbox {
+.hitbox {
     position: absolute;
-    width: 30px;
-    height: 65px;
     top: 50%; /* Centers the hitbox vertically within the car */
     left: 50%; /* Centers the hitbox horizontally within the car */
     transform: translate(-50%, -50%); /* Shifts the hitbox so it's fully centered */
     background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red background */
-    border: 1px solid red;
-    opacity: 0; /* Initially invisible */
-    z-index: 3;
+    border: 1px solid var(--red-bright);
+    visibility: hidden;
+}
+
+/* Hitbox for the car obstacles, slightly smaller than the car image */
+.car-hitbox {
+    width: 30px;
+    height: 65px;
 }
 
 /* General styles for cone obstacles */
 .cone-obstacle {
     position: absolute;
-    z-index: 2; /* Layered below the car obstacles */
 }
 
 /* Specific cone obstacles with their respective positions */
-#cone-1 {
+#cone-0 {
     top: 535px;
     left: 290px;
 }
 
-#cone-2 {
+#cone-1 {
     top: 790px;
     left: 475px;
 }
@@ -55,24 +55,18 @@
 
 /* Hitbox for the cone obstacles, positioned relative to the cone image */
 .cone-hitbox {
-    position: absolute;
     width: 20px;
     height: 30px;
-    top: 50%; /* Centers the hitbox vertically */
-    left: 50%; /* Centers the hitbox horizontally */
-    transform: translate(-50%, -50%); /* Centers the hitbox within the cone */
-    background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red background */
-    border: 1px solid red;
-    visibility: hidden;
-    z-index: 3; /* Positioned above other elements */
 }
 
 /* General styles for dumpster obstacles */
+#dumpster-0 {
+    top: 545px;
+    left: 363px;
+}
+
 .dumpster-obstacle {
     position: absolute;
-    left: 360px;
-    top: 515px;
-    z-index: 2; /* Layered below cars but above other obstacles */
     transform: translate(-37px, -20px); /* Adjusts its position slightly */
 }
 
@@ -84,25 +78,7 @@
 
 /* Hitbox for the dumpster obstacles, positioned relative to the dumpster image */
 .dumpster-hitbox {
-    position: absolute;
     width: 45px;
     height: 25px;
     top: 45%; /* Adjusted to position slightly below the center */
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centers the hitbox within the dumpster */
-    background-color: rgba(0, 0, 255, 0.3); /* Semi-transparent blue background */
-    border: 1px solid blue;
-    z-index: 3;
-    visibility: hidden; /* Initially hidden */
-}
-
-/* Map bounds and parking dividers, hidden by default */
-#map-bounds,
-#map-parking-dividers div {
-    visibility: hidden; /* Hidden by default */
-}
-
-/* Hides the bottom-right divider by default */
-#bottom-right-divider {
-    display: none; /* Not rendered on the page */
 }

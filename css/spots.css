@@ -3,11 +3,20 @@
 /* General class styling for all parking spots */
 .spot { 
    position: absolute;
-   transform: translate(-50%, -50%); /* Centers the spot */
-   z-index: 1;
+   transform: translate(-50%, -50%);
    width: 60px;
    height: 76px;
-   opacity: 1; /* Ensures spots are fully visible */
+}
+
+.highlighted-spot {
+   background-color: rgba(255, 255, 0, 0.1);
+   animation: glow-yellow 0.8s infinite alternate;
+}
+
+.completed-spot {
+   background-color: rgba(255, 255, 0, 0.1);
+   box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.7);
+   transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Top Row Of spots */
@@ -223,7 +232,7 @@
 #spot-33 {
    width: 50px;
    height: 76px;
-   top: 660px;
+   top: 662px;
    left: 240px;
    rotate: 18deg;
 }
@@ -232,7 +241,7 @@
 #spot-34 {
    width: 50px;
    height: 76px;
-   top: 660px;
+   top: 662px;
    left: 293px;
    rotate: 18deg;
 }
@@ -241,7 +250,7 @@
 #spot-35 {
    width: 50px;
    height: 76px;
-   top: 660px;
+   top: 662px;
    left: 344px;
    rotate: 18deg;
 }
@@ -250,7 +259,7 @@
 #spot-36 {
    width: 50px;
    height: 76px;
-   top: 660px;
+   top: 662px;
    left: 395px;
    rotate: 18deg;
 }
@@ -259,7 +268,7 @@
 #spot-37 {
    width: 50px;
    height: 76px;
-   top: 660px;
+   top: 662px;
    left: 448px;
    rotate: 18deg;
 }

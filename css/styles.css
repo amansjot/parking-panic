@@ -1,9 +1,46 @@
-/* Game Background + Text */
+/* Root styles */
+:root {
+    /* Font Sizes */
+    --font-sm: 22px;
+    --font-md: 34px;
+    --font-lg: 48px;
+    --font-xl: 80px;
+
+    /* Z-indexes */
+    --z-interactive: 10;
+    --z-car: 100;
+    --z-modal: 500;
+    --z-overlay: 999;
+
+    /* Colors */
+    --primary-font: "Silkscreen", sans-serif;
+    --secondary-font: "VT323", sans-serif;
+
+    --primary: black;
+    --secondary: white;
+
+    --green-bright: rgb(0, 255, 0);
+    --red-bright: rgb(255, 0, 0);
+    --yellow-bright: rgb(192, 192, 0);
+    --orange-bright: rgb(255, 128, 0);
+
+    --green-dark: rgb(0, 128, 0);
+    --red-dark: rgb(128, 0, 0);
+    --yellow-dark: rgb(96, 96, 0);
+    --orange-dark: rgb(128, 64, 0);
+
+    --green-light: rgb(128, 255, 128);
+    --red-light: rgb(255, 128, 128);
+    --yellow-light: rgb(255, 255, 128);
+    --orange-light: rgb(255, 192, 128);
+}
 
 /* Body Styling */
 /* Reset margin to 0 to remove default spacing */
 body {
     margin: 0;
+    color: var(--secondary);
+    font-family: var(--primary-font);
 }
 
 /* Container */
@@ -12,56 +49,57 @@ body {
     width: 100%;
     height: 100vh;
     overflow-y: auto; /* Allow vertical scroll if content exceeds height */
-    background-color: rgb(65, 65, 65); /* Dark gray background */
+    background-color: var(--primary); /* previously rgb(65, 65, 65); */
     text-align: center; /* Center align text */
     position: relative;
-    z-index: 1; /* Ensure it's at the back layer */
-}
-
-/* Heading container */
-/* Contains the project title and group listing */
-#heading {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 95px; /* Fixed height for the header */
-    z-index: 2; /* Layer on top of the container */
 }
 
 /* Project title styling */
 /* Applies font styling and alignment for the game title */
-#project-title {
-    font-family: "Silkscreen", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    color: white;
-    margin: 0;
-    padding-top: 10px; /* Adds padding to space it from the top */
+.text {
+    position: absolute;
+    width: 70%;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
-/* Group listing */
-/* Styles for listing group members */
-#group-listing {
-    font-family: "Silkscreen", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    color: white;
-    margin: 0; /* No margin to fit it nicely in the header */
+#title {
+    top: 190px;
+    font-size: var(--font-xl);
+    line-height: 1.1;
+}
+
+#subtitle {
+    top: 410px;
+    font-size: var(--font-md);
+    color: var(--yellow-light);
+    font-family: var(--secondary-font);
 }
 
 /* Game window container */
 /* Defines the area where the game elements will be displayed */
 #window {
     position: absolute;
-    top: 100px;
+    top: 0;
     left: 0;
     right: 0;
-    bottom: 50px;
-    height: calc(100vh - 100px); /* Fills available height minus 100px */
+    bottom: 0;
+    height: 100vh; /* Fills available height */
     overflow: hidden; /* Ensures content does not overflow */
+}
+
+.siren {
+    position: absolute;
+    height: 90px;
+    top: 326px;
+}
+
+#siren-1 {
+    left: 250px;
+}
+
+#siren-2 {
+    right: 250px;
 }
 
 /* Scrollable game window container */
@@ -75,63 +113,55 @@ body {
     min-width: 1000px;
     border-radius: 5px; /* Rounded corners */
     transform-origin: top left; /* Set the origin for scaling or transforms */
-    border: 1px solid white; /* White border around the game window */
+    border: 1px solid var(--secondary); /* White border around the game window */
     box-sizing: content-box;
-    overflow: hidden; /* Hide anything overflowing */
-    background-image: url(../img/starter-parkinglot.png); /* Background image */
-    background-size: contain; /* Fit background image */
-    background-position: center; /* Center the background image */
+    background-image: url(../img/starting-lot.png); /* Background image */
+    background-size: contain;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 /* Button styling for start and game buttons */
-/* Common styling for buttons */
-#start-buttons div,
-#game-buttons div,
-#game-buttons button {
+.start-button {
     width: 165px;
     height: 54px;
-    font-size: 20px;
+    font-size: var(--font-sm);
     position: absolute;
-    font-family: "Silkscreen", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
-    
-}
-
-#start-buttons{
-    color: white;
+    z-index: var(--z-interactive);
 }
 
 /* Animation: glowing red effect */
-/* Adds a glowing effect to elements */
 @keyframes glow-red {
     from {
-        box-shadow: 0 0 10px -10px lightcoral; /* Initial shadow */
+        box-shadow: 0 0 3px 3px var(--red-light); /* Initial shadow */
     }
     to {
-        box-shadow: 0 0 3px 3px lightcoral; /* Final shadow */
+        box-shadow: 0 0 8px 8px var(--red-light); /* Final shadow */
     }
 }
 
 /* Animation: glowing green effect */
 @keyframes glow-green {
     from {
-        box-shadow: 0 0 10px -10px lightgreen;
+        box-shadow: 0 0 3px 3px var(--green-light);
     }
     to {
-        box-shadow: 0 0 3px 3px lightgreen;
+        box-shadow: 0 0 8px 8px var(--green-light);
     }
 }
 
 /* Animation: glowing yellow effect */
 @keyframes glow-yellow {
     from {
-        box-shadow: 0 0 10px -10px yellow;
+        box-shadow: 0 0 1px 1px var(--yellow-light);
     }
     to {
-        box-shadow: 0 0 3px 3px yellow;
+        box-shadow: 0 0 4px 4px var(--yellow-light);
     }
 }
 
@@ -140,8 +170,8 @@ body {
 #easy-mode-button {
     top: 563px;
     left: 620px;
-    background-color: green; /* Green background */
-    animation: glow-green 1s infinite alternate; /* Green glow animation */
+    color: var(--green-light);
+    animation: glow-green 0.7s infinite alternate; /* Green glow animation */
 }
 
 /* Hard mode button styling */
@@ -149,11 +179,41 @@ body {
 #hard-mode-button {
     top: 630px;
     left: 620px;
-    background-color: red; /* Red background */
-    animation: glow-red 1s infinite alternate; /* Red glow animation */
+    color: var(--red-light);
+    animation: glow-red 0.7s infinite alternate; /* Red glow animation */
 }
 
-/* Styling for play-again and exit buttons */
-#play-again, #exit {
-    cursor: pointer; /* Changes cursor to pointer on hover */
+.selected#easy-mode-button {
+    background-color: var(--green-dark) !important;
+}
+
+.selected#hard-mode-button {
+    background-color: var(--red-dark) !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.spotlight {
+    position: absolute; /* Position relative to the car div */
+    top: 50%; /* Center the spotlight vertically */
+    left: 50%; /* Center the spotlight horizontally */
+    transform: translate(-50%, -50%); /* Offset by half of its size for perfect centering */
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7); /* Create a fake overlay effect */
+    background-color: transparent; /* Semi-transparent red spotlight */
+    z-index: var(--z-overlay);
+    pointer-events: none; /* Ensure the spotlight does not interfere with pointer events */
+}
+
+#car-spotlight {
+    width: 200px; /* Spotlight diameter */
+    height: 200px; /* Spotlight diameter */
+    border-radius: 50%; /* Make it a circle */
+}
+
+#subtitle-spotlight {
+    width: 90%; /* Spotlight diameter */
+    height: 100%; /* Spotlight diameter */
+    padding: 20px;
 }

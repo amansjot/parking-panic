@@ -1,113 +1,133 @@
+.button:not(.hidden) {
+    width: 65px;
+    height: 65px;
+    font-size: var(--font-sm);
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: var(--z-interactive); /* Ensures it's above most elements */
+    cursor: pointer; /* Changes to pointer when hovered */
+}
+
+.button:hover {
+    scale: 1.05;
+}
+
+#close-help {
+    border: 2px solid var(--secondary);
+}
+
 /* Container for the lives counter displayed in the HUD */
-#lives-counter {
-    display: none; /* Hidden by default */
+#lives-counter:not(.hidden) {
     position: absolute; /* Positioned relative to the game window */
-    color: white;
     top: 10px;
-    right: 10px;
+    right: -23px;
     width: 300px;
     height: 80px;
-    font-family: "Silkscreen", sans-serif; /* Custom font */
     
-    background-image: url(../img/hud/health-bg.png); /* Background image for the lives counter */
+    background-image: url(../img/hud/lives-bg.png); /* Background image for the lives counter */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     
+    display: flex;
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
+    pointer-events: none;
 }
 
-/* Style for individual life icons displayed in the lives counter */
-.game-life {
-    margin-top: 17px;
-    display: inline-block; /* Allows life icons to line up horizontally */
-    background-position: right; /* Positions background on the right */
+.game-life img {
+    width: 40px;   
 }
 
-/* Container for game buttons, hidden by default */
-#game-buttons {
-    display: none; /* Hidden initially */
+#game-buttons img {
+    height: 55px;
 }
 
-/* Game mode display */
-#game-mode {
+/* Game info display */
+#game-info {
     top: 10px;
-    left: 10px;
-    background-color: white; /* White background for the game mode label */
+    left: 265px;
+    background-color: #283749;
+    flex-direction: column;
+    width: 175px !important;
+    pointer-events: none;
+    border: 6px solid var(--primary) !important;
+}
+
+/* Pause game button styling */
+#pause-game-button {
+    top: 10px;
+    left: 95px;
+    border: 6px solid var(--yellow-dark) !important;
+    background-color: var(--yellow-bright);
 }
 
 /* Exit game button styling */
 #exit-game-button {
     top: 10px;
-    left: 170px;
-    background-color: black; /* Black background for the exit button */
-    color: white; /* White text */
-    cursor: pointer; /* Changes to pointer when hovered */
-    z-index: 999; /* Ensures it's above most elements */
+    left: 180px;
+    border: 6px solid var(--red-dark) !important;
+    background-color: var(--red-bright);
+}
+
+#help-button {
+    top: 10px;
+    left: 10px;
+    border: 6px solid var(--orange-dark) !important;
+    background-color: var(--orange-bright);
 }
 
 /* Control panel container (for control instructions) */
-#controls {
-    position: fixed;
-    top: 220px;
-    left: 125px;
-    height: 250px;
-    width: 400px;
-    margin: 0;
-    border-radius: 10px; /* Rounded corners */
-    color: #ffffff;
-    font-size: 17px;
-    transform-origin: left bottom;
-    font-family: "Silkscreen", sans-serif;
-}
-
-#controls img, #objective img {
+#controls img {
+    width: 48px;
     vertical-align: middle;
-    margin-right: 5px;
 }
 
-/* Message overlay, used for displaying game notifications */
-#message {
-    background-color: black;
-    color: white;
-    font-size: 40px;
-    font-family: "Silkscreen", sans-serif;
+#help {
+    width: 720px;
+    flex-direction: column;
+    background-color: var(--primary);
+    font-size: var(--font-md);
     padding: 25px 30px;
-    border: 2px solid white;
+    border: 2px solid var(--secondary);
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the message */
-    z-index: 9999; /* Highest z-index to make sure it appears above everything */
-    display: none; /* Hidden until triggered */
+    transform: translate(-50%, -50%); /* Centers the pop-up */
+    z-index: var(--z-overlay);
 }
 
-/* Objective panel, fixed in position */
-#objective {
-    position: fixed;
-    top: 220px;
-    left: 450px;
-    height: 250px;
-    width: 400px;
-    margin: 0;
-    border-radius: 10px; /* Rounded corners */
-    color: #ffffff;
-    font-size: 17px;
-    transform-origin: left bottom; /* Used for potential scaling or animation transforms */
-    font-family: "Silkscreen", sans-serif;
+#close-help {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    display: inline-block;
+    background-color: var(--red-bright);
+    font-size: var(--font-md);
+    width: 50px;
+    height: 50px;
 }
 
-#instructions {
-    position: fixed;
-    top: 400px;
-    left: 450px;
-    height: 250px;
-    width: 400px;
-    margin: 0;
-    border-radius: 10px;
-    color: #ffffff;
-    font-size: 12px;
-    transform-origin: left bottom;
-    font-family: "Silkscreen", sans-serif;
+.help-header {
+    font-size: var(--font-md);
+    border-bottom: 4px solid var(--yellow-light);
+    width: 70%;
+    padding-bottom: 20px;
+    margin: 10px auto -10px auto;
+    color: var(--yellow-light);
+}
+
+.help-body {
+    font-family: var(--secondary-font);
+}
+
+#objective-listing {
+    width: 380px;
+    margin: 35px auto 45px auto;
+}
+
+#objective-listing li {
+    margin-bottom: 10px;
 }

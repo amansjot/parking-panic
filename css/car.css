@@ -1,31 +1,27 @@
 /* Player's Car Container */
 #car {
     position: absolute; /* Absolute positioning within its container */
-    z-index: 999; /* Ensures the car is at the forefront of most elements */
+    transform: translate(0, 0) rotate(0deg);
+    z-index: var(--z-car); /* Ensures the car is at the forefront of most elements */
 }
 
 /* Car Image Styling */
-#playersCar-img {
+#car-img {
     width: 35px; /* Width of the car image */
     height: 70px; /* Height of the car image */
-    transform-origin: center; /* Rotation and transformations occur around the center */
     position: relative; /* Relative positioning to ensure layering with the car */
-    z-index: 999; /* High z-index to ensure the car is visible above other elements */
 }
 
 /* Common Headlight Styles */
-#left-headlight, 
-#right-headlight {
+.headlight {
     width: 35px; /* Matches the width of the car */
     height: 150px; /* Length of the headlight beam */
     position: absolute; /* Positioned relative to the car */
     top: -120px; /* Positioned above the car */
-    background: radial-gradient(circle, rgba(248, 222, 92, 0.8) 10%, rgba(255, 255, 255, 0) 70%); /* Headlight beam effect */
+    background: radial-gradient(circle, rgba(255, 255, 128, 0.8) 10%, rgba(255, 255, 255, 0) 70%); /* Headlight beam effect */
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Triangle shape to simulate a beam */
     pointer-events: none; /* Allows elements to be clickable behind the headlights */
     transform: rotate(180deg); /* Rotates the beam so it's directed outwards */
-    opacity: 1; /* Visibility of the headlight */
-    z-index: 5; /* Slightly below the car in the z-layering */
 }
 
 /* Positioning for the Left Headlight */
@@ -39,42 +35,34 @@
 }
 
 /* Car Hitbox for Collision Detection */
-#car-hitbox {
-    position: absolute; /* Positioned relative to the car */
-    width: 30px; /* Slightly smaller than the car's width */
+#player-hitbox {
+    width: 28px; /* Slightly smaller than the car's width */
     height: 65px; /* Slightly smaller than the car's height */
-    top: 50%; /* Centers vertically relative to the car */
-    left: 50%; /* Centers horizontally relative to the car */
-    transform: translate(-50%, -50%); /* Perfectly centers the hitbox */
-    transform-origin: center; /* Rotation happens around the center of the hitbox */
     background-color: rgba(0, 255, 0, 0.3); /* Semi-transparent green color for the hitbox */
-    border: 1px solid green; /* Green border for visibility */
-    z-index: 1000; /* Higher than most other elements to ensure visibility */
+    border: 1px solid var(--green-dark); /* Green border for visibility */
     visibility: hidden; /* Hidden by default unless activated (e.g., for debugging or visualization) */
+}
+
+.car-effect {
+    position: absolute; /* Positioned over the car */
+    background-size: cover; /* Ensures the confetti image fits the div */
+    background-repeat: no-repeat; /* No repeating of the confetti image */
 }
 
 /* Car Explosion Effect */
 #car-explosion {
-    position: absolute; /* Positioned over the car */
     width: 100px; /* Explosion image size */
     height: 100px; /* Explosion image size */
     top: -10px; /* Slight adjustment to place it over the car */
     left: -30px; /* Slight adjustment to place it over the car */
-    background-size: cover; /* Ensures the explosion image fits the div */
-    background-repeat: no-repeat; /* No repeating of the explosion image */
-    display: none; /* Hidden by default until triggered */
-    z-index: 10; /* Appears above the car and other elements */
+    background-image: url(../img/gifs/explosion.gif);
 }
 
 /* Car Confetti Effect */
 #car-confetti {
-    position: absolute; /* Positioned over the car */
     width: 250px; /* Large confetti area */
     height: 250px; /* Large confetti area */
     top: -145px; /* Positioned higher relative to the car */
     left: -110px; /* Adjusted horizontally relative to the car */
-    background-size: cover; /* Ensures the confetti image fits the div */
-    background-repeat: no-repeat; /* No repeating of the confetti image */
-    display: none; /* Hidden by default until triggered */
-    z-index: 10; /* Appears above the car and other elements */
+    background-image: url(../img/gifs/confetti.gif);
 }
