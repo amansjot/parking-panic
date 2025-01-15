@@ -1,18 +1,20 @@
-# CISC474-Project1
 
-## Notes
-This project template contains a simple example of using jquery on a page.  You do not have to use any of it, but it is a good way to get started.
+# Parking Panic
 
-In this example code:
-* Jquery is loaded in the head of the html document
-* A link to the ```css/styles.css``` file is included in the head of the html document.
-* Some simple styles are included in ```css/styles.css```
-* The file ```js/main.js``` contains javascript code that makes the site interactive.
-* The image folder holds the images used in the example.
+Welcome to Parking Panic, a browser-based bird's eye driving game filled with exciting challenges! Try your hand at parking in multiple game modes with obstacles and blockades along your path. Race against the clock to maximize your points. Load it once in your browser and play offline!
 
-There is also a .vscode folder which is set up to enable debugging.
+Play: https://amansjot.github.io/parking-panic/
 
-## Getting started
-After reviewing the example, you should replace most or all of the example with your code.  I don't want everyone using the same background or buttons style.  Be creative.
+ ## Screenshots
 
-I recommend this structure with folders for img, js, and css as it keeps the project nice and organized, but otherwise, you should replace all of the content with your own.
+**Start Screen** 
+![Start Screen](https://i.imgur.com/UoyS46Z.png)
+
+**Game (Hard Mode)**
+![Game (Hard Mode)](https://i.imgur.com/tOHchHJ.png)
+
+**Game Over**
+![Game Over Screen](https://i.imgur.com/Dcc1WGT.png)
+
+**Help Screen**
+![Help Screen](https://i.imgur.com/LynQTPK.png)
