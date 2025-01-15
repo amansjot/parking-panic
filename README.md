@@ -7,14 +7,14 @@ Play: https://amansjot.github.io/parking-panic/
 
  ## Screenshots
 
-**Start Screen** 
-![Start Screen](https://i.imgur.com/UoyS46Z.png)
+**Title Screen** 
+![Start Screen](https://i.imgur.com/URSm0oS.png)
 
-**Game (Hard Mode)**
-![Game (Hard Mode)](https://i.imgur.com/tOHchHJ.png)
+**Game Screen**
+![Game Screen](https://i.imgur.com/lR2sjwM.png)
 
-**Game Over**
-![Game Over Screen](https://i.imgur.com/Dcc1WGT.png)
+**Game Over Screen**
+![Game Over Screen](https://i.imgur.com/8ue71XG.png)
 
 **Help Screen**
-![Help Screen](https://i.imgur.com/LynQTPK.png)
+![Help Screen](https://i.imgur.com/VexZPYg.png)
