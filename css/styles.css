@@ -12,10 +12,11 @@
     --z-modal: 500;
     --z-overlay: 999;
 
-    /* Colors */
+    /* Fonts */
     --primary-font: "Silkscreen", sans-serif;
     --secondary-font: "VT323", sans-serif;
 
+    /* Colors */
     --primary: black;
     --secondary: white;
 
