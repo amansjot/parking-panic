@@ -11,6 +11,7 @@ class Game {
         this.unscaledSize = 1000;
         this.gameState = 'start'; // Initial game state
         this.gamePaused = false;
+        this.gameEnded = false;
         this.$modal = $("#modal");
 
         // Initialize starting managers
@@ -160,9 +161,11 @@ class Game {
      * Restart the game, resetting rounds, lives, and score.
      */
     restartGame() {
-        $("#modal, #modal-content, #modal-buttons, .modal-button").addClass("hidden");
+        $("#modal").addClass("hidden");
 
         this.gamePaused = false;
+        this.gameEnded = false;
+
         this.carManager.setSpeed(this.gameState);
         this.statsManager.resetStats(this.gameState);
 
@@ -170,7 +173,7 @@ class Game {
     }
 
     pauseGame() {
-        if (this.gameState !== "start") {
+        if (this.gameState !== "start" && !this.gameEnded) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
             this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
@@ -182,9 +185,11 @@ class Game {
      */
     exitGame() {
         this.gamePaused = false;
+        this.gameEnded = false;
+
         this.gameState = 'start';
         $("#scroll-window").css("background-image", "url(./img/starting-lot.png)");
-        $(".starting-divider, #modal, #modal-content, #modal-buttons, .modal-button").addClass("hidden");
+        $(".starting-divider, #modal").addClass("hidden");
         $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").addClass('hidden');
         $("#start-buttons, .starting-obstacle, .text, #sirens").removeClass("hidden");
         $(".start-button").removeClass("selected");
@@ -236,6 +241,7 @@ class Game {
     gameOver() {
         this.statsManager.stopTimer();
         this.gamePaused = true;
+        this.gameEnded = true;
 
         this.showModal("red", "You Lose!"); // Display lose message
 
@@ -246,13 +252,15 @@ class Game {
     }
 
     togglePaused() {
-        this.gamePaused = !this.gamePaused;
-        if (this.gamePaused) {
-            this.statsManager.stopTimer();
-            this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
-        } else {
-            this.statsManager.startTimer();
-            $("#modal, #modal-content, #modal-buttons, .modal-button").addClass("hidden");
+        if (!this.gameEnded) {
+            this.gamePaused = !this.gamePaused;
+            if (this.gamePaused) {
+                this.statsManager.stopTimer();
+                this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
+            } else {
+                this.statsManager.startTimer();
+                $("#modal").addClass("hidden");
+            }
         }
     }
 
@@ -268,8 +276,11 @@ class Game {
     }
 
     showModal(bg, title, content = null, buttons = null) {
-        // Show the appropriate sections of the modal
+        // Reset the modal
+        $("#modal-content, #modal-buttons, .modal-button").addClass("hidden");
         $("#modal-title").removeClass("hidden").text(title);
+
+        // Show the appropriate sections of the modal
         if (content) $("#modal-content").removeClass("hidden").text(content);
         if (buttons) {
             $("#modal-buttons").removeClass("hidden");
