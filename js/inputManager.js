@@ -1,5 +1,5 @@
 class InputManager {
-    constructor(carManager) {
+    constructor(game, carManager) {
         this.keys = {
             w: false,
             s: false,
@@ -11,13 +11,17 @@ class InputManager {
             ArrowRight: false
         };
 
+        this.game = game;
         this.carManager = carManager;
         this.hideCursorTimer = null; // Timer to reset the cursor
+        this.inactivityTimer = null; // Timer for inactivity
 
         // Bind event listeners for keydown, keyup, and mousemove
         $(document).on('keydown', (e) => this.handleKeyDown(e));
         $(document).on('keyup', (e) => this.handleKeyUp(e));
         $(document).on('mousemove', () => this.showCursor());
+        $(document).on('keydown keyup mousemove click', () => this.resetInactivityTimer());
+        this.resetInactivityTimer();
     }
 
     // Function to handle keydown events
@@ -53,6 +57,12 @@ class InputManager {
             this.keys[key] = false;
             this.keys[e.code] = false;
         }
+    }
+
+    // Pause game after 30 seconds of inactivity
+    resetInactivityTimer() {
+        clearTimeout(this.inactivityTimer);
+        this.inactivityTimer = setTimeout(() => this.game.pauseGame(), 30000);
     }
 
     // Hide the cursor by applying the 'cursor: none' style

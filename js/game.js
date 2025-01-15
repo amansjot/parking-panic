@@ -15,7 +15,7 @@ class Game {
 
         // Initialize starting managers
         this.carManager = new CarManager();
-        this.inputManager = new InputManager(this.carManager);
+        this.inputManager = new InputManager(this, this.carManager);
         this.collisionHandler = new CollisionHandler();
         this.obstacleManager = new ObstacleManager(this.collisionHandler);
 
@@ -41,6 +41,7 @@ class Game {
      */
     addEventListeners() {
         $(window).on("resize", () => this.resize());
+        $(window).on("blur", () => this.pauseGame());
         $("#play-again").on("click", () => this.restartGame());
         $("#resume-game, #cancel-exit, #pause-game-button").on("click", () => this.togglePaused());
         $("#exit-game").on("click", () => this.exitGame());
@@ -166,6 +167,14 @@ class Game {
         this.statsManager.resetStats(this.gameState);
 
         this.newRound();
+    }
+
+    pauseGame() {
+        if (this.gameState !== "start") {
+            this.gamePaused = true;
+            this.statsManager.stopTimer();
+            this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
+        }
     }
 
     /**
