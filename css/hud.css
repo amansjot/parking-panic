@@ -79,10 +79,29 @@
     background-color: var(--orange-bright);
 }
 
-/* Control panel container (for control instructions) */
-#controls img {
-    width: 48px;
+/* Controls container (for control instructions) */
+#control-listing {
+    margin: 35px 72px;
+    width: 600px;
+}
+
+#control-listing .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px 62px;
+}
+
+#control-listing .grid-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and icons */
+    font-size: var(--font-md);
+}
+
+#control-listing .grid-item img {
+    height: 48px;
     vertical-align: middle;
+    width: auto;
 }
 
 #help {

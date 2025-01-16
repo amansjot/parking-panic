@@ -40,14 +40,38 @@ class Game {
     /**
      * Add UI and scaling-related event listeners.
      */
+    handleBtnEvent(event, callback) {
+        if (event.type === "click" || event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            callback();
+        }
+    }
+
     addEventListeners() {
         $(window).on("resize", () => this.resize());
-        $(window).on("blur", () => this.pauseGame());
-        $("#play-again").on("click", () => this.restartGame());
-        $("#resume-game, #cancel-exit, #pause-game-button").on("click", () => this.togglePaused());
-        $("#exit-game").on("click", () => this.exitGame());
-        $("#exit-game-button").on("click", () => this.confirmExitGame());
-        $("#help-button, #close-help").on("click", () => $("#help").toggleClass("hidden"));
+        $(window).on("visibilitychange", () => {
+            if (document.hidden) this.pauseGame();
+        });
+
+        $("#play-again").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.restartGame());
+        });
+
+        $("#resume-game, #cancel-exit, #pause-game-button").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.togglePaused());
+        });
+
+        $("#exit-game").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.exitGame());
+        });
+
+        $("#exit-game-button").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.confirmExitGame());
+        });
+
+        $("#help-button, #close-help").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.toggleHelp());
+        });
 
         $(".start-button").on("click", () => this.showSpotlight());
     }
@@ -61,10 +85,15 @@ class Game {
         let newSize = Math.min(width, height);
         let scale = newSize / this.unscaledSize;
 
-        // Apply scale to the game window and controls
+        // Calculate margins to center horizontally and vertically
+        let marginLeft = (width - newSize) / 2;
+        let marginTop = (height - newSize) / 2;
+
+        // Apply scale and centering to the game window and controls
         $('#scroll-window').css({
             transform: `scale(${scale})`,
-            marginLeft: `${(width - newSize) / 2}px`
+            marginLeft: `${marginLeft}px`,
+            marginTop: `${marginTop}px`
         });
 
         // Update the scale in the collision detection module
@@ -252,7 +281,7 @@ class Game {
     }
 
     togglePaused() {
-        if (!this.gameEnded) {
+        if (this.gameState !== "start" && !this.gameEnded) {
             this.gamePaused = !this.gamePaused;
             if (this.gamePaused) {
                 this.statsManager.stopTimer();
@@ -270,7 +299,7 @@ class Game {
             this.gamePaused = true;
             this.statsManager.stopTimer();
             this.showModal("dark", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
-        } else {
+        } else if (this.gameState !== "start") {
             this.exitGame();
         }
     }
@@ -287,6 +316,12 @@ class Game {
             for (let buttonID of buttons) {
                 $(buttonID).removeClass("hidden");
             }
+
+            // Add tabindex dynamically to make the modal focusable
+            $("#modal-buttons > div").attr("tabindex", "0");
+            
+            // Focus the first child of the modal buttons
+            $("#modal-buttons").children().first().focus();
         }
 
         this.$modal.removeClass().addClass(`bg-${bg}`);
@@ -295,6 +330,10 @@ class Game {
         if (!buttons) {
             setTimeout(() => this.$modal.removeClass().addClass("hidden"), 700);
         }
+    }
+
+    toggleHelp() {
+        $("#help").toggleClass("hidden");
     }
 
     showSpotlight() {

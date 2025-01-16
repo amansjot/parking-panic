@@ -37,14 +37,26 @@ class InputManager {
         // Hide the cursor when using the keyboard
         this.hideCursor();
 
-        // Toggle headlights with 'H' key
-        if (key === 'h') {
-            this.carManager.toggleHeadlights();
-        }
-
-        // Play horn with 'G' key
-        if (key === 'g') {
-            this.carManager.playHorn();
+        // Handle specific shortcuts
+        switch (key) {
+            case '/': // Help shortcut
+                this.game.toggleHelp();
+                break;
+            case ' ': // Pause shortcut
+                e.preventDefault(); // Prevent scrolling when pressing space
+                this.game.togglePaused();
+                break;
+            case 'backspace': // Exit shortcut (Windows)
+            case 'delete': // Exit shortcut (Mac)
+                e.preventDefault(); // Prevent default behavior
+                this.game.confirmExitGame();
+                break;
+            case 'h': // Toggle headlights
+                this.carManager.toggleHeadlights();
+                break;
+            case 'g': // Play horn
+                this.carManager.playHorn();
+                break;
         }
     }
 
