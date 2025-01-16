@@ -57,6 +57,10 @@
     animation: glow-green 0.7s infinite alternate; /* Green glow animation */
 }
 
+.btn-green:focus {
+    outline: none;
+}
+
 .btn-red {
     color: var(--red-light);
     box-shadow: 0 0 3px 3px var(--red-light);

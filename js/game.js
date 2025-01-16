@@ -321,7 +321,7 @@ class Game {
             $("#modal-buttons > div").attr("tabindex", "0");
             
             // Focus the first child of the modal buttons
-            $("#modal-buttons").children().first().focus();
+            setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
         }
 
         this.$modal.removeClass().addClass(`bg-${bg}`);
