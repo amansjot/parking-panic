@@ -42,10 +42,11 @@ class InputManager {
             case '/': // Help shortcut
                 this.game.toggleHelp();
                 break;
-            case ' ': // Pause shortcut
-                e.preventDefault(); // Prevent scrolling when pressing space
+            case '.': // Pause shortcut
                 this.game.togglePaused();
                 break;
+            case 'escape':
+                this.game.closeHelp();
             case 'backspace': // Exit shortcut (Windows)
             case 'delete': // Exit shortcut (Mac)
                 e.preventDefault(); // Prevent default behavior

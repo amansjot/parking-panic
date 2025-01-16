@@ -336,6 +336,10 @@ class Game {
         $("#help").toggleClass("hidden");
     }
 
+    closeHelp() {
+        $("#help").addClass("hidden");
+    }
+
     showSpotlight() {
         if (this.gameState === "start") {
             $("#subtitle-spotlight").removeClass("hidden");
