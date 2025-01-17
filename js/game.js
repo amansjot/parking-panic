@@ -112,7 +112,8 @@ class Game {
      * Main game loop to update player movement, handle collisions, and check game state.
      */
     updatePlayer() {
-        if (this.gamePaused) return; // Stop the function if the game is paused
+        // Stop the function if the game is paused
+        if (this.gamePaused) return;
 
         requestAnimationFrame(() => {
             this.carManager.moveCar(this.inputManager.keys); // Move the car based on key inputs
@@ -344,11 +345,16 @@ class Game {
         $("#help").toggleClass("hidden");
         $("#pause-game-button, #exit-game-button").toggleClass("disabled");
         this.helpActive = !this.helpActive;
+        
+        if (this.helpActive) this.statsManager.stopTimer();
+        else if (!this.gamePaused) this.statsManager.startTimer();
     }
 
     closeHelp() {
         $("#help").addClass("hidden");
         this.helpActive = false;
+
+        if (!this.gamePaused) this.statsManager.startTimer();
     }
 
     showSpotlight() {

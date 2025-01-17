@@ -54,14 +54,30 @@
 
 .btn-green {
     color: var(--green-light);
-    animation: glow-green 0.7s infinite alternate; /* Green glow animation */
+    box-shadow: 0 0 3px 3px var(--green-light);
 }
 
 .btn-green:focus {
     outline: none;
+    animation: glow-green 0.7s infinite alternate;
 }
 
 .btn-red {
     color: var(--red-light);
     box-shadow: 0 0 3px 3px var(--red-light);
+}
+
+.btn-red:focus {
+    outline: none;
+    animation: glow-red 0.7s infinite alternate;
+}
+
+.btn-white {
+    color: var(--secondary);
+    box-shadow: 0 0 3px 3px var(--secondary);
+}
+
+.btn-white:focus {
+    outline: none;
+    animation: glow-white 0.7s infinite alternate;
 }

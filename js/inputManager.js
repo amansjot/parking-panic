@@ -17,12 +17,8 @@ class InputManager {
         this.inactivityTimer = null; // Timer for inactivity
 
         // Bind event listeners for keydown, keyup, and mousemove
-        $(document).on('keydown', (e) => {
-            if (!this.game.helpActive) this.handleKeyDown(e);
-        });
-        $(document).on('keyup', (e) => {
-            if (!this.game.helpActive) this.handleKeyUp(e);
-        });
+        $(document).on('keydown', (e) => this.handleKeyDown(e));
+        $(document).on('keyup', (e) => this.handleKeyUp(e));
         $(document).on('mousemove', () => this.showCursor());
         $(document).on('keydown keyup mousemove click', () => this.resetInactivityTimer());
         this.resetInactivityTimer();
@@ -31,6 +27,12 @@ class InputManager {
     // Function to handle keydown events
     handleKeyDown(e) {
         const key = e.key.toLowerCase();
+
+        // If the help is active, only allow / to close it
+        if (this.game.helpActive) {
+            if (key == '/') this.game.closeHelp();
+            return;
+        }
 
         // Set the key state to true when a key is pressed
         if (this.keys.hasOwnProperty(key) || this.keys.hasOwnProperty(e.code)) {
@@ -79,7 +81,9 @@ class InputManager {
     // Pause game after 30 seconds of inactivity
     resetInactivityTimer() {
         clearTimeout(this.inactivityTimer);
-        this.inactivityTimer = setTimeout(() => this.game.pauseGame(), 30000);
+        this.inactivityTimer = setTimeout(() => {
+            if (!this.game.gamePaused) this.game.pauseGame();
+        }, 30000);
     }
 
     // Hide the cursor by applying the 'cursor: none' style

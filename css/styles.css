@@ -166,6 +166,16 @@ body {
     }
 }
 
+/* Animation: glowing white effect */
+@keyframes glow-white {
+    from {
+        box-shadow: 0 0 1px 1px var(--secondary);
+    }
+    to {
+        box-shadow: 0 0 4px 4px var(--secondary);
+    }
+}
+
 /* Easy mode button styling */
 /* Adds glow and green color to the easy mode button */
 #easy-mode-button {
