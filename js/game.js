@@ -50,7 +50,7 @@ class Game {
     addEventListeners() {
         $(window).on("resize", () => this.resize());
         $(window).on("visibilitychange", () => {
-            if (document.hidden) this.pauseGame();
+            if (document.hidden && !this.gamePaused) this.togglePaused();
         });
 
         $("#play-again").on("click keydown", (e) => {
@@ -210,14 +210,6 @@ class Game {
         this.newRound();
     }
 
-    pauseGame() {
-        if (this.gameState !== "start" && !this.gameEnded) {
-            this.gamePaused = true;
-            this.statsManager.stopTimer();
-            this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
-        }
-    }
-
     /**
      * Exit the game and return to the start screen.
      */
@@ -293,9 +285,11 @@ class Game {
         if (this.gameState !== "start" && !this.gameEnded) {
             this.gamePaused = !this.gamePaused;
             if (this.gamePaused) {
+                $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
                 this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
             } else {
+                $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();
                 $("#modal").addClass("hidden");
             }
@@ -352,6 +346,7 @@ class Game {
 
     closeHelp() {
         $("#help").addClass("hidden");
+        $("#pause-game-button, #exit-game-button").removeClass("disabled");
         this.helpActive = false;
 
         if (!this.gamePaused) this.statsManager.startTimer();

@@ -82,7 +82,7 @@ class InputManager {
     resetInactivityTimer() {
         clearTimeout(this.inactivityTimer);
         this.inactivityTimer = setTimeout(() => {
-            if (!this.game.gamePaused) this.game.pauseGame();
+            if (!this.game.gamePaused) this.game.togglePaused();
         }, 30000);
     }
 
