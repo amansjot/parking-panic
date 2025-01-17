@@ -7,11 +7,11 @@
     align-items: center;
     display: flex;
     z-index: var(--z-interactive); /* Ensures it's above most elements */
-    cursor: pointer; /* Changes to pointer when hovered */
 }
 
-.button:hover {
+.button:not(.disabled):hover {
     scale: 1.05;
+    cursor: pointer;
 }
 
 #close-help {
@@ -106,7 +106,6 @@
 
 #help {
     width: 720px;
-    flex-direction: column;
     background-color: var(--primary);
     font-size: var(--font-md);
     padding: 25px 30px;

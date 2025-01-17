@@ -17,8 +17,12 @@ class InputManager {
         this.inactivityTimer = null; // Timer for inactivity
 
         // Bind event listeners for keydown, keyup, and mousemove
-        $(document).on('keydown', (e) => this.handleKeyDown(e));
-        $(document).on('keyup', (e) => this.handleKeyUp(e));
+        $(document).on('keydown', (e) => {
+            if (!this.game.helpActive) this.handleKeyDown(e);
+        });
+        $(document).on('keyup', (e) => {
+            if (!this.game.helpActive) this.handleKeyUp(e);
+        });
         $(document).on('mousemove', () => this.showCursor());
         $(document).on('keydown keyup mousemove click', () => this.resetInactivityTimer());
         this.resetInactivityTimer();

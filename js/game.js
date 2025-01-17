@@ -12,7 +12,7 @@ class Game {
         this.gameState = 'start'; // Initial game state
         this.gamePaused = false;
         this.gameEnded = false;
-        this.$modal = $("#modal");
+        this.helpActive = false;
 
         // Initialize starting managers
         this.carManager = new CarManager();
@@ -54,19 +54,27 @@ class Game {
         });
 
         $("#play-again").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.restartGame());
+            this.handleBtnEvent(e, () => {
+                if (!this.helpActive) this.restartGame();
+            });
         });
 
         $("#resume-game, #cancel-exit, #pause-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.togglePaused());
-        });
-
-        $("#exit-game").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.exitGame());
+            this.handleBtnEvent(e, () => {
+                if (!this.helpActive) this.togglePaused();
+            });
         });
 
         $("#exit-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.confirmExitGame());
+            this.handleBtnEvent(e, () => {
+                if (!this.helpActive) this.confirmExitGame();
+            });
+        });
+
+        $("#exit-game").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => {
+                if (!this.helpActive) this.exitGame();
+            });
         });
 
         $("#help-button, #close-help").on("click keydown", (e) => {
@@ -324,20 +332,23 @@ class Game {
             setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
         }
 
-        this.$modal.removeClass().addClass(`bg-${bg}`);
+        $("#modal").removeClass().addClass(`bg-${bg}`);
 
         // Hide the modal after 700ms
         if (!buttons) {
-            setTimeout(() => this.$modal.removeClass().addClass("hidden"), 700);
+            setTimeout(() => $("#modal").removeClass().addClass("hidden"), 700);
         }
     }
 
     toggleHelp() {
         $("#help").toggleClass("hidden");
+        $("#pause-game-button, #exit-game-button").toggleClass("disabled");
+        this.helpActive = !this.helpActive;
     }
 
     closeHelp() {
         $("#help").addClass("hidden");
+        this.helpActive = false;
     }
 
     showSpotlight() {
