@@ -79,7 +79,7 @@ class ObstacleManager {
     }
 
     createCarObstacle(spot) {
-        const carType = Math.floor(Math.random() * 4) + 1;
+        const carType = (this.carObstacles.length % 4) + 1;
         const rotation = Math.random() < 0.5 ? 0 : 180;
         const posLeft = (this.angledSpots.includes(spot)) ? "7.5" : "12.5";
         const angle = (this.angledSpots.includes(spot)) ? 18 : 0;
