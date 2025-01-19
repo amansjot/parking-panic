@@ -28,9 +28,10 @@ class InputManager {
     handleKeyDown(e) {
         const key = e.key.toLowerCase();
 
-        // If the help is active, only allow / to close it
-        if (this.game.helpActive) {
-            if (key == '/') this.game.closeHelp();
+        // If overlay is active, only allow / to close it
+        if (this.game.overlay) {
+            if (key == '/' && this.game.overlay === "help" ||
+                key == 'l' && this.game.overlay === "leaderboard") this.game.closeOverlay();
             return;
         }
 
@@ -46,13 +47,16 @@ class InputManager {
         // Handle specific shortcuts
         switch (key) {
             case '/': // Help shortcut
-                this.game.toggleHelp();
+                this.game.toggleOverlay("help");
+                break;
+            case 'l': // Leaderboard shortcut
+                this.game.toggleOverlay("leaderboard");
                 break;
             case '.': // Pause shortcut
                 this.game.togglePaused();
                 break;
             case 'escape':
-                this.game.closeHelp();
+                this.game.closeOverlay();
             case 'backspace': // Exit shortcut (Windows)
             case 'delete': // Exit shortcut (Mac)
                 e.preventDefault(); // Prevent default behavior

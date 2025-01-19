@@ -3,53 +3,62 @@
     height: 65px;
     border-radius: 10px;
     font-size: var(--font-sm);
-    position: absolute;
     justify-content: center;
     align-items: center;
     display: flex;
-    z-index: var(--z-interactive); /* Ensures it's above most elements */
+    z-index: var(--z-interactive);
+    /* Ensures it's above most elements */
 }
 
-.button:not(.disabled):hover {
+.button:hover,
+.close-overlay-button:hover {
     scale: 1.05;
     cursor: pointer;
 }
 
-#close-help {
-    border: 2px solid var(--secondary);
-}
-
 /* Container for the lives counter displayed in the HUD */
 #lives-counter:not(.hidden) {
-    position: absolute; /* Positioned relative to the game window */
+    position: absolute;
+    /* Positioned relative to the game window */
     top: 10px;
     right: -23px;
     width: 300px;
     height: 80px;
-    
-    background-image: url(../img/hud/lives-bg.png); /* Background image for the lives counter */
+
+    background-image: url(../img/hud/lives-bg.png);
+    /* Background image for the lives counter */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    
+
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
     pointer-events: none;
 }
 
 .game-life img {
-    width: 40px;   
+    width: 40px;
 }
 
-#game-buttons img {
+#game-buttons {
+    height: 80px;
+    width: 600px;
+    position: absolute;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hud-icon {
     height: 50px;
 }
 
 /* Game info display */
 #game-info {
-    top: 10px;
-    left: 265px;
     background-color: #283749;
     flex-direction: column;
     width: 175px !important;
@@ -57,45 +66,48 @@
     border: 6px solid var(--primary) !important;
 }
 
+/* Help button styling */
+#help-button {
+    border: 6px solid var(--orange-dark) !important;
+    background-color: var(--orange-bright);
+}
+
+/* Leaderboard button styling */
+#lb-button {
+    border: 6px solid var(--blue-dark) !important;
+    background-color: var(--blue-light);
+}
+
 /* Pause game button styling */
 #pause-game-button {
-    top: 10px;
-    left: 95px;
     border: 6px solid var(--yellow-dark) !important;
     background-color: var(--yellow-bright);
 }
 
 /* Exit game button styling */
 #exit-game-button {
-    top: 10px;
-    left: 180px;
     border: 6px solid var(--red-dark) !important;
     background-color: var(--red-bright);
 }
 
-#help-button {
-    top: 10px;
-    left: 10px;
-    border: 6px solid var(--orange-dark) !important;
-    background-color: var(--orange-bright);
-}
-
 /* Controls container (for control instructions) */
 #control-listing {
-    margin: 35px 72px;
+    margin: 35px 77px;
     width: 600px;
 }
 
 #control-listing .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-template-columns: 1fr 1fr;
+    /* Two equal columns */
     gap: 10px 62px;
 }
 
 #control-listing .grid-item {
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between text and icons */
+    gap: 10px;
+    /* Space between text and icons */
     font-size: var(--font-md);
 }
 
@@ -105,32 +117,47 @@
     width: auto;
 }
 
-#help {
+#overlay-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-modal);
+}
+
+.overlay {
     width: 720px;
+    min-height: 200px;
     background-color: var(--primary);
     font-size: var(--font-md);
     padding: 25px 30px;
     border: 2px solid var(--secondary);
+    border-radius: 18px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the pop-up */
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    /* Centers the pop-up */
     z-index: var(--z-overlay);
 }
 
-#close-help {
+.close-overlay-button {
     position: absolute;
-    top: 10px;
-    right: 8px;
-    display: inline-block;
+    top: 15px;
+    right: 12px;
     background-color: var(--red-bright);
+    border: 3px solid var(--red-light);
+    display: inline-block;
     font-size: var(--font-md);
     width: 50px;
     height: 50px;
+    border-radius: 10px;
+    z-index: var(--z-interactive);
 }
 
-.help-header {
+.overlay-header {
     font-size: var(--font-md);
     border-bottom: 4px solid var(--yellow-light);
     width: 70%;
@@ -150,4 +177,69 @@
 
 #objective-listing li {
     margin-bottom: 10px;
+}
+
+.overlay-content {
+    font-family: var(--secondary-font);
+    margin-top: 45px;
+}
+
+.leaderboard-table {
+    width: 85%;
+    margin: 25px auto;
+    border-collapse: collapse;
+}
+
+.leaderboard-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.leaderboard-header {
+    font-family: var(--secondary-font);
+    font-weight: bold;
+    text-align: center;
+    flex: 1;
+}
+
+.leaderboard-item {
+    font-family: var(--secondary-font);
+    text-align: center;
+    flex: 1;
+}
+
+/* Adjust column widths using flex values */
+.leaderboard-header:nth-child(1),
+.leaderboard-item:nth-child(1) {
+    flex: 1;
+    /* 10% */
+}
+
+.leaderboard-header:nth-child(2),
+.leaderboard-item:nth-child(2) {
+    flex: 6;
+    /* 60% */
+}
+
+.leaderboard-header:nth-child(3),
+.leaderboard-item:nth-child(3) {
+    flex: 3;
+    /* 30% */
+}
+
+.leaderboard-row:nth-child(2) .leaderboard-item {
+    color: gold; /* Gold for 1st place */
+    font-weight: bold;
+}
+
+.leaderboard-row:nth-child(3) .leaderboard-item {
+    color: silver; /* Silver for 2nd place */
+    font-weight: bold;
+}
+
+.leaderboard-row:nth-child(4) .leaderboard-item {
+    color: #CD7F32; /* Bronze for 3rd place */
+    font-weight: bold;
 }

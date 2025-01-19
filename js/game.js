@@ -12,7 +12,7 @@ class Game {
         this.gameState = 'start'; // Initial game state
         this.gamePaused = false;
         this.gameEnded = false;
-        this.helpActive = false;
+        this.overlay = null;
 
         // Initialize starting managers
         this.carManager = new CarManager();
@@ -55,33 +55,43 @@ class Game {
 
         $("#play-again").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => {
-                if (!this.helpActive) this.restartGame();
+                if (!this.overlay) this.restartGame();
             });
         });
 
         $("#resume-game, #cancel-exit, #pause-game-button").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => {
-                if (!this.helpActive) this.togglePaused();
+                if (!this.overlay) this.togglePaused();
             });
         });
 
         $("#exit-game-button").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => {
-                if (!this.helpActive) this.confirmExitGame();
+                if (!this.overlay) this.confirmExitGame();
             });
         });
 
         $("#exit-game").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => {
-                if (!this.helpActive) this.exitGame();
+                if (!this.overlay) this.exitGame();
             });
         });
 
-        $("#help-button, #close-help").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.toggleHelp());
+        $("#help-button, #close-help-button").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.toggleOverlay("help"));
+        });
+        
+        $("#lb-button, #close-lb-button").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => this.toggleOverlay("leaderboard"));
         });
 
         $(".start-button").on("click", () => this.showSpotlight());
+
+        $("#overlay-screen").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => {
+                if (this.overlay) this.closeOverlay();
+            });
+        });
     }
 
     /**
@@ -161,12 +171,12 @@ class Game {
 
         // Display the selected game mode (Easy or Hard)
         this.gameState = mode;
-        const gameInfoColor = (this.gameState === "easy-mode") ? "#7fff7f" : "#ff9a9a";
+        const gameInfoColor = (this.gameState === "easy-mode") ? "green" : "red";
 
         $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").removeClass('hidden');
-        $("#game-info").css("color", gameInfoColor);
+        $("#game-info").css("color", `var(--${gameInfoColor}-light)`);
 
-        this.showModal("dark", "Start!");
+        this.showModal("white", "Start!");
 
         setTimeout(() => this.newRound(), 700);
     }
@@ -277,7 +287,7 @@ class Game {
 
         setTimeout(() => {
             const scoreStr = "Your Score: " + this.statsManager.score;
-            this.showModal("dark", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+            this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         }, 1300);
     }
 
@@ -287,7 +297,7 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
-                this.showModal("dark", "Game Paused", null, ["#resume-game", "#exit-game"]);
+                this.showModal("white", "Game Paused", null, ["#resume-game", "#exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();
@@ -301,16 +311,17 @@ class Game {
         if (currScore > 0) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
-            this.showModal("dark", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
+            this.showModal("white", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
         } else if (this.gameState !== "start") {
             this.exitGame();
         }
     }
 
-    showModal(bg, title, content = null, buttons = null) {
+    showModal(textColor, title, content = null, buttons = null) {
         // Reset the modal
         $("#modal-content, #modal-buttons, .modal-button").addClass("hidden");
         $("#modal-title").removeClass("hidden").text(title);
+        $("#modal").removeClass();
 
         // Show the appropriate sections of the modal
         if (content) $("#modal-content").removeClass("hidden").text(content);
@@ -327,7 +338,8 @@ class Game {
             setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
         }
 
-        $("#modal").removeClass().addClass(`bg-${bg}`);
+        // Set the text color based on the parameter
+        if (textColor !== "white") $("#modal").addClass(`text-${textColor}`);
 
         // Hide the modal after 700ms
         if (!buttons) {
@@ -335,19 +347,17 @@ class Game {
         }
     }
 
-    toggleHelp() {
-        $("#help").toggleClass("hidden");
-        $("#pause-game-button, #exit-game-button").toggleClass("disabled");
-        this.helpActive = !this.helpActive;
+    toggleOverlay(id) {
+        $(`#${id}, #overlay-screen`).toggleClass("hidden");
         
-        if (this.helpActive) this.statsManager.stopTimer();
+        this.overlay = this.overlay ? null : id;
+        if (this.overlay) this.statsManager.stopTimer();
         else if (!this.gamePaused) this.statsManager.startTimer();
     }
 
-    closeHelp() {
-        $("#help").addClass("hidden");
-        $("#pause-game-button, #exit-game-button").removeClass("disabled");
-        this.helpActive = false;
+    closeOverlay() {
+        $("#help, #leaderboard, #overlay-screen").addClass("hidden");
+        this.overlay = null;
 
         if (!this.gamePaused) this.statsManager.startTimer();
     }

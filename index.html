@@ -65,107 +65,193 @@
             </div>
           </div>
 
-          <div id="help" class="hidden">
-            <div id="controls">
-              <h1 class="help-header" id="control-header">Controls</h1>
-              <div class="help-body" id="control-listing">
-                <div class="grid-container">
-                  <div class="grid-item">
-                    <span>Forward:</span>
-                    <img src="img/keyboard-keys/key-W.svg" alt="W Key" />
-                    or
-                    <img
-                      src="img/keyboard-keys/arrow-up.svg"
-                      alt="Up Arrow Key"
-                    />
-                  </div>
+          <div class="overlays">
+            <div id="overlay-screen" class="hidden"></div>
 
-                  <div class="grid-item">
-                    <span>Headlights:</span>
-                    <img src="img/keyboard-keys/key-H.svg" alt="H Key" />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Backward:</span>
-                    <img src="img/keyboard-keys/key-S.svg" alt="S Key" />
-                    or
-                    <img
-                      src="img/keyboard-keys/arrow-down.svg"
-                      alt="Down Arrow Key"
-                    />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Horn:</span>
-                    <img src="img/keyboard-keys/key-G.svg" alt="G Key" />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Left:</span>
-                    <img src="img/keyboard-keys/key-A.svg" alt="A Key" />
-                    or
-                    <img
-                      src="img/keyboard-keys/arrow-left.svg"
-                      alt="Left Arrow Key"
-                    />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Pause Game:</span>
-                    <img src="img/keyboard-keys/dot.svg" alt=". Key" />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Right:</span>
-                    <img src="img/keyboard-keys/key-D.svg" alt="D Key" />
-                    or
-                    <img
-                      src="img/keyboard-keys/arrow-right.svg"
-                      alt="Right Arrow Key"
-                    />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Exit Game:</span>
-                    <img
-                      src="img/keyboard-keys/backspace.svg"
-                      alt="Backspace Key"
-                    />
-                  </div>
-
-                  <div class="grid-item">
-                    <span>Help:</span>
-                    <img src="img/keyboard-keys/slash.svg" alt="/ Key" />
-                  </div>
+            <div id="leaderboard" class="overlay hidden">
+              <div class="overlay-header">Leaderboard</div>
+              <div class="overlay-content">
+                Local games only. Global leaderboard coming soon!
+              </div>
+              <div class="leaderboard-table">
+                <div class="leaderboard-row">
+                  <div class="leaderboard-header">#</div>
+                  <div class="leaderboard-header">Player</div>
+                  <div class="leaderboard-header">Score</div>
                 </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">1</div>
+                  <div class="leaderboard-item">Player 1</div>
+                  <div class="leaderboard-item">3000</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">2</div>
+                  <div class="leaderboard-item">Player 2</div>
+                  <div class="leaderboard-item">2900</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">3</div>
+                  <div class="leaderboard-item">Player 3</div>
+                  <div class="leaderboard-item">2870</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">4</div>
+                  <div class="leaderboard-item">Player 4</div>
+                  <div class="leaderboard-item">2140</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">5</div>
+                  <div class="leaderboard-item">Player 5</div>
+                  <div class="leaderboard-item">1970</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">6</div>
+                  <div class="leaderboard-item">Player 6</div>
+                  <div class="leaderboard-item">1900</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">7</div>
+                  <div class="leaderboard-item">Player 7</div>
+                  <div class="leaderboard-item">1430</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">8</div>
+                  <div class="leaderboard-item">Player 8</div>
+                  <div class="leaderboard-item">1390</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">9</div>
+                  <div class="leaderboard-item">Player 9</div>
+                  <div class="leaderboard-item">990</div>
+                </div>
+                <div class="leaderboard-row">
+                  <div class="leaderboard-item">10</div>
+                  <div class="leaderboard-item">Player 10</div>
+                  <div class="leaderboard-item">970</div>
+                </div>
+              </div>
+
+              <div
+                id="close-lb-button"
+                class="close-overlay-button"
+                role="button"
+                title="Close"
+                aria-label="Close Leaderboard"
+                tabindex="0"
+              >
+                X
               </div>
             </div>
 
-            <div id="objective">
-              <h1 class="help-header" id="objective-header">Objectives</h1>
-              <ol class="help-body" id="objective-listing">
-                <li>Dodge obstacles</li>
-                <li>Park in the glowing spot</li>
-                <li>Don't crash!</li>
-              </ol>
-            </div>
+            <div id="help" class="overlay hidden">
+              <div id="controls">
+                <h1 class="overlay-header" id="control-header">Controls</h1>
+                <div class="help-body" id="control-listing">
+                  <div class="grid-container">
+                    <div class="grid-item">
+                      <span>Forward:</span>
+                      <img src="img/keyboard-keys/key-W.svg" alt="W Key" />
+                      or
+                      <img
+                        src="img/keyboard-keys/arrow-up.svg"
+                        alt="Up Arrow Key"
+                      />
+                    </div>
 
-            <div id="instructions">
-              <h1 class="help-header" id="instruction-header">How to Start</h1>
-              <p class="help-body" id="instruction-listing">
-                Park inside the Easy Mode or Hard Mode spots!<br />
-              </p>
-            </div>
+                    <div class="grid-item">
+                      <span>Headlights:</span>
+                      <img src="img/keyboard-keys/key-H.svg" alt="H Key" />
+                    </div>
 
-            <div
-              id="close-help"
-              class="button"
-              role="button"
-              title="Close"
-              aria-label="Close Help"
-              tabindex="0"
-            >
-              X
+                    <div class="grid-item">
+                      <span>Backward:</span>
+                      <img src="img/keyboard-keys/key-S.svg" alt="S Key" />
+                      or
+                      <img
+                        src="img/keyboard-keys/arrow-down.svg"
+                        alt="Down Arrow Key"
+                      />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Horn:</span>
+                      <img src="img/keyboard-keys/key-G.svg" alt="G Key" />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Left:</span>
+                      <img src="img/keyboard-keys/key-A.svg" alt="A Key" />
+                      or
+                      <img
+                        src="img/keyboard-keys/arrow-left.svg"
+                        alt="Left Arrow Key"
+                      />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Pause Game:</span>
+                      <img src="img/keyboard-keys/dot.svg" alt=". Key" />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Right:</span>
+                      <img src="img/keyboard-keys/key-D.svg" alt="D Key" />
+                      or
+                      <img
+                        src="img/keyboard-keys/arrow-right.svg"
+                        alt="Right Arrow Key"
+                      />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Exit Game:</span>
+                      <img
+                        src="img/keyboard-keys/backspace.svg"
+                        alt="Backspace Key"
+                      />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Leaderboard:</span>
+                      <img src="img/keyboard-keys/key-L.svg" alt="L Key" />
+                    </div>
+
+                    <div class="grid-item">
+                      <span>Help:</span>
+                      <img src="img/keyboard-keys/slash.svg" alt="/ Key" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="objective">
+                <h1 class="overlay-header" id="objective-header">Objectives</h1>
+                <ol class="help-body" id="objective-listing">
+                  <li>Dodge obstacles</li>
+                  <li>Park in the glowing spot</li>
+                  <li>Don't crash!</li>
+                </ol>
+              </div>
+
+              <div id="instructions">
+                <h1 class="overlay-header" id="instruction-header">
+                  How to Start
+                </h1>
+                <p class="help-body" id="instruction-listing">
+                  Park inside the Easy Mode or Hard Mode spots!<br />
+                </p>
+              </div>
+
+              <div
+                id="close-help-button"
+                class="close-overlay-button"
+                role="button"
+                title="Close"
+                aria-label="Close Help"
+                tabindex="0"
+              >
+                X
+              </div>
             </div>
           </div>
 
@@ -187,29 +273,51 @@
               <div
                 id="help-button"
                 tabindex="4"
-                class="button"
+                class="game-button button"
                 title="Help"
                 role="button"
               >
-                <img src="img/hud/help-icon.svg" alt="Help" />
+                <img class="hud-icon" src="img/hud/help-icon.svg" alt="Help" />
+              </div>
+              <div
+                id="lb-button"
+                tabindex="6"
+                class="game-button button"
+                title="Leaderboard"
+                role="button"
+              >
+                <img
+                  class="hud-icon"
+                  src="img/hud/lb-icon.svg"
+                  alt="Leaderboard"
+                />
               </div>
               <div
                 id="pause-game-button"
                 tabindex="6"
-                class="button hidden"
+                class="game-button button hidden"
                 title="Pause Game"
                 role="button"
               >
-                <img id="pause-play-icon" src="img/hud/pause-icon.svg" alt="Pause Game" />
+                <img
+                  class="hud-icon"
+                  id="pause-play-icon"
+                  src="img/hud/pause-icon.svg"
+                  alt="Pause Game"
+                />
               </div>
               <div
                 id="exit-game-button"
                 tabindex="7"
-                class="button hidden"
+                class="game-button button hidden"
                 title="Exit Game"
                 role="button"
               >
-                <img src="img/hud/exit-icon.svg" alt="Exit Game" />
+                <img
+                  class="hud-icon"
+                  src="img/hud/exit-icon.svg"
+                  alt="Exit Game"
+                />
               </div>
               <div id="game-info" class="button hidden">
                 <div id="round-display">Round 1</div>

@@ -25,15 +25,17 @@
     --yellow-bright: rgb(192, 192, 0);
     --orange-bright: rgb(255, 128, 0);
 
-    --green-dark: rgb(0, 128, 0);
-    --red-dark: rgb(128, 0, 0);
-    --yellow-dark: rgb(96, 96, 0);
-    --orange-dark: rgb(128, 64, 0);
-
     --green-light: rgb(128, 255, 128);
     --red-light: rgb(255, 128, 128);
     --yellow-light: rgb(255, 255, 128);
     --orange-light: rgb(255, 192, 128);
+    --blue-light: rgb(0 128 255);
+
+    --green-dark: rgb(0, 128, 0);
+    --red-dark: rgb(128, 0, 0);
+    --yellow-dark: rgb(96, 96, 0);
+    --orange-dark: rgb(128, 64, 0);
+    --blue-dark: rgb(0 64 128);
 }
 
 /* Body Styling */
