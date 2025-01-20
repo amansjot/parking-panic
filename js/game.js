@@ -4,6 +4,7 @@ import ObstacleManager from './obstacleManager.js';
 import CollisionHandler from './collisionHandler.js';
 import CarManager from './carManager.js';
 import InputManager from './inputManager.js';
+import Leaderboard from './leaderboard.js';
 
 class Game {
     constructor() {
@@ -23,6 +24,9 @@ class Game {
         // Initialize in-game managers
         this.statsManager = new StatsManager();
         this.spotManager = new SpotManager();
+
+        // Initialize leaderboard
+        this.leaderboard = new Leaderboard();
     }
 
     /**
@@ -54,44 +58,34 @@ class Game {
         });
 
         $("#play-again").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                if (!this.overlay) this.restartGame();
-            });
+            this.handleBtnEvent(e, () => this.restartGame());
         });
 
         $("#resume-game, #cancel-exit, #pause-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                if (!this.overlay) this.togglePaused();
-            });
+            this.handleBtnEvent(e, () => this.togglePaused());
         });
 
         $("#exit-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                if (!this.overlay) this.confirmExitGame();
-            });
+            this.handleBtnEvent(e, () => this.confirmExitGame());
         });
 
         $("#exit-game").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                if (!this.overlay) this.exitGame();
-            });
+            this.handleBtnEvent(e, () => this.exitGame());
         });
 
         $("#help-button, #close-help-button").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => this.toggleOverlay("help"));
         });
-        
+
         $("#lb-button, #close-lb-button").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => this.toggleOverlay("leaderboard"));
         });
 
-        $(".start-button").on("click", () => this.showSpotlight());
-
         $("#overlay-screen").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                if (this.overlay) this.closeOverlay();
-            });
+            this.handleBtnEvent(e, () => this.closeOverlay());
         });
+        
+        $(".start-button").on("click", () => this.showSpotlight());
     }
 
     /**
@@ -279,14 +273,22 @@ class Game {
      * End the game when the player runs out of lives.
      */
     gameOver() {
+        const score = this.statsManager.score;
+        
         this.statsManager.stopTimer();
         this.gamePaused = true;
         this.gameEnded = true;
 
+        // Ensure player name is set
+        this.leaderboard.setPlayerName();
+
+        // Add the score to the leaderboard
+        this.leaderboard.addScore(score);
+
         this.showModal("red", "You Lose!"); // Display lose message
 
         setTimeout(() => {
-            const scoreStr = "Your Score: " + this.statsManager.score;
+            const scoreStr = "Your Score: " + score;
             this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         }, 1300);
     }
@@ -333,7 +335,7 @@ class Game {
 
             // Add tabindex dynamically to make the modal focusable
             $("#modal-buttons > div").attr("tabindex", "0");
-            
+
             // Focus the first child of the modal buttons
             setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
         }
@@ -349,7 +351,7 @@ class Game {
 
     toggleOverlay(id) {
         $(`#${id}, #overlay-screen`).toggleClass("hidden");
-        
+
         this.overlay = this.overlay ? null : id;
         if (this.overlay) this.statsManager.stopTimer();
         else if (!this.gamePaused) this.statsManager.startTimer();

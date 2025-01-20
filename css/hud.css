@@ -92,8 +92,8 @@
 
 /* Controls container (for control instructions) */
 #control-listing {
-    margin: 35px 77px;
-    width: 600px;
+    margin: 35px auto;
+    width: 580px;
 }
 
 #control-listing .grid-container {
@@ -199,7 +199,6 @@
 
 .leaderboard-header {
     font-family: var(--secondary-font);
-    font-weight: bold;
     text-align: center;
     flex: 1;
 }

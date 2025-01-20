@@ -31,7 +31,8 @@ class InputManager {
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {
             if (key == '/' && this.game.overlay === "help" ||
-                key == 'l' && this.game.overlay === "leaderboard") this.game.closeOverlay();
+                key == 'l' && this.game.overlay === "leaderboard" ||
+                key == "escape") this.game.closeOverlay();
             return;
         }
 
@@ -55,8 +56,6 @@ class InputManager {
             case '.': // Pause shortcut
                 this.game.togglePaused();
                 break;
-            case 'escape':
-                this.game.closeOverlay();
             case 'backspace': // Exit shortcut (Windows)
             case 'delete': // Exit shortcut (Mac)
                 e.preventDefault(); // Prevent default behavior

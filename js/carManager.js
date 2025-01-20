@@ -86,11 +86,7 @@ class CarManager {
         $("#car-img").css("visibility", "hidden");
 
         // Hide the explosion and show the car again after a short delay
-        setTimeout(() => {
-            $("#car-explosion").hide();
-            $("#car-img").css("visibility", "visible");
-            this.resetCar(gameState);
-        }, this.explosionDurationMs);
+        setTimeout(() => this.resetCar(gameState), this.explosionDurationMs);
     }
 
     setSpeed(mode) {
@@ -106,6 +102,10 @@ class CarManager {
     }
 
     resetCar(mode) {
+        // Hide the explosion and show the car
+        $("#car-explosion").hide();
+        $("#car-img").css("visibility", "visible");
+
         this.registerCollision = true;
         this.setSpeed(mode);
         this.playerData.speed.current = 0;
