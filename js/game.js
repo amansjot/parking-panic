@@ -27,6 +27,8 @@ class Game {
 
         // Initialize leaderboard
         this.leaderboard = new Leaderboard();
+
+        // this.showModal("white", "Save Score", null, ["#save-score", "#discard-score"], "#player-name");
     }
 
     /**
@@ -53,6 +55,7 @@ class Game {
 
     addEventListeners() {
         $(window).on("resize", () => this.resize());
+
         $(window).on("visibilitychange", () => {
             if (document.hidden && !this.gamePaused) this.togglePaused();
         });
@@ -73,6 +76,24 @@ class Game {
             this.handleBtnEvent(e, () => this.exitGame());
         });
 
+        $("#save-name").on("click keydown", (e) => {
+            this.handleBtnEvent(e, () => {
+                const input = $("#player-name").val();
+                const score = this.statsManager.score;
+                if (this.leaderboard.setPlayerName(input.trim())) {
+                    this.leaderboard.addScore(score);
+                    const scoreStr = "Your Score: " + score;
+                    this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+                };
+                // TOOO - error message if name is not acceptable
+            });
+        });
+
+        $("#discard-name").on("click keydown", (e) => {
+            const scoreStr = "Your Score: " + this.statsManager.score;
+            this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+        });
+
         $("#help-button, #close-help-button").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => this.toggleOverlay("help"));
         });
@@ -84,7 +105,7 @@ class Game {
         $("#overlay-screen").on("click keydown", (e) => {
             this.handleBtnEvent(e, () => this.closeOverlay());
         });
-        
+
         $(".start-button").on("click", () => this.showSpotlight());
     }
 
@@ -249,7 +270,7 @@ class Game {
 
         // Increase rounds and update the score
         this.statsManager.increaseRounds();
-        this.statsManager.updateScore();
+        this.statsManager.updateScore(this.gameState);
 
         this.showModal("green", "Next Round!");
         setTimeout(() => this.newRound(), 700);
@@ -274,23 +295,27 @@ class Game {
      */
     gameOver() {
         const score = this.statsManager.score;
-        
+
         this.statsManager.stopTimer();
         this.gamePaused = true;
         this.gameEnded = true;
 
-        // Ensure player name is set
-        this.leaderboard.setPlayerName();
-
-        // Add the score to the leaderboard
-        this.leaderboard.addScore(score);
-
         this.showModal("red", "You Lose!"); // Display lose message
 
-        setTimeout(() => {
-            const scoreStr = "Your Score: " + score;
-            this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
-        }, 1300);
+        // Ensure player name is set
+        if (!this.leaderboard.playerName) {
+            setTimeout(() => {
+                this.showModal("white", "Save Score", null, ["#save-name", "#discard-name"], "#player-name");
+            }, 1300);
+        } else {
+            // Add the score to the leaderboard
+            this.leaderboard.addScore(score);
+
+            setTimeout(() => {
+                const scoreStr = "Your Score: " + score;
+                this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+            }, 1300);
+        }
     }
 
     togglePaused() {
@@ -319,14 +344,15 @@ class Game {
         }
     }
 
-    showModal(textColor, title, content = null, buttons = null) {
+    showModal(textColor, title, content = null, buttons = null, input = null) {
         // Reset the modal
-        $("#modal-content, #modal-buttons, .modal-button").addClass("hidden");
+        $("#modal-content, #modal-input, #modal-buttons, .modal-button").addClass("hidden");
         $("#modal-title").removeClass("hidden").text(title);
         $("#modal").removeClass();
 
         // Show the appropriate sections of the modal
         if (content) $("#modal-content").removeClass("hidden").text(content);
+
         if (buttons) {
             $("#modal-buttons").removeClass("hidden");
             for (let buttonID of buttons) {
@@ -338,6 +364,11 @@ class Game {
 
             // Focus the first child of the modal buttons
             setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
+        }
+
+        if (input) {
+            $("#modal-input").removeClass("hidden");
+            setTimeout(() => $("#modal-input > input").focus(), 100);
         }
 
         // Set the text color based on the parameter

@@ -51,18 +51,17 @@ class StatsManager {
     }
 
     // -------- Score Management --------
-    updateScore() {
-        let roundScore;
-        if (this.time <= 5) {
-            roundScore = 1000;
-        } else if (this.time <= 120) {
-            const decayRate = 500 / (120 - 5); // Linear decay rate
-            roundScore = 1000 - (decayRate * (this.time - 5));
-        } else {
-            roundScore = 500; // Flat score after 120 seconds
+    updateScore(mode) {
+        // Double points for hard mode
+        let roundScore = (mode === "easy-mode") ? 1000 : 2000;
+
+        // Lose 5 points every second after the first 5 seconds
+        if (this.time > 5) {
+            roundScore = Math.max(roundScore / 2, roundScore - 5 * (this.time - 5));
         }
 
-        this.score += Math.round(roundScore); // Add to total score
+        // Add to total score
+        this.score += Math.round(roundScore);
     }
 
     resetScore() {

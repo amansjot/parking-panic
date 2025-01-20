@@ -275,6 +275,14 @@
           <div id="modal" class="hidden">
             <h1 id="modal-title"></h1>
             <div id="modal-content" class="hidden"></div>
+            <div id="modal-input" class="hidden">
+              <input
+                type="text"
+                id="player-name"
+                placeholder="Enter your name"
+                maxlength="10"
+              />
+            </div>
             <div id="modal-buttons" class="hidden">
               <div
                 class="modal-button btn-green hidden"
@@ -285,6 +293,15 @@
                 Play Again
               </div>
               <div
+                class="modal-button btn-red hidden"
+                tabindex="0"
+                data-action="exit"
+                id="exit-game"
+              >
+                Exit Game
+              </div>
+
+              <div
                 class="modal-button btn-green hidden"
                 tabindex="0"
                 data-action="resume"
@@ -293,20 +310,29 @@
                 Resume Game
               </div>
               <div
-                class="modal-button btn-red hidden"
-                tabindex="0"
-                data-action="exit"
-                id="exit-game"
-              >
-                Exit Game
-              </div>
-              <div
                 class="modal-button btn-white hidden"
                 tabindex="0"
                 data-action="resume"
                 id="cancel-exit"
               >
                 Cancel
+              </div>
+
+              <div
+                class="modal-button btn-green hidden"
+                tabindex="0"
+                data-action="save"
+                id="save-name"
+              >
+                Save
+              </div>
+              <div
+                class="modal-button btn-red hidden"
+                tabindex="0"
+                data-action="exit"
+                id="discard-name"
+              >
+                Discard
               </div>
             </div>
           </div>

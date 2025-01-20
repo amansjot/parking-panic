@@ -11,16 +11,34 @@ class InputManager {
             ArrowRight: false
         };
 
+        const self = this;
         this.game = game;
         this.carManager = carManager;
         this.hideCursorTimer = null; // Timer to reset the cursor
         this.inactivityTimer = null; // Timer for inactivity
+        this.inputFocused = false; // Whether an input is focused
 
-        // Bind event listeners for keydown, keyup, and mousemove
-        $(document).on('keydown', (e) => this.handleKeyDown(e));
-        $(document).on('keyup', (e) => this.handleKeyUp(e));
+        // Bind event listeners for focus, blur, keydown, keyup, mousemove, and click
+        $(document).on('focus', 'input', function () {
+            self.inputFocused = true;
+        });
+        
+        $(document).on('blur', 'input', function () {
+            self.inputFocused = false;
+        });
+
+        $(document).on('keydown', (e) => {
+            if (!self.inputFocused) this.handleKeyDown(e);
+        });
+
+        $(document).on('keyup', (e) => {
+            if (!self.inputFocused) this.handleKeyUp(e);
+        });
+        
         $(document).on('mousemove', () => this.showCursor());
+
         $(document).on('keydown keyup mousemove click', () => this.resetInactivityTimer());
+
         this.resetInactivityTimer();
     }
 

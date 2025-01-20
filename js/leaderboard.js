@@ -11,13 +11,17 @@ class Leaderboard {
     /**
      * Set the player's name (via prompt if not already set).
      */
-    setPlayerName() {
-        if (!this.playerName) {
-            this.playerName = prompt("Enter your name:");
-            if (this.playerName) {
-                localStorage.setItem('playerName', this.playerName);
+    setPlayerName(input) {
+        if (input) {
+            const sanitizedInput = $('<div>').text(input).html();
+            if (sanitizedInput) {
+                this.playerName = sanitizedInput;
+                localStorage.setItem('playerName', sanitizedInput);
+                return true;
             }
         }
+
+        return false;
     }
 
     /**

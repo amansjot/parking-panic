@@ -24,6 +24,23 @@
     padding: 10px 30px;
 }
 
+#modal-input {
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+
+#modal-input input {
+    width: 70%;
+    margin: 20px auto;
+    padding: 18px 22px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-size: var(--font-md);
+    font-family: var(--secondary-font);
+}
+
 #modal-buttons:not(.hidden) {
     height: 70px;
     display: flex;
