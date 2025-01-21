@@ -7,7 +7,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 450px;
+    width: 500px;
     transform: translate(-50%, -50%); /* Centers the message */
     z-index: var(--z-modal);
 }
@@ -36,6 +36,7 @@
     border: 1px solid white;
     border-radius: 10px;
     background-color: var(--primary);
+    outline: none;
     color: var(--secondary);
     font-size: var(--font-md);
     font-family: var(--secondary-font);
@@ -47,7 +48,8 @@
     align-items: center;
     justify-content: space-around;
     font-size: var(--font-sm);
-    margin: 45px 0 25px 0;
+    margin: 45px auto 25px auto;
+    width: 460px;
 }
 
 .modal-button {
@@ -58,8 +60,8 @@
     box-shadow: 0 0 3px 3px var(--secondary);
 }
 
-.text-white {
-    color: white;
+.text-yellow {
+    color: var(--yellow-light);
 }
 
 .text-green {
@@ -98,4 +100,8 @@
 .btn-white:focus {
     outline: none;
     animation: glow-white 0.7s infinite alternate;
+}
+
+.input-invalid:focus {
+    border: 1px solid var(--red-light) !important;
 }

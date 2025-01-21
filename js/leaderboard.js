@@ -29,6 +29,9 @@ class Leaderboard {
      * @param {number} score - The player's score to add.
     */
     addScore(score) {
+        // Ignore scores of 0
+        if (score == 0) return;
+
         // Push the new score into the scores array
         this.scores.push({ name: this.playerName || "Unknown", score });
 

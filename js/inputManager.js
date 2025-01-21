@@ -27,9 +27,7 @@ class InputManager {
             self.inputFocused = false;
         });
 
-        $(document).on('keydown', (e) => {
-            if (!self.inputFocused) this.handleKeyDown(e);
-        });
+        $(document).on('keydown', (e) => this.handleKeyDown(e));
 
         $(document).on('keyup', (e) => {
             if (!self.inputFocused) this.handleKeyUp(e);
@@ -45,6 +43,13 @@ class InputManager {
     // Function to handle keydown events
     handleKeyDown(e) {
         const key = e.key.toLowerCase();
+
+        // Enter key goes to save name input
+        if (this.inputFocused) {
+            if (key == "enter") $("#save-name").focus();
+            if (key === " ") e.preventDefault();
+            return;
+        }
 
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {

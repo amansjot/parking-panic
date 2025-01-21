@@ -27,8 +27,6 @@ class Game {
 
         // Initialize leaderboard
         this.leaderboard = new Leaderboard();
-
-        // this.showModal("white", "Save Score", null, ["#save-score", "#discard-score"], "#player-name");
     }
 
     /**
@@ -77,21 +75,11 @@ class Game {
         });
 
         $("#save-name").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => {
-                const input = $("#player-name").val();
-                const score = this.statsManager.score;
-                if (this.leaderboard.setPlayerName(input.trim())) {
-                    this.leaderboard.addScore(score);
-                    const scoreStr = "Your Score: " + score;
-                    this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
-                };
-                // TOOO - error message if name is not acceptable
-            });
+            this.handleBtnEvent(e, () => this.saveName());
         });
 
         $("#discard-name").on("click keydown", (e) => {
-            const scoreStr = "Your Score: " + this.statsManager.score;
-            this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+            this.handleBtnEvent(e, () => this.discardName());
         });
 
         $("#help-button, #close-help-button").on("click keydown", (e) => {
@@ -191,7 +179,7 @@ class Game {
         $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").removeClass('hidden');
         $("#game-info").css("color", `var(--${gameInfoColor}-light)`);
 
-        this.showModal("white", "Start!");
+        this.showModal("yellow", "Start!");
 
         setTimeout(() => this.newRound(), 700);
     }
@@ -300,22 +288,19 @@ class Game {
         this.gamePaused = true;
         this.gameEnded = true;
 
-        this.showModal("red", "You Lose!"); // Display lose message
-
         // Ensure player name is set
-        if (!this.leaderboard.playerName) {
+        if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
-                this.showModal("white", "Save Score", null, ["#save-name", "#discard-name"], "#player-name");
-            }, 1300);
-        } else {
-            // Add the score to the leaderboard
-            this.leaderboard.addScore(score);
-
-            setTimeout(() => {
-                const scoreStr = "Your Score: " + score;
-                this.showModal("white", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
-            }, 1300);
+                this.showModal("yellow", "Save Score", "Enter your name to start saving your scores!<br><br>Warning: This cannot be changed.", ["#save-name", "#discard-name"], "#player-name");
+            }, 700);
+            return;
         }
+
+        // Save the score and show the Game Over screen
+        this.leaderboard.addScore(score);
+        setTimeout(() => {
+            this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
+        }, 700);
     }
 
     togglePaused() {
@@ -324,7 +309,7 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
-                this.showModal("white", "Game Paused", null, ["#resume-game", "#exit-game"]);
+                this.showModal("yellow", "Game Paused", null, ["#resume-game", "#exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();
@@ -338,7 +323,7 @@ class Game {
         if (currScore > 0) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
-            this.showModal("white", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
+            this.showModal("yellow", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
         } else if (this.gameState !== "start") {
             this.exitGame();
         }
@@ -347,11 +332,11 @@ class Game {
     showModal(textColor, title, content = null, buttons = null, input = null) {
         // Reset the modal
         $("#modal-content, #modal-input, #modal-buttons, .modal-button").addClass("hidden");
-        $("#modal-title").removeClass("hidden").text(title);
+        $("#modal-title").removeClass().text(title);
         $("#modal").removeClass();
 
         // Show the appropriate sections of the modal
-        if (content) $("#modal-content").removeClass("hidden").text(content);
+        if (content) $("#modal-content").removeClass("hidden").html(content);
 
         if (buttons) {
             $("#modal-buttons").removeClass("hidden");
@@ -371,8 +356,8 @@ class Game {
             setTimeout(() => $("#modal-input > input").focus(), 100);
         }
 
-        // Set the text color based on the parameter
-        if (textColor !== "white") $("#modal").addClass(`text-${textColor}`);
+        // Set the title color based on the parameter
+        $("#modal-title").addClass(`text-${textColor}`);
 
         // Hide the modal after 700ms
         if (!buttons) {
@@ -406,6 +391,27 @@ class Game {
             }
             setTimeout(() => $("#car-spotlight").addClass("hidden"), 1000);
         }, 1500);
+    }
+
+    saveName() {
+        const input = $("#player-name").val();
+        const score = this.statsManager.score;
+        
+        if (this.leaderboard.setPlayerName(input.trim())) {
+            this.leaderboard.addScore(score);
+            this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
+        } else {
+            setTimeout(() => {
+                $("#player-name").addClass("input-invalid").val("").focus();
+            }, 100);
+        }
+    }
+
+    discardName() {
+        const score = this.statsManager.score;
+
+        $("#player-name").removeClass("input-invalid");
+        this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
     }
 }
 
