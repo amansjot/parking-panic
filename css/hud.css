@@ -181,12 +181,12 @@
 
 .overlay-content {
     font-family: var(--secondary-font);
-    margin-top: 45px;
+    margin-top: 55px;
 }
 
 .leaderboard-table {
     width: 85%;
-    margin: 25px auto;
+    margin: 35px auto 25px auto;
     border-collapse: collapse;
 }
 

@@ -58,43 +58,30 @@ class Game {
             if (document.hidden && !this.gamePaused) this.togglePaused();
         });
 
-        $("#play-again").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.restartGame());
-        });
-
-        $("#resume-game, #cancel-exit, #pause-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.togglePaused());
-        });
-
-        $("#exit-game-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.confirmExitGame());
-        });
-
-        $("#exit-game").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.exitGame());
-        });
-
-        $("#save-name").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.saveName());
-        });
-
-        $("#discard-name").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.discardName());
-        });
-
-        $("#help-button, #close-help-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.toggleOverlay("help"));
-        });
-
-        $("#lb-button, #close-lb-button").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.toggleOverlay("leaderboard"));
-        });
-
-        $("#overlay-screen").on("click keydown", (e) => {
-            this.handleBtnEvent(e, () => this.closeOverlay());
-        });
-
         $(".start-button").on("click", () => this.showSpotlight());
+
+        // Event listener for all buttons with data-action attributes
+        $(document).on("click keydown", "[data-action]", (e) => {
+            this.handleBtnEvent(e, () => {
+                const action = $(e.currentTarget).data("action");
+
+                // Map actions to corresponding methods
+                const actions = {
+                    togglePaused: () => this.togglePaused(),
+                    restartGame: () => this.restartGame(),
+                    confirmExitGame: () => this.confirmExitGame(),
+                    exitGame: () => this.exitGame(),
+                    saveName: () => this.saveName(),
+                    discardName: () => this.discardName(),
+                    toggleHelp: () => this.toggleOverlay("help"),
+                    toggleLeaderboard: () => this.toggleOverlay("leaderboard"),
+                    closeOverlay: () => this.closeOverlay(),
+                };
+
+                // Execute the appropriate method
+                if (actions[action]) actions[action]();
+            });
+        });
     }
 
     /**
@@ -271,11 +258,12 @@ class Game {
         this.carManager.stopCar();
         this.carManager.triggerExplosion(this.gameState);
 
-        if (this.gameState !== "start") this.statsManager.removeLife();
+        if (this.gameState !== "start") {
+            this.statsManager.removeLife();
+            if (this.statsManager.lives == 0) this.gameOver();
+        }
 
         setTimeout(() => this.carManager.resetCar(this.gameState), 1600);
-
-        if (this.gameState !== "start" && this.statsManager.lives == 0) this.gameOver();
     }
 
     /**
@@ -332,7 +320,7 @@ class Game {
     showModal(textColor, title, content = null, buttons = null, input = null) {
         // Reset the modal
         $("#modal-content, #modal-input, #modal-buttons, .modal-button").addClass("hidden");
-        $("#modal-title").removeClass().text(title);
+        $("#modal-title").removeClass().addClass(`text-${textColor}`).text(title);
         $("#modal").removeClass();
 
         // Show the appropriate sections of the modal
@@ -355,9 +343,6 @@ class Game {
             $("#modal-input").removeClass("hidden");
             setTimeout(() => $("#modal-input > input").focus(), 100);
         }
-
-        // Set the title color based on the parameter
-        $("#modal-title").addClass(`text-${textColor}`);
 
         // Hide the modal after 700ms
         if (!buttons) {
@@ -384,11 +369,14 @@ class Game {
         if (this.gameState === "start") {
             $("#subtitle-spotlight").removeClass("hidden");
         }
+
         setTimeout(() => {
             $("#subtitle-spotlight").addClass("hidden");
+
             if (this.gameState === "start") {
                 $("#car-spotlight").removeClass("hidden");
             }
+            
             setTimeout(() => $("#car-spotlight").addClass("hidden"), 1000);
         }, 1500);
     }
@@ -396,14 +384,12 @@ class Game {
     saveName() {
         const input = $("#player-name").val();
         const score = this.statsManager.score;
-        
+
         if (this.leaderboard.setPlayerName(input.trim())) {
             this.leaderboard.addScore(score);
             this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
         } else {
-            setTimeout(() => {
-                $("#player-name").addClass("input-invalid").val("").focus();
-            }, 100);
+            setTimeout(() => $("#player-name").addClass("input-invalid").val("").focus(), 100);
         }
     }
 

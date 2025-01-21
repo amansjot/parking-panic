@@ -66,7 +66,11 @@
           </div>
 
           <div class="overlays">
-            <div id="overlay-screen" class="hidden"></div>
+            <div
+              id="overlay-screen"
+              data-action="closeOverlay"
+              class="hidden"
+            ></div>
 
             <div id="leaderboard" class="overlay hidden">
               <div class="overlay-header">Leaderboard</div>
@@ -78,6 +82,7 @@
               <div
                 id="close-lb-button"
                 class="close-overlay-button"
+                data-action="toggleLeaderboard"
                 role="button"
                 title="Close"
                 aria-label="Close Leaderboard"
@@ -190,6 +195,7 @@
                 id="close-help-button"
                 class="close-overlay-button"
                 role="button"
+                data-action="toggleHelp"
                 title="Close"
                 aria-label="Close Help"
                 tabindex="0"
@@ -217,6 +223,7 @@
               <div
                 id="help-button"
                 tabindex="4"
+                data-action="toggleHelp"
                 class="game-button button"
                 title="Help"
                 role="button"
@@ -226,6 +233,7 @@
               <div
                 id="lb-button"
                 tabindex="6"
+                data-action="toggleLeaderboard"
                 class="game-button button"
                 title="Leaderboard"
                 role="button"
@@ -239,6 +247,7 @@
               <div
                 id="pause-game-button"
                 tabindex="6"
+                data-action="togglePaused"
                 class="game-button button hidden"
                 title="Pause Game"
                 role="button"
@@ -253,6 +262,7 @@
               <div
                 id="exit-game-button"
                 tabindex="7"
+                data-action="confirmExitGame"
                 class="game-button button hidden"
                 title="Exit Game"
                 role="button"
@@ -287,7 +297,7 @@
               <div
                 class="modal-button btn-green hidden"
                 tabindex="0"
-                data-action="restart"
+                data-action="restartGame"
                 id="play-again"
               >
                 Play Again
@@ -295,7 +305,7 @@
               <div
                 class="modal-button btn-green hidden"
                 tabindex="0"
-                data-action="resume"
+                data-action="togglePaused"
                 id="resume-game"
               >
                 Resume Game
@@ -304,7 +314,7 @@
               <div
                 class="modal-button btn-red hidden"
                 tabindex="0"
-                data-action="exit"
+                data-action="exitGame"
                 id="exit-game"
               >
                 Exit Game
@@ -312,7 +322,7 @@
               <div
                 class="modal-button btn-white hidden"
                 tabindex="0"
-                data-action="resume"
+                data-action="togglePaused"
                 id="cancel-exit"
               >
                 Cancel
@@ -321,7 +331,7 @@
               <div
                 class="modal-button btn-green hidden"
                 tabindex="0"
-                data-action="save"
+                data-action="saveName"
                 id="save-name"
               >
                 Save
@@ -329,7 +339,7 @@
               <div
                 class="modal-button btn-red hidden"
                 tabindex="0"
-                data-action="exit"
+                data-action="discardName"
                 id="discard-name"
               >
                 Discard
