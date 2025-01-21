@@ -112,19 +112,17 @@ class InputManager {
         }, 30000);
     }
 
-    // Hide the cursor by applying the 'cursor: none' style
+    // Hide the cursor after 10s of inactivity
     hideCursor() {
         clearTimeout(this.hideCursorTimer); // Clear any existing timer
-        $('body').css('cursor', 'none'); // Hide the cursor
-
-        // Set a timer to reset the cursor after 10s of inactivity
+        $('body').css('cursor', 'none');
         this.hideCursorTimer = setTimeout(() => this.showCursor(), 10000);
     }
 
-    // Show the cursor by resetting the style
+    // Show the cursor and clear the timer
     showCursor() {
-        clearTimeout(this.hideCursorTimer); // Clear the timer
-        $('body').css('cursor', ''); // Reset the cursor style
+        clearTimeout(this.hideCursorTimer);
+        $('body').css('cursor', '');
     }
 }
 

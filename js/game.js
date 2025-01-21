@@ -214,6 +214,11 @@ class Game {
      * Exit the game and return to the start screen.
      */
     exitGame() {
+        // Save the score if the game hasn't ended yet
+        if (!this.gameEnded && this.leaderboard.playerName) {
+            this.leaderboard.addScore(this.statsManager.score);
+        }
+        
         this.gamePaused = false;
         this.gameEnded = false;
 
@@ -297,7 +302,7 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
-                this.showModal("yellow", "Game Paused", null, ["#resume-game", "#exit-game"]);
+                this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.score}`, ["#resume-game", "#exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();
@@ -311,7 +316,8 @@ class Game {
         if (currScore > 0) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
-            this.showModal("yellow", "Exit Game?", "Your score will not be saved.", ["#exit-game", "#cancel-exit"]);
+            const modalStr = (this.leaderboard.playerName) ? `Your score (${currScore}) will be saved.` : "Your score will not be saved.";
+            this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-exit"]);
         } else if (this.gameState !== "start") {
             this.exitGame();
         }
@@ -376,7 +382,7 @@ class Game {
             if (this.gameState === "start") {
                 $("#car-spotlight").removeClass("hidden");
             }
-            
+
             setTimeout(() => $("#car-spotlight").addClass("hidden"), 1000);
         }, 1500);
     }
