@@ -44,6 +44,7 @@ body {
     margin: 0;
     color: var(--secondary);
     font-family: var(--primary-font);
+    overflow: hidden;
 }
 
 /* Container */

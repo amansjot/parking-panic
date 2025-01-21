@@ -130,6 +130,10 @@
 .overlay {
     width: 720px;
     min-height: 200px;
+    max-height: 875px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     background-color: var(--primary);
     font-size: var(--font-md);
     padding: 25px 30px;
@@ -141,6 +145,10 @@
     transform: translate(-50%, -50%);
     /* Centers the pop-up */
     z-index: var(--z-overlay);
+}
+
+.overlay::-webkit-scrollbar {
+    display: none;
 }
 
 .close-overlay-button {
@@ -171,11 +179,17 @@
 }
 
 #objective-listing {
-    width: 380px;
+    width: 350px;
     margin: 35px auto 45px auto;
 }
 
-#objective-listing li {
+#scoring-listing {
+    width: 660px;
+    margin: 0 auto 30px auto;
+}
+
+#objective-listing li,
+#scoring-listing li {
     margin-bottom: 10px;
 }
 
@@ -229,16 +243,19 @@
 }
 
 .leaderboard-row:nth-child(2) .leaderboard-item {
-    color: gold; /* Gold for 1st place */
+    color: gold;
+    /* Gold for 1st place */
     font-weight: bold;
 }
 
 .leaderboard-row:nth-child(3) .leaderboard-item {
-    color: silver; /* Silver for 2nd place */
+    color: silver;
+    /* Silver for 2nd place */
     font-weight: bold;
 }
 
 .leaderboard-row:nth-child(4) .leaderboard-item {
-    color: #CD7F32; /* Bronze for 3rd place */
+    color: #CD7F32;
+    /* Bronze for 3rd place */
     font-weight: bold;
 }
