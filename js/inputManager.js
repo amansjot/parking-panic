@@ -22,7 +22,7 @@ class InputManager {
         $(document).on('focus', 'input', function () {
             self.inputFocused = true;
         });
-        
+
         $(document).on('blur', 'input', function () {
             self.inputFocused = false;
         });
@@ -32,7 +32,7 @@ class InputManager {
         $(document).on('keyup', (e) => {
             if (!self.inputFocused) this.handleKeyUp(e);
         });
-        
+
         $(document).on('mousemove', () => this.showCursor());
 
         $(document).on('keydown keyup mousemove click', () => this.resetInactivityTimer());
@@ -57,6 +57,22 @@ class InputManager {
                 key == 'l' && this.game.overlay === "leaderboard" ||
                 key == "escape") this.game.closeOverlay();
             return;
+        }
+
+        // Secret shortcuts for auto-starting: Ctrl+Shift+E / Ctrl+Shift+H
+        if (e.ctrlKey || e.metaKey) { // Check for Ctrl (Windows) or Cmd (Mac)
+            if (e.shiftKey) { // Check if Shift is also pressed
+                if (key === 'e') { // Ctrl+Shift+E for Easy Mode
+                    e.preventDefault(); // Prevent browser behavior
+                    this.game.startGame('easy-mode');
+                    return;
+                }
+                if (key === 'h') { // Ctrl+Shift+H for Hard Mode
+                    e.preventDefault(); // Prevent browser behavior
+                    this.game.startGame('hard-mode');
+                    return;
+                }
+            }
         }
 
         // Set the key state to true when a key is pressed

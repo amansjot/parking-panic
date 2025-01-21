@@ -168,7 +168,9 @@ class Game {
 
         this.showModal("yellow", "Start!");
 
-        setTimeout(() => this.newRound(), 700);
+        setTimeout(() => {
+            if (this.gameState !== "start") this.newRound();
+        }, 700);
     }
 
     /**
@@ -218,7 +220,7 @@ class Game {
         if (!this.gameEnded && this.leaderboard.playerName) {
             this.leaderboard.addScore(this.statsManager.score);
         }
-        
+
         this.gamePaused = false;
         this.gameEnded = false;
 
@@ -284,7 +286,8 @@ class Game {
         // Ensure player name is set
         if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
-                this.showModal("yellow", "Save Score", "Enter your name to start saving your scores!<br><br>Warning: This cannot be changed.", ["#save-name", "#discard-name"], "#player-name");
+                const modalStr = "Enter your name to start saving your scores!<br><br>Warning: This cannot be changed.";
+                this.showModal("yellow", "Save Score", modalStr, ["#save-name", "#discard-name"], "#player-name");
             }, 700);
             return;
         }
@@ -292,7 +295,11 @@ class Game {
         // Save the score and show the Game Over screen
         this.leaderboard.addScore(score);
         setTimeout(() => {
-            this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
+            let scoreStr = `Score: ${score}`;
+            if (this.leaderboard.getLowestScore() <= score) {
+                scoreStr += "<br><br>Your score has been added to the leaderboard!";
+            }
+            this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         }, 700);
     }
 
@@ -316,7 +323,12 @@ class Game {
         if (currScore > 0) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
-            const modalStr = (this.leaderboard.playerName) ? `Your score (${currScore}) will be saved.` : "Your score will not be saved.";
+
+            let modalStr = "Your score (${currScore}) will not be saved.";
+            if (this.leaderboard.playerName && this.leaderboard.getLowestScore() <= currScore) {
+                modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
+            }
+
             this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-exit"]);
         } else if (this.gameState !== "start") {
             this.exitGame();
@@ -393,7 +405,11 @@ class Game {
 
         if (this.leaderboard.setPlayerName(input.trim())) {
             this.leaderboard.addScore(score);
-            this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
+            let scoreStr = `Score: ${score}`;
+            if (this.leaderboard.getLowestScore() <= score) {
+                scoreStr += "<br><br>Your score has been added to the leaderboard!";
+            }
+            this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         } else {
             setTimeout(() => $("#player-name").addClass("input-invalid").val("").focus(), 100);
         }
@@ -403,7 +419,7 @@ class Game {
         const score = this.statsManager.score;
 
         $("#player-name").removeClass("input-invalid");
-        this.showModal("red", "Game Over!", `Your Score: ${score}`, ["#play-again", "#exit-game"]);
+        this.showModal("red", "Game Over!", `Score: ${score}`, ["#play-again", "#exit-game"]);
     }
 }
 

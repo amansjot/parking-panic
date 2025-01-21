@@ -1,5 +1,7 @@
 class Leaderboard {
     constructor() {
+        this.numScores = 10; // Number of scores to display on the leaderboard
+
         // Load scores and player name from localStorage or initialize them
         this.scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
         this.playerName = localStorage.getItem('playerName') || null;
@@ -38,14 +40,25 @@ class Leaderboard {
         // Sort scores in descending order
         this.scores.sort((a, b) => b.score - a.score);
 
-        // Limit to the top 10 scores
-        if (this.scores.length > 10) {
-            this.scores = this.scores.slice(0, 10);
+        // Limit to the top n scores
+        if (this.scores.length > this.numScores) {
+            this.scores = this.scores.slice(0, this.numScores);
         }
 
         // Save updated scores
         localStorage.setItem('leaderboardScores', JSON.stringify(this.scores));
         this.updateLeaderboard();
+    }
+
+    /**
+     * Get the lowest score in the leaderboard.
+     */
+    getLowestScore() {
+        // Return 0 if there are open spots on the leaderboard
+        if (this.scores.length < this.numScores) return 0;
+
+        // Return the score of the last entry in the sorted leaderboard
+        return this.scores[this.scores.length - 1].score;
     }
 
     /**
