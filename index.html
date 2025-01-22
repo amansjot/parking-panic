@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/hud.css" />
     <link rel="stylesheet" href="css/bounds.css" />
     <link rel="stylesheet" href="css/modal.css" />
+    <link rel="stylesheet" href="css/overlay.css" />
     <link rel="stylesheet" href="css/spots.css" />
 
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
@@ -76,8 +77,8 @@
               <div class="overlay-header">Leaderboard</div>
               <div class="overlay-content">
                 Local games only. Global leaderboard coming soon!
+                <div class="leaderboard-table"></div>
               </div>
-              <div class="leaderboard-table"></div>
 
               <div
                 id="close-lb-button"
@@ -95,7 +96,7 @@
             <div id="help" class="overlay hidden">
               <div id="controls">
                 <h1 class="overlay-header" id="control-header">Controls</h1>
-                <div class="help-body" id="control-listing">
+                <div class="overlay-content" id="control-listing">
                   <div class="grid-container">
                     <div class="grid-item">
                       <span>Forward:</span>
@@ -177,28 +178,41 @@
                 <h1 class="overlay-header" id="instruction-header">
                   How to Start
                 </h1>
-                <p class="help-body" id="instruction-listing">
+                <p class="overlay-content" id="instruction-listing">
                   Park inside the Easy Mode or Hard Mode spots!<br />
                 </p>
               </div>
 
               <div id="objective">
                 <h1 class="overlay-header" id="objective-header">Objectives</h1>
-                <ol class="help-body" id="objective-listing">
-                  <li>Dodge obstacles</li>
-                  <li>Park in the glowing spot</li>
-                  <li>Don't crash!</li>
+                <ol class="overlay-content" id="objective-listing">
+                  <li class="list-item">Dodge obstacles</li>
+                  <li class="list-item">Park in the glowing spot</li>
+                  <li class="list-item">Don't crash!</li>
                 </ol>
               </div>
 
               <div id="scoring">
                 <h1 class="overlay-header" id="scoring-header">Scoring</h1>
-                <p class="help-body">Game score is updated every round</p>
-                <ol class="help-body" id="scoring-listing">
-                  <li>Under 5 seconds: <span class="text-green">+1000</span> (Easy) / <span class="text-green">+2000</span> (Hard)</li>
-                  <li>Any additional time used is <span class="text-red">-5</span> per second</li>
-                  <li>Minimum round score: <span class="text-green">+500</span> (Easy) / <span class="text-green">+1000</span> (Hard)</li>
-                </ol>
+                <div class="overlay-content">
+                  <p>Game score is updated every round as follows:</p>
+                  <ol class="overlay-content" id="scoring-listing">
+                    <li class="list-item">
+                      Under 5 seconds:
+                      <span class="text-green">+1000</span> (Easy) /
+                      <span class="text-green">+2000</span> (Hard)
+                    </li>
+                    <li class="list-item">
+                      Any additional time used is
+                      <span class="text-red">-5</span> per second
+                    </li>
+                    <li class="list-item">
+                      Minimum round score:
+                      <span class="text-green">+500</span> (Easy) /
+                      <span class="text-green">+1000</span> (Hard)
+                    </li>
+                  </ol>
+                </div>
               </div>
 
               <div
