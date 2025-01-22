@@ -137,6 +137,7 @@ body {
     width: 165px;
     height: 54px;
     font-size: var(--font-sm);
+    background-color: #393737;
     position: absolute;
     display: flex;
     justify-content: center;

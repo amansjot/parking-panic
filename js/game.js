@@ -11,7 +11,7 @@ class Game {
         // Game state variables
         this.unscaledSize = 1000;
         this.gameState = 'start'; // Initial game state
-        this.gamePaused = false;
+        this.gamePaused = true;
         this.gameEnded = false;
         this.overlay = null;
 
@@ -33,6 +33,11 @@ class Game {
      * Initialize the game by starting the update loop and adding event listeners.
      */
     init() {
+        // TODO - Delay the game start to allow for loading
+        setTimeout(() => {
+            this.gamePaused = false;
+        }, 100);
+
         // Main update loop for moving and rotating the car
         setInterval(() => this.updatePlayer(), 10);
 
@@ -225,7 +230,7 @@ class Game {
         this.gameEnded = false;
 
         this.gameState = 'start';
-        $("#scroll-window").css("background-image", "url(./img/starting-lot.png)");
+        $("#scroll-window").css("background-image", "url(./img/game-lot.png)");
         $(".starting-divider, #modal").addClass("hidden");
         $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").addClass('hidden');
         $("#start-buttons, .starting-obstacle, .text, #sirens").removeClass("hidden");
