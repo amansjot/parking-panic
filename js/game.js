@@ -146,13 +146,9 @@ class Game {
      * @param {string} mode - The mode to start the game in.
      */
     startGame(mode = this.gameState) {
-        this.carManager.stopCar();
-        this.statsManager.resetStats(this.gameState);
-
         if (this.gameState == "start") {
             // Change the button color based on the selected mode
             $(`#${mode}-button`).addClass("selected");
-
             $(".starting-obstacle, .text, #sirens").addClass("hidden");
         }
 
@@ -161,10 +157,14 @@ class Game {
 
         // Display the selected game mode (Easy or Hard)
         this.gameState = mode;
-        const gameInfoColor = (this.gameState === "easy-mode") ? "green" : "red";
+
+        this.carManager.stopCar();
+        this.statsManager.resetStats(this.gameState);
 
         $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").removeClass('hidden');
-        $("#game-info").css("color", `var(--${gameInfoColor}-light)`);
+
+        const gameInfoColor = (this.gameState === "easy-mode") ? "green" : "red";
+        $("#game-info").removeClass("text-red text-green").addClass(`text-${gameInfoColor}`);
 
         this.showModal("yellow", "Start!");
 
