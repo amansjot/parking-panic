@@ -92,6 +92,11 @@ body {
     overflow: hidden; /* Ensures content does not overflow */
 }
 
+.button:hover {
+    scale: 1.05;
+    cursor: pointer;
+}
+
 .siren {
     position: absolute;
     height: 90px;
