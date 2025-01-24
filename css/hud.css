@@ -37,7 +37,7 @@
     width: 40px;
 }
 
-#game-buttons {
+#top-left-buttons {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -52,29 +52,38 @@
     background-color: #283749;
     flex-direction: column;
     width: 175px !important;
-    border: 6px solid var(--primary) !important;
+    border: 6px solid var(--primary);
 }
 
 /* Help button styling */
 #help-button {
-    border: 6px solid var(--orange-dark) !important;
+    border: 6px solid var(--orange-dark);
     background-color: var(--orange-bright);
 }
 
 /* Leaderboard button styling */
 #lb-button {
-    border: 6px solid var(--blue-dark) !important;
+    border: 6px solid var(--blue-dark);
     background-color: var(--blue-light);
 }
 
 /* Pause game button styling */
 #pause-game-button {
-    border: 6px solid var(--yellow-dark) !important;
+    border: 6px solid var(--yellow-dark);
     background-color: var(--yellow-bright);
 }
 
 /* Exit game button styling */
 #exit-game-button {
-    border: 6px solid var(--red-dark) !important;
+    border: 6px solid var(--red-dark);
     background-color: var(--red-bright);
+}
+
+.game-button.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.game-button.disabled:hover {
+    scale: 1;
 }

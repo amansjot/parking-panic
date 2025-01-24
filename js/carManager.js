@@ -78,15 +78,16 @@ class CarManager {
         this.playerData.speed.max.reverse = 0;
     }
 
-    triggerExplosion(gameState) {
-        this.stopCar();
-
+    triggerExplosion() {
         // Hide the car and show the explosion over the car
         $("#car-explosion").show();
         $("#car-img").css("visibility", "hidden");
+    }
 
-        // Hide the explosion and show the car again after a short delay
-        setTimeout(() => this.resetCar(gameState), this.explosionDurationMs);
+    hideExplosion() {
+        // Hide the explosion and show the car
+        $("#car-explosion").hide();
+        $("#car-img").css("visibility", "visible");
     }
 
     setSpeed(mode) {
@@ -101,11 +102,14 @@ class CarManager {
         }
     }
 
-    resetCar(mode) {
-        // Hide the explosion and show the car
-        $("#car-explosion").hide();
-        $("#car-img").css("visibility", "visible");
+    isReset() {
+        return this.playerData.position.x === this.startingPosition.x &&
+            this.playerData.position.y === this.startingPosition.y &&
+            this.playerData.position.angle === this.startingPosition.angle;
+    }
 
+    resetCar(mode) {
+        this.hideExplosion();
         this.registerCollision = true;
         this.setSpeed(mode);
         this.playerData.speed.current = 0;

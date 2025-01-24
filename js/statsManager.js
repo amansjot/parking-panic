@@ -1,30 +1,39 @@
 class StatsManager {
+    #lives;
+    #rounds;
+    #score;
+    #time;
+
     constructor() {
         // Lives-related variables
-        this.lives = 0;
+        this.#lives = 0;
 
         // Rounds-related variables
-        this.rounds = 1;
+        this.#rounds = 1;
         this.$round = $("#round-display");
 
         // Score-related variables
-        this.score = 0;
+        this.#score = 0;
 
         // Timer-related variables
-        this.time = 0; // Start the timer at 0
+        this.#time = 0; // Start the timer at 0
         this.$timer = $("#timer-display");
         this.timerInterval = null;
     }
 
     // -------- Lives Management --------
+    getLives() {
+        return this.#lives;
+    }
+
     resetLives(gameState) {
         // Change life count based on mode
-        this.lives = (gameState === "easy-mode") ? 5 : 3;
+        this.#lives = (gameState === "easy-mode") ? 5 : 3;
 
         // Clear existing life icons
         $("#lives-counter").empty();
 
-        for (let i = 0; i < this.lives; i++) {
+        for (let i = 0; i < this.#lives; i++) {
             $("<div class='game-life'><img src='./img/hud/life-icon.png' alt='Life'></div>")
                 .appendTo("#lives-counter");
         }
@@ -32,40 +41,48 @@ class StatsManager {
 
     removeLife() {
         let $lives = $(".game-life");
-        if ($lives.length == this.lives) {
-            $lives[this.lives - 1].remove(); // Remove the last life icon
+        if ($lives.length == this.#lives) {
+            $lives[this.#lives - 1].remove(); // Remove the last life icon
         }
 
-        this.lives -= 1; // Decrease life count
+        this.#lives -= 1; // Decrease life count
     }
 
     // -------- Rounds Management --------
+    getRounds() {
+        return this.#rounds;
+    }
+
     increaseRounds() {
-        this.rounds += 1;
-        this.$round.text("Round " + this.rounds);
+        this.#rounds += 1;
+        this.$round.text("Round " + this.#rounds);
     }
 
     resetRounds() {
-        this.rounds = 1;
-        this.$round.text("Round " + this.rounds);
+        this.#rounds = 1;
+        this.$round.text("Round " + this.#rounds);
     }
 
     // -------- Score Management --------
+    getScore() {
+        return this.#score;
+    }
+
     updateScore(mode) {
         // Double points for hard mode
         let roundScore = (mode === "easy-mode") ? 1000 : 2000;
 
         // Lose 5 points every second after the first 5 seconds
-        if (this.time > 5) {
-            roundScore = Math.max(roundScore / 2, roundScore - 5 * (this.time - 5));
+        if (this.#time > 5) {
+            roundScore = Math.max(roundScore / 2, roundScore - 5 * (this.#time - 5));
         }
 
         // Add to total score
-        this.score += Math.round(roundScore);
+        this.#score += Math.round(roundScore);
     }
 
     resetScore() {
-        this.score = 0;
+        this.#score = 0;
     }
 
     // -------- Timer Management --------
@@ -76,9 +93,9 @@ class StatsManager {
     }
 
     updateTimer() {
-        if (this.time < 3600) {
-            this.time += 1;
-            this.$timer.text(this.formatTime(this.time));
+        if (this.#time < 3600) {
+            this.#time += 1;
+            this.$timer.text(this.formatTime(this.#time));
         }
     }
 
@@ -97,8 +114,8 @@ class StatsManager {
     }
 
     resetTimer() {
-        this.time = 0;
-        this.$timer.text(this.formatTime(this.time));
+        this.#time = 0;
+        this.$timer.text(this.formatTime(this.#time));
     }
 
     // -------- Stats Management --------

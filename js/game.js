@@ -139,11 +139,7 @@ class Game {
 
         // Check if car is in the selected parking spot
         const correctSpot = this.spotManager.checkParkingCompletion();
-        if (correctSpot) {
-            this.gamePaused = true;
-            this.handleRoundWin();
-            return;
-        }
+        if (correctSpot) this.handleRoundWin();
     }
 
     /**
@@ -151,43 +147,37 @@ class Game {
      * @param {string} mode - The mode to start the game in.
      */
     startGame(mode = this.gameState) {
-        if (this.gameState == "start") {
-            // Change the button color based on the selected mode
-            $(`#${mode}-button`).addClass("selected");
-            $(".starting-obstacle, .text, #sirens").addClass("hidden");
-        }
+        this.gameState = mode;
+        this.carManager.stopCar();
+        this.statsManager.resetStats(this.gameState);
+        
+        $(`#${mode}-button`).addClass("selected");
+        $(".starting-obstacle, .text, #sirens").addClass("hidden");
+        $(".game-divider, .game-section").removeClass('hidden');
 
         // Display the game background
         $("#scroll-window").css("background-image", "url(./img/game-lot.png)");
 
-        // Display the selected game mode (Easy or Hard)
-        this.gameState = mode;
-
-        this.carManager.stopCar();
-        this.statsManager.resetStats(this.gameState);
-
-        $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").removeClass('hidden');
-
+        // Change the button color based on the selected mode
         const gameInfoColor = (this.gameState === "easy-mode") ? "green" : "red";
         $("#game-info").removeClass("text-red text-green").addClass(`text-${gameInfoColor}`);
 
         this.showModal("yellow", "Start!");
-
-        setTimeout(() => {
-            if (this.gameState !== "start") this.newRound();
-        }, 700);
+        setTimeout(() => this.newRound(), 700);
     }
 
     /**
      * Set up a new round by resetting obstacles, car position, and game state.
      */
     newRound() {
+        // Prevent starting a new round if the game has been ended
+        if (this.gameState === "start") return;
+
         this.carManager.resetCar(this.gameState);
         this.gamePaused = false;
 
         $(".game-obstacle").remove();
         $("#start-buttons").addClass("hidden");
-        $(".starting-divider").removeClass("hidden");
 
         // Reset lives in easy mode
         if (this.gameState == "easy-mode") this.statsManager.resetLives(this.gameState);
@@ -196,7 +186,7 @@ class Game {
         this.statsManager.resetTimer();
 
         this.spotManager.revertSpot();
-        this.spotManager.updateSpot(this.statsManager.rounds);
+        this.spotManager.updateSpot(this.statsManager.getRounds());
 
         this.obstacleManager.resetObstacles();
         this.obstacleManager.generateAllObstacles(this.gameState, this.spotManager);
@@ -207,13 +197,10 @@ class Game {
      */
     restartGame() {
         $("#modal").addClass("hidden");
+        $(".game-button").removeClass("disabled");
 
-        this.gamePaused = false;
         this.gameEnded = false;
-
-        this.carManager.setSpeed(this.gameState);
         this.statsManager.resetStats(this.gameState);
-
         this.newRound();
     }
 
@@ -223,18 +210,18 @@ class Game {
     exitGame() {
         // Save the score if the game hasn't ended yet
         if (!this.gameEnded && this.leaderboard.playerName) {
-            this.leaderboard.addScore(this.statsManager.score);
+            this.leaderboard.addScore(this.statsManager.getScore());
         }
 
         this.gamePaused = false;
         this.gameEnded = false;
 
         this.gameState = 'start';
-        $("#scroll-window").css("background-image", "url(./img/game-lot.png)");
-        $(".starting-divider, #modal").addClass("hidden");
-        $("#game-info, #pause-game-button, #exit-game-button, #lives-counter").addClass('hidden');
+        $("#scroll-window").css("background-image", "url(./img/starting-lot.png)");
+        $(".game-divider, #modal, .game-section").addClass("hidden");
         $("#start-buttons, .starting-obstacle, .text, #sirens").removeClass("hidden");
         $(".start-button").removeClass("selected");
+        $(".game-button").removeClass("disabled");
 
         this.statsManager.stopTimer();
         this.statsManager.resetTimer();
@@ -251,9 +238,13 @@ class Game {
      * Handle the logic when the player wins a round.
      */
     handleRoundWin() {
-        // Stop the car and trigger confetti
-        this.carManager.stopCar();
+        // Prevent explosions and trigger confetti
+        this.carManager.hideExplosion();
         this.spotManager.triggerConfetti();
+        
+        // Stop the car and trigger confetti
+        this.gamePaused = true;
+        this.carManager.stopCar();
 
         // Increase rounds and update the score
         this.statsManager.increaseRounds();
@@ -268,25 +259,32 @@ class Game {
      */
     handleCollision() {
         this.carManager.stopCar();
-        this.carManager.triggerExplosion(this.gameState);
+        this.carManager.triggerExplosion();
 
+        // If the game is in start mode, don't remove a life
         if (this.gameState !== "start") {
             this.statsManager.removeLife();
-            if (this.statsManager.lives == 0) this.gameOver();
+            if (this.statsManager.getLives() == 0) this.gameOver();
         }
 
-        setTimeout(() => this.carManager.resetCar(this.gameState), 1600);
+        // If the game state hasn't changed, reset the car after the explosion
+        const currGameState = this.gameState;
+        setTimeout(() => {
+            if (this.gameState === currGameState) this.carManager.resetCar(this.gameState);
+        }, this.carManager.explosionDurationMs);
     }
 
     /**
      * End the game when the player runs out of lives.
      */
     gameOver() {
-        const score = this.statsManager.score;
+        const score = this.statsManager.getScore();
 
         this.statsManager.stopTimer();
         this.gamePaused = true;
         this.gameEnded = true;
+
+        $(".game-button").addClass("disabled");
 
         // Ensure player name is set
         if (!this.leaderboard.playerName && score > 0) {
@@ -314,7 +312,7 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
-                this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.score}`, ["#resume-game", "#exit-game"]);
+                this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.getScore()}`, ["#resume-game", "#exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();
@@ -324,12 +322,14 @@ class Game {
     }
 
     confirmExitGame() {
-        const currScore = this.statsManager.score;
+        if (this.gameEnded) return;
+            
+        const currScore = this.statsManager.getScore();
         if (currScore > 0) {
             this.gamePaused = true;
             this.statsManager.stopTimer();
 
-            let modalStr = "Your score (${currScore}) will not be saved.";
+            let modalStr = `Your score (${currScore}) will not be saved.`;
             if (this.leaderboard.playerName && this.leaderboard.getLowestScore() <= currScore) {
                 modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
             }
@@ -406,7 +406,7 @@ class Game {
 
     saveName() {
         const input = $("#player-name").val();
-        const score = this.statsManager.score;
+        const score = this.statsManager.getScore();
 
         if (this.leaderboard.setPlayerName(input.trim())) {
             this.leaderboard.addScore(score);
@@ -421,7 +421,7 @@ class Game {
     }
 
     discardName() {
-        const score = this.statsManager.score;
+        const score = this.statsManager.getScore();
 
         $("#player-name").removeClass("input-invalid");
         this.showModal("red", "Game Over!", `Score: ${score}`, ["#play-again", "#exit-game"]);

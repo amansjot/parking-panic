@@ -243,12 +243,12 @@
           </div>
 
           <div id="hud">
-            <div id="game-buttons">
+            <div id="top-left-buttons">
               <div
                 id="help-button"
                 tabindex="4"
                 data-action="toggleHelp"
-                class="button game-button hud-section"
+                class="button hud-section"
                 title="Help"
                 role="button"
               >
@@ -258,7 +258,7 @@
                 id="lb-button"
                 tabindex="6"
                 data-action="toggleLeaderboard"
-                class="button game-button hud-section"
+                class="button hud-section"
                 title="Leaderboard"
                 role="button"
               >
@@ -272,8 +272,8 @@
                 id="pause-game-button"
                 tabindex="6"
                 data-action="togglePaused"
-                class="button game-button hud-section hidden"
-                title="Pause Game"
+                class="button game-button game-section hud-section hidden"
+                title="Pause/Resume Game"
                 role="button"
               >
                 <img
@@ -287,7 +287,7 @@
                 id="exit-game-button"
                 tabindex="7"
                 data-action="confirmExitGame"
-                class="button game-button hud-section hidden"
+                class="button game-button game-section hud-section hidden"
                 title="Exit Game"
                 role="button"
               >
@@ -297,13 +297,13 @@
                   alt="Exit Game"
                 />
               </div>
-              <div id="game-info" class="hud-section hidden">
+              <div id="game-info" class="game-section hud-section hidden">
                 <div id="round-display">Round 1</div>
                 <div id="timer-display">00:00</div>
               </div>
             </div>
 
-            <div id="lives-counter" class="hidden"></div>
+            <div id="lives-counter" class="game-section hidden"></div>
           </div>
 
           <div id="modal" class="hidden">
@@ -380,16 +380,16 @@
 
           <div id="map-parking-dividers">
             <div
-              class="divider starting-divider hidden"
+              class="divider game-divider hidden"
               id="top-left-divider"
             ></div>
             <div
-              class="divider starting-divider hidden"
+              class="divider game-divider hidden"
               id="top-right-divider"
             ></div>
             <div class="divider" id="bottom-left-divider"></div>
             <div
-              class="divider starting-divider hidden"
+              class="divider game-divider hidden"
               id="bottom-right-divider"
             ></div>
           </div>
