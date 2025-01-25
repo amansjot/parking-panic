@@ -90,6 +90,12 @@ class CarManager {
         $("#car-img").css("visibility", "visible");
     }
 
+    // Show the confetti, then hide it after 400 ms
+    triggerConfetti() {
+        $("#car-confetti").removeClass("hidden");
+        setTimeout(() => $("#car-confetti").addClass("hidden"), 400);
+    }
+
     setSpeed(mode) {
         if (mode === "hard-mode") {
             this.playerData.speed.max.forward = 2.5;
@@ -100,12 +106,6 @@ class CarManager {
             this.playerData.speed.max.reverse = 1.5;
             this.playerData.speed.max.rotation = 2;
         }
-    }
-
-    isReset() {
-        return this.playerData.position.x === this.startingPosition.x &&
-            this.playerData.position.y === this.startingPosition.y &&
-            this.playerData.position.angle === this.startingPosition.angle;
     }
 
     resetCar(mode) {

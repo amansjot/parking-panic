@@ -128,7 +128,10 @@ class Game {
 
         // Check for collisions with obstacles
         const collision = this.collisionHandler.checkCollisions(this.carManager.playerData);
-        if (this.carManager.registerCollision && collision) this.handleCollision();
+        if (this.carManager.registerCollision && collision) {
+            this.handleCollision();
+            return;
+        }
 
         // Check if the car is contained within the mode buttons
         if (this.gameState == "start") {
@@ -150,7 +153,7 @@ class Game {
         this.gameState = mode;
         this.carManager.stopCar();
         this.statsManager.resetStats(this.gameState);
-        
+
         $(`#${mode}-button`).addClass("selected");
         $(".starting-obstacle, .text, #sirens").addClass("hidden");
         $(".game-divider, .game-section").removeClass('hidden');
@@ -163,7 +166,10 @@ class Game {
         $("#game-info").removeClass("text-red text-green").addClass(`text-${gameInfoColor}`);
 
         this.showModal("yellow", "Start!");
-        setTimeout(() => this.newRound(), 700);
+        setTimeout(() => {
+            $("#start-buttons").addClass("hidden");
+            this.newRound();
+        }, 700);
     }
 
     /**
@@ -173,11 +179,9 @@ class Game {
         // Prevent starting a new round if the game has been ended
         if (this.gameState === "start") return;
 
-        this.carManager.resetCar(this.gameState);
         this.gamePaused = false;
-
-        $(".game-obstacle").remove();
-        $("#start-buttons").addClass("hidden");
+        this.carManager.resetCar(this.gameState);
+        this.obstacleManager.resetObstacles();
 
         // Reset lives in easy mode
         if (this.gameState == "easy-mode") this.statsManager.resetLives(this.gameState);
@@ -201,7 +205,15 @@ class Game {
 
         this.gameEnded = false;
         this.statsManager.resetStats(this.gameState);
-        this.newRound();
+        this.obstacleManager.resetObstacles();
+
+        this.showModal("yellow", "Start!");
+        this.gamePaused = false;
+        this.carManager.resetCar(this.gameState);
+        this.spotManager.revertSpot();
+
+        setTimeout(() => this.gamePaused = true, 100);
+        setTimeout(() => this.newRound(), 700);
     }
 
     /**
@@ -238,13 +250,13 @@ class Game {
      * Handle the logic when the player wins a round.
      */
     handleRoundWin() {
-        // Prevent explosions and trigger confetti
-        this.carManager.hideExplosion();
-        this.spotManager.triggerConfetti();
-        
-        // Stop the car and trigger confetti
+        // Stop the car
         this.gamePaused = true;
         this.carManager.stopCar();
+
+        // Prevent explosions and trigger confetti
+        this.carManager.hideExplosion();
+        this.carManager.triggerConfetti();
 
         // Increase rounds and update the score
         this.statsManager.increaseRounds();
@@ -264,13 +276,18 @@ class Game {
         // If the game is in start mode, don't remove a life
         if (this.gameState !== "start") {
             this.statsManager.removeLife();
-            if (this.statsManager.getLives() == 0) this.gameOver();
+            if (this.statsManager.getLives() == 0) {
+                this.gameOver();
+                return;
+            }
         }
 
         // If the game state hasn't changed, reset the car after the explosion
         const currGameState = this.gameState;
         setTimeout(() => {
-            if (this.gameState === currGameState) this.carManager.resetCar(this.gameState);
+            if (this.gameState === currGameState) {
+                this.carManager.resetCar(this.gameState);
+            }
         }, this.carManager.explosionDurationMs);
     }
 
@@ -323,7 +340,7 @@ class Game {
 
     confirmExitGame() {
         if (this.gameEnded) return;
-            
+
         const currScore = this.statsManager.getScore();
         if (currScore > 0) {
             this.gamePaused = true;

@@ -40,12 +40,6 @@ class SpotManager {
         $(this.spotID).addClass("highlighted-spot");
     }
 
-    // Show the confetti, then hide it after 400 ms
-    triggerConfetti() {
-        $("#car-confetti").removeClass("hidden");
-        setTimeout(() => $("#car-confetti").addClass("hidden"), 400);
-    }
-
     // Check if the car is correctly parked in the current spot
     checkParkingCompletion() {
         const leeway = 1; // Allow for 1px of leeway
