@@ -39,23 +39,13 @@
 }
 
 /* Body Styling */
-/* Reset margin to 0 to remove default spacing */
 body {
     margin: 0;
     color: var(--secondary);
     font-family: var(--primary-font);
+    background-color: var(--primary);
+    text-align: center;
     overflow: hidden;
-}
-
-/* Container */
-/* Main container for the game, ensuring full width and height */
-#container {
-    width: 100%;
-    height: 100vh;
-    overflow-y: auto; /* Allow vertical scroll if content exceeds height */
-    background-color: var(--primary); /* previously rgb(65, 65, 65); */
-    text-align: center; /* Center align text */
-    position: relative;
 }
 
 /* Project title styling */
@@ -67,29 +57,25 @@ body {
     transform: translate(-50%, 0);
 }
 
-#title {
+.border-black {
+    border: 1px solid var(--primary);
+}
+
+.border-white {
+    border: 1px solid var(--secondary);
+}
+
+.parking-panic {
     top: 190px;
     font-size: var(--font-xl);
     line-height: 1.1;
 }
 
-#subtitle {
+.game-subtitle {
     top: 410px;
     font-size: var(--font-md);
     color: var(--yellow-light);
     font-family: var(--secondary-font);
-}
-
-/* Game window container */
-/* Defines the area where the game elements will be displayed */
-#window {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100vh; /* Fills available height */
-    overflow: hidden; /* Ensures content does not overflow */
 }
 
 .button:hover {
@@ -103,33 +89,53 @@ body {
     top: 326px;
 }
 
-#siren-1 {
+.left-siren {
     left: 250px;
 }
 
-#siren-2 {
+.right-siren {
     right: 250px;
 }
 
 /* Scrollable game window container */
 /* Central game window with fixed size and background */
-#scroll-window {
+#game-window {
     position: relative;
     margin: auto;
-    width: 1000px; /* Fixed size for the game window */
+    width: 1000px;
     height: 1000px;
-    min-height: 1000px; /* Prevents shrinking below this size */
+    min-height: 1000px;
     min-width: 1000px;
-    border-radius: 5px; /* Rounded corners */
-    transform-origin: top left; /* Set the origin for scaling or transforms */
-    border: 1px solid var(--secondary); /* White border around the game window */
-    box-sizing: content-box;
-    background-image: url(../img/starting-lot.png); /* Background image */
+    border-radius: 5px;
+    transform-origin: top left;
+    box-sizing: border-box;
     background-size: contain;
+    
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    opacity: 0; /* Hidden initially */
+    transition: opacity 1s ease-in-out;
+}
+
+#game-window.visible {
+    background-image: url(../img/loading-lot.png);
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#startup-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: var(--z-overlay);
+    
+    background-color: rgba(0, 0, 0, 1); /* Full black background initially */
+    opacity: 1; /* Hidden initially */
+    
+    pointer-events: none; /* Ensures interactions pass through to parent */
 }
 
 /* Button styling for start and game buttons */
@@ -148,10 +154,13 @@ body {
 /* Animation: glowing red effect */
 @keyframes glow-red {
     from {
-        box-shadow: 0 0 3px 3px var(--red-light); /* Initial shadow */
+        box-shadow: 0 0 3px 3px var(--red-light);
+        /* Initial shadow */
     }
+
     to {
-        box-shadow: 0 0 8px 8px var(--red-light); /* Final shadow */
+        box-shadow: 0 0 8px 8px var(--red-light);
+        /* Final shadow */
     }
 }
 
@@ -160,6 +169,7 @@ body {
     from {
         box-shadow: 0 0 3px 3px var(--green-light);
     }
+
     to {
         box-shadow: 0 0 8px 8px var(--green-light);
     }
@@ -170,6 +180,7 @@ body {
     from {
         box-shadow: 0 0 1px 1px var(--yellow-light);
     }
+
     to {
         box-shadow: 0 0 4px 4px var(--yellow-light);
     }
@@ -180,6 +191,7 @@ body {
     from {
         box-shadow: 0 0 1px 1px var(--secondary);
     }
+
     to {
         box-shadow: 0 0 4px 4px var(--secondary);
     }
@@ -191,7 +203,8 @@ body {
     top: 563px;
     left: 620px;
     color: var(--green-light);
-    animation: glow-green 0.7s infinite alternate; /* Green glow animation */
+    animation: glow-green 0.7s infinite alternate;
+    /* Green glow animation */
 }
 
 /* Hard mode button styling */
@@ -200,7 +213,8 @@ body {
     top: 630px;
     left: 620px;
     color: var(--red-light);
-    animation: glow-red 0.7s infinite alternate; /* Red glow animation */
+    animation: glow-red 0.7s infinite alternate;
+    /* Red glow animation */
 }
 
 .selected#easy-mode-button {
@@ -216,24 +230,67 @@ body {
 }
 
 .spotlight {
-    position: absolute; /* Position relative to the car div */
-    top: 50%; /* Center the spotlight vertically */
-    left: 50%; /* Center the spotlight horizontally */
-    transform: translate(-50%, -50%); /* Offset by half of its size for perfect centering */
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7); /* Create a fake overlay effect */
-    background-color: transparent; /* Semi-transparent red spotlight */
+    position: absolute;
+    /* Position relative to the car div */
+    top: 50%;
+    /* Center the spotlight vertically */
+    left: 50%;
+    /* Center the spotlight horizontally */
+    transform: translate(-50%, -50%);
+    /* Offset by half of its size for perfect centering */
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+    /* Create a fake overlay effect */
+    background-color: transparent;
+    /* Semi-transparent red spotlight */
     z-index: var(--z-overlay);
-    pointer-events: none; /* Ensure the spotlight does not interfere with pointer events */
+    pointer-events: none;
+    /* Ensure the spotlight does not interfere with pointer events */
 }
 
 #car-spotlight {
-    width: 200px; /* Spotlight diameter */
-    height: 200px; /* Spotlight diameter */
-    border-radius: 50%; /* Make it a circle */
+    width: 200px;
+    /* Spotlight diameter */
+    height: 200px;
+    /* Spotlight diameter */
+    border-radius: 50%;
+    /* Make it a circle */
 }
 
 #subtitle-spotlight {
-    width: 90%; /* Spotlight diameter */
-    height: 100%; /* Spotlight diameter */
+    width: 90%;
+    /* Spotlight diameter */
+    height: 100%;
+    /* Spotlight diameter */
     padding: 20px;
+}
+
+#loading-container {
+    margin: 560px auto;
+    width: 400px;
+    height: 100px;
+    color: var(--yellow-light);
+}
+
+/* Outer border */
+#loading-bar {
+    width: 100%;
+    height: 30px;
+    border: 4px solid white;
+    background-color: black;
+    image-rendering: pixelated;
+}
+
+/* Pixelated progress bar */
+.progress {
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        white,
+        white 10px,
+        black 10px,
+        black 20px
+    );
+    width: 0%;
+    transition: width 0.2s linear;
+    image-rendering: pixelated;
 }
