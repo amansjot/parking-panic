@@ -157,7 +157,7 @@ class Game {
             $("#game-window").css("background-image", "url(./img/starting-lot.png)");
         }, 100);
         setTimeout(() => {
-            $("#game-window").css("background-image", "url(../img/loading-lot.png)");
+            $("#game-window").css("background-image", "url(./img/loading-lot.png)");
         }, 150);
     
         // Step 2: Fade in #game-window at 200ms while hiding certain UI elements
@@ -198,7 +198,7 @@ class Game {
     }
 
     initStartScreen() {
-        $("#game-window").css("background-image", "url(../img/starting-lot.png)");
+        $("#game-window").css("background-image", "url(./img/starting-lot.png)");
         $("#game-window").removeClass("border-black").addClass("border-white");
         $("#loading-container").addClass("hidden");
         $(".starting-obstacle, #start-buttons, .game-subtitle, #car").animate({ opacity: 1 }, 500);
