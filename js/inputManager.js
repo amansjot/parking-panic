@@ -44,15 +44,33 @@ class InputManager {
     handleKeyDown(e) {
         const key = e.key.toLowerCase();
 
+        // Secret shortcuts for auto-starting: Ctrl+Shift+E / Ctrl+Shift+H
+        if (e.ctrlKey || e.metaKey) { // Check for Ctrl (Windows) or Cmd (Mac)
+            if (e.shiftKey) { // Check if Shift is also pressed
+                if (key === 'e') { // Ctrl+Shift+E for Easy Mode
+                    e.preventDefault(); // Prevent browser behavior
+                    if (this.game.gameState === "loading") this.game.initStartScreen();
+                    this.game.startGame('easy-mode');
+                    return;
+                }
+                if (key === 'h') { // Ctrl+Shift+H for Hard Mode
+                    e.preventDefault(); // Prevent browser behavior
+                    if (this.game.gameState === "loading") this.game.initStartScreen();
+                    this.game.startGame('hard-mode');
+                    return;
+                }
+            }
+        }
+
+        // If game is loading, don't allow any input
+        if (this.game.gameState === "loading") return;
+
         // Enter key goes to save name input
         if (this.inputFocused) {
             if (key == "enter") $("#save-name").focus();
             if (key === " ") e.preventDefault();
             return;
         }
-
-        // If game is loading, don't allow any input
-        if (this.game.gameState === "loading") this.game.initStartScreen();
         
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {
@@ -60,22 +78,6 @@ class InputManager {
                 key == 'l' && this.game.overlay === "leaderboard" ||
                 key == "escape") this.game.closeOverlay();
             return;
-        }
-
-        // Secret shortcuts for auto-starting: Ctrl+Shift+E / Ctrl+Shift+H
-        if (e.ctrlKey || e.metaKey) { // Check for Ctrl (Windows) or Cmd (Mac)
-            if (e.shiftKey) { // Check if Shift is also pressed
-                if (key === 'e') { // Ctrl+Shift+E for Easy Mode
-                    e.preventDefault(); // Prevent browser behavior
-                    this.game.startGame('easy-mode');
-                    return;
-                }
-                if (key === 'h') { // Ctrl+Shift+H for Hard Mode
-                    e.preventDefault(); // Prevent browser behavior
-                    this.game.startGame('hard-mode');
-                    return;
-                }
-            }
         }
 
         // Set the key state to true when a key is pressed
@@ -117,7 +119,7 @@ class InputManager {
         const key = e.key.toLowerCase();
 
         // If game is loading, don't allow any input
-        if (this.game.gameState === "loading") this.game.initStartScreen();
+        if (this.game.gameState === "loading") return;
 
         // Set the key state to false when the key is released
         if (this.keys.hasOwnProperty(key) || this.keys.hasOwnProperty(e.code)) {
