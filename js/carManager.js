@@ -1,6 +1,6 @@
 class CarManager {
     constructor() {
-        this.explosionDurationMs = 1610;
+        this.explosionDurationMs = 1500;
         this.registerCollision = true;
         this.startingPosition = { x: 240, y: 900, angle: 0 };
 
@@ -79,9 +79,12 @@ class CarManager {
     }
 
     triggerExplosion() {
-        // Hide the car and show the explosion over the car
-        $("#car-explosion").show();
         $("#car-img").css("visibility", "hidden");
+
+        let explosion = $("#car-explosion");
+        let src = explosion.attr("src");
+        explosion.attr("src", "").hide(); // Clear the src temporarily
+        setTimeout(() => explosion.attr("src", src).show(), 10); // Restore it to restart the GIF
     }
 
     hideExplosion() {

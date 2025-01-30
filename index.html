@@ -26,7 +26,7 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
   </head>
 
   <body tabindex="8">
@@ -118,55 +118,55 @@
               <div class="grid-container">
                 <div class="grid-item">
                   <span>Forward:</span>
-                  <img src="img/keyboard-keys/key-W.svg" alt="W Key" />
+                  <img src="./img/keyboard-keys/key-W.svg" alt="W Key" />
                   or
                   <img
-                    src="img/keyboard-keys/arrow-up.svg"
+                    src="./img/keyboard-keys/arrow-up.svg"
                     alt="Up Arrow Key"
                   />
                 </div>
 
                 <div class="grid-item">
                   <span>Headlights:</span>
-                  <img src="img/keyboard-keys/key-H.svg" alt="H Key" />
+                  <img src="./img/keyboard-keys/key-H.svg" alt="H Key" />
                 </div>
 
                 <div class="grid-item">
                   <span>Backward:</span>
-                  <img src="img/keyboard-keys/key-S.svg" alt="S Key" />
+                  <img src="./img/keyboard-keys/key-S.svg" alt="S Key" />
                   or
                   <img
-                    src="img/keyboard-keys/arrow-down.svg"
+                    src="./img/keyboard-keys/arrow-down.svg"
                     alt="Down Arrow Key"
                   />
                 </div>
 
                 <div class="grid-item">
                   <span>Horn:</span>
-                  <img src="img/keyboard-keys/key-G.svg" alt="G Key" />
+                  <img src="./img/keyboard-keys/key-G.svg" alt="G Key" />
                 </div>
 
                 <div class="grid-item">
                   <span>Left:</span>
-                  <img src="img/keyboard-keys/key-A.svg" alt="A Key" />
+                  <img src="./img/keyboard-keys/key-A.svg" alt="A Key" />
                   or
                   <img
-                    src="img/keyboard-keys/arrow-left.svg"
+                    src="./img/keyboard-keys/arrow-left.svg"
                     alt="Left Arrow Key"
                   />
                 </div>
 
                 <div class="grid-item">
                   <span>Pause Game:</span>
-                  <img src="img/keyboard-keys/dot.svg" alt=". Key" />
+                  <img src="./img/keyboard-keys/dot.svg" alt=". Key" />
                 </div>
 
                 <div class="grid-item">
                   <span>Right:</span>
-                  <img src="img/keyboard-keys/key-D.svg" alt="D Key" />
+                  <img src="./img/keyboard-keys/key-D.svg" alt="D Key" />
                   or
                   <img
-                    src="img/keyboard-keys/arrow-right.svg"
+                    src="./img/keyboard-keys/arrow-right.svg"
                     alt="Right Arrow Key"
                   />
                 </div>
@@ -174,19 +174,19 @@
                 <div class="grid-item">
                   <span>Exit Game:</span>
                   <img
-                    src="img/keyboard-keys/backspace.svg"
+                    src="./img/keyboard-keys/backspace.svg"
                     alt="Backspace Key"
                   />
                 </div>
 
                 <div class="grid-item">
                   <span>Leaderboard:</span>
-                  <img src="img/keyboard-keys/key-L.svg" alt="L Key" />
+                  <img src="./img/keyboard-keys/key-L.svg" alt="L Key" />
                 </div>
 
                 <div class="grid-item">
                   <span>Help:</span>
-                  <img src="img/keyboard-keys/slash.svg" alt="/ Key" />
+                  <img src="./img/keyboard-keys/slash.svg" alt="/ Key" />
                 </div>
               </div>
             </div>
@@ -247,15 +247,15 @@
 
       <div id="car">
         <div id="car-spotlight" class="spotlight hidden"></div>
-        <img id="car-img" src="img/player-car.png" alt="Car" />
+        <img id="car-img" src="./img/player-car.png" alt="Car" />
         <div id="player-hitbox" class="hitbox"></div>
-        <div id="car-explosion" class="car-effect hidden"></div>
+        <img id="car-explosion" src="./img/gifs/explosion.gif" class="car-effect hidden" />
         <div id="car-confetti" class="car-effect hidden"></div>
         <div id="headlights" class="hidden">
           <div class="headlight" id="left-headlight"></div>
           <div class="headlight" id="right-headlight"></div>
         </div>
-        <audio id="horn-sound" src="img/sounds/horn.mp3"></audio>
+        <audio id="horn-sound" src="./img/sounds/horn.mp3"></audio>
       </div>
 
       <div id="hud">
@@ -268,7 +268,7 @@
             title="Help"
             role="button"
           >
-            <img class="hud-icon" src="img/hud/help-icon.svg" alt="Help" />
+            <img class="hud-icon" src="./img/hud/help-icon.svg" alt="Help" />
           </div>
           <div
             id="lb-button"
@@ -278,7 +278,7 @@
             title="Leaderboard"
             role="button"
           >
-            <img class="hud-icon" src="img/hud/lb-icon.svg" alt="Leaderboard" />
+            <img class="hud-icon" src="./img/hud/lb-icon.svg" alt="Leaderboard" />
           </div>
           <div
             id="pause-game-button"
@@ -291,7 +291,7 @@
             <img
               class="hud-icon"
               id="pause-play-icon"
-              src="img/hud/pause-icon.svg"
+              src="./img/hud/pause-icon.svg"
               alt="Pause Game"
             />
           </div>
@@ -303,7 +303,7 @@
             title="Exit Game"
             role="button"
           >
-            <img class="hud-icon" src="img/hud/exit-icon.svg" alt="Exit Game" />
+            <img class="hud-icon" src="./img/hud/exit-icon.svg" alt="Exit Game" />
           </div>
           <div id="game-info" class="game-section hud-section hidden">
             <div id="round-display">Round 1</div>
@@ -410,7 +410,7 @@
         <div class="starting-obstacle cone-obstacle" id="cone-0">
           <img
             class="cone-img"
-            src="img/obstacles/cone.png"
+            src="./img/obstacles/cone.png"
             alt="Traffic Cone"
           />
           <div class="cone-hitbox hitbox"></div>
@@ -419,7 +419,7 @@
         <div class="starting-obstacle cone-obstacle" id="cone-1">
           <img
             class="cone-img"
-            src="img/obstacles/cone.png"
+            src="./img/obstacles/cone.png"
             alt="Traffic Cone"
           />
           <div class="cone-hitbox hitbox"></div>
@@ -428,14 +428,14 @@
         <div class="starting-obstacle dumpster-obstacle" id="dumpster-0">
           <img
             class="dumpster-img"
-            src="img/obstacles/dumpster.png"
+            src="./img/obstacles/dumpster.png"
             alt="Dumpster"
           />
           <div class="dumpster-hitbox hitbox"></div>
         </div>
 
         <div class="starting-obstacle car-obstacle" id="car-0">
-          <img class="car-img" src="img/obstacles/car4.png" alt="Parked Car" />
+          <img class="car-img" src="./img/obstacles/car4.png" alt="Parked Car" />
           <div class="car-hitbox hitbox"></div>
         </div>
       </div>

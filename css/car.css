@@ -55,7 +55,6 @@
     height: 100px; /* Explosion image size */
     top: -10px; /* Slight adjustment to place it over the car */
     left: -30px; /* Slight adjustment to place it over the car */
-    background-image: url(../img/gifs/explosion.gif);
 }
 
 /* Car Confetti Effect */

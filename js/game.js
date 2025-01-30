@@ -35,8 +35,6 @@ class Game {
     init() {
         // Resize the game window
         if (this.resize()) {
-            console.log("x");
-
             // Load the game
             this.loadGame();
 
