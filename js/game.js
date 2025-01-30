@@ -10,7 +10,7 @@ class Game {
     constructor() {
         // Game state variables
         this.unscaledSize = 1000;
-        this.gameState = 'start'; // Initial game state
+        this.gameState = 'loading'; // Initial game state
         this.gamePaused = true;
         this.gameEnded = false;
         this.overlay = null;
@@ -33,17 +33,17 @@ class Game {
      * Initialize the game by starting the update loop and adding event listeners.
      */
     init() {
-        // TODO - Delay the game start to allow for loading
-        setTimeout(() => {
-            this.gamePaused = false;
-        }, 100);
+        // Resize the game window
+        if (this.resize()) {
+            // Load the game
+            this.loadGame();
 
-        // Main update loop for moving and rotating the car
-        setInterval(() => this.updatePlayer(), 10);
+            // Initialize event listeners
+            this.addEventListeners();
 
-        // Initialize event listeners and resizing
-        this.addEventListeners();
-        this.resize();
+            // Main update loop for moving and rotating the car
+            setInterval(() => this.updatePlayer(), 10);
+        }
     }
 
     /**
@@ -103,7 +103,7 @@ class Game {
         let marginTop = (height - newSize) / 2;
 
         // Apply scale and centering to the game window and controls
-        $('#scroll-window').css({
+        $('#game-window').css({
             transform: `scale(${scale})`,
             marginLeft: `${marginLeft}px`,
             marginTop: `${marginTop}px`
@@ -111,6 +111,9 @@ class Game {
 
         // Update the scale in the collision detection module
         this.collisionHandler.updateScale(scale);
+
+        // Return true when complete
+        return true;
     }
 
     /**
@@ -145,6 +148,65 @@ class Game {
         if (correctSpot) this.handleRoundWin();
     }
 
+    loadGame() {
+        // Step 1: Quickly cycle through all background images to preload them
+        setTimeout(() => {
+            $("#game-window").css("background-image", "url(./img/game-lot.png)");
+        }, 50);
+        setTimeout(() => {
+            $("#game-window").css("background-image", "url(./img/starting-lot.png)");
+        }, 100);
+        setTimeout(() => {
+            $("#game-window").css("background-image", "url(../img/loading-lot.png)");
+        }, 150);
+    
+        // Step 2: Fade in #game-window at 200ms while hiding certain UI elements
+        setTimeout(() => {
+            $(".starting-obstacle, #start-buttons, .game-subtitle, #car").css("opacity", "0"); // Hide UI elements
+            $("#game-window").animate({ opacity: 1 }, 1000); // Smooth fade-in over 1 second
+        }, 200); 
+    
+        // Step 3: Fade out the startup screen at 3s and start the loading bar animation
+        setTimeout(() => {
+            $("#startup-screen").animate({ opacity: 0 }, 500); // Smooth fade-out of startup screen
+            $("#game-window").addClass("border-black"); // Add a border after startup fades out
+            this.initLoadingBar(7000); // Start the loading bar animation (7s duration)
+        }, 3000);
+    
+        // Step 4: After 10 seconds, transition to the main game screen if still in the "loading" state
+        setTimeout(() => {
+            if (this.gameState === "loading") this.initStartScreen(); // Move to the next phase
+        }, 10000);
+    }    
+
+    initLoadingBar(time) {
+        let progress = 0;
+        const interval = 50; // Update every 50ms
+        const increment = 100 / (time / interval); // Dynamically calculated increment
+
+        function updateProgress() {
+            if (progress >= 100) {
+                clearInterval(loadingInterval); // Stop updates when 100% is reached
+                return;
+            }
+            progress += increment;
+            $(".progress").css("width", progress + "%");
+        }
+
+        // Run updateProgress() every 50ms
+        let loadingInterval = setInterval(updateProgress, interval);
+    }
+
+    initStartScreen() {
+        $("#game-window").css("background-image", "url(../img/starting-lot.png)");
+        $("#game-window").removeClass("border-black").addClass("border-white");
+        $("#loading-container").addClass("hidden");
+        $(".starting-obstacle, #start-buttons, .game-subtitle, #car").animate({ opacity: 1 }, 500);
+        this.gamePaused = false;
+        this.gameState = 'start';
+        this.carManager.resetCar(this.gameState);
+    }
+
     /**
      * Start the game in the selected mode (easy or hard).
      * @param {string} mode - The mode to start the game in.
@@ -155,11 +217,11 @@ class Game {
         this.statsManager.resetStats(this.gameState);
 
         $(`#${mode}-button`).addClass("selected");
-        $(".starting-obstacle, .text, #sirens").addClass("hidden");
+        $(".starting-obstacle, .text, .sirens, #loading-container").addClass("hidden");
         $(".game-divider, .game-section").removeClass('hidden');
 
         // Display the game background
-        $("#scroll-window").css("background-image", "url(./img/game-lot.png)");
+        $("#game-window").css("background-image", "url(./img/game-lot.png)");
 
         // Change the button color based on the selected mode
         const gameInfoColor = (this.gameState === "easy-mode") ? "green" : "red";
@@ -229,9 +291,9 @@ class Game {
         this.gameEnded = false;
 
         this.gameState = 'start';
-        $("#scroll-window").css("background-image", "url(./img/starting-lot.png)");
+        $("#game-window").css("background-image", "url(./img/starting-lot.png)");
         $(".game-divider, #modal, .game-section").addClass("hidden");
-        $("#start-buttons, .starting-obstacle, .text, #sirens").removeClass("hidden");
+        $("#start-buttons, .starting-obstacle, .text, .sirens").removeClass("hidden");
         $(".start-button").removeClass("selected");
         $(".game-button").removeClass("disabled");
 
@@ -329,7 +391,7 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 this.statsManager.stopTimer();
-                this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.getScore()}`, ["#resume-game", "#exit-game"]);
+                this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.getScore()}`, ["#resume-game", "#confirm-exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 this.statsManager.startTimer();

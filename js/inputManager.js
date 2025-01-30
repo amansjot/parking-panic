@@ -51,6 +51,9 @@ class InputManager {
             return;
         }
 
+        // If game is loading, don't allow any input
+        if (this.game.gameState === "loading") this.game.initStartScreen();
+        
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {
             if (key == '/' && this.game.overlay === "help" ||
@@ -112,6 +115,9 @@ class InputManager {
     // Function to handle keyup events
     handleKeyUp(e) {
         const key = e.key.toLowerCase();
+
+        // If game is loading, don't allow any input
+        if (this.game.gameState === "loading") this.game.initStartScreen();
 
         // Set the key state to false when the key is released
         if (this.keys.hasOwnProperty(key) || this.keys.hasOwnProperty(e.code)) {

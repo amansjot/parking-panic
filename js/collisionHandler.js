@@ -37,15 +37,15 @@ class CollisionHandler {
     // Method to get the bounding rect of an element, adjusted for scaling
     getElementRect(element) {
         const rect = element.getBoundingClientRect(); // Get the element's bounding box
-        const scrollWindow = document.getElementById('scroll-window'); // Get the scroll window's bounding box
-        const scrollRect = scrollWindow.getBoundingClientRect();
+        const gameWindow = $('#game-window')[0]; // Get the scroll window's bounding box
+        const gameRect = gameWindow.getBoundingClientRect();
 
         // Return adjusted bounding box values based on scaling
         return {
-            left: (rect.left - scrollRect.left) / this.currentScale,
-            top: (rect.top - scrollRect.top) / this.currentScale,
-            right: (rect.right - scrollRect.left) / this.currentScale,
-            bottom: (rect.bottom - scrollRect.top) / this.currentScale,
+            left: (rect.left - gameRect.left) / this.currentScale,
+            top: (rect.top - gameRect.top) / this.currentScale,
+            right: (rect.right - gameRect.left) / this.currentScale,
+            bottom: (rect.bottom - gameRect.top) / this.currentScale,
             width: rect.width / this.currentScale,
             height: rect.height / this.currentScale
         };

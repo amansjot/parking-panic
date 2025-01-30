@@ -3,6 +3,15 @@
   <head>
     <title>Parking Panic</title>
 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/obstacles.css" />
     <link rel="stylesheet" href="css/car.css" />
@@ -12,427 +21,422 @@
     <link rel="stylesheet" href="css/overlay.css" />
     <link rel="stylesheet" href="css/spots.css" />
 
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-
     <script type="module" src="js/main.js"></script>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
   <body tabindex="8">
-    <div id="container">
-      <div id="window">
-        <div id="scroll-window">
-          <div id="start-screen">
-            <h1 class="text" id="title">Parking Panic</h1>
-            <h3 class="text" id="subtitle">
-              <div class="spotlight hidden" id="subtitle-spotlight"></div>
-              Drive into the glowing parking spots to start!
-            </h3>
+    <div id="game-window">
+      <div id="startup-screen">
+        <h1 class="text parking-panic startup-title">Parking Panic</h1>
+        <div class="sirens startup-sirens">
+          <img
+            class="siren left-siren startup-siren"
+            alt="Siren"
+            src="./img/siren-icon.png"
+          />
+          <img
+            class="siren right-siren startup-siren"
+            alt="Siren"
+            src="./img/siren-icon.png"
+          />
+        </div>
+      </div>
 
-            <div id="sirens">
-              <img
-                class="siren"
-                id="siren-1"
-                alt="Siren"
-                src="./img/siren-icon.png"
-              />
-              <img
-                class="siren"
-                id="siren-2"
-                alt="Siren"
-                src="./img/siren-icon.png"
-              />
-            </div>
+      <div id="loading-container">
+        <h1>Loading...</h1>
+        <div id="loading-bar">
+          <div class="progress"></div>
+        </div>
+      </div>
 
-            <div id="start-buttons">
-              <div class="start-button transparent" id="easy-mode-button">
-                Easy Mode
-              </div>
-              <div class="start-button transparent" id="hard-mode-button">
-                Hard Mode
-              </div>
-            </div>
+      <div id="start-screen">
+        <h1 class="text parking-panic game-text game-title">Parking Panic</h1>
+        <h3 class="text game-text game-subtitle">
+          <div class="spotlight hidden" id="subtitle-spotlight"></div>
+          Drive into the glowing parking spots to start!
+        </h3>
+
+        <div class="sirens game-sirens">
+          <img
+            class="siren left-siren game-siren"
+            alt="Siren"
+            src="./img/siren-icon.png"
+          />
+          <img
+            class="siren right-siren game-siren"
+            alt="Siren"
+            src="./img/siren-icon.png"
+          />
+        </div>
+
+        <div id="start-buttons">
+          <div class="start-button transparent" id="easy-mode-button">
+            Easy Mode
+          </div>
+          <div class="start-button transparent" id="hard-mode-button">
+            Hard Mode
+          </div>
+        </div>
+      </div>
+
+      <div class="overlays">
+        <div
+          id="overlay-screen"
+          data-action="closeOverlay"
+          class="hidden"
+        ></div>
+
+        <div id="leaderboard" class="overlay hidden">
+          <h1 class="overlay-header">Leaderboard</h1>
+          <div class="overlay-content">
+            Local games only. Global leaderboard coming soon!
+            <div class="leaderboard-table"></div>
           </div>
 
-          <div class="overlays">
-            <div
-              id="overlay-screen"
-              data-action="closeOverlay"
-              class="hidden"
-            ></div>
+          <div
+            id="close-lb-button"
+            class="button close-overlay-button"
+            data-action="toggleLeaderboard"
+            role="button"
+            title="Close"
+            aria-label="Close Leaderboard"
+            tabindex="0"
+          >
+            X
+          </div>
+        </div>
 
-            <div id="leaderboard" class="overlay hidden">
-              <div class="overlay-header">Leaderboard</div>
-              <div class="overlay-content">
-                Local games only. Global leaderboard coming soon!
-                <div class="leaderboard-table"></div>
-              </div>
+        <div id="help" class="overlay hidden">
+          <div id="controls">
+            <h1 class="overlay-header" id="control-header">Controls</h1>
+            <div class="overlay-content" id="control-listing">
+              <div class="grid-container">
+                <div class="grid-item">
+                  <span>Forward:</span>
+                  <img src="img/keyboard-keys/key-W.svg" alt="W Key" />
+                  or
+                  <img
+                    src="img/keyboard-keys/arrow-up.svg"
+                    alt="Up Arrow Key"
+                  />
+                </div>
 
-              <div
-                id="close-lb-button"
-                class="button close-overlay-button"
-                data-action="toggleLeaderboard"
-                role="button"
-                title="Close"
-                aria-label="Close Leaderboard"
-                tabindex="0"
-              >
-                X
-              </div>
-            </div>
+                <div class="grid-item">
+                  <span>Headlights:</span>
+                  <img src="img/keyboard-keys/key-H.svg" alt="H Key" />
+                </div>
 
-            <div id="help" class="overlay hidden">
-              <div id="controls">
-                <h1 class="overlay-header" id="control-header">Controls</h1>
-                <div class="overlay-content" id="control-listing">
-                  <div class="grid-container">
-                    <div class="grid-item">
-                      <span>Forward:</span>
-                      <img src="img/keyboard-keys/key-W.svg" alt="W Key" />
-                      or
-                      <img
-                        src="img/keyboard-keys/arrow-up.svg"
-                        alt="Up Arrow Key"
-                      />
-                    </div>
+                <div class="grid-item">
+                  <span>Backward:</span>
+                  <img src="img/keyboard-keys/key-S.svg" alt="S Key" />
+                  or
+                  <img
+                    src="img/keyboard-keys/arrow-down.svg"
+                    alt="Down Arrow Key"
+                  />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Headlights:</span>
-                      <img src="img/keyboard-keys/key-H.svg" alt="H Key" />
-                    </div>
+                <div class="grid-item">
+                  <span>Horn:</span>
+                  <img src="img/keyboard-keys/key-G.svg" alt="G Key" />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Backward:</span>
-                      <img src="img/keyboard-keys/key-S.svg" alt="S Key" />
-                      or
-                      <img
-                        src="img/keyboard-keys/arrow-down.svg"
-                        alt="Down Arrow Key"
-                      />
-                    </div>
+                <div class="grid-item">
+                  <span>Left:</span>
+                  <img src="img/keyboard-keys/key-A.svg" alt="A Key" />
+                  or
+                  <img
+                    src="img/keyboard-keys/arrow-left.svg"
+                    alt="Left Arrow Key"
+                  />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Horn:</span>
-                      <img src="img/keyboard-keys/key-G.svg" alt="G Key" />
-                    </div>
+                <div class="grid-item">
+                  <span>Pause Game:</span>
+                  <img src="img/keyboard-keys/dot.svg" alt=". Key" />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Left:</span>
-                      <img src="img/keyboard-keys/key-A.svg" alt="A Key" />
-                      or
-                      <img
-                        src="img/keyboard-keys/arrow-left.svg"
-                        alt="Left Arrow Key"
-                      />
-                    </div>
+                <div class="grid-item">
+                  <span>Right:</span>
+                  <img src="img/keyboard-keys/key-D.svg" alt="D Key" />
+                  or
+                  <img
+                    src="img/keyboard-keys/arrow-right.svg"
+                    alt="Right Arrow Key"
+                  />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Pause Game:</span>
-                      <img src="img/keyboard-keys/dot.svg" alt=". Key" />
-                    </div>
+                <div class="grid-item">
+                  <span>Exit Game:</span>
+                  <img
+                    src="img/keyboard-keys/backspace.svg"
+                    alt="Backspace Key"
+                  />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Right:</span>
-                      <img src="img/keyboard-keys/key-D.svg" alt="D Key" />
-                      or
-                      <img
-                        src="img/keyboard-keys/arrow-right.svg"
-                        alt="Right Arrow Key"
-                      />
-                    </div>
+                <div class="grid-item">
+                  <span>Leaderboard:</span>
+                  <img src="img/keyboard-keys/key-L.svg" alt="L Key" />
+                </div>
 
-                    <div class="grid-item">
-                      <span>Exit Game:</span>
-                      <img
-                        src="img/keyboard-keys/backspace.svg"
-                        alt="Backspace Key"
-                      />
-                    </div>
-
-                    <div class="grid-item">
-                      <span>Leaderboard:</span>
-                      <img src="img/keyboard-keys/key-L.svg" alt="L Key" />
-                    </div>
-
-                    <div class="grid-item">
-                      <span>Help:</span>
-                      <img src="img/keyboard-keys/slash.svg" alt="/ Key" />
-                    </div>
-                  </div>
+                <div class="grid-item">
+                  <span>Help:</span>
+                  <img src="img/keyboard-keys/slash.svg" alt="/ Key" />
                 </div>
               </div>
-
-              <div id="instructions">
-                <h1 class="overlay-header" id="instruction-header">
-                  How to Start
-                </h1>
-                <p class="overlay-content" id="instruction-listing">
-                  Park inside the Easy Mode or Hard Mode spots!<br />
-                </p>
-              </div>
-
-              <div id="objective">
-                <h1 class="overlay-header" id="objective-header">Objectives</h1>
-                <ol class="overlay-content" id="objective-listing">
-                  <li class="list-item">Dodge obstacles</li>
-                  <li class="list-item">Park in the glowing spot</li>
-                  <li class="list-item">Don't crash!</li>
-                </ol>
-              </div>
-
-              <div id="scoring">
-                <h1 class="overlay-header" id="scoring-header">Scoring</h1>
-                <div class="overlay-content">
-                  <p>Game score is updated every round as follows:</p>
-                  <ol class="overlay-content" id="scoring-listing">
-                    <li class="list-item">
-                      Under 5 seconds:
-                      <span class="text-green">+1000</span> (Easy) /
-                      <span class="text-green">+2000</span> (Hard)
-                    </li>
-                    <li class="list-item">
-                      Any additional time used is
-                      <span class="text-red">-5</span> per second
-                    </li>
-                    <li class="list-item">
-                      Minimum round score:
-                      <span class="text-green">+500</span> (Easy) /
-                      <span class="text-green">+1000</span> (Hard)
-                    </li>
-                  </ol>
-                </div>
-              </div>
-
-              <div
-                id="close-help-button"
-                class="button close-overlay-button"
-                role="button"
-                data-action="toggleHelp"
-                title="Close"
-                aria-label="Close Help"
-                tabindex="0"
-              >
-                X
-              </div>
             </div>
           </div>
 
-          <div id="car">
-            <div id="car-spotlight" class="spotlight hidden"></div>
-            <img id="car-img" src="img/player-car.png" alt="Car" />
-            <div id="player-hitbox" class="hitbox"></div>
-            <div id="car-explosion" class="car-effect hidden"></div>
-            <div id="car-confetti" class="car-effect hidden"></div>
-            <div id="headlights" class="hidden">
-              <div class="headlight" id="left-headlight"></div>
-              <div class="headlight" id="right-headlight"></div>
-            </div>
-            <audio id="horn-sound" src="img/sounds/horn.mp3"></audio>
+          <div id="instructions">
+            <h1 class="overlay-header" id="instruction-header">How to Start</h1>
+            <p class="overlay-content" id="instruction-listing">
+              Park inside the Easy Mode or Hard Mode spots!<br />
+            </p>
           </div>
 
-          <div id="hud">
-            <div id="top-left-buttons">
-              <div
-                id="help-button"
-                tabindex="4"
-                data-action="toggleHelp"
-                class="button hud-section"
-                title="Help"
-                role="button"
-              >
-                <img class="hud-icon" src="img/hud/help-icon.svg" alt="Help" />
-              </div>
-              <div
-                id="lb-button"
-                tabindex="6"
-                data-action="toggleLeaderboard"
-                class="button hud-section"
-                title="Leaderboard"
-                role="button"
-              >
-                <img
-                  class="hud-icon"
-                  src="img/hud/lb-icon.svg"
-                  alt="Leaderboard"
-                />
-              </div>
-              <div
-                id="pause-game-button"
-                tabindex="6"
-                data-action="togglePaused"
-                class="button game-button game-section hud-section hidden"
-                title="Pause/Resume Game"
-                role="button"
-              >
-                <img
-                  class="hud-icon"
-                  id="pause-play-icon"
-                  src="img/hud/pause-icon.svg"
-                  alt="Pause Game"
-                />
-              </div>
-              <div
-                id="exit-game-button"
-                tabindex="7"
-                data-action="confirmExitGame"
-                class="button game-button game-section hud-section hidden"
-                title="Exit Game"
-                role="button"
-              >
-                <img
-                  class="hud-icon"
-                  src="img/hud/exit-icon.svg"
-                  alt="Exit Game"
-                />
-              </div>
-              <div id="game-info" class="game-section hud-section hidden">
-                <div id="round-display">Round 1</div>
-                <div id="timer-display">00:00</div>
-              </div>
-            </div>
-
-            <div id="lives-counter" class="game-section hidden"></div>
+          <div id="objective">
+            <h1 class="overlay-header" id="objective-header">Objectives</h1>
+            <ol class="overlay-content" id="objective-listing">
+              <li class="list-item">Dodge obstacles</li>
+              <li class="list-item">Park in the glowing spot</li>
+              <li class="list-item">Don't crash!</li>
+            </ol>
           </div>
 
-          <div id="modal" class="hidden">
-            <h1 id="modal-title"></h1>
-            <div id="modal-content" class="hidden"></div>
-            <div id="modal-input" class="hidden">
-              <input
-                type="text"
-                id="player-name"
-                placeholder="Enter your name"
-                maxlength="10"
-              />
-            </div>
-            <div id="modal-buttons" class="hidden">
-              <div
-                class="modal-button btn-green hidden"
-                tabindex="0"
-                data-action="restartGame"
-                id="play-again"
-              >
-                Play Again
-              </div>
-              <div
-                class="modal-button btn-green hidden"
-                tabindex="0"
-                data-action="togglePaused"
-                id="resume-game"
-              >
-                Resume Game
-              </div>
-
-              <div
-                class="modal-button btn-red hidden"
-                tabindex="0"
-                data-action="exitGame"
-                id="exit-game"
-              >
-                Exit Game
-              </div>
-              <div
-                class="modal-button btn-white hidden"
-                tabindex="0"
-                data-action="togglePaused"
-                id="cancel-exit"
-              >
-                Cancel
-              </div>
-
-              <div
-                class="modal-button btn-green hidden"
-                tabindex="0"
-                data-action="saveName"
-                id="save-name"
-              >
-                Save
-              </div>
-              <div
-                class="modal-button btn-red hidden"
-                tabindex="0"
-                data-action="discardName"
-                id="discard-name"
-              >
-                Discard
-              </div>
+          <div id="scoring">
+            <h1 class="overlay-header" id="scoring-header">Scoring</h1>
+            <div class="overlay-content">
+              <p>Game score is updated every round as follows:</p>
+              <ol class="overlay-content" id="scoring-listing">
+                <li class="list-item">
+                  Under 5 seconds:
+                  <span class="text-green">+1000</span> (Easy) /
+                  <span class="text-green">+2000</span> (Hard)
+                </li>
+                <li class="list-item">
+                  Any additional time used is
+                  <span class="text-red">-5</span> per second
+                </li>
+                <li class="list-item">
+                  Minimum round score:
+                  <span class="text-green">+500</span> (Easy) /
+                  <span class="text-green">+1000</span> (Hard)
+                </li>
+              </ol>
             </div>
           </div>
 
-          <div id="map-bounds">
-            <div class="bound" id="top-bounds"></div>
-            <div class="bound" id="right-bounds"></div>
-            <div class="bound" id="bottom-bounds"></div>
-            <div class="bound" id="left-bounds"></div>
+          <div
+            id="close-help-button"
+            class="button close-overlay-button"
+            role="button"
+            data-action="toggleHelp"
+            title="Close"
+            aria-label="Close Help"
+            tabindex="0"
+          >
+            X
+          </div>
+        </div>
+      </div>
+
+      <div id="car">
+        <div id="car-spotlight" class="spotlight hidden"></div>
+        <img id="car-img" src="img/player-car.png" alt="Car" />
+        <div id="player-hitbox" class="hitbox"></div>
+        <div id="car-explosion" class="car-effect hidden"></div>
+        <div id="car-confetti" class="car-effect hidden"></div>
+        <div id="headlights" class="hidden">
+          <div class="headlight" id="left-headlight"></div>
+          <div class="headlight" id="right-headlight"></div>
+        </div>
+        <audio id="horn-sound" src="img/sounds/horn.mp3"></audio>
+      </div>
+
+      <div id="hud">
+        <div id="top-left-buttons">
+          <div
+            id="help-button"
+            tabindex="4"
+            data-action="toggleHelp"
+            class="button hud-section"
+            title="Help"
+            role="button"
+          >
+            <img class="hud-icon" src="img/hud/help-icon.svg" alt="Help" />
+          </div>
+          <div
+            id="lb-button"
+            tabindex="6"
+            data-action="toggleLeaderboard"
+            class="button hud-section"
+            title="Leaderboard"
+            role="button"
+          >
+            <img class="hud-icon" src="img/hud/lb-icon.svg" alt="Leaderboard" />
+          </div>
+          <div
+            id="pause-game-button"
+            tabindex="6"
+            data-action="togglePaused"
+            class="button game-button game-section hud-section hidden"
+            title="Pause/Resume Game"
+            role="button"
+          >
+            <img
+              class="hud-icon"
+              id="pause-play-icon"
+              src="img/hud/pause-icon.svg"
+              alt="Pause Game"
+            />
+          </div>
+          <div
+            id="exit-game-button"
+            tabindex="7"
+            data-action="confirmExitGame"
+            class="button game-button game-section hud-section hidden"
+            title="Exit Game"
+            role="button"
+          >
+            <img class="hud-icon" src="img/hud/exit-icon.svg" alt="Exit Game" />
+          </div>
+          <div id="game-info" class="game-section hud-section hidden">
+            <div id="round-display">Round 1</div>
+            <div id="timer-display">00:00</div>
+          </div>
+        </div>
+
+        <div id="lives-counter" class="game-section hidden"></div>
+      </div>
+
+      <div id="modal" class="hidden">
+        <h1 id="modal-title"></h1>
+        <div id="modal-content" class="hidden"></div>
+        <div id="modal-input" class="hidden">
+          <input
+            type="text"
+            id="player-name"
+            placeholder="Enter your name"
+            maxlength="10"
+          />
+        </div>
+        <div id="modal-buttons" class="hidden">
+          <div
+            class="modal-button btn-green hidden"
+            tabindex="0"
+            data-action="restartGame"
+            id="play-again"
+          >
+            Play Again
+          </div>
+          <div
+            class="modal-button btn-green hidden"
+            tabindex="0"
+            data-action="togglePaused"
+            id="resume-game"
+          >
+            Resume Game
           </div>
 
-          <div id="map-parking-dividers">
-            <div
-              class="divider game-divider hidden"
-              id="top-left-divider"
-            ></div>
-            <div
-              class="divider game-divider hidden"
-              id="top-right-divider"
-            ></div>
-            <div class="divider" id="bottom-left-divider"></div>
-            <div
-              class="divider game-divider hidden"
-              id="bottom-right-divider"
-            ></div>
+          <div
+            class="modal-button btn-red hidden"
+            tabindex="0"
+            data-action="confirmExitGame"
+            id="confirm-exit-game"
+          >
+            Exit Game
+          </div>
+          <div
+            class="modal-button btn-red hidden"
+            tabindex="0"
+            data-action="exitGame"
+            id="exit-game"
+          >
+            Exit Game
+          </div>
+          <div
+            class="modal-button btn-white hidden"
+            tabindex="0"
+            data-action="togglePaused"
+            id="cancel-exit"
+          >
+            Cancel
           </div>
 
-          <div id="parking-spots"></div>
-
-          <div id="game-obstacles">
-            <div class="starting-obstacle cone-obstacle" id="cone-0">
-              <img
-                class="cone-img"
-                src="img/obstacles/cone.png"
-                alt="Traffic Cone"
-              />
-              <div class="cone-hitbox hitbox"></div>
-            </div>
-
-            <div class="starting-obstacle cone-obstacle" id="cone-1">
-              <img
-                class="cone-img"
-                src="img/obstacles/cone.png"
-                alt="Traffic Cone"
-              />
-              <div class="cone-hitbox hitbox"></div>
-            </div>
-
-            <div class="starting-obstacle dumpster-obstacle" id="dumpster-0">
-              <img
-                class="dumpster-img"
-                src="img/obstacles/dumpster.png"
-                alt="Dumpster"
-              />
-              <div class="dumpster-hitbox hitbox"></div>
-            </div>
-
-            <div class="starting-obstacle car-obstacle" id="car-0">
-              <img
-                class="car-img"
-                src="img/obstacles/car4.png"
-                alt="Parked Car"
-              />
-              <div class="car-hitbox hitbox"></div>
-            </div>
+          <div
+            class="modal-button btn-green hidden"
+            tabindex="0"
+            data-action="saveName"
+            id="save-name"
+          >
+            Save
           </div>
+          <div
+            class="modal-button btn-red hidden"
+            tabindex="0"
+            data-action="discardName"
+            id="discard-name"
+          >
+            Discard
+          </div>
+        </div>
+      </div>
+
+      <div id="map-bounds">
+        <div class="bound" id="top-bounds"></div>
+        <div class="bound" id="right-bounds"></div>
+        <div class="bound" id="bottom-bounds"></div>
+        <div class="bound" id="left-bounds"></div>
+      </div>
+
+      <div id="map-parking-dividers">
+        <div class="divider game-divider hidden" id="top-left-divider"></div>
+        <div class="divider game-divider hidden" id="top-right-divider"></div>
+        <div class="divider" id="bottom-left-divider"></div>
+        <div
+          class="divider game-divider hidden"
+          id="bottom-right-divider"
+        ></div>
+      </div>
+
+      <div id="parking-spots"></div>
+
+      <div id="game-obstacles">
+        <div class="starting-obstacle cone-obstacle" id="cone-0">
+          <img
+            class="cone-img"
+            src="img/obstacles/cone.png"
+            alt="Traffic Cone"
+          />
+          <div class="cone-hitbox hitbox"></div>
+        </div>
+
+        <div class="starting-obstacle cone-obstacle" id="cone-1">
+          <img
+            class="cone-img"
+            src="img/obstacles/cone.png"
+            alt="Traffic Cone"
+          />
+          <div class="cone-hitbox hitbox"></div>
+        </div>
+
+        <div class="starting-obstacle dumpster-obstacle" id="dumpster-0">
+          <img
+            class="dumpster-img"
+            src="img/obstacles/dumpster.png"
+            alt="Dumpster"
+          />
+          <div class="dumpster-hitbox hitbox"></div>
+        </div>
+
+        <div class="starting-obstacle car-obstacle" id="car-0">
+          <img class="car-img" src="img/obstacles/car4.png" alt="Parked Car" />
+          <div class="car-hitbox hitbox"></div>
         </div>
       </div>
     </div>
