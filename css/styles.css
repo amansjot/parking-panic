@@ -119,11 +119,6 @@ body {
     transition: opacity 1s ease-in-out;
 }
 
-#game-window.visible {
-    background-image: url(../img/loading-lot.png);
-    background-color: rgba(0, 0, 0, 1);
-}
-
 #startup-screen {
     position: absolute;
     width: 100%;
