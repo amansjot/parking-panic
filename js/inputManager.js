@@ -62,21 +62,25 @@ class InputManager {
             }
         }
 
-        // If game is loading, don't allow any input
-        if (this.game.gameState === "loading") return;
-
-        // Enter key goes to save name input
-        if (this.inputFocused) {
-            if (key == "enter") $("#save-name").focus();
-            if (key === " ") e.preventDefault();
-            return;
-        }
-        
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {
             if (key == '/' && this.game.overlay === "help" ||
                 key == 'l' && this.game.overlay === "leaderboard" ||
                 key == "escape") this.game.closeOverlay();
+            return;
+        }
+
+        // If game is loading, don't allow any input
+        if (this.game.gameState === "loading") {
+            if (key == "/") this.game.toggleOverlay("help");
+            if (key == "l") this.game.toggleOverlay("leaderboard");
+            return;
+        }
+
+        // Enter key goes to save name input
+        if (this.inputFocused) {
+            if (key == "enter") $("#save-name").focus();
+            if (key === " ") e.preventDefault();
             return;
         }
 

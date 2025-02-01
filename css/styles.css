@@ -99,8 +99,8 @@ body {
 
 /* Scrollable game window container */
 /* Central game window with fixed size and background */
-#game-window {
-    position: relative;
+.window {
+    position: absolute;
     margin: auto;
     width: 1000px;
     height: 1000px;
@@ -110,27 +110,30 @@ body {
     transform-origin: top left;
     box-sizing: border-box;
     background-size: contain;
+
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
     
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 
-    opacity: 0; /* Hidden initially */
-    transition: opacity 1s ease-in-out;
 }
 
-#startup-screen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+#startup-window {
     z-index: var(--z-overlay);
-    
-    background-color: rgba(0, 0, 0, 1); /* Full black background initially */
-    opacity: 1; /* Hidden initially */
-    
-    pointer-events: none; /* Ensures interactions pass through to parent */
+    background-color: var(--primary);
+    pointer-events: none;
+}
+
+#car-cover {
+    position: absolute;
+    bottom: -101px;
+    left: 210px;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    z-index: var(--z-overlay);
 }
 
 /* Button styling for start and game buttons */

@@ -30,24 +30,24 @@
   </head>
 
   <body tabindex="8">
-    <div id="game-window">
-      <div id="startup-screen">
-        <h1 class="text parking-panic startup-title">Parking Panic</h1>
-        <div class="sirens startup-sirens">
-          <img
-            class="siren left-siren startup-siren"
-            alt="Siren"
-            src="./img/siren-icon.png"
-          />
-          <img
-            class="siren right-siren startup-siren"
-            alt="Siren"
-            src="./img/siren-icon.png"
-          />
-        </div>
+    <div id="startup-window" class="window">
+      <h1 class="text parking-panic startup-title">Parking Panic</h1>
+      <div class="sirens startup-sirens">
+        <img
+          class="siren left-siren startup-siren"
+          alt="Siren"
+          src="./img/siren-icon.png"
+        />
+        <img
+          class="siren right-siren startup-siren"
+          alt="Siren"
+          src="./img/siren-icon.png"
+        />
       </div>
+    </div>
 
-      <div id="loading-container">
+    <div id="game-window" class="window hidden">
+      <div id="loading-container" class="hidden">
         <h1>Loading...</h1>
         <div id="loading-bar">
           <div class="progress"></div>
@@ -249,7 +249,11 @@
         <div id="car-spotlight" class="spotlight hidden"></div>
         <img id="car-img" src="./img/player-car.png" alt="Car" />
         <div id="player-hitbox" class="hitbox"></div>
-        <img id="car-explosion" src="./img/gifs/explosion.gif" class="car-effect hidden" />
+        <img
+          id="car-explosion"
+          src="./img/gifs/explosion.gif"
+          class="car-effect hidden"
+        />
         <div id="car-confetti" class="car-effect hidden"></div>
         <div id="headlights" class="hidden">
           <div class="headlight" id="left-headlight"></div>
@@ -278,7 +282,11 @@
             title="Leaderboard"
             role="button"
           >
-            <img class="hud-icon" src="./img/hud/lb-icon.svg" alt="Leaderboard" />
+            <img
+              class="hud-icon"
+              src="./img/hud/lb-icon.svg"
+              alt="Leaderboard"
+            />
           </div>
           <div
             id="pause-game-button"
@@ -303,7 +311,11 @@
             title="Exit Game"
             role="button"
           >
-            <img class="hud-icon" src="./img/hud/exit-icon.svg" alt="Exit Game" />
+            <img
+              class="hud-icon"
+              src="./img/hud/exit-icon.svg"
+              alt="Exit Game"
+            />
           </div>
           <div id="game-info" class="game-section hud-section hidden">
             <div id="round-display">Round 1</div>
@@ -394,6 +406,8 @@
         <div class="bound" id="left-bounds"></div>
       </div>
 
+      <div id="car-cover"></div>
+
       <div id="map-parking-dividers">
         <div class="divider game-divider hidden" id="top-left-divider"></div>
         <div class="divider game-divider hidden" id="top-right-divider"></div>
@@ -435,7 +449,11 @@
         </div>
 
         <div class="starting-obstacle car-obstacle" id="car-0">
-          <img class="car-img" src="./img/obstacles/car4.png" alt="Parked Car" />
+          <img
+            class="car-img"
+            src="./img/obstacles/car4.png"
+            alt="Parked Car"
+          />
           <div class="car-hitbox hitbox"></div>
         </div>
       </div>

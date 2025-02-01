@@ -2,7 +2,7 @@ class CarManager {
     constructor() {
         this.explosionDurationMs = 1500;
         this.registerCollision = true;
-        this.startingPosition = { x: 240, y: 900, angle: 0 };
+        this.startingPosition = { x: 240, y: 895, angle: 0 };
 
         this.$player = $('#car');
         this.playerData = {

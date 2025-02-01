@@ -33,13 +33,14 @@ class Game {
      * Initialize the game by starting the update loop and adding event listeners.
      */
     init() {
-        // Resize the game window
+        // Initialize event listeners
+        this.addEventListeners();
+
+        // Resize the startup screen
         if (this.resize()) {
+
             // Load the game
             this.loadGame();
-
-            // Initialize event listeners
-            this.addEventListeners();
 
             // Main update loop for moving and rotating the car
             setInterval(() => this.updatePlayer(), 10);
@@ -102,8 +103,8 @@ class Game {
         let marginLeft = (width - newSize) / 2;
         let marginTop = (height - newSize) / 2;
 
-        // Apply scale and centering to the game window and controls
-        $('#game-window').css({
+        // Apply scale and centering to the startup and game windows
+        $(".window").css({
             transform: `scale(${scale})`,
             marginLeft: `${marginLeft}px`,
             marginTop: `${marginTop}px`
@@ -149,33 +150,27 @@ class Game {
     }
 
     loadGame() {
-        // Step 1: Quickly cycle through all background images to preload them
-        setTimeout(() => {
-            $("#game-window").css("background-image", "url(./img/game-lot.png)");
-        }, 50);
-        setTimeout(() => {
-            $("#game-window").css("background-image", "url(./img/starting-lot.png)");
-        }, 100);
-        setTimeout(() => {
-            $("#game-window").css("background-image", "url(./img/loading-lot.png)");
-        }, 150);
+        // Step 1: Fade in the title text
+        $("#startup-window").animate({ opacity: 1 }, 500);
+        $(".starting-obstacle, #start-buttons, .game-subtitle, #car").css("opacity", "0");
 
-        // Step 2: Fade in #game-window at 200ms while hiding certain UI elements
-        setTimeout(() => {
-            $(".starting-obstacle, #start-buttons, .game-subtitle, #car").css("opacity", "0"); // Hide UI elements
-            $("#game-window").animate({ opacity: 1 }, 1000); // Smooth fade-in over 1 second
-        }, 2);
+        // Step 2: Quickly cycle through all background images to preload them
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 50);
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/starting-lot.png)"), 100);
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/loading-lot.png)"), 150);
 
         // Step 3: Fade out the startup screen at 3s and start the loading bar animation
         setTimeout(() => {
-            $("#startup-screen").animate({ opacity: 0 }, 500); // Smooth fade-out of startup screen
-            $("#game-window").addClass("border-black"); // Add a border after startup fades out
-            this.initLoadingBar(6500); // Start the loading bar animation (7s duration)
-        }, 3000);
+            if (this.gameState === "loading") $("#loading-container").removeClass("hidden").css("opacity", "1");;
+            $("#game-window").removeClass("hidden").css("opacity", 1);
+            $("#startup-window").animate({ opacity: 0 }, 500);
+            $("#game-window").addClass("border-black");
+            this.initLoadingBar(7300);
+        }, 2000);
 
-        // Step 4: After 10 seconds, transition to the main game screen if still in the "loading" state
+        // Step 4: Transition to the main game screen
         setTimeout(() => {
-            if (this.gameState === "loading") this.initStartScreen(); // Move to the next phase
+            if (this.gameState === "loading") this.initStartScreen();
         }, 9500);
     }
 
@@ -203,16 +198,15 @@ class Game {
         $("#loading-container").addClass("hidden");
         $(".starting-obstacle, #start-buttons, .game-subtitle").animate({ opacity: 1 }, 400);
 
-        // Reset car under the screen
-        $("#car").css({ opacity: 1, top: "120px" });
+        // Reset car
         this.carManager.resetCar(this.gameState);
 
-        // The car drives in after 200ms
+        // The car drives in from the bottom
         setTimeout(() => {
-            $("#car").animate({ top: "0px" }, 800, "swing");
+            $("#car").css({ opacity: 1, top: "120px" }).animate({ top: "0px" }, 700, "swing");
             this.gamePaused = false;
             this.gameState = 'start';
-        }, 200);
+        }, 300);
     }
 
     /**
