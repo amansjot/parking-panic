@@ -201,9 +201,10 @@ class Game {
         // Reset car
         this.carManager.resetCar(this.gameState);
 
-        // The car drives in from the bottom
+        // The car becomes visible and drives in from the bottom
         setTimeout(() => {
-            $("#car").css({ opacity: 1, top: "120px" }).animate({ top: "0px" }, 700, "swing");
+            $("#car").css({ top: "120px" }).animate({ top: "0px" }, 700, "swing");
+            setTimeout(() => $("#car").css("opacity", "1"), 200);
             this.gamePaused = false;
             this.gameState = 'start';
         }, 300);
