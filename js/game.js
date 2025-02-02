@@ -152,7 +152,6 @@ class Game {
     loadGame() {
         // Step 1: Fade in the title text
         $("#startup-window").animate({ opacity: 1 }, 500);
-        $(".starting-obstacle, #start-buttons, .game-subtitle, #car").css("opacity", "0");
 
         // Step 2: Quickly cycle through all background images to preload them
         setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 50);
@@ -161,8 +160,8 @@ class Game {
 
         // Step 3: Fade out the startup screen at 3s and start the loading bar animation
         setTimeout(() => {
-            if (this.gameState === "loading") $("#loading-container").removeClass("hidden").css("opacity", "1");;
-            $("#game-window").removeClass("hidden").css("opacity", 1);
+            if (this.gameState === "loading") $("#loading-container").removeClass("hidden opacity-0");
+            $("#game-window").removeClass("hidden opacity-0");
             $("#startup-window").animate({ opacity: 0 }, 500);
             $("#game-window").addClass("border-black");
             this.initLoadingBar(7300);
@@ -204,7 +203,7 @@ class Game {
         // The car becomes visible and drives in from the bottom
         setTimeout(() => {
             $("#car").css({ top: "120px" }).animate({ top: "0px" }, 700, "swing");
-            setTimeout(() => $("#car").css("opacity", "1"), 200);
+            setTimeout(() => $("#car").removeClass("opacity-0"), 200);
             this.gamePaused = false;
             this.gameState = 'start';
         }, 300);

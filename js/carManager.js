@@ -23,12 +23,12 @@ class CarManager {
     }
 
     moveCar(keys) {
-        if (keys.w || keys.ArrowUp) {
+        if (keys.up) {
             this.playerData.speed.current = Math.min(
                 this.playerData.speed.current + this.playerData.speed.acceleration,
                 this.playerData.speed.max.forward
             );
-        } else if (keys.s || keys.ArrowDown) {
+        } else if (keys.down) {
             this.playerData.speed.current = Math.max(
                 this.playerData.speed.current - this.playerData.speed.acceleration,
                 -this.playerData.speed.max.reverse
@@ -46,31 +46,31 @@ class CarManager {
                 );
             }
         }
-
+    
         const { x, y, angle } = this.playerData.position;
         const { current: currentSpeed } = this.playerData.speed;
         const { width, height } = this.playerData.size;
-
+    
         const newX = x + currentSpeed * Math.cos(this.degreesToRadians(angle - 90));
         const newY = y + currentSpeed * Math.sin(this.degreesToRadians(angle - 90));
-
+    
         this.playerData.position.x = Math.max(0, Math.min(newX, 1000 - width));
         this.playerData.position.y = Math.max(0, Math.min(newY, 1000 - height));
     }
-
+    
     rotateCar(keys) {
         if (this.playerData.speed.current !== 0) {
             const speedFactor = Math.abs(this.playerData.speed.current) / this.playerData.speed.max.forward;
             const scaledRotationSpeed = this.playerData.speed.max.rotation * speedFactor;
-
-            if (keys.a || keys.ArrowLeft) {
+    
+            if (keys.left) {
                 this.playerData.position.angle -= scaledRotationSpeed;
             }
-            if (keys.d || keys.ArrowRight) {
+            if (keys.right) {
                 this.playerData.position.angle += scaledRotationSpeed;
             }
         }
-    }
+    }    
 
     stopCar() {
         this.registerCollision = false;

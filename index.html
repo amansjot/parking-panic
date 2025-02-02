@@ -30,7 +30,7 @@
   </head>
 
   <body tabindex="8">
-    <div id="startup-window" class="window">
+    <div id="startup-window" class="window opacity-0">
       <h1 class="text parking-panic startup-title">Parking Panic</h1>
       <div class="sirens startup-sirens">
         <img
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div id="game-window" class="window hidden">
+    <div id="game-window" class="window opacity-0 hidden">
       <div id="loading-container" class="hidden">
         <h1>Loading...</h1>
         <div id="loading-bar">
@@ -56,7 +56,7 @@
 
       <div id="start-screen">
         <h1 class="text parking-panic game-text game-title">Parking Panic</h1>
-        <h3 class="text game-text game-subtitle">
+        <h3 class="text game-text game-subtitle opacity-0">
           <div class="spotlight hidden" id="subtitle-spotlight"></div>
           Drive into the glowing parking spots to start!
         </h3>
@@ -74,7 +74,7 @@
           />
         </div>
 
-        <div id="start-buttons">
+        <div id="start-buttons" class="opacity-0">
           <div class="start-button transparent" id="easy-mode-button">
             Easy Mode
           </div>
@@ -245,7 +245,7 @@
         </div>
       </div>
 
-      <div id="car">
+      <div id="car" class="opacity-0">
         <div id="car-spotlight" class="spotlight hidden"></div>
         <img id="car-img" src="./img/player-car.png" alt="Car" />
         <div id="player-hitbox" class="hitbox"></div>
@@ -421,7 +421,7 @@
       <div id="parking-spots"></div>
 
       <div id="game-obstacles">
-        <div class="starting-obstacle cone-obstacle" id="cone-0">
+        <div class="starting-obstacle opacity-0 cone-obstacle" id="cone-0">
           <img
             class="cone-img"
             src="./img/obstacles/cone.png"
@@ -430,7 +430,7 @@
           <div class="cone-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle cone-obstacle" id="cone-1">
+        <div class="starting-obstacle opacity-0 cone-obstacle" id="cone-1">
           <img
             class="cone-img"
             src="./img/obstacles/cone.png"
@@ -439,7 +439,7 @@
           <div class="cone-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle dumpster-obstacle" id="dumpster-0">
+        <div class="starting-obstacle opacity-0 dumpster-obstacle" id="dumpster-0">
           <img
             class="dumpster-img"
             src="./img/obstacles/dumpster.png"
@@ -448,7 +448,7 @@
           <div class="dumpster-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle car-obstacle" id="car-0">
+        <div class="starting-obstacle opacity-0 car-obstacle" id="car-0">
           <img
             class="car-img"
             src="./img/obstacles/car4.png"

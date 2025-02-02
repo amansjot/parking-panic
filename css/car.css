@@ -3,7 +3,6 @@
     position: absolute; /* Absolute positioning within its container */
     transform: translate(0, 0) rotate(0deg);
     z-index: var(--z-car); /* Ensures the car is at the forefront of most elements */
-    opacity: 0; /* Initially hidden */
 }
 
 /* Car Image Styling */
