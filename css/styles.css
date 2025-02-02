@@ -265,19 +265,26 @@ body {
 }
 
 #loading-container {
-    margin: 560px auto;
-    width: 400px;
-    height: 100px;
+    margin: 500px auto;
+    width: 550px;
+    font-size: var(--font-sm);
     color: var(--yellow-light);
 }
 
 /* Outer border */
 #loading-bar {
-    width: 100%;
+    width: 400px;
     height: 30px;
+    margin: -10px auto;
     border: 4px solid white;
     background-color: black;
-    image-rendering: pixelated;
+}
+
+#loading-tip {
+    font-size: var(--font-md);
+    font-family: var(--secondary-font);
+    margin-top: 100px;
+    color: var(--orange-light);
 }
 
 /* Pixelated progress bar */

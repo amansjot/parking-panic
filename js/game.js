@@ -149,9 +149,30 @@ class Game {
         if (correctSpot) this.handleRoundWin();
     }
 
+    getRandomTip() {
+        // Generate a random loading tip
+        var loadingTips = [
+            "Press H to use headlights",
+            "Press G to sound the horn",
+            "Press . to pause the game",
+            "Press Backspace to exit the game",
+            "Press / to quick open Help at any time",
+            "This game can be played at any screen size!",
+            "Press L to view the leaderboard at any time",
+            "If you exit a game, your score will be auto-saved to the leaderboard",
+            "Pause the game to view your score",
+            "In Hard Mode, each round is worth double the points!",
+            "In Hard Mode, be careful - lives don't reset between rounds!",
+            "You can drive around in the Start Screen before starting a game",
+            "Reversing is slower than accelerating"
+        ];
+        return "Tip: " + loadingTips[Math.floor(Math.random() * loadingTips.length)];
+    }
+
     loadGame() {
-        // Step 1: Fade in the title text
+        // Step 1: Fade in the title text and generate the loading tip
         $("#startup-window").animate({ opacity: 1 }, 500);
+        $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
 
         // Step 2: Quickly cycle through all background images to preload them
         setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 50);
@@ -164,13 +185,18 @@ class Game {
             $("#game-window").removeClass("hidden opacity-0");
             $("#startup-window").animate({ opacity: 0 }, 500);
             $("#game-window").addClass("border-black");
-            this.initLoadingBar(7300);
+
+            setTimeout(() => {
+                $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
+            }, 6000);
+
+            this.initLoadingBar(12300);
         }, 2000);
 
-        // Step 4: Transition to the main game screen
+        // Step 4: Transition to the main game screen after 14.5s
         setTimeout(() => {
             if (this.gameState === "loading") this.initStartScreen();
-        }, 9500);
+        }, 14500);
     }
 
     initLoadingBar(time) {
