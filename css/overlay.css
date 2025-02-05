@@ -97,6 +97,16 @@
     justify-content: flex-end;
 }
 
+.objective-video {
+    border: 3px solid white;
+    filter: brightness(0.8);
+}
+
+.objective-video.active {
+    border: 3px solid var(--yellow-light);
+    filter: brightness(1);
+}
+
 #scoring-listing {
     width: 660px;
 }

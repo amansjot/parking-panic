@@ -42,6 +42,9 @@ class Game {
             // Load the game
             this.loadGame();
 
+            // Load objective video sequence
+            this.initObjectiveVideos();
+
             // Main update loop for moving and rotating the car
             setInterval(() => this.updatePlayer(), 10);
         }
@@ -198,6 +201,51 @@ class Game {
         setTimeout(() => {
             if (this.gameState === "loading") this.initStartScreen();
         }, 14500);
+    }
+
+    initObjectiveVideos() {
+        let videos = $(".objective-video"); // Select all videos
+        let currentIndex = 0; // Start with the first video
+
+        for (let video of videos) {
+            video.load(); // Load the video
+            video.pause(); // Pause the video
+        }
+
+        function playNextVideo() {
+            let currentVideo = videos.get(currentIndex);
+            let $currentListItem = $(currentVideo).closest(".list-item"); // Get parent .list-item
+            let $textElement = $currentListItem.children("div:first-child"); // Select the text div
+
+            // Remove "active" class from all videos
+            videos.removeClass("active");
+
+            // Remove "text-yellow" class from all text elements
+            $(".list-item div:first-child").removeClass("text-yellow");
+
+            // Add "active" class to the current video
+            $(currentVideo).addClass("active");
+
+            // Add "text-yellow" class to the corresponding text
+            $textElement.addClass("text-yellow");
+
+            // Ensure video resets to first frame before playing
+            currentVideo.currentTime = 0;
+            currentVideo.play();
+
+            $(currentVideo).off("ended").on("ended", function () {
+                setTimeout(() => {
+                    this.pause(); // Pause the video
+                    this.currentTime = 0; // Reset to the first frame
+
+                    // Move to the next video in sequence
+                    currentIndex = (currentIndex + 1) % videos.length;
+                    playNextVideo();
+                }, 250); // Play the next video
+            });
+        }
+
+        playNextVideo(); // Start the sequence
     }
 
     initLoadingBar(time) {
