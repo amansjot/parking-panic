@@ -84,6 +84,16 @@
     width: auto;
 }
 
+#modes-table {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#modes-table th,
+#modes-table td {
+    padding: 8px;
+}
+
 #objective-listing {
     width: 620px;
     display: flex;

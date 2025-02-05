@@ -200,20 +200,72 @@
             </p>
           </div>
 
+          <div id="modes">
+            <h1 class="overlay-header" id="modes-header">Game Modes</h1>
+            <div class="overlay-content" id="modes-listing">
+              <table id="modes-table">
+                <thead>
+                  <tr>
+                    <th class="text-green">Easy Mode</th>
+                    <th class="text-red">Hard Mode</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>5 lives<br/>Resets every round</td>
+                    <td>3 lives<br/>Does not reset</td>
+                  </tr>
+                  <tr>
+                    <td>Slower car</td>
+                    <td>Faster car</td>
+                  </tr>
+                  <tr>
+                    <td>10 obstacles</td>
+                    <td>20 obstacles</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div id="objective">
             <h1 class="overlay-header" id="objective-header">Objectives</h1>
             <div class="overlay-content" id="objective-listing">
               <div class="list-item">
                 <div>Dodge obstacles</div>
-                <div><video class="objective-video" src="./img/help/objective-dodge.mp4" autoplay muted playsinline></video></div>
+                <div>
+                  <video
+                    class="objective-video"
+                    src="./img/help/objective-dodge.mp4"
+                    autoplay
+                    muted
+                    playsinline
+                  ></video>
+                </div>
               </div>
               <div class="list-item">
                 <div>Park in the glowing spot</div>
-                <div><video class="objective-video" src="./img/help/objective-park.mp4" autoplay muted playsinline></video></div>
+                <div>
+                  <video
+                    class="objective-video"
+                    src="./img/help/objective-park.mp4"
+                    autoplay
+                    muted
+                    playsinline
+                  ></video>
+                </div>
               </div>
               <div class="list-item">
-                <div>Don't<br/>crash!</div>
-                <div><video class="objective-video" src="./img/help/objective-crash.mp4" autoplay muted playsinline></video></div>
+                <div>Don't<br />crash!</div>
+                <div>
+                  <video
+                    class="objective-video"
+                    src="./img/help/objective-crash.mp4"
+                    autoplay
+                    muted
+                    playsinline
+                  ></video>
+                </div>
               </div>
             </div>
           </div>
@@ -449,7 +501,10 @@
           <div class="cone-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle opacity-0 dumpster-obstacle" id="dumpster-0">
+        <div
+          class="starting-obstacle opacity-0 dumpster-obstacle"
+          id="dumpster-0"
+        >
           <img
             class="dumpster-img"
             src="./img/obstacles/dumpster.png"

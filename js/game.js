@@ -192,7 +192,7 @@ class Game {
 
             setTimeout(() => {
                 $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
-            }, 6000);
+            }, 6200);
 
             this.initLoadingBar(12300);
         }, 2000);
