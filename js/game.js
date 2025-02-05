@@ -164,7 +164,8 @@ class Game {
             "In Hard Mode, each round is worth double the points!",
             "In Hard Mode, be careful - lives don't reset between rounds!",
             "You can drive around in the Start Screen before starting a game",
-            "Reversing is slower than accelerating"
+            "Reversing is slower than accelerating",
+            "The game will auto-pause after 30 seconds of inactivity",
         ];
         return "Tip: " + loadingTips[Math.floor(Math.random() * loadingTips.length)];
     }

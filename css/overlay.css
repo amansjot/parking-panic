@@ -85,7 +85,16 @@
 }
 
 #objective-listing {
-    width: 350px;
+    width: 620px;
+    display: flex;
+    gap: 20px;
+}
+
+#objective-listing .list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-end;
 }
 
 #scoring-listing {

@@ -2,6 +2,7 @@ class SpotManager {
     constructor() {
         this.spotNum = this.generateRandomSpot(); // Global constant for the parking spot in the round
         this.spotID = `#spot-${this.spotNum}`; // Gets id value for its div
+        
         this.startButtonSpots = [38, 39, 40, 41]; // Spots under the start buttons
         this.angledSpots = [33, 34, 35, 36, 37]; // Angled parking spots
 
