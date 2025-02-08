@@ -57,10 +57,6 @@ body {
     transform: translate(-50%, 0);
 }
 
-.border-black {
-    border: 1px solid var(--primary);
-}
-
 .border-white {
     border: 1px solid var(--secondary);
 }
@@ -115,7 +111,6 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 #startup-window {

@@ -80,6 +80,8 @@ class Game {
                     restartGame: () => this.restartGame(),
                     confirmExitGame: () => this.confirmExitGame(),
                     exitGame: () => this.exitGame(),
+                    confirmSkipRound: () => this.confirmSkipRound(),
+                    skipRound: () => this.skipRound(),
                     saveName: () => this.saveName(),
                     discardName: () => this.discardName(),
                     toggleHelp: () => this.toggleOverlay("help"),
@@ -188,7 +190,7 @@ class Game {
             if (this.gameState === "loading") $("#loading-container").removeClass("hidden opacity-0");
             $("#game-window").removeClass("hidden opacity-0");
             $("#startup-window").animate({ opacity: 0 }, 500);
-            $("#game-window").addClass("border-black");
+            $("#game-window").addClass("border-white");
 
             setTimeout(() => {
                 $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
@@ -268,9 +270,9 @@ class Game {
 
     initStartScreen() {
         $("#game-window").css("background-image", "url(./img/starting-lot.png)");
-        $("#game-window").removeClass("border-black").addClass("border-white");
         $("#loading-container").addClass("hidden");
         $(".starting-obstacle, #start-buttons, .game-subtitle").animate({ opacity: 1 }, 400);
+        $("#startup-window").remove();
 
         // Reset car
         this.carManager.resetCar(this.gameState);
@@ -388,7 +390,7 @@ class Game {
     /**
      * Handle the logic when the player wins a round.
      */
-    handleRoundWin() {
+    handleRoundWin(skipped = false) {
         // Stop the car
         this.gamePaused = true;
         this.carManager.stopCar();
@@ -399,7 +401,7 @@ class Game {
 
         // Increase rounds and update the score
         this.statsManager.increaseRounds();
-        this.statsManager.updateScore(this.gameState);
+        if (!skipped) this.statsManager.updateScore(this.gameState);
 
         this.showModal("green", "Next Round!");
         setTimeout(() => this.newRound(), 700);
@@ -415,7 +417,12 @@ class Game {
         // If the game is in start mode, don't remove a life
         if (this.gameState !== "start") {
             this.statsManager.removeLife();
-            if (this.statsManager.getLives() == 0) {
+
+            if (this.gameState === "hard-mode" && this.statsManager.getLives() === 1) {
+                $("#skip-round-button").addClass("disabled");
+            }
+
+            if (this.statsManager.getLives() === 0) {
                 this.gameOver();
                 return;
             }
@@ -490,10 +497,44 @@ class Game {
                 modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
             }
 
-            this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-exit"]);
+            this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-action"]);
         } else if (this.gameState !== "start") {
             this.exitGame();
         }
+    }
+
+    confirmSkipRound() {
+        if (this.gameEnded) return;
+
+        if (!($("#skip-round-button").hasClass("disabled"))) {
+            this.gamePaused = true;
+            this.statsManager.stopTimer();
+
+            let modalStr = "This will cost 1 life and earn you 0 points.";
+            if (this.gameState === "easy-mode") {
+                const currMaxLives = this.statsManager.maxLives['easy-mode'];
+                modalStr = `Your lives will reset to ${currMaxLives - 1} and you will earn 0 points for this round.`;
+            }
+
+            this.showModal("yellow", "Skip Round?", modalStr, ["#skip-round", "#cancel-action"]);
+        }
+    }
+
+    skipRound() {
+        if (this.gameState === "easy-mode") {
+            const currMaxLives = this.statsManager.maxLives['easy-mode'];
+            this.statsManager.maxLives["easy-mode"] = currMaxLives - 1;
+
+            if (this.statsManager.maxLives['easy-mode'] === 1) {
+                $("#skip-round-button").addClass("disabled");
+            }
+        } else {
+            this.statsManager.removeLife();
+
+            if (this.statsManager.getLives() === 1) $("#skip-round-button").addClass("disabled");
+        }
+
+        this.handleRoundWin(true);
     }
 
     showModal(textColor, title, content = null, buttons = null, input = null) {

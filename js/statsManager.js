@@ -7,6 +7,7 @@ class StatsManager {
     constructor() {
         // Lives-related variables
         this.#lives = 0;
+        this.maxLives = {"easy-mode": 5, "hard-mode": 3};
 
         // Rounds-related variables
         this.#rounds = 1;
@@ -28,7 +29,7 @@ class StatsManager {
 
     resetLives(gameState) {
         // Change life count based on mode
-        this.#lives = (gameState === "easy-mode") ? 5 : 3;
+        this.#lives = (gameState === "easy-mode") ? this.maxLives["easy-mode"] : this.maxLives["hard-mode"];
 
         // Clear existing life icons
         $("#lives-counter").empty();
@@ -121,6 +122,7 @@ class StatsManager {
     // -------- Stats Management --------
     resetStats(gameState) {
         this.resetLives(gameState);
+        this.maxLives["easy-mode"] = 5;
         this.resetScore();
         this.resetRounds();
     }

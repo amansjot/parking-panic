@@ -6,30 +6,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen:wght@400;700&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/obstacles.css" />
-    <link rel="stylesheet" href="css/car.css" />
-    <link rel="stylesheet" href="css/hud.css" />
-    <link rel="stylesheet" href="css/bounds.css" />
-    <link rel="stylesheet" href="css/modal.css" />
-    <link rel="stylesheet" href="css/overlay.css" />
-    <link rel="stylesheet" href="css/spots.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/obstacles.css" />
+    <link rel="stylesheet" href="./css/car.css" />
+    <link rel="stylesheet" href="./css/hud.css" />
+    <link rel="stylesheet" href="./css/bounds.css" />
+    <link rel="stylesheet" href="./css/modal.css" />
+    <link rel="stylesheet" href="./css/overlay.css" />
+    <link rel="stylesheet" href="./css/spots.css" />
 
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+    
     <script type="module" src="./js/main.js"></script>
   </head>
 
-  <body tabindex="8">
+  <!-- Replace the body tag once everything has been debugged: -->
+  <!-- <body tabindex="10" oncontextmenu="return false;"> -->
+  <body tabindex="10">
     <div id="startup-window" class="window opacity-0">
       <h1 class="text parking-panic startup-title">Parking Panic</h1>
       <div class="sirens startup-sirens">
@@ -200,34 +203,6 @@
             </p>
           </div>
 
-          <div id="modes">
-            <h1 class="overlay-header" id="modes-header">Game Modes</h1>
-            <div class="overlay-content" id="modes-listing">
-              <table id="modes-table">
-                <thead>
-                  <tr>
-                    <th class="text-green">Easy Mode</th>
-                    <th class="text-red">Hard Mode</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>5 lives<br/>Resets every round</td>
-                    <td>3 lives<br/>Does not reset</td>
-                  </tr>
-                  <tr>
-                    <td>Slower car</td>
-                    <td>Faster car</td>
-                  </tr>
-                  <tr>
-                    <td>10 obstacles</td>
-                    <td>20 obstacles</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
           <div id="objective">
             <h1 class="overlay-header" id="objective-header">Objectives</h1>
             <div class="overlay-content" id="objective-listing">
@@ -267,6 +242,34 @@
                   ></video>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div id="modes">
+            <h1 class="overlay-header" id="modes-header">Game Modes</h1>
+            <div class="overlay-content" id="modes-listing">
+              <table id="modes-table">
+                <thead>
+                  <tr>
+                    <th class="text-green">Easy Mode</th>
+                    <th class="text-red">Hard Mode</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>5 lives<br />Resets every round</td>
+                    <td>3 lives<br />Does not reset</td>
+                  </tr>
+                  <tr>
+                    <td>Slower car</td>
+                    <td>Faster car</td>
+                  </tr>
+                  <tr>
+                    <td>10 obstacles</td>
+                    <td>20 obstacles</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -336,6 +339,7 @@
           >
             <img class="hud-icon" src="./img/hud/help-icon.svg" alt="Help" />
           </div>
+
           <div
             id="lb-button"
             tabindex="6"
@@ -350,6 +354,7 @@
               alt="Leaderboard"
             />
           </div>
+
           <div
             id="pause-game-button"
             tabindex="6"
@@ -365,6 +370,7 @@
               alt="Pause Game"
             />
           </div>
+
           <div
             id="exit-game-button"
             tabindex="7"
@@ -379,6 +385,22 @@
               alt="Exit Game"
             />
           </div>
+
+          <div
+            id="skip-round-button"
+            tabindex="8"
+            data-action="confirmSkipRound"
+            class="button game-button game-section hud-section hidden"
+            title="Skip Round"
+            role="button"
+          >
+            <img
+              class="hud-icon"
+              src="./img/hud/skip-icon.svg"
+              alt="Skip Round"
+            />
+          </div>
+
           <div id="game-info" class="game-section hud-section hidden">
             <div id="round-display">Round 1</div>
             <div id="timer-display">00:00</div>
@@ -418,6 +440,14 @@
           </div>
 
           <div
+            class="modal-button btn-green hidden"
+            tabindex="0"
+            data-action="skipRound"
+            id="skip-round"
+          >
+            Skip Round
+          </div>
+          <div
             class="modal-button btn-red hidden"
             tabindex="0"
             data-action="confirmExitGame"
@@ -437,7 +467,7 @@
             class="modal-button btn-white hidden"
             tabindex="0"
             data-action="togglePaused"
-            id="cancel-exit"
+            id="cancel-action"
           >
             Cancel
           </div>
@@ -523,5 +553,7 @@
         </div>
       </div>
     </div>
+
+    <noscript>Sorry, your browser does not support JavaScript!</noscript>
   </body>
 </html>
