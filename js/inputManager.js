@@ -52,6 +52,9 @@ class InputManager {
         if (key === "a" || key === "arrowleft") this.keys.left = true;
         if (key === "d" || key === "arrowright") this.keys.right = true;
     
+        // Hide the cursor when using the keyboard
+        this.hideCursor();
+
         // Shortcuts (Using e.code for consistent keybinds across layouts)
         switch (code) {
             case "Slash": // Help shortcut
