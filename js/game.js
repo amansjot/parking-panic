@@ -67,6 +67,14 @@ class Game {
             if (document.hidden && !this.gamePaused) this.togglePaused();
         });
 
+        // Alert if you try closing the tab during a game
+        $(window).on("beforeunload", (e) => {
+            if (this.gameState === "start" || this.gameState === "loading") return;
+
+            e.preventDefault();
+            e.returnValue = ""; // Required for the prompt
+        });
+
         $(".start-button").on("click", () => this.showSpotlight());
 
         // Event listener for all buttons with data-action attributes
