@@ -474,10 +474,12 @@ class Game {
             this.gamePaused = !this.gamePaused;
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
+                $("#pause-game-tooltip").text("Resume Game");
                 this.statsManager.stopTimer();
                 this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.getScore()}`, ["#resume-game", "#confirm-exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
+                $("#pause-game-tooltip").text("Pause Game");
                 this.statsManager.startTimer();
                 $("#modal").addClass("hidden");
             }

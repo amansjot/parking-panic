@@ -18,7 +18,6 @@
     align-items: center;
     display: flex;
     z-index: var(--z-interactive);
-    /* Ensures it's above most elements */
 }
 
 /* Container for the lives counter displayed in the HUD */
@@ -62,10 +61,18 @@
     background-color: var(--orange-bright);
 }
 
+#help-tooltip {
+    background-color: var(--orange-dark);
+}
+
 /* Leaderboard button styling */
 #lb-button {
     border: 6px solid var(--blue-dark);
     background-color: var(--blue-light);
+}
+
+#lb-tooltip {
+    background-color: var(--blue-dark);
 }
 
 /* Pause game button styling */
@@ -74,16 +81,28 @@
     background-color: var(--yellow-bright);
 }
 
+#pause-game-tooltip {
+    background-color: var(--yellow-dark);
+}
+
 /* Exit game button styling */
 #exit-game-button {
     border: 6px solid var(--red-dark);
     background-color: var(--red-bright);
 }
 
+#exit-game-tooltip {
+    background-color: var(--red-dark);
+}
+
 /* Skip round button styling */
 #skip-round-button {
     border: 6px solid rgb(0, 96, 0);
     background-color: rgb(0, 192, 0);
+}
+
+#skip-round-tooltip {
+    background-color: rgb(0, 96, 0);
 }
 
 .game-button.disabled {
@@ -93,4 +112,24 @@
 
 .game-button.disabled:hover {
     scale: 1;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: -50px;
+    left: -5px;
+    color: white;
+    font-family: var(--secondary-font);
+    font-size: var(--font-sm);
+    padding: 8px 12px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Show tooltip on hover */
+.button:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
 }

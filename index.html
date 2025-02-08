@@ -26,7 +26,7 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-    
+
     <script type="module" src="./js/main.js"></script>
   </head>
 
@@ -199,7 +199,8 @@
           <div id="instructions">
             <h1 class="overlay-header" id="instruction-header">How to Start</h1>
             <p class="overlay-content" id="instruction-listing">
-              Park inside the Easy Mode or Hard Mode spots!<br />
+              Park inside the <span class="text-green">EASY MODE</span> or
+              <span class="text-red">HARD MODE</span> spot!<br />
             </p>
           </div>
 
@@ -334,10 +335,10 @@
             tabindex="4"
             data-action="toggleHelp"
             class="button hud-section"
-            title="Help"
             role="button"
           >
             <img class="hud-icon" src="./img/hud/help-icon.svg" alt="Help" />
+            <div class="tooltip" id="help-tooltip">Help Menu</div>
           </div>
 
           <div
@@ -345,7 +346,6 @@
             tabindex="6"
             data-action="toggleLeaderboard"
             class="button hud-section"
-            title="Leaderboard"
             role="button"
           >
             <img
@@ -353,6 +353,7 @@
               src="./img/hud/lb-icon.svg"
               alt="Leaderboard"
             />
+            <div class="tooltip" id="lb-tooltip">Leaderboard</div>
           </div>
 
           <div
@@ -360,7 +361,6 @@
             tabindex="6"
             data-action="togglePaused"
             class="button game-button game-section hud-section hidden"
-            title="Pause/Resume Game"
             role="button"
           >
             <img
@@ -369,6 +369,7 @@
               src="./img/hud/pause-icon.svg"
               alt="Pause Game"
             />
+            <div class="tooltip" id="pause-game-tooltip">Pause Game</div>
           </div>
 
           <div
@@ -376,7 +377,6 @@
             tabindex="7"
             data-action="confirmExitGame"
             class="button game-button game-section hud-section hidden"
-            title="Exit Game"
             role="button"
           >
             <img
@@ -384,6 +384,7 @@
               src="./img/hud/exit-icon.svg"
               alt="Exit Game"
             />
+            <div class="tooltip" id="exit-game-tooltip">Exit Game</div>
           </div>
 
           <div
@@ -391,7 +392,6 @@
             tabindex="8"
             data-action="confirmSkipRound"
             class="button game-button game-section hud-section hidden"
-            title="Skip Round"
             role="button"
           >
             <img
@@ -399,6 +399,7 @@
               src="./img/hud/skip-icon.svg"
               alt="Skip Round"
             />
+            <div class="tooltip" id="skip-round-tooltip">Skip Round</div>
           </div>
 
           <div id="game-info" class="game-section hud-section hidden">
