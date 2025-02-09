@@ -22,8 +22,9 @@
 
 /* Container for the lives counter displayed in the HUD */
 #lives-counter:not(.hidden) {
-    width: 245px;
-    height: 85px;
+    width: 255px;
+    height: 88px;
+    margin-top: -4px;
     background-image: url(../img/hud/lives-bg.png);
     background-size: cover;
     background-position: center;

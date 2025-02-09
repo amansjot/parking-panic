@@ -328,6 +328,10 @@ class Game {
         // Prevent starting a new round if the game has been ended
         if (this.gameState === "start") return;
 
+        // Reset the pause icon and text
+        $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
+        $("#pause-game-tooltip").text("Pause Game");
+
         this.gamePaused = false;
         this.carManager.resetCar(this.gameState);
         this.obstacleManager.resetObstacles();
