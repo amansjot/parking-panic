@@ -1,7 +1,8 @@
 /* Root styles */
 :root {
     /* Font Sizes */
-    --font-sm: 22px;
+    --font-xs: 22px;
+    --font-sm: 26px;
     --font-md: 34px;
     --font-lg: 48px;
     --font-xl: 80px;
@@ -134,7 +135,7 @@ body {
 .start-button {
     width: 165px;
     height: 54px;
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
     background-color: #393737;
     position: absolute;
     display: flex;
@@ -263,7 +264,7 @@ body {
 #loading-container {
     margin: 500px auto;
     width: 550px;
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
     color: var(--yellow-light);
 }
 

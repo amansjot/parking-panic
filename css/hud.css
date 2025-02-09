@@ -13,7 +13,7 @@
     width: 65px;
     height: 65px;
     border-radius: 10px;
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
     justify-content: center;
     align-items: center;
     display: flex;
@@ -116,12 +116,12 @@
 
 .tooltip {
     position: absolute;
-    bottom: -50px;
+    bottom: -55px;
     left: -5px;
     color: white;
     font-family: var(--secondary-font);
     font-size: var(--font-sm);
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 5px;
     white-space: nowrap;
     opacity: 0;
