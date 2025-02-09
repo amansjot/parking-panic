@@ -260,21 +260,23 @@ class Game {
 
     initLoadingBar(time) {
         let progress = 0;
-        const interval = 50; // Update every 50ms
-        const increment = 100 / (time / interval); // Dynamically calculated increment
-
+        const startTime = performance.now(); // Track the exact start time
+        const endTime = startTime + time; // Set when loading should finish
+    
         function updateProgress() {
-            if (progress >= 100) {
-                clearInterval(loadingInterval); // Stop updates when 100% is reached
-                return;
-            }
-            progress += increment;
+            const now = performance.now();
+            const elapsed = now - startTime;
+            progress = Math.min((elapsed / time) * 100, 100); // Ensure it never exceeds 100%
+    
             $(".progress").css("width", progress + "%");
+    
+            if (now < endTime) {
+                requestAnimationFrame(updateProgress); // Keep updating until time is reached
+            }
         }
-
-        // Run updateProgress() every 50ms
-        let loadingInterval = setInterval(updateProgress, interval);
-    }
+    
+        requestAnimationFrame(updateProgress); // Start animation loop
+    }    
 
     initStartScreen() {
         $("#game-window").css("background-image", "url(./img/starting-lot.png)");
