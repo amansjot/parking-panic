@@ -130,7 +130,7 @@
 }
 
 /* Show tooltip on hover */
-.button:hover .tooltip {
+.button:not(.disabled):hover .tooltip {
     opacity: 1;
     visibility: visible;
 }
