@@ -59,6 +59,9 @@ class InputManager {
             }
         }
 
+        // Allow toggle full screen
+        if (e.code === "KeyF") this.game.toggleFullScreen();
+
         // If overlay is active, only allow / to close it
         if (this.game.overlay) {
             if ((code === "Slash" && this.game.overlay === "help") ||

@@ -75,16 +75,7 @@ class Game {
             e.returnValue = ""; // Required for the prompt
         });
 
-        $("#fullscreen").on("click", () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-                $("#fullscreen img").attr("src", "./img/window-shrink.png");
-            } else {
-                document.exitFullscreen();
-                $("#fullscreen img").attr("src", "./img/window-expand.png");
-            }
-        });
-
+        $("#fullscreen").on("click", () => this.toggleFullScreen());
         $(".start-button").on("click", () => this.showSpotlight());
 
         // Event listener for all buttons with data-action attributes
@@ -196,12 +187,11 @@ class Game {
     loadGame() {
         // Step 1: Fade in the title text and generate the loading tip
         $("#startup-window").animate({ opacity: 1 }, 500);
-        $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
-
+        
         // Step 2: Quickly cycle through all background images to preload them
-        setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 50);
-        setTimeout(() => $("#game-window").css("background-image", "url(./img/starting-lot.png)"), 100);
-        setTimeout(() => $("#game-window").css("background-image", "url(./img/loading-lot.png)"), 150);
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 250);
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/starting-lot.png)"), 300);
+        setTimeout(() => $("#game-window").css("background-image", "url(./img/loading-lot.png)"), 350);
 
         // Step 3: Fade out the startup screen at 3s and start the loading bar animation
         setTimeout(() => {
@@ -209,6 +199,7 @@ class Game {
             $("#game-window").removeClass("hidden opacity-0");
             $("#fullscreen").animate({ opacity: 1 }, 500);
             $("#startup-window").animate({ opacity: 0 }, 500);
+            $("#loading-tip").hide().text(this.getRandomTip()).fadeIn(400);
             $("#game-window").addClass("border-white");
 
             setTimeout(() => {
@@ -649,6 +640,16 @@ class Game {
 
         $("#player-name").removeClass("input-invalid");
         this.showModal("red", "Game Over!", `Score: ${score}`, ["#play-again", "#exit-game"]);
+    }
+
+    toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            $("#fullscreen img").attr("src", "./img/window-shrink.png");
+        } else {
+            document.exitFullscreen();
+            $("#fullscreen img").attr("src", "./img/window-expand.png");
+        }
     }
 }
 
