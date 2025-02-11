@@ -114,6 +114,9 @@ class InputManager {
                 e.preventDefault(); // Prevent default behavior
                 this.game.confirmExitGame();
                 break;
+            case "Minus":
+                this.game.skipRound();
+                break;
             case "KeyH": // Toggle headlights
                 this.carManager.toggleHeadlights();
                 break;

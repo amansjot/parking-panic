@@ -33,7 +33,11 @@
   <!-- Replace the body tag once everything has been debugged: -->
   <!-- <body tabindex="10" oncontextmenu="return false;"> -->
   <body tabindex="10">
-    <div id="startup-window" class="window opacity-0">
+    <div id="fullscreen" class="button opacity-0">
+      <img src="./img/window-expand.png" alt="Full Screen" />
+    </div>
+
+    <div id="startup-window" class="window">
       <h1 class="text parking-panic startup-title">Parking Panic</h1>
       <div class="sirens startup-sirens">
         <img
@@ -189,6 +193,11 @@
                 </div>
 
                 <div class="grid-item">
+                  <span>Skip Round:</span>
+                  <img src="./img/keyboard-keys/minus.svg" alt="- Key" />
+                </div>
+
+                <div class="grid-item">
                   <span>Help:</span>
                   <img src="./img/keyboard-keys/slash.svg" alt="/ Key" />
                 </div>
@@ -207,7 +216,7 @@
           <div id="objective">
             <h1 class="overlay-header" id="objective-header">Objectives</h1>
             <div class="overlay-content" id="objective-listing">
-              <div class="list-item">
+              <div class="card-item">
                 <div>Dodge obstacles</div>
                 <div>
                   <video
@@ -219,7 +228,7 @@
                   ></video>
                 </div>
               </div>
-              <div class="list-item">
+              <div class="card-item">
                 <div>Park in the glowing spot</div>
                 <div>
                   <video
@@ -231,7 +240,7 @@
                   ></video>
                 </div>
               </div>
-              <div class="list-item">
+              <div class="card-item">
                 <div>Don't<br />crash!</div>
                 <div>
                   <video

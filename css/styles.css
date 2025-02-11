@@ -49,6 +49,10 @@ body {
     overflow: hidden;
 }
 
+img {
+    pointer-events: none;
+}
+
 /* Project title styling */
 /* Applies font styling and alignment for the game title */
 .text {
@@ -297,4 +301,23 @@ body {
     width: 0%;
     transition: width 0.2s linear;
     image-rendering: pixelated;
+}
+
+#fullscreen {
+    position: fixed;
+    top: 17px;
+    right: 15px;
+    z-index: var(--z-overlay);
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#fullscreen:hover {
+    scale: 1.15;
+}
+
+#fullscreen img {
+    width: 30px;
 }

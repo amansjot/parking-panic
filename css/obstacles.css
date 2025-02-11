@@ -1,7 +1,3 @@
-.game-obstacle, .starting-obstacle {
-    pointer-events: none;
-}
-
 /* General styles for car obstacles */
 .car-obstacle {
     position: absolute;

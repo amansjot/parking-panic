@@ -75,6 +75,16 @@ class Game {
             e.returnValue = ""; // Required for the prompt
         });
 
+        $("#fullscreen").on("click", () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                $("#fullscreen img").attr("src", "./img/window-shrink.png");
+            } else {
+                document.exitFullscreen();
+                $("#fullscreen img").attr("src", "./img/window-expand.png");
+            }
+        });
+
         $(".start-button").on("click", () => this.showSpotlight());
 
         // Event listener for all buttons with data-action attributes
@@ -137,11 +147,11 @@ class Game {
         // Stop the function if the game is paused
         if (this.gamePaused) return;
 
-        requestAnimationFrame(() => {
+        // requestAnimationFrame(() => {
             this.carManager.moveCar(this.inputManager.keys); // Move the car based on key inputs
             this.carManager.rotateCar(this.inputManager.keys); // Rotate the car
             this.carManager.updatePosition(); // Update the car's position in CSS
-        });
+        // });
 
         // Check for collisions with obstacles
         const collision = this.collisionHandler.checkCollisions(this.carManager.playerData);
@@ -197,6 +207,7 @@ class Game {
         setTimeout(() => {
             if (this.gameState === "loading") $("#loading-container").removeClass("hidden opacity-0");
             $("#game-window").removeClass("hidden opacity-0");
+            $("#fullscreen").animate({ opacity: 1 }, 500);
             $("#startup-window").animate({ opacity: 0 }, 500);
             $("#game-window").addClass("border-white");
 
