@@ -112,11 +112,11 @@ class CarManager {
     }
 
     resetCar(mode) {
-        this.hideExplosion();
         this.registerCollision = true;
         this.setSpeed(mode);
         this.playerData.speed.current = 0;
         this.playerData.position = { ...this.startingPosition };
+        this.hideExplosion();
     }
 
     checkParkingButtons() {
@@ -124,6 +124,7 @@ class CarManager {
 
         const easyModeRect = $('#easy-mode-button')[0].getBoundingClientRect();
         const hardModeRect = $('#hard-mode-button')[0].getBoundingClientRect();
+        const zenModeRect = $('#zen-mode-button')[0].getBoundingClientRect();
         const carRect = this.$player[0].getBoundingClientRect();
 
         if (
@@ -142,6 +143,15 @@ class CarManager {
             carRect.bottom <= hardModeRect.bottom + leeway
         ) {
             return "hard-mode";
+        }
+
+        if (
+            carRect.left >= zenModeRect.left - leeway &&
+            carRect.right <= zenModeRect.right + leeway &&
+            carRect.top >= zenModeRect.top - leeway &&
+            carRect.bottom <= zenModeRect.bottom + leeway
+        ) {
+            return "zen-mode";
         }
 
         return false;

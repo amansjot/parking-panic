@@ -83,14 +83,19 @@
         </div>
 
         <div id="start-buttons" class="opacity-0">
-          <div class="start-button transparent" id="easy-mode-button">
+          <div class="start-button" id="easy-mode-button">
             Easy Mode
           </div>
-          <div class="start-button transparent" id="hard-mode-button">
+          <div class="start-button" id="hard-mode-button">
             Hard Mode
+          </div>
+          <div class="start-button" id="zen-mode-button">
+            Zen Mode
           </div>
         </div>
       </div>
+
+      <div id="tutorial-popup" class="hidden"></div>
 
       <div class="overlays">
         <div
@@ -528,7 +533,7 @@
       <div id="parking-spots"></div>
 
       <div id="game-obstacles">
-        <div class="starting-obstacle opacity-0 cone-obstacle" id="cone-0">
+        <div class="starting-obstacle hidden opacity-0 cone-obstacle" id="cone-0">
           <img
             class="cone-img"
             src="./img/obstacles/cone.png"
@@ -537,7 +542,7 @@
           <div class="cone-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle opacity-0 cone-obstacle" id="cone-1">
+        <div class="starting-obstacle hidden opacity-0 cone-obstacle" id="cone-1">
           <img
             class="cone-img"
             src="./img/obstacles/cone.png"
@@ -547,7 +552,7 @@
         </div>
 
         <div
-          class="starting-obstacle opacity-0 dumpster-obstacle"
+          class="starting-obstacle hidden opacity-0 dumpster-obstacle"
           id="dumpster-0"
         >
           <img
@@ -558,7 +563,7 @@
           <div class="dumpster-hitbox hitbox"></div>
         </div>
 
-        <div class="starting-obstacle opacity-0 car-obstacle" id="car-0">
+        <div class="starting-obstacle hidden opacity-0 car-obstacle" id="car-0">
           <img
             class="car-img"
             src="./img/obstacles/car4.png"

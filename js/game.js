@@ -193,9 +193,10 @@ class Game {
         setTimeout(() => $("#game-window").css("background-image", "url(./img/starting-lot.png)"), 300);
         setTimeout(() => $("#game-window").css("background-image", "url(./img/loading-lot.png)"), 350);
 
-        // Step 3: Fade out the startup screen at 3s and start the loading bar animation
+        // Step 3: Fade out the startup screen at 2s and start the loading bar animation
         setTimeout(() => {
             if (this.gameState === "loading") $("#loading-container").removeClass("hidden opacity-0");
+            
             $("#game-window").removeClass("hidden opacity-0");
             $("#fullscreen").animate({ opacity: 1 }, 500);
             $("#startup-window").animate({ opacity: 0 }, 500);
@@ -286,6 +287,9 @@ class Game {
         $(".starting-obstacle, #start-buttons, .game-subtitle").animate({ opacity: 1 }, 400);
         $("#startup-window").remove();
 
+        // Start up the tutorial
+        this.initTutorial();
+
         // Reset car
         this.carManager.resetCar(this.gameState);
 
@@ -310,6 +314,12 @@ class Game {
         $(`#${mode}-button`).addClass("selected");
         $(".starting-obstacle, .text, .sirens, #loading-container").addClass("hidden");
         $(".game-divider, .game-section").removeClass('hidden');
+
+        if (mode === "zen-mode") {
+            $("#lives-counter").addClass("hidden");
+            $("#skip-round-button").addClass("disabled");
+            $("#timer-display").text("");
+        }
 
         // Display the game background
         $("#game-window").css("background-image", "url(./img/game-lot.png)");
@@ -343,8 +353,10 @@ class Game {
         // Reset lives in easy mode
         if (this.gameState == "easy-mode") this.statsManager.resetLives(this.gameState);
 
-        this.statsManager.startTimer();
-        this.statsManager.resetTimer();
+        if (this.gameState !== "zen-mode") {
+            this.statsManager.startTimer();
+            this.statsManager.resetTimer();
+        }
 
         this.spotManager.revertSpot();
         this.spotManager.updateSpot(this.statsManager.getRounds());
@@ -392,8 +404,11 @@ class Game {
         $(".start-button").removeClass("selected");
         $(".game-button").removeClass("disabled");
 
-        this.statsManager.stopTimer();
-        this.statsManager.resetTimer();
+        if (this.gameState !== "zen-mode") {
+            this.statsManager.stopTimer();
+            this.statsManager.resetTimer();
+        }
+
         this.statsManager.resetStats(this.gameState);
 
         this.spotManager.revertSpot();
@@ -459,7 +474,8 @@ class Game {
     gameOver() {
         const score = this.statsManager.getScore();
 
-        this.statsManager.stopTimer();
+        if (this.gameState !== "zen-mode") this.statsManager.stopTimer();
+
         this.gamePaused = true;
         this.gameEnded = true;
 
@@ -491,12 +507,12 @@ class Game {
             if (this.gamePaused) {
                 $("#pause-play-icon").attr("src", "./img/hud/play-icon.svg");
                 $("#pause-game-tooltip").text("Resume Game");
-                this.statsManager.stopTimer();
+                if (this.gameState !== "zen-mode") this.statsManager.stopTimer();
                 this.showModal("yellow", "Game Paused", `Current score: ${this.statsManager.getScore()}`, ["#resume-game", "#confirm-exit-game"]);
             } else {
                 $("#pause-play-icon").attr("src", "./img/hud/pause-icon.svg");
                 $("#pause-game-tooltip").text("Pause Game");
-                this.statsManager.startTimer();
+                if (this.gameState !== "zen-mode") this.statsManager.startTimer();
                 $("#modal").addClass("hidden");
             }
         }
@@ -508,7 +524,8 @@ class Game {
         const currScore = this.statsManager.getScore();
         if (currScore > 0) {
             this.gamePaused = true;
-            this.statsManager.stopTimer();
+            
+            if (this.gameState !== "zen-mode") this.statsManager.stopTimer();
 
             let modalStr = `Your score (${currScore}) will not be saved.`;
             if (this.leaderboard.playerName && this.leaderboard.getLowestScore() <= currScore) {
@@ -526,7 +543,8 @@ class Game {
 
         if (!($("#skip-round-button").hasClass("disabled"))) {
             this.gamePaused = true;
-            this.statsManager.stopTimer();
+            
+            if (this.gameState !== "zen-mode") this.statsManager.stopTimer();
 
             let modalStr = "This will cost 1 life and earn you 0 points.";
             if (this.gameState === "easy-mode") {
@@ -592,15 +610,15 @@ class Game {
         $(`#${id}, #overlay-screen`).toggleClass("hidden");
 
         this.overlay = this.overlay ? null : id;
-        if (this.overlay) this.statsManager.stopTimer();
-        else if (!this.gamePaused) this.statsManager.startTimer();
+        if (this.overlay && this.gameState !== "zen-mode") this.statsManager.stopTimer();
+        else if (!this.gamePaused && this.gameState !== "zen-mode") this.statsManager.startTimer();
     }
 
     closeOverlay() {
         $("#help, #leaderboard, #overlay-screen").addClass("hidden");
         this.overlay = null;
 
-        if (!this.gamePaused) this.statsManager.startTimer();
+        if (!this.gamePaused && this.gameState !== "zen-mode") this.statsManager.startTimer();
     }
 
     showSpotlight() {
@@ -650,6 +668,15 @@ class Game {
             document.exitFullscreen();
             $("#fullscreen img").attr("src", "./img/window-expand.png");
         }
+    }
+
+    initTutorial() {
+        this.showTutorialPopup("Start driving!", 900, 100);
+    }
+
+    showTutorialPopup(text, top, left) {
+        $("#tutorial-popup").html(text);
+        $("#tutorial-popup").css({ top: `${top}px`, left: `${left}px` }).removeClass("hidden");
     }
 }
 

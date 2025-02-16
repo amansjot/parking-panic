@@ -25,7 +25,8 @@
     --orange-bright: rgb(255, 128, 0);
     --yellow-bright: rgb(192, 192, 0);
     --green-bright: rgb(0, 255, 0);
-    
+    --blue-bright: rgb(0, 192, 255);
+
     --red-light: rgb(255, 128, 128);
     --orange-light: rgb(255, 192, 128);
     --yellow-light: rgb(255, 255, 128);
@@ -137,8 +138,8 @@ img {
 
 /* Button styling for start and game buttons */
 .start-button {
-    width: 165px;
-    height: 54px;
+    width: 230px;
+    height: 60px;
     font-size: var(--font-xs);
     background-color: #393737;
     position: absolute;
@@ -194,24 +195,42 @@ img {
     }
 }
 
+/* Animation: glowing red effect */
+@keyframes glow-blue {
+    from {
+        box-shadow: 0 0 3px 3px var(--blue-bright);
+        /* Initial shadow */
+    }
+
+    to {
+        box-shadow: 0 0 8px 8px var(--blue-bright);
+        /* Final shadow */
+    }
+}
+
 /* Easy mode button styling */
 /* Adds glow and green color to the easy mode button */
 #easy-mode-button {
-    top: 563px;
-    left: 620px;
+    top: 520px;
+    left: 580px;
     color: var(--green-light);
     animation: glow-green 0.7s infinite alternate;
-    /* Green glow animation */
 }
 
 /* Hard mode button styling */
 /* Adds glow and red color to the hard mode button */
 #hard-mode-button {
-    top: 630px;
-    left: 620px;
+    top: 595px;
+    left: 580px;
     color: var(--red-light);
     animation: glow-red 0.7s infinite alternate;
-    /* Red glow animation */
+}
+
+#zen-mode-button {
+    top: 670px;
+    left: 580px;
+    color: var(--blue-bright);
+    animation: glow-blue 0.7s infinite alternate;
 }
 
 .selected#easy-mode-button {
@@ -220,6 +239,10 @@ img {
 
 .selected#hard-mode-button {
     background-color: var(--red-dark) !important;
+}
+
+.selected#zen-mode-button {
+    background-color: var(--blue-dark) !important;
 }
 
 .hidden {
@@ -320,4 +343,11 @@ img {
 
 #fullscreen img {
     width: 30px;
+}
+
+#tutorial-popup {
+    position: absolute;
+    background-color: black;
+    font-family: var(--secondary-font);
+    font-size: var(--font-md);
 }

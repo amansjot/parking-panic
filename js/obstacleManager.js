@@ -5,7 +5,8 @@ class ObstacleManager {
         // Number of obstacles in a game
         this.numObstacles = {
             "easy-mode": { cones: 3, dumpsters: 2, cars: 5 },
-            "hard-mode": { cones: 6, dumpsters: 4, cars: 10 }
+            "hard-mode": { cones: 6, dumpsters: 4, cars: 10 },
+            "zen-mode": { cones: 0, dumpsters: 0, cars: 0 }
         };
 
         this.angledSpots = [33, 34, 35, 36, 37]; // Angled parking spots

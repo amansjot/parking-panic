@@ -93,7 +93,7 @@ class StatsManager {
         return `${minutes}:${secs}`;
     }
 
-    updateTimer() {
+    updateTimer(mode) {
         if (this.#time < 3600) {
             this.#time += 1;
             this.$timer.text(this.formatTime(this.#time));
