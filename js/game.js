@@ -139,9 +139,9 @@ class Game {
         if (this.gamePaused) return;
 
         // requestAnimationFrame(() => {
-            this.carManager.moveCar(this.inputManager.keys); // Move the car based on key inputs
-            this.carManager.rotateCar(this.inputManager.keys); // Rotate the car
-            this.carManager.updatePosition(); // Update the car's position in CSS
+        this.carManager.moveCar(this.inputManager.keys); // Move the car based on key inputs
+        this.carManager.rotateCar(this.inputManager.keys); // Rotate the car
+        this.carManager.updatePosition(); // Update the car's position in CSS
         // });
 
         // Check for collisions with obstacles
@@ -187,7 +187,7 @@ class Game {
     loadGame() {
         // Step 1: Fade in the title text and generate the loading tip
         $("#startup-window").animate({ opacity: 1 }, 500);
-        
+
         // Step 2: Quickly cycle through all background images to preload them
         setTimeout(() => $("#game-window").css("background-image", "url(./img/game-lot.png)"), 250);
         setTimeout(() => $("#game-window").css("background-image", "url(./img/starting-lot.png)"), 300);
@@ -264,21 +264,21 @@ class Game {
         let progress = 0;
         const startTime = performance.now(); // Track the exact start time
         const endTime = startTime + time; // Set when loading should finish
-    
+
         function updateProgress() {
             const now = performance.now();
             const elapsed = now - startTime;
             progress = Math.min((elapsed / time) * 100, 100); // Ensure it never exceeds 100%
-    
+
             $(".progress").css("width", progress + "%");
-    
+
             if (now < endTime) {
                 requestAnimationFrame(updateProgress); // Keep updating until time is reached
             }
         }
-    
+
         requestAnimationFrame(updateProgress); // Start animation loop
-    }    
+    }
 
     initStartScreen() {
         $("#game-window").css("background-image", "url(./img/starting-lot.png)");
@@ -292,9 +292,16 @@ class Game {
         // The car becomes visible and drives in from the bottom
         setTimeout(() => {
             $("#car").css({ top: "120px" }).animate({ top: "0px" }, 700, "swing");
-            setTimeout(() => $("#car").removeClass("opacity-0"), 200);
+            $("#car").removeClass("opacity-0");
+
             this.gamePaused = false;
             this.gameState = 'start';
+            
+            // If it's the first time opening the game, show the spotlight
+            if (!localStorage.getItem("firstVisit")) {
+                localStorage.setItem("firstVisit", "true"); // Mark that the user has visited
+                setTimeout(() => this.showSpotlight(), 1300); // Run only on first visit
+            }            
         }, 300);
     }
 
@@ -615,7 +622,12 @@ class Game {
                 $("#car-spotlight").removeClass("hidden");
             }
 
-            setTimeout(() => $("#car-spotlight").addClass("hidden"), 1000);
+            setTimeout(() => {
+                $("#car-spotlight").animate({ width: "10000px", height: "10000px" }, 2000, function () {
+                    // After animation completes, reset size and hide
+                    $(this).css({ width: "200px", height: "200px" }).addClass("hidden");
+                });
+            }, 1000);
         }, 1500);
     }
 
