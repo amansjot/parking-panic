@@ -636,17 +636,21 @@ class Game {
         }, 1500);
     }
 
-    authUser() {
+    async authUser() {
         const username = $("#player-username").val().trim();
         const password = $("#player-password").val().trim();
         
         const score = this.statsManager.getScore();
-        
-        const errors = this.leaderboard.authUser(username, password);
-        
-        setTimeout(() => {
-            if (errors.error) $("#input-error").html(errors.error);
-
+    
+        try {
+            // ✅ Await the authentication response
+            const errors = await this.leaderboard.authUser(username, password);
+    
+            if (errors.error) {
+                $("#input-error").html(errors.error);
+                return;
+            }
+    
             if (!errors.username && !errors.password && !errors.error) {
                 this.leaderboard.addScore(score, username);
                 let scoreStr = `Score: ${score}`;
@@ -656,15 +660,18 @@ class Game {
                 this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
             } else {
                 if (errors.username) {
-                    setTimeout(() => $("#player-username").addClass("input-invalid").val(""), 100);
+                    $("#player-username").addClass("input-invalid").val("");
                 }
                 if (errors.password) {
-                    setTimeout(() => $("#player-password").addClass("input-invalid").val(""), 100);
+                    $("#player-password").addClass("input-invalid").val("");
                 }
-                setTimeout(() => $(".input-invalid").first().focus(), 150);
+                $(".input-invalid").first().focus();
             }
-        }, 1000);
-    }
+        } catch (error) {
+            console.error("❌ Authentication failed:", error);
+            $("#input-error").html("Authentication error. Please try again.");
+        }
+    }    
 
     discardScore() {
         const score = this.statsManager.getScore();

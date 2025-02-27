@@ -13,57 +13,55 @@ class Leaderboard {
     /**
      * Register/login for the user
      */
-    authUser(username, password) {
+    async authUser(username, password) {
         let errors = { username: false, password: false, error: null };
-
-        if (username && password) {
-            const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
-            const sanitizedPassword = $('<div>').text(password).html(); // Sanitize password
-
-            if (sanitizedUsername && sanitizedPassword) {
-                fetch("/auth", {  // Handle both login & registration
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ username: sanitizedUsername, password: sanitizedPassword })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            console.log("✅ Login/Register successful:", sanitizedUsername);
-                            this.playerName = sanitizedUsername;
-                            localStorage.setItem('playerName', sanitizedUsername);
-                        } else {
-                            console.error("❌ Authentication failed:", data.message);
-                            errors.error = data.message;
-                            if (data.message === "Invalid password") {
-                                errors.password = true;
-                            } else {
-                                errors.username = true;
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.error("❌ Error:", error);
-                        errors.error = error;
-                        errors.username = true;
-                        errors.password = true;
-                    });
-            }
-        }
-
-        if (!password) {
-            errors.password = true;
-            errors.error = "Password is required";
-        }
+    
         if (!username) {
             errors.username = true;
             errors.error = "Username is required";
+            return errors;
         }
-
-        return errors;
+        if (!password) {
+            errors.password = true;
+            errors.error = "Password is required";
+            return errors;
+        }
+    
+        const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
+        const sanitizedPassword = $('<div>').text(password).html(); // Sanitize password
+    
+        try {
+            const response = await fetch("/auth", {  // ✅ Await API response
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: sanitizedUsername, password: sanitizedPassword })
+            });
+    
+            const data = await response.json();
+    
+            if (data.success) {
+                console.log("✅ Login/Register successful:", sanitizedUsername);
+                this.playerName = sanitizedUsername;
+                localStorage.setItem('playerName', sanitizedUsername);
+            } else {
+                console.error("❌ Authentication failed:", data.message);
+                errors.error = data.message;
+                if (data.message === "Invalid password") {
+                    errors.password = true;
+                } else {
+                    errors.username = true;
+                }
+            }
+        } catch (error) {
+            console.error("❌ Error:", error);
+            errors.error = "Server error. Please try again.";
+            errors.username = true;
+            errors.password = true;
+        }
+    
+        return errors; // ✅ Now returns only after processing the response
     }
+    
 
 
     /**
