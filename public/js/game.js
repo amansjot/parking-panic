@@ -643,24 +643,27 @@ class Game {
         const score = this.statsManager.getScore();
         
         const errors = this.leaderboard.authUser(username, password);
-        if (errors.error) $("#input-error").html(errors.error);
+        
+        setTimeout(() => {
+            if (errors.error) $("#input-error").html(errors.error);
 
-        if (!errors.username && !errors.password && !errors.error) {
-            this.leaderboard.addScore(score, username);
-            let scoreStr = `Score: ${score}`;
-            if (this.leaderboard.getLowestScore() <= score) {
-                scoreStr += "<br><br>Your score has been added to the leaderboard!";
+            if (!errors.username && !errors.password && !errors.error) {
+                this.leaderboard.addScore(score, username);
+                let scoreStr = `Score: ${score}`;
+                if (this.leaderboard.getLowestScore() <= score) {
+                    scoreStr += "<br><br>Your score has been added to the leaderboard!";
+                }
+                this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+            } else {
+                if (errors.username) {
+                    setTimeout(() => $("#player-username").addClass("input-invalid").val(""), 100);
+                }
+                if (errors.password) {
+                    setTimeout(() => $("#player-password").addClass("input-invalid").val(""), 100);
+                }
+                setTimeout(() => $(".input-invalid").first().focus(), 150);
             }
-            this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
-        } else {
-            if (errors.username) {
-                setTimeout(() => $("#player-username").addClass("input-invalid").val(""), 100);
-            }
-            if (errors.password) {
-                setTimeout(() => $("#player-password").addClass("input-invalid").val(""), 100);
-            }
-            setTimeout(() => $(".input-invalid").first().focus(), 150);
-        }
+        }, 100);
     }
 
     discardScore() {
