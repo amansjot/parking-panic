@@ -639,11 +639,10 @@ class Game {
     authUser() {
         const username = $("#player-username").val().trim();
         const password = $("#player-password").val().trim();
-
-        const score = this.statsManager.getScore();
-
-        errors = this.leaderboard.authUser(username, password);
         
+        const score = this.statsManager.getScore();
+        
+        const errors = this.leaderboard.authUser(username, password);
         if (errors.error) $("#input-error").html(errors.error);
 
         if (!errors.username && !errors.password) {

@@ -53,8 +53,8 @@ class Leaderboard {
             }
         }
 
-        if (username) errors.username = true;
-        if (password) errors.password = true;
+        if (!username) errors.username = true;
+        if (!password) errors.password = true;
 
         return errors;
     }
