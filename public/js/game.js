@@ -476,7 +476,7 @@ class Game {
         if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
                 const modalStr = "Log in or create an account to save your score!<br><br>Warning: This cannot be changed.";
-                this.showModal("yellow", "Save Score", modalStr, ["#auth-user", "#discard-name"], "#player-name");
+                this.showModal("yellow", "Save Score", modalStr, ["#auth-user", "#discard-name"], true);
             }, 700);
             return;
         }
@@ -567,7 +567,7 @@ class Game {
         this.handleRoundWin(true);
     }
 
-    showModal(textColor, title, content = null, buttons = null, inputs = null) {
+    showModal(textColor, title, content = null, buttons = null, inputs = false) {
         // Reset the modal
         $("#modal-content, #modal-input, #modal-buttons, .modal-button").addClass("hidden");
         $("#modal-title").removeClass().addClass(`text-${textColor}`).text(title);
@@ -591,7 +591,7 @@ class Game {
 
         if (inputs) {
             $("#modal-input").removeClass("hidden");
-            setTimeout(() => $("#modal-input > input").focus(), 100);
+            setTimeout(() => $("#modal-input > input").first().focus(), 100);
         }
 
         // Hide the modal after 700ms
@@ -659,9 +659,8 @@ class Game {
             if (errors.password) {
                 setTimeout(() => $("#player-password").addClass("input-invalid").val(""), 100);
             }
+            setTimeout(() => $(".input-invalid").first().focus(), 150);
         }
-
-        setTimeout(() => $(".input-invalid:first").focus(), 150);
     }
 
     discardScore() {
