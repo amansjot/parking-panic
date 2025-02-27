@@ -13,7 +13,7 @@ class Leaderboard {
     /**
      * Register/login for the user
      */
-    auth(username, password) {
+    authUser(username, password) {
         if (username && password) {
             const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
             const sanitizedPassword = $('<div>').text(password).html(); // Sanitize password

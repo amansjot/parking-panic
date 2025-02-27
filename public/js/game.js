@@ -296,12 +296,12 @@ class Game {
 
             this.gamePaused = false;
             this.gameState = 'start';
-            
+
             // If it's the first time opening the game, show the spotlight
             if (!localStorage.getItem("firstVisit")) {
                 localStorage.setItem("firstVisit", "true"); // Mark that the user has visited
                 setTimeout(() => this.showSpotlight(), 1300); // Run only on first visit
-            }            
+            }
         }, 300);
     }
 
@@ -475,7 +475,7 @@ class Game {
         // Ensure player name is set
         if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
-                const modalStr = "Enter a username and password to start saving your scores!<br><br>Warning: This cannot be changed.";
+                const modalStr = "Log in or create an account to save your score!<br><br>Warning: This cannot be changed.";
                 this.showModal("yellow", "Save Score", modalStr, ["#auth-user", "#discard-name"], "#player-name");
             }, 700);
             return;
@@ -517,9 +517,13 @@ class Game {
             this.gamePaused = true;
             this.statsManager.stopTimer();
 
-            let modalStr = `Your score (${currScore}) will not be saved.`;
-            if (this.leaderboard.playerName && this.leaderboard.getLowestScore() <= currScore) {
-                modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
+            let modalStr = "";
+            if (this.leaderboard.playerName) {
+                if (this.leaderboard.getLowestScore() <= currScore) {
+                    modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
+                } else {
+                    modalStr = `Your score (${currScore}) will not be saved.`;
+                }
             }
 
             this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-action"]);
