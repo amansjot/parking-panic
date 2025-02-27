@@ -15,16 +15,34 @@ class Leaderboard {
      */
     setPlayerName(input) {
         if (input) {
-            const sanitizedInput = $('<div>').text(input).html();
+            const sanitizedInput = $('<div>').text(input).html(); // Sanitize input
             if (sanitizedInput) {
-                this.playerName = sanitizedInput;
-                localStorage.setItem('playerName', sanitizedInput);
-                return true;
+                fetch("/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username: sanitizedInput })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Successfully saved
+                            console.log("User registered successfully:", sanitizedInput);
+                            this.playerName = sanitizedInput;
+                            localStorage.setItem('playerName', sanitizedInput);
+                            return true;
+                        } else {
+                            console.error("Registration failed:", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
             }
         }
 
         return false;
     }
+
 
     /**
      * Add a score to the leaderboard.
