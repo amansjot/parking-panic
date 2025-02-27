@@ -642,7 +642,8 @@ class Game {
 
         const score = this.statsManager.getScore();
 
-        if (this.leaderboard.authUser(username, password)) {
+        errors = this.leaderboard.authUser(username, password);
+        if (!errors.username && !errors.password) {
             this.leaderboard.addScore(score);
             let scoreStr = `Score: ${score}`;
             if (this.leaderboard.getLowestScore() <= score) {
@@ -650,8 +651,15 @@ class Game {
             }
             this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         } else {
-            setTimeout(() => $("#player-username").addClass("input-invalid").val("").focus(), 100);
+            if (errors.username) {
+                setTimeout(() => $("#player-username").addClass("input-invalid").val(""), 100);
+            }
+            if (errors.password) {
+                setTimeout(() => $("#player-password").addClass("input-invalid").val(""), 100);
+            }
         }
+
+        setTimeout(() => $(".input-invalid:first").focus(), 150);
     }
 
     discardScore() {
