@@ -42,6 +42,13 @@
     font-family: var(--secondary-font);
 }
 
+#input-error {
+    font-family: var(--secondary-font);
+    font-size: var(--font-sm);
+    padding: 10px;
+    color: var(--red-light);
+}
+
 #modal-buttons:not(.hidden) {
     height: 70px;
     display: flex;

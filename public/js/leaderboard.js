@@ -14,7 +14,7 @@ class Leaderboard {
      * Register/login for the user
      */
     authUser(username, password) {
-        errors = { username: false, password: false };
+        let errors = { username: false, password: false, error: null };
 
         if (username && password) {
             const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
@@ -36,6 +36,7 @@ class Leaderboard {
                             localStorage.setItem('playerName', sanitizedUsername);
                         } else {
                             console.error("❌ Authentication failed:", data.message);
+                            errors.error = data.message;
                             if (data.message === "Invalid password") {
                                 errors.password = true;
                             } else {
@@ -45,6 +46,7 @@ class Leaderboard {
                     })
                     .catch(error => {
                         console.error("❌ Error:", error);
+                        errors.error = error;
                         errors.username = true;
                         errors.password = true;
                     });
