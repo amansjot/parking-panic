@@ -55,8 +55,6 @@ class Leaderboard {
         } catch (error) {
             console.error("❌ Error:", error);
             errors.error = "Server error. Please try again.";
-            errors.username = true;
-            errors.password = true;
         }
     
         return errors; // ✅ Now returns only after processing the response
@@ -68,15 +66,9 @@ class Leaderboard {
      * Add a score to the leaderboard.
      * @param {number} score - The player's score to add.
     */
-    addScore(score, username = null) {
+    addScore(score) {
         // Ignore scores of 0
         if (score == 0) return;
-
-        // Update the username after authentication
-        if (username) {
-            localStorage.setItem('playerName', username);
-            this.playerName = username;
-        }
 
         // Push the new score into the scores array
         this.scores.push({ name: this.playerName || "Unknown", score });

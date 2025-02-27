@@ -639,39 +639,35 @@ class Game {
     async authUser() {
         const username = $("#player-username").val().trim();
         const password = $("#player-password").val().trim();
-        
+
         const score = this.statsManager.getScore();
-    
+
         try {
             // ✅ Await the authentication response
             const errors = await this.leaderboard.authUser(username, password);
-    
+
             if (errors.error) {
                 $("#input-error").html(errors.error);
+
+                if (errors.username) $("#player-username").addClass("input-invalid").val("");
+                if (errors.password) $("#player-password").addClass("input-invalid").val("");
+                $(".input-invalid").first().focus();
+
                 return;
             }
-    
-            if (!errors.username && !errors.password && !errors.error) {
-                this.leaderboard.addScore(score, username);
-                let scoreStr = `Score: ${score}`;
-                if (this.leaderboard.getLowestScore() <= score) {
-                    scoreStr += "<br><br>Your score has been added to the leaderboard!";
-                }
-                this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
-            } else {
-                if (errors.username) {
-                    $("#player-username").addClass("input-invalid").val("");
-                }
-                if (errors.password) {
-                    $("#player-password").addClass("input-invalid").val("");
-                }
-                $(".input-invalid").first().focus();
+
+            this.leaderboard.addScore(score);
+            let scoreStr = `Score: ${score}`;
+            if (this.leaderboard.getLowestScore() <= score) {
+                scoreStr += "<br><br>Your score has been added to the leaderboard!";
             }
+            this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
+
         } catch (error) {
             console.error("❌ Authentication failed:", error);
             $("#input-error").html("Authentication error. Please try again.");
         }
-    }    
+    }
 
     discardScore() {
         const score = this.statsManager.getScore();
