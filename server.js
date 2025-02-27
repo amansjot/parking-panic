@@ -1,17 +1,18 @@
-const express = require("express");
-const path = require("path");
+require("dotenv").config();
+const { MongoClient } = require("mongodb");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;  // Railway injects this automatically
 
-// Serve static files (HTML, CSS, JS, images)
-app.use(express.static(path.join(__dirname)));
+const client = new MongoClient(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Route for the homepage
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
+async function connectDB() {
+    try {
+        await client.connect();
+        console.log("Connected to Railway MongoDB!");
+        return client.db();
+    } catch (err) {
+        console.error("MongoDB Connection Error:", err);
+    }
+}
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+connectDB();
