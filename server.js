@@ -1,4 +1,8 @@
+const express = require("express");
 const { MongoClient } = require("mongodb");
+
+const app = express();
+const PORT = process.env.PORT || 3000; // ✅ Railway dynamically assigns this
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -21,3 +25,13 @@ async function connectDB() {
 }
 
 connectDB();
+
+// Example route
+app.get("/", (req, res) => {
+    res.send("✅ Server is running and connected to MongoDB!");
+});
+
+// ✅ Listen on process.env.PORT
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
