@@ -663,7 +663,7 @@ class Game {
                 }
                 setTimeout(() => $(".input-invalid").first().focus(), 150);
             }
-        }, 100);
+        }, 1000);
     }
 
     discardScore() {
