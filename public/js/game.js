@@ -645,7 +645,7 @@ class Game {
         const errors = this.leaderboard.authUser(username, password);
         if (errors.error) $("#input-error").html(errors.error);
 
-        if (!errors.username && !errors.password) {
+        if (!errors.username && !errors.password && !errors.error) {
             this.leaderboard.addScore(score);
             let scoreStr = `Score: ${score}`;
             if (this.leaderboard.getLowestScore() <= score) {
