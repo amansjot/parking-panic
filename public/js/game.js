@@ -517,13 +517,14 @@ class Game {
             this.gamePaused = true;
             this.statsManager.stopTimer();
 
-            let modalStr = "";
-            if (this.leaderboard.playerName) {
-                if (this.leaderboard.getLowestScore() <= currScore) {
-                    modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
-                } else {
-                    modalStr = `Your score (${currScore}) will not be saved.`;
-                }
+            if (!this.leaderboard.playerName) {
+                this.gameOver();
+                return;
+            }
+
+            let modalStr = `Your score (${currScore}) will not be saved.`;
+            if (this.leaderboard.getLowestScore() <= currScore) {
+                modalStr = `Your score (${currScore}) will be added to the leaderboard.`;
             }
 
             this.showModal("yellow", "Exit Game?", modalStr, ["#exit-game", "#cancel-action"]);
