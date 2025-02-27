@@ -91,7 +91,7 @@ class Game {
                     exitGame: () => this.exitGame(),
                     confirmSkipRound: () => this.confirmSkipRound(),
                     skipRound: () => this.skipRound(),
-                    registerUser: () => this.registerUser(),
+                    authUser: () => this.authUser(),
                     discardScore: () => this.discardScore(),
                     toggleHelp: () => this.toggleOverlay("help"),
                     toggleLeaderboard: () => this.toggleOverlay("leaderboard"),
@@ -476,7 +476,7 @@ class Game {
         if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
                 const modalStr = "Enter a username and password to start saving your scores!<br><br>Warning: This cannot be changed.";
-                this.showModal("yellow", "Save Score", modalStr, ["#register-user", "#discard-name"], "#player-name");
+                this.showModal("yellow", "Save Score", modalStr, ["#auth-user", "#discard-name"], "#player-name");
             }, 700);
             return;
         }
@@ -631,13 +631,13 @@ class Game {
         }, 1500);
     }
 
-    registerUser() {
+    authUser() {
         const username = $("#player-username").val().trim();
         const password = $("#player-password").val().trim();
 
         const score = this.statsManager.getScore();
 
-        if (this.leaderboard.registerUser(username, password)) {
+        if (this.leaderboard.authUser(username, password)) {
             this.leaderboard.addScore(score);
             let scoreStr = `Score: ${score}`;
             if (this.leaderboard.getLowestScore() <= score) {

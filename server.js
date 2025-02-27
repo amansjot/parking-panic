@@ -30,8 +30,8 @@ async function connectDB() {
 }
 connectDB();
 
-// ✅ API Route to Register User
-app.post("/register", async (req, res) => {
+// ✅ Combined Login & Register Route
+app.post("/auth", async (req, res) => {
     const { username, password } = req.body;
     
     if (!username || !password) {
@@ -43,23 +43,26 @@ app.post("/register", async (req, res) => {
 
         // Check if user already exists
         const existingUser = await users.findOne({ username });
+
         if (existingUser) {
-            return res.status(400).json({ success: false, message: "Username already taken" });
+            // ✅ Attempt login (Compare hashed password)
+            const isValidPassword = await bcrypt.compare(password, existingUser.password);
+            if (!isValidPassword) {
+                return res.status(401).json({ success: false, message: "Invalid password" });
+            }
+            return res.json({ success: true, message: "Login successful" });
+        } else {
+            // ✅ Register new user (Hash password)
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await users.insertOne({
+                username,
+                password: hashedPassword,
+                scores: []
+            });
+            return res.json({ success: true, message: "User registered" });
         }
-
-        // ✅ Hash the password before storing
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Insert user with hashed password and empty scores array
-        await users.insertOne({
-            username,
-            password: hashedPassword,
-            scores: []
-        });
-
-        res.json({ success: true, message: "User registered" });
     } catch (error) {
-        console.error("❌ Error registering user:", error);
+        console.error("❌ Authentication Error:", error);
         res.status(500).json({ success: false, message: "Server error" });
     }
 });

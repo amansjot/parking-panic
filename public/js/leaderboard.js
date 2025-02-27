@@ -11,38 +11,38 @@ class Leaderboard {
     }
 
     /**
-     * Register the user
+     * Register/login for the user
      */
-    registerUser(username, password) {
+    auth(username, password) {
         if (username && password) {
             const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
             const sanitizedPassword = $('<div>').text(password).html(); // Sanitize password
     
             if (sanitizedUsername && sanitizedPassword) {
-                fetch("/register", {
+                fetch("/auth", {  // ✅ New endpoint to handle both login & registration
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ username: sanitizedUsername, password: sanitizedPassword }) // Send both
+                    body: JSON.stringify({ username: sanitizedUsername, password: sanitizedPassword })
                 })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            console.log("✅ User registered successfully:", sanitizedUsername);
+                            console.log("✅ Login/Register successful:", sanitizedUsername);
                             this.playerName = sanitizedUsername;
                             localStorage.setItem('playerName', sanitizedUsername);
                             return true;
                         } else {
-                            console.error("❌ Registration failed:", data.message);
+                            console.error("❌ Authentication failed:", data.message);
                         }
                     })
                     .catch(error => console.error("❌ Error:", error));
             }
         }
-    
         return false;
     }
+    
 
     /**
      * Add a score to the leaderboard.
