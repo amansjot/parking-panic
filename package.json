@@ -4,9 +4,7 @@
   "description": "Welcome to Parking Panic, a browser-based bird's eye driving game filled with exciting challenges! Try your hand at parking in multiple game modes with obstacles and blockades along your path. Race against the clock to maximize your points. Load it once in your browser and play offline!",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "install": "npm install --omit=dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
