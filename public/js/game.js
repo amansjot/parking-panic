@@ -91,8 +91,8 @@ class Game {
                     exitGame: () => this.exitGame(),
                     confirmSkipRound: () => this.confirmSkipRound(),
                     skipRound: () => this.skipRound(),
-                    saveName: () => this.saveName(),
-                    discardName: () => this.discardName(),
+                    registerUser: () => this.registerUser(),
+                    discardScore: () => this.discardScore(),
                     toggleHelp: () => this.toggleOverlay("help"),
                     toggleLeaderboard: () => this.toggleOverlay("leaderboard"),
                     closeOverlay: () => this.closeOverlay(),
@@ -475,8 +475,8 @@ class Game {
         // Ensure player name is set
         if (!this.leaderboard.playerName && score > 0) {
             setTimeout(() => {
-                const modalStr = "Enter your name to start saving your scores!<br><br>Warning: This cannot be changed.";
-                this.showModal("yellow", "Save Score", modalStr, ["#save-name", "#discard-name"], "#player-name");
+                const modalStr = "Enter a username and password to start saving your scores!<br><br>Warning: This cannot be changed.";
+                this.showModal("yellow", "Save Score", modalStr, ["#register-user", "#discard-name"], "#player-name");
             }, 700);
             return;
         }
@@ -562,7 +562,7 @@ class Game {
         this.handleRoundWin(true);
     }
 
-    showModal(textColor, title, content = null, buttons = null, input = null) {
+    showModal(textColor, title, content = null, buttons = null, inputs = null) {
         // Reset the modal
         $("#modal-content, #modal-input, #modal-buttons, .modal-button").addClass("hidden");
         $("#modal-title").removeClass().addClass(`text-${textColor}`).text(title);
@@ -584,7 +584,7 @@ class Game {
             setTimeout(() => $(".modal-button:not(.hidden)").first().focus(), 100);
         }
 
-        if (input) {
+        if (inputs) {
             $("#modal-input").removeClass("hidden");
             setTimeout(() => $("#modal-input > input").focus(), 100);
         }
@@ -631,11 +631,13 @@ class Game {
         }, 1500);
     }
 
-    saveName() {
-        const input = $("#player-name").val();
+    registerUser() {
+        const username = $("#player-username").val().trim();
+        const password = $("#player-password").val().trim();
+
         const score = this.statsManager.getScore();
 
-        if (this.leaderboard.setPlayerName(input.trim())) {
+        if (this.leaderboard.registerUser(username, password)) {
             this.leaderboard.addScore(score);
             let scoreStr = `Score: ${score}`;
             if (this.leaderboard.getLowestScore() <= score) {
@@ -643,11 +645,11 @@ class Game {
             }
             this.showModal("red", "Game Over!", scoreStr, ["#play-again", "#exit-game"]);
         } else {
-            setTimeout(() => $("#player-name").addClass("input-invalid").val("").focus(), 100);
+            setTimeout(() => $("#player-username").addClass("input-invalid").val("").focus(), 100);
         }
     }
 
-    discardName() {
+    discardScore() {
         const score = this.statsManager.getScore();
 
         $("#player-name").removeClass("input-invalid");

@@ -11,38 +11,38 @@ class Leaderboard {
     }
 
     /**
-     * Set the player's name (via prompt if not already set).
+     * Register the user
      */
-    setPlayerName(input) {
-        if (input) {
-            const sanitizedInput = $('<div>').text(input).html(); // Sanitize input
-            if (sanitizedInput) {
+    registerUser(username, password) {
+        if (username && password) {
+            const sanitizedUsername = $('<div>').text(username).html(); // Sanitize username
+            const sanitizedPassword = $('<div>').text(password).html(); // Sanitize password
+    
+            if (sanitizedUsername && sanitizedPassword) {
                 fetch("/register", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ username: sanitizedInput })
+                    body: JSON.stringify({ username: sanitizedUsername, password: sanitizedPassword }) // Send both
                 })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Successfully saved
-                            console.log("User registered successfully:", sanitizedInput);
-                            this.playerName = sanitizedInput;
-                            localStorage.setItem('playerName', sanitizedInput);
+                            console.log("✅ User registered successfully:", sanitizedUsername);
+                            this.playerName = sanitizedUsername;
+                            localStorage.setItem('playerName', sanitizedUsername);
                             return true;
                         } else {
-                            console.error("Registration failed:", data.message);
+                            console.error("❌ Registration failed:", data.message);
                         }
                     })
-                    .catch(error => console.error("Error:", error));
+                    .catch(error => console.error("❌ Error:", error));
             }
         }
-
+    
         return false;
     }
-
 
     /**
      * Add a score to the leaderboard.

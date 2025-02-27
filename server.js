@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware
-app.use(express.static(path.join(__dirname, "public"))); // Serve frontend files
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 app.use(express.json()); // Parse JSON body
 
 if (!MONGO_URI) {
@@ -32,9 +32,10 @@ connectDB();
 
 // ✅ API Route to Register User
 app.post("/register", async (req, res) => {
-    const { username } = req.body;
-    if (!username) {
-        return res.status(400).json({ success: false, message: "Username is required" });
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+        return res.status(400).json({ success: false, message: "Username and password are required" });
     }
 
     try {
@@ -46,13 +47,13 @@ app.post("/register", async (req, res) => {
             return res.status(400).json({ success: false, message: "Username already taken" });
         }
 
-        // Hash a default password (optional, if you want passwords)
-        const hashedPassword = await bcrypt.hash("defaultpassword", 10);
+        // ✅ Hash the password before storing
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert user with empty scores array
+        // Insert user with hashed password and empty scores array
         await users.insertOne({
             username,
-            password: hashedPassword, // Use real password handling if needed
+            password: hashedPassword,
             scores: []
         });
 

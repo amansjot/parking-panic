@@ -431,9 +431,16 @@
         <div id="modal-input" class="hidden">
           <input
             type="text"
-            id="player-name"
-            placeholder="Enter your name"
+            id="player-username"
+            placeholder="Username"
             maxlength="10"
+          />
+          <br />
+          <input
+            type="password"
+            id="player-password"
+            placeholder="Password"
+            maxlength="16"
           />
         </div>
         <div id="modal-buttons" class="hidden">
@@ -490,16 +497,16 @@
           <div
             class="modal-button btn-green hidden"
             tabindex="0"
-            data-action="saveName"
-            id="save-name"
+            data-action="registerUser"
+            id="register-user"
           >
             Save
           </div>
           <div
             class="modal-button btn-red hidden"
             tabindex="0"
-            data-action="discardName"
-            id="discard-name"
+            data-action="discardScore"
+            id="discard-score"
           >
             Discard
           </div>
