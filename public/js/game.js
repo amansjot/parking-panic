@@ -646,7 +646,7 @@ class Game {
         if (errors.error) $("#input-error").html(errors.error);
 
         if (!errors.username && !errors.password && !errors.error) {
-            this.leaderboard.addScore(score);
+            this.leaderboard.addScore(score, username);
             let scoreStr = `Score: ${score}`;
             if (this.leaderboard.getLowestScore() <= score) {
                 scoreStr += "<br><br>Your score has been added to the leaderboard!";

@@ -53,8 +53,14 @@ class Leaderboard {
             }
         }
 
-        if (!username) errors.username = true;
-        if (!password) errors.password = true;
+        if (!password) {
+            errors.password = true;
+            errors.error = "Password is required";
+        }
+        if (!username) {
+            errors.username = true;
+            errors.error = "Username is required";
+        }
 
         return errors;
     }
@@ -64,9 +70,15 @@ class Leaderboard {
      * Add a score to the leaderboard.
      * @param {number} score - The player's score to add.
     */
-    addScore(score) {
+    addScore(score, username = null) {
         // Ignore scores of 0
         if (score == 0) return;
+
+        // Update the username after authentication
+        if (username) {
+            localStorage.setItem('playerName', username);
+            this.playerName = username;
+        }
 
         // Push the new score into the scores array
         this.scores.push({ name: this.playerName || "Unknown", score });
