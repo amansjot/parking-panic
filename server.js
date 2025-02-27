@@ -1,9 +1,14 @@
 const { MongoClient } = require("mongodb");
 
-// Railway injects MONGO_URI automatically
 const MONGO_URI = process.env.MONGO_URI;
 
-const client = new MongoClient(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+if (!MONGO_URI) {
+    console.error("❌ MONGO_URI is not set. Check Railway environment variables.");
+    process.exit(1);
+}
+
+// Create MongoDB client
+const client = new MongoClient(MONGO_URI);
 
 async function connectDB() {
     try {
