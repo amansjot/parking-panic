@@ -463,7 +463,7 @@ class Game {
     /**
      * End the game when the player runs out of lives.
      */
-    gameOver() {
+    gameOver(delay = 700) {
         const score = this.statsManager.getScore();
 
         this.statsManager.stopTimer();
@@ -477,7 +477,7 @@ class Game {
             setTimeout(() => {
                 const modalStr = "Log in or create an account to save your score!<br><br>Warning: This cannot be changed.";
                 this.showModal("yellow", "Save Score", modalStr, ["#auth-user", "#discard-name"], true);
-            }, 700);
+            }, delay);
             return;
         }
 
@@ -518,7 +518,7 @@ class Game {
             this.statsManager.stopTimer();
 
             if (!this.leaderboard.playerName) {
-                this.gameOver();
+                this.gameOver(0);
                 return;
             }
 
