@@ -84,6 +84,29 @@ app.get("/top-scores", async (req, res) => {
     }
 });
 
+// Route to get the lowest score in the leaderboard list
+app.get("/lowest-score", async (req, res) => {
+    try {
+        const users = db.collection("users");
+
+        // Fetch the 10th highest score from the leaderboard
+        const lowestScoreEntry = await users.aggregate([
+            { $unwind: "$scores" },
+            { $sort: { "scores.score": -1 } }, // Sort by highest score
+            { $skip: 9 }, // Skip top 9 scores
+            { $limit: 1 }, // Get the 10th score
+            { $project: { _id: 0, score: "$scores.score" } }
+        ]).toArray();
+
+        const lowestScore = lowestScoreEntry.length > 0 ? lowestScoreEntry[0].score : 0;
+
+        res.json({ success: true, lowestScore });
+    } catch (error) {
+        console.error("❌ Error fetching lowest score:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
 // Combined Login & Register Route
 app.post("/auth", async (req, res) => {
     const { username, password } = req.body;

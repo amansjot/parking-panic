@@ -112,13 +112,22 @@ class Leaderboard {
     /**
      * Get the lowest score in the leaderboard.
      */
-    getLowestScore() {
-        // Return 0 if there are open spots on the leaderboard
-        if (this.scores.length < this.numScores) return 0;
-
-        // Return the score of the last entry in the sorted leaderboard
-        return this.scores[this.scores.length - 1].score;
-    }
+    async getLowestScore() {
+        try {
+            const response = await fetch("/lowest-score");
+            const data = await response.json();
+    
+            if (!data.success) {
+                console.error("❌ Failed to fetch lowest score:", data.message);
+                return 0;
+            }
+    
+            return data.lowestScore ?? 0; // Return 0 if no scores exist
+        } catch (error) {
+            console.error("❌ Error fetching lowest score:", error);
+            return 0;
+        }
+    }    
 
     /**
      * Update the leaderboard display
