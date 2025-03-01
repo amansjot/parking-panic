@@ -126,64 +126,71 @@ class Leaderboard {
     async updateLeaderboard() {
         const $leaderboard = $('.leaderboard-table');
         $leaderboard.empty(); // Clear existing leaderboard content
-
-        const username = this.playerName; // Get logged-in user
-        if (!username) {
-            $leaderboard.append('<div class="overlay-content">Log in to see the leaderboard.</div>');
-            return;
-        }
-
+    
         try {
-            // Fetch top scores and user's best rank
-            const response = await fetch(`/top-scores?username=${username}`);
+            // Fetch top 10 scores from the backend
+            const response = await fetch("/top-scores");
             const data = await response.json();
-
+    
             if (!data.success) {
                 console.error("Failed to fetch leaderboard:", data.message);
                 $leaderboard.append('<div class="overlay-content">Failed to load leaderboard.</div>');
                 return;
             }
-
-            const { scores, userRank, userScore } = data;
-
-            // Build leaderboard header
-            if (scores.length > 0) {
+    
+            const topScores = data.scores; 
+            const currentUsername = localStorage.getItem('playerName'); // Get current user
+    
+            // Build the header row
+            if (topScores.length > 0) {
                 const $headerRow = $('<div class="leaderboard-row"></div>');
                 $headerRow.append('<div class="leaderboard-header">#</div>');
                 $headerRow.append('<div class="leaderboard-header">Player</div>');
                 $headerRow.append('<div class="leaderboard-header">Score</div>');
                 $leaderboard.append($headerRow);
             } else {
-                $leaderboard.append('<div class="overlay-content">No scores available.</div>');
+                $leaderboard.append('<div class="overlay-content">You have no saved scores!</div>');
             }
-
-            // Display top 10 scores
-            scores.forEach((entry, index) => {
+    
+            // Append the top 10 rows
+            topScores.forEach((entry, index) => {
+                const isCurrentUser = entry.username === currentUsername;
                 const $row = $('<div class="leaderboard-row"></div>');
-                $row.append(`<div class="leaderboard-item">${index + 1}</div>`); // Rank
-                $row.append(`<div class="leaderboard-item">${entry.username}</div>`); // Player Name
-                $row.append(`<div class="leaderboard-item">${entry.score}</div>`); // Score
+                if (isCurrentUser) $row.addClass("user-row"); // Add class if current user
+                $row.append(`<div class="leaderboard-item">${index + 1}</div>`);
+                $row.append(`<div class="leaderboard-item">${entry.username}</div>`);
+                $row.append(`<div class="leaderboard-item">${entry.score}</div>`);
                 $leaderboard.append($row);
             });
-
-            // Handle user score if it's not in the top 10
-            if (userRank > 10) {
-                if (userRank === 11) {
-                    // Show user’s score right after top 10
-                    const $userRow = $('<div class="leaderboard-row user-score"></div>');
-                    $userRow.append(`<div class="leaderboard-item">${userRank}</div>`);
-                    $userRow.append(`<div class="leaderboard-item">${username}</div>`);
-                    $userRow.append(`<div class="leaderboard-item">${userScore}</div>`);
-                    $leaderboard.append($userRow);
+    
+            // Check if the user is already in the top 10
+            const inTopTen = topScores.some(entry => entry.username === currentUsername);
+    
+            if (!inTopTen && currentUsername) {
+                // Fetch the user's best score and rank from the backend
+                const userScoreResponse = await fetch(`/user-score?username=${encodeURIComponent(currentUsername)}`);
+                const userData = await userScoreResponse.json();
+                if (userData.success) {
+                    const { score, rank } = userData;
+                    if (rank === 11) {
+                        // User is at #11, append their row
+                        const $row = $('<div class="leaderboard-row user-row"></div>'); // Add user-row class
+                        $row.append(`<div class="leaderboard-item">${rank}</div>`);
+                        $row.append(`<div class="leaderboard-item">${currentUsername}</div>`);
+                        $row.append(`<div class="leaderboard-item">${score}</div>`);
+                        $leaderboard.append($row);
+                    } else if (rank > 11) {
+                        // User is below #11, add an ellipsis row then their row
+                        const $ellipsis = $('<div class="leaderboard-row"><div class="leaderboard-item">...</div><div class="leaderboard-item">...</div><div class="leaderboard-item">...</div></div>');
+                        $leaderboard.append($ellipsis);
+                        const $row = $('<div class="leaderboard-row user-row"></div>'); // Add user-row class
+                        $row.append(`<div class="leaderboard-item">${rank}</div>`);
+                        $row.append(`<div class="leaderboard-item">${currentUsername}</div>`);
+                        $row.append(`<div class="leaderboard-item">${score}</div>`);
+                        $leaderboard.append($row);
+                    }
                 } else {
-                    // Show "..." before displaying user’s score
-                    $leaderboard.append('<div class="leaderboard-separator">...</div>');
-
-                    const $userRow = $('<div class="leaderboard-row user-score"></div>');
-                    $userRow.append(`<div class="leaderboard-item">${userRank}</div>`);
-                    $userRow.append(`<div class="leaderboard-item">${username}</div>`);
-                    $userRow.append(`<div class="leaderboard-item">${userScore}</div>`);
-                    $leaderboard.append($userRow);
+                    console.error("Failed to fetch user score:", userData.message);
                 }
             }
         } catch (error) {
@@ -191,8 +198,7 @@ class Leaderboard {
             $leaderboard.append('<div class="overlay-content">Failed to load leaderboard.</div>');
         }
     }
-
-
+    
     /**
      * Clear the leaderboard (for debugging or reset purposes).
      */
