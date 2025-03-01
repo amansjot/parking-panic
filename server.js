@@ -32,14 +32,16 @@ connectDB();
 
 // Route to retrieve top scores
 app.get("/top-scores", async (req, res) => {
+    const { username } = req.query; // Get username from query param
+
     try {
         const users = db.collection("users");
 
-        // Aggregate top scores from all users
-        const leaderboard = await users.aggregate([
-            { $unwind: "$scores" },  // Flatten scores array
-            { $sort: { "scores.score": -1 } },  // Sort by highest score
-            { $limit: 10 },  // Limit to top 10 scores
+        // Fetch top 10 scores
+        const topScores = await users.aggregate([
+            { $unwind: "$scores" },
+            { $sort: { "scores.score": -1 } },
+            { $limit: 10 },
             {
                 $project: {
                     _id: 0,
@@ -50,7 +52,32 @@ app.get("/top-scores", async (req, res) => {
             }
         ]).toArray();
 
-        res.json({ success: true, scores: leaderboard });
+        // Fetch user’s best score and rank
+        let userRank = null;
+        let userScore = null;
+
+        if (username) {
+            const allScores = await users.aggregate([
+                { $unwind: "$scores" },
+                { $sort: { "scores.score": -1 } },
+                {
+                    $project: {
+                        _id: 0,
+                        username: "$username",
+                        score: "$scores.score"
+                    }
+                }
+            ]).toArray();
+
+            // Find user's best score
+            const userEntry = allScores.find(entry => entry.username === username);
+            if (userEntry) {
+                userScore = userEntry.score;
+                userRank = allScores.findIndex(entry => entry.username === username) + 1;
+            }
+        }
+
+        res.json({ success: true, scores: topScores, userRank, userScore });
     } catch (error) {
         console.error("Error fetching leaderboard:", error);
         res.status(500).json({ success: false, message: "Server error" });

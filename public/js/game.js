@@ -298,9 +298,9 @@ class Game {
             this.gameState = 'start';
 
             // If it's the first time opening the game, show the spotlight
-            if (!localStorage.getItem("firstVisit")) {
-                localStorage.setItem("firstVisit", "true"); // Mark that the user has visited
-                setTimeout(() => this.showSpotlight(), 1300); // Run only on first visit
+            if (!localStorage.getItem("visited")) {
+                localStorage.setItem("visited", true); // Mark that the user has visited
+                setTimeout(() => this.showSpotlight(), 1300);
             }
         }, 300);
     }
