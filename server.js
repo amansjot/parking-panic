@@ -107,6 +107,41 @@ app.get("/lowest-score", async (req, res) => {
     }
 });
 
+// Route to retrieve a user's best score and rank
+app.get("/user-score", async (req, res) => {
+    const { username } = req.query;
+    
+    if (!username) {
+        return res.status(400).json({ success: false, message: "Username is required" });
+    }
+    
+    try {
+        const users = db.collection("users");
+
+        // Retrieve all scores from all users, sorted in descending order
+        const allScores = await users.aggregate([
+            { $unwind: "$scores" },
+            { $sort: { "scores.score": -1 } },
+            { $project: { _id: 0, username: "$username", score: "$scores.score" } }
+        ]).toArray();
+
+        // Find the first occurrence of the given user's score (their best score)
+        const userEntry = allScores.find(entry => entry.username === username);
+
+        if (!userEntry) {
+            return res.status(404).json({ success: false, message: "User not found or no scores available" });
+        }
+
+        // The rank is determined by the index of the first occurrence + 1
+        const rank = allScores.findIndex(entry => entry.username === username) + 1;
+
+        res.json({ success: true, score: userEntry.score, rank });
+    } catch (error) {
+        console.error("Error fetching user score:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
 // Combined Login & Register Route
 app.post("/auth", async (req, res) => {
     const { username, password } = req.body;
