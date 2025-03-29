@@ -22,7 +22,7 @@ let db;
 async function connectDB() {
     try {
         await client.connect();
-        db = client.db();
+        db = client.db("db");
         console.log("✅ Connected to Railway MongoDB!");
     } catch (err) {
         console.error("❌ MongoDB Connection Error:", err);
