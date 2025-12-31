@@ -46,31 +46,30 @@ class CarManager {
                 );
             }
         }
-    
+
         const { x, y, angle } = this.playerData.position;
         const { current: currentSpeed } = this.playerData.speed;
         const { width, height } = this.playerData.size;
-    
+
         const newX = x + currentSpeed * Math.cos(this.degreesToRadians(angle - 90));
         const newY = y + currentSpeed * Math.sin(this.degreesToRadians(angle - 90));
-    
+
         this.playerData.position.x = Math.max(0, Math.min(newX, 1000 - width));
         this.playerData.position.y = Math.max(0, Math.min(newY, 1000 - height));
     }
-    
+
     rotateCar(keys) {
         if (this.playerData.speed.current !== 0) {
             const speedFactor = Math.abs(this.playerData.speed.current) / this.playerData.speed.max.forward;
             const scaledRotationSpeed = this.playerData.speed.max.rotation * speedFactor;
-    
-            if (keys.left) {
-                this.playerData.position.angle -= scaledRotationSpeed;
-            }
-            if (keys.right) {
-                this.playerData.position.angle += scaledRotationSpeed;
-            }
+
+            const reversing = this.playerData.speed.current < 0;
+            const dir = reversing ? -1 : 1; // invert steering when reversing
+
+            if (keys.left) this.playerData.position.angle -= scaledRotationSpeed * dir;
+            if (keys.right) this.playerData.position.angle += scaledRotationSpeed * dir;
         }
-    }    
+    }
 
     stopCar() {
         this.registerCollision = false;
